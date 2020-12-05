@@ -184,15 +184,15 @@ const updateAmmoWithMax = () => {
 
 const updateTab = attr => processingFunctions.setAttributes({tab: attr})
 
-const updateAttributes = (array, attribute) => {
-  getAttrs(array, attrs => {
-    attrs = shadowrunFunctions.attributeFactory(attrs)
-    processingFunctions.setAttributes({
-      [attribute]: attrs.total,
-      [`display_${attribute}`]: attrs.base === attrs.total ? attrs.base : `${attrs.base} (${attrs.total})`
-    })
-  })
-}
+// const updateAttributes = (array, attribute) => {
+//   getAttrs(array, attrs => {
+//     attrs = shadowrunFunctions.attributeFactory(attrs)
+//     processingFunctions.setAttributes({
+//       [attribute]: attrs.total,
+//       [`display_${attribute}`]: attrs.base === attrs.total ? attrs.base : `${attrs.base} (${attrs.total})`
+//     })
+//   })
+// }
 
 const updateLimitTotal = attrs => {
   attrs.essence ? Math.ceil(attrs.essence) || 0 : false;

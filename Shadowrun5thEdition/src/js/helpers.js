@@ -6,4 +6,9 @@ const buildModiferTempFlagBaseArray = name => {
   return [`${name}_base`, ...bonus]
 }
 
+const buildDisplayString = ({base, total}) => {
+  const bonus = base === total
+  return bonus ? base : `${base} (${total})`
+}
+
 const errorMessage = (title, message) => console.log(`%c ERROR ${title}: ${message}`, "color: orange; font-weight:bold");

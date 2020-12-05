@@ -1,11 +1,7 @@
-class LiftCarry {
+class LiftCarry extends DerivedAttribute  {
   constructor() {
-    this.name = 'lift_carry',
+    super('lift_carry')
     this.attributes = ['body', 'strength']
     this.bonus = ['lift_carry_modifier']
-  }
-
-  getAttrsArray() {
-    return [...this.attributes, ...this.bonus]
   }
 }

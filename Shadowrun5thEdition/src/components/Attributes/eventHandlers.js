@@ -5,9 +5,13 @@ const specialAttributes = ['magic', 'resonance']
 
 const allAttributes = [...physicalAttributes, ...mentalAttributes, ...specialAttributes]
 
-allAttributes.forEach(attribute => {
-  const array = new Attribute(attribute).buildSheetAttrs()
+allAttributes.forEach(name => {
+  const newAttribute = new Attribute(name)
+  const array = newAttribute.getAttrsArray()
+  
   array.forEach(attr => {
-    on(`change:${attr}`, () => updateAttributes(attribute) )
+    on(`change:${attr}`, () => {
+      updateAttributes(newAttribute)
+    })
   })
 })

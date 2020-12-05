@@ -1,11 +1,7 @@
-class Composure {
+class Composure extends DerivedAttribute {
   constructor() {
-    this.name = 'composure'
+    super('composure')
     this.attributes = ['charisma', 'willpower']
     this.bonus = ['composure_modifier']
-  }
-
-  getAttrsArray() {
-    return [...this.attributes, ...this.bonus]
   }
 }

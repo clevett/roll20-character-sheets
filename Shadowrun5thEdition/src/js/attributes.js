@@ -7,19 +7,8 @@ const sheetAttributes = {
   woundCalculation: ['high_pain_tolerance', 'low_pain_tolerance', 'damage_compensators_physical', 'damage_compensators_stun', 'stun', 'physical'],
 
   calculatedAttributes: ['attack', 'sleaze', 'data_processing', 'firewall'],
-
-  initiative_mod: ['reaction', 'intuition', 'initiative_mod_modifier', 'initiative_mod_temp', 'initiative_mod_temp_flag'],
   astral_mod: ['intuition', 'astral_mod_modifier'],
   matrix_mod: [],
-
-  // derivedAttributes: ['memory', 'composure', 'defense', 'soak', 'overflow', 'judge_intentions', 'lift_carry'],
-  // lift_carry: ['body', 'strength', 'lift_carry_modifier'],
-  // overflow: ['body', 'overflow_modifier'],
-  // soak: ['body', 'armor_rating', 'soak_modifier', 'soak_temp', `soak_temp_flag`],
-  // defense: ['reaction', 'intuition', 'defense_modifier', 'defense_temp', `defense_temp_flag`],
-  // judge_intentions: ['charisma', 'intuition', 'judge_intentions_modifier'],
-  // composure: ['charisma', 'willpower', 'composure_modifier'],
-  // memory: ['logic', 'willpower', 'memory_modifier'],
 
   conditionTracks: ['stun', 'physical', 'matrix'],
   physical: ['physical_modifier', 'body', 'sheet_type', 'flag_drone'],

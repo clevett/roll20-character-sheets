@@ -1,11 +1,7 @@
-class Overflow {
+class Overflow extends DerivedAttribute{
   constructor() {
-    this.name = 'overflow',
+    super('overflow')
     this.attributes = ['body']
     this.bonus = ['overflow_modifier']
-  }
-
-  getAttrsArray() {
-    return [...this.attributes, ...this.bonus]
   }
 }

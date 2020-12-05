@@ -1,11 +1,7 @@
-class JudgeIntentions {
+class JudgeIntentions extends DerivedAttribute {
   constructor() {
-    this.name = 'judge_intentions'
+    super('judge_intentions')
     this.attributes = ['charisma', 'intuition']
     this.bonus = ['judge_intentions_modifier']
-  }
-
-  getAttrsArray() {
-    return [...this.attributes, ...this.bonus]
   }
 }

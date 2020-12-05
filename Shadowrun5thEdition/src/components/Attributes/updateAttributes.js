@@ -1,14 +1,16 @@
-const updateAttributes = name => {
-  const attribute = new Attribute(name)
-  const array = attribute.buildSheetAttrs()
+const updateAttributes = attribute => {
+  const array = attribute.getAttrsArray()
+  
   getAttrs(array, attrs => {
     attrs = shadowrunFunctions.attributeFactory(attrs)
 
-    const display = attrs.base === attrs.total ? attrs.base : `${attrs.base} (${attrs.total})`
+    const name = attribute.name
+    attribute[`${name}_base`] = attrs.base
+    attribute.total = attrs.total
 
     processingFunctions.setAttributes({
-      [name]: attrs.total,
-      [`display_${name}`]: display
+      [name]: attribute.total,
+      [`display_${name}`]: attribute.getDisplay()
     })
   })
 }
