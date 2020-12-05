@@ -808,7 +808,8 @@ const shadowrunFunctions = {
 class AttributeLimit {
   constructor(name) {
     this.name = name,
-    this.bonus = [...buildModiferTempFlagArray(name)]
+    this.bonus = [...buildModiferTempFlagArray(name)],
+    this.attributes = ['mental_limit', 'physical_limit', 'social_limit']
   }
 
   buildGetAttrs(attributes) {
@@ -864,27 +865,169 @@ const updateLimits = limitName => {
   })
 }
 // EVENT HANDLERS
-const mentalLimitAttributes = ['intuition', 'willpower', 'logic']
+const mentalLimitAttributes = new MentalLimit().attributes
 mentalLimitAttributes.forEach(attr => on(`change:${attr}`, () => {
   updateLimits('mental_limit')
 }))
 
-const physicalLimitAttributes = ['body', 'reaction', 'strength']
+const physicalLimitAttributes = new PhysicalLimit().attributes
 physicalLimitAttributes.forEach(attr => on(`change:${attr}`, () => {
   updateLimits('physical_limit')
 }))
 
-const socialLimitAttributes = ['essence', 'willpower', 'charisma']
+const socialLimitAttributes = new SocialLimit().attributes
 socialLimitAttributes.forEach(attr => on(`change:${attr}`, () => {
   updateLimits('social_limit')
 }))
 
-const attributeLimits = ['mental_limit', 'physical_limit', 'social_limit']
+const attributeLimits = new AttributeLimit().attributes
 attributeLimits.forEach(limit => {
   on(`change:${limit}_modifier change:${limit}_temp change:${limit}_temp_flag`, () => {
     updateLimits(limit)
   })
 })
+class Composure {
+  constructor() {
+    this.name = 'composure'
+    this.attributes = ['charisma', 'willpower']
+    this.bonus = ['composure_modifier']
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+class Defense {
+  constructor() {
+    this.name = 'defense',
+    this.attributes = ['reaction', 'intuition']
+    this.bonus = ['defense_modifier', 'defense_temp', `defense_temp_flag`]
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+class JudgeIntentions {
+  constructor() {
+    this.name = 'judge_intentions'
+    this.attributes = ['charisma', 'intuition']
+    this.bonus = ['judge_intentions_modifier']
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+class LiftCarry {
+  constructor() {
+    this.name = 'lift_carry',
+    this.attributes = ['body', 'strength']
+    this.bonus = ['lift_carry_modifier']
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+class Memory {
+  constructor() {
+    this.name = 'memory'
+    this.attributes = ['logic', 'willpower']
+    this.bonus = ['memory_modifier']
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+class Overflow {
+  constructor() {
+    this.name = 'overflow',
+    this.attributes = ['body']
+    this.bonus = ['overflow_modifier']
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+class Soak {
+  constructor() {
+    this.name = 'soak',
+    this.attributes = ['body', 'armor_rating']
+    this.bonus = ['soak_modifier', 'soak_temp', `soak_temp_flag`]
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+const determineDerivedAttribute = name => {
+  switch(name) {
+    case 'composure':
+      return new Composure()
+    case 'defense':
+      return new Defense()
+    case 'judge_intentions':
+      return new JudgeIntentions()
+    case 'lift_carry':
+      return new LiftCarry()
+    case 'memory':
+      return new Memory()
+    case 'overflow':
+      return new Overflow()
+    case 'soak':
+      return new Soak()
+    default:
+      errorMessage('determineDerivedAttribute', 'name did not match the switch cases')
+  }
+}
+const updateDerivedAttribute = name => {
+  const attribute = determineDerivedAttribute(name)
+  const array = attribute.getAttrsArray()
+  getAttrs(array, attrs => {
+    const calculated = shadowrunFunctions.attributeFactory(attrs)
+    processingFunctions.setAttributes({[name]: calculated.total})
+  })
+}
+
+const composureAttributes = new Composure().getAttrsArray()
+composureAttributes.forEach(attr => {
+  on(`change:${attr}`, () => updateDerivedAttribute('composure'))
+})
+
+const defenseAttributes = new Defense().getAttrsArray()
+defenseAttributes.forEach(attr => {
+  on(`change:${attr}`, () => updateDerivedAttribute('defense'))
+})
+
+const judgeIntentionsAttributes = new JudgeIntentions().getAttrsArray()
+judgeIntentionsAttributes.forEach(attr => {
+  on(`change:${attr}`, () => updateDerivedAttribute('judge_intentions'))
+})
+
+const liftCarryAttributes = new LiftCarry().getAttrsArray()
+liftCarryAttributes.forEach(attr => {
+  on(`change:${attr}`, () => updateDerivedAttribute('lift_carry'))
+})
+
+const memoryAttributes = new Memory().getAttrsArray()
+memoryAttributes.forEach(attr => {
+  on(`change:${attr}`, () => updateDerivedAttribute('memory'))
+})
+
+const OverflowAttributes = new Overflow().getAttrsArray()
+OverflowAttributes.forEach(attr => {
+  on(`change:${attr}`, () => updateDerivedAttribute('overflow'))
+})
+
+const soakAttributes = new Soak().getAttrsArray()
+soakAttributes.forEach(attr => {
+  on(`change:${attr}`, () => updateDerivedAttribute('soak'))
+})
+
+
 
 class Attribute {
   constructor(name) {
@@ -924,7 +1067,6 @@ const allAttributes = [...physicalAttributes, ...mentalAttributes, ...specialAtt
 
 allAttributes.forEach(attribute => {
   const array = new Attribute(attribute).buildSheetAttrs()
-  console.log(array)
   array.forEach(attr => {
     on(`change:${attr}`, () => updateAttributes(attribute) )
   })

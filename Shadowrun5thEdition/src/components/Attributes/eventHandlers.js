@@ -7,7 +7,6 @@ const allAttributes = [...physicalAttributes, ...mentalAttributes, ...specialAtt
 
 allAttributes.forEach(attribute => {
   const array = new Attribute(attribute).buildSheetAttrs()
-  console.log(array)
   array.forEach(attr => {
     on(`change:${attr}`, () => updateAttributes(attribute) )
   })

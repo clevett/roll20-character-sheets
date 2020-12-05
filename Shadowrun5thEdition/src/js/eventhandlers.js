@@ -23,10 +23,6 @@
 
   sheetAttributes.astral_mod.forEach(attr => on(`change:${attr}`, () => updateAstralInitiative()))
 
-  sheetAttributes.derivedAttributes.forEach(derivedAttribute => {
-    sheetAttributes[derivedAttribute].forEach(attr => on(`change:${attr}`, () => updateDerivedAttribute(derivedAttribute)))
-  })
-
   sheetAttributes.conditionTracks.forEach(conditionTrack => {
     sheetAttributes[conditionTrack].forEach(attr => on(`change:${attr}`, () => updateConditionTracks(conditionTrack)))
   })

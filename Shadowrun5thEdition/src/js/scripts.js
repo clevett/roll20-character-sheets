@@ -209,13 +209,6 @@ const updateMovement = () => {
   })
 }
 
-const updateDerivedAttribute = derivedAttribute => {
-  getAttrs(sheetAttributes[derivedAttribute], attrs => {
-    attrs = shadowrunFunctions.attributeFactory(attrs)
-    processingFunctions.setAttributes({[derivedAttribute]: attrs.total})
-  })
-}
-
 const updateInitiativeDice = () => {
   getAttrs(["initiative_dice_modifier", "edge_toggle", "initiative_dice_temp", "initiative_dice_temp_flag"], values => {
     const edgeFlag = values.edge_toggle === "@{edge}" ? true : false;
