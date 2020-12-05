@@ -8,7 +8,11 @@
 
 		const herolabDirections = `
 			<li>Export your character from Hero Lab as XML</li>
-			<li>Covert the XML to JSON using http://beautifytools.com/xml-to-json-converter.php</li>`
+			<li>Go to the website http://beautifytools.com/xml-to-json-converter.php</li>
+			<li>Copy the XML into the left side</li>
+			<li>Click the button that says "<b>Minify json</b>"</li>
+			<li>Copy the Results</li>
+		`
 
 		const directions = `
 		<ol>
@@ -38,22 +42,26 @@
 		// Verify the user entered a JSON in the textarea. If not, provide user feedabck.
 		if (mancerValues.jsonData) {
 			const parsedData = JSON.parse(mancerValues.jsonData) || false;
-		
+
 			setText[`import-feedback`] = "";
 			// There is a value in the textarea! Check to see if its a valid JSON. Provide users feeadback 
 			if (parsedData) {
-				setText[`import-feedback`] += `<p class="feedback">A valid JSON was imported for ${mancerValues.builder}.</p>`
+				setText[`import-feedback`] += `<p class="feedback">A valid JSON was pasted into the importer for ${mancerValues.builder}.</p>`
 				// Send the parsed data to the selected importer or let users know something went wrong 
 				if (mancerValues.builder && mancerValues.builder === "Chummer") {
-			if (parsedData.characters && parsedData.characters.character) {
-				importChummer(parsedData.characters.character);
+					if (parsedData.characters && parsedData.characters.character) {
+						importChummer(parsedData.characters.character);
 					} else {
-				setText[`import-feedback`] += `<p class="warning">Parsed JSON is missing character data.</p>`;
-				applyEnabled = false
+						setText[`import-feedback`] += `<p class="warning">Parsed JSON is missing character data. Was this a exported from Chummer?</p>`;
+						applyEnabled = false
 					}
 				} else if (mancerValues.builder && mancerValues.builder === "Hero Lab") {
-					importHeroLab();
-					setText[`import-feedback`] += `<p class="warning">Coming Soon....</p>`;
+					if (parsedData.document && parsedData.document.public && parsedData.document.public.character) {
+						importHeroLab(parsedData.document.public.character);
+					} else {
+						setText[`import-feedback`] += `<p class="warning">Parsed JSON did not have the expected object keys. Was this converted with "Minify json" from Beautify Tools ?</p>`;
+						applyEnabled = false
+					}
 				} else {
 					setText[`import-feedback`] += `<p class="warning">A character builder was not selected. Try changing your selection then change it back if needed.</p>`;
 					applyEnabled = false
