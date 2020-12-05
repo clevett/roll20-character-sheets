@@ -1,13 +1,33 @@
 // CHARACTERMANCER IMPORTER
-	on("clicked:import_launch", (eventinfo) => {
-		startCharactermancer("importer");
-	});
+	on("clicked:import_launch", () => 	startCharactermancer("importer"))
+
+	const buildDirectionsString = characterSoftware => {
+		const chummerDirections = `
+		<li>In Chummer mark your character as created</li>
+		<li>Go to File -> Export -> Export JSON</li>
+		<li>Copy the JSON in the file</li>`
+
+		const herolabDirections = `
+			<li>Export your character from Hero Lab as XML</li>
+			<li>Covert the XML to JSON using http://beautifytools.com/xml-to-json-converter.php</li>`
+
+		const directions = `
+		<ol>
+			${characterSoftware === "Chummer" ? chummerDirections : herolabDirections}
+			<li>Paste it into the textfield below</li>
+			<li>Click the Import button</li>
+			<li>Review the data. Use the checkbox <strong>Show Hidden Inputs</strong> to fix data.</li> 
+			<li>Click Apply to <u>overwrite</u> information on the character sheet</li>
+		</ol>
+		`
+
+		return directions
+	}
+
 
 	on("page:importer", () => {
 		setAttrs({builder: "Chummer"});
-		setCharmancerText({
-			"directions" : chummerDirections
-		});
+		setCharmancerText({	"directions" : buildDirectionsString("Chummer")	})
 	});
 
 	on("clicked:import", () => {
@@ -54,51 +74,21 @@
 		setCharmancerText(setText);
 	});
 
-	const chummerDirections = `<ol>
-				<li>In Chummer mark your character as created</li>
-				<li>Go to File -> Export -> Export JSON</li>
-				<li>Copy the JSON in the file</li>
-				<li>Paste it into the textfield below</li>
-				<li>Click the Import button</li>
-				<li>Review the data. Use the checkbox <strong>Show Hidden Inputs</strong> to fix data.</li> 
-				<li>Click Apply to <u>overwrite</u> information on the character sheet</li>
-			</ol>`;
-
-	const herolabDirections = `
-		<ol>
-			<li>Download the file "HLtoRoll20Export.hl" from: https://drive.google.com/file/d/0B3E3jkp51s8aRmpTU1NMRjRIVkk/view</li>
-			<li>Double click the file. Hero Lab will import it automatically now.</li>
-			<li>Load a character</li>
-			<li>Go to File/Save Custom Output and select the "Roll20 Export"</li>
-			<li>Save the file. It should open automatically in your browser</li>
-			<li>Follow the directions.</li>
-		</ol>`;
-
-	on("change:builder", (eventinfo) => {
-		let setText = {};
-		setText[`directions`] = (eventinfo.newValue === "Chummer") ? chummerDirections : herolabDirections;
-		setCharmancerText(setText);
-	});
+	on("mancerchange:builder", eventinfo => setCharmancerText({directions : buildDirectionsString(eventinfo.newValue)}))
 
   const clean = () => {
     ['active', 'knowledge', 'language', 'quality', 'martial',
       'range', 'melee', 'weapon', 'armor', 'augementations',
       'items', 'NPCspell', 'spell', 'rituals', 'preps', 'powers',
       'contacts', 'vehicle', 'lifestyle', "programs", "forms"].forEach(group => {
-      getSectionIDs(`repeating_${group}`, (ids) => {
-        ids.forEach((id) => {
-          removeRepeatingRow(`repeating_${group}_${id}`);
-        });
-      });
+      getSectionIDs(`repeating_${group}`, ids => ids.forEach(id => removeRepeatingRow(`repeating_${group}_${id}`)))
     });
   };
 
 	//USEFUL FUNCTIONS
 	const capitialize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
-	const addFeedback = (attribute, value) => {
-		return `<p class="feedback"><strong>${capitialize(attribute)}:</strong> ${value} </p>`
-	};
+	const addFeedback = (attribute, value) => `<p class="feedback"><strong>${capitialize(attribute)}:</strong> ${value} </p>`
 
 	const alphabatizeKeys = (unsortedJSON) => {
 		let alphabeticalKeys = {};
