@@ -1,18 +1,12 @@
 
 const sheetAttributes = {
-  attributes: ['body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge'],
-  translationsAttributes: ['attribute', 'body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge', 'none'],
+  translationsAttributes: ['attribute', ...physicalAttributes, ...mentalAttributes, 'edge', 'none'],
   repeating: ['quality', 'martial', 'items', 'range', 'melee', 'armor', 'spell', 'preps', 'ritual', 'powers', 'forms', 'vehicle', 'augementations', 'lifestyle', 'contacts', 'programs'],
   repeatingSkills: ['active', 'knowledge', 'language'],
   tabs: [`core`, `arms`, `augs`, `gear`, `magic`, `matrix`, `social`, `vehicle`, `options`],
   woundCalculation: ['high_pain_tolerance', 'low_pain_tolerance', 'damage_compensators_physical', 'damage_compensators_stun', 'stun', 'physical'],
-  
-  attributeLimits: ['mental_limit', 'physical_limit', 'social_limit'],
-  mental_limit: ['intuition', 'willpower', 'logic'],
-  physical_limit: ['body', 'reaction', 'strength'],
-  social_limit: ['essence', 'willpower', 'charisma'],
 
-  calculatedAttributes: ['body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition','charisma','magic', 'resonance', 'attack', 'sleaze', 'data_processing', 'firewall'],
+  calculatedAttributes: ['attack', 'sleaze', 'data_processing', 'firewall'],
 
   initiative_mod: ['reaction', 'intuition', 'initiative_mod_modifier', 'initiative_mod_temp', 'initiative_mod_temp_flag'],
   astral_mod: ['intuition', 'astral_mod_modifier'],

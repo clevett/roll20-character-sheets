@@ -34,51 +34,7 @@ include src/pug/_rolltemplates.pug
 //- HIDDEN
 include src/html/hidden.html
 
-//- SCRIPTS
-script(type="text/worker")
-	//- Always leave an empty space at the end of a js file
-	//- Else you'll get SyntaxError: Unexpected Token
-
-	include src/js/attributes.js
-
-	//- Classes
-	//- Setters can't be used in Character Sheets :(
-	include src/components/PersonalData/PersonalData.js
-	include src/components/PersonalData/RewardsData.js
-	include src/js/Classes/PrimaryWeapon.js
-	include src/js/Classes/PrimaryArmor.js
-	//-include src/js/Classes/RepeatingFieldset.js
-	//-include src/js/Classes/ComplexForm.js
-
-	//- Generic helper functions used by shadowrunFunctions
-	//- Has unit tests
-	include src/js/processingFunctions.js
-
-	//- Functions called by scripts to handle Shaodwrun specific rules
-	//- Has unit tests
-	include src/js/shadowrunFunctions.js
-
-	//- Functions are called by the eventhandlers
-	include src/js/scripts.js
-
-	//- Handle version updates
-	include src/js/versioning.js
-
-	//- Listeners for changes
-	include src/js/eventhandlers.js
-
-	//- CHARACTER IMPORTER Functions
-	include src/components/CharacterImporter/importerHiddenInputsBuilder.js
-	//-Chummer
-	include src/components/CharacterImporter/Chummer/associateChummerData.js
-	include src/components/CharacterImporter/Chummer/importerChummer.js
-	//-Hero Lab
-	include src/components/CharacterImporter/HeroLab/helpers/getReputationsFromHeroLab.js
-	include src/components/CharacterImporter/HeroLab/associateHeroLabData.js
-	include src/components/CharacterImporter/HeroLab/importerHeroLab.js
-	//- Charactermancer
-	include src/components/CharacterImporter/importer.js
-	include src/components/CharacterImporter/importerUI.js
+include src/pug/scripts.pug
 
 //- CHARACTER IMPORTER
 include src/components/CharacterImporter/importer.html

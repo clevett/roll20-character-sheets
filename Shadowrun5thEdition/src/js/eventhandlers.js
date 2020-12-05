@@ -27,11 +27,6 @@
     sheetAttributes[derivedAttribute].forEach(attr => on(`change:${attr}`, () => updateDerivedAttribute(derivedAttribute)))
   })
 
-  sheetAttributes.attributeLimits.forEach(attributeLimit => {
-    sheetAttributes[attributeLimit].forEach(attr => on(`change:${attr}`, () => updateLimits(attributeLimit)))
-    on(`change:${attributeLimit}_modifier change:${attributeLimit}_temp change:${attributeLimit}_temp_flag`, () => updateLimits([`${attributeLimit}`]))
-  })
-
   sheetAttributes.conditionTracks.forEach(conditionTrack => {
     sheetAttributes[conditionTrack].forEach(attr => on(`change:${attr}`, () => updateConditionTracks(conditionTrack)))
   })

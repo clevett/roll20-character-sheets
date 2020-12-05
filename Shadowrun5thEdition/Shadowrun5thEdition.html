@@ -591,124 +591,15 @@
 <input type="hidden" name="attr_throwingweapons" min="0" value="0" />
 <input type="hidden" name="attr_tracking" min="0" value="0" />
 <input type="hidden" name="attr_unarmedcombat" min="0" value="0" />
-<script type="text/worker">
-const sheetAttributes = {
-  attributes: ['body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge'],
-  translationsAttributes: ['attribute', 'body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge', 'none'],
-  repeating: ['quality', 'martial', 'items', 'range', 'melee', 'armor', 'spell', 'preps', 'ritual', 'powers', 'forms', 'vehicle', 'augementations', 'lifestyle', 'contacts', 'programs'],
-  repeatingSkills: ['active', 'knowledge', 'language'],
-  tabs: [`core`, `arms`, `augs`, `gear`, `magic`, `matrix`, `social`, `vehicle`, `options`],
-  woundCalculation: ['high_pain_tolerance', 'low_pain_tolerance', 'damage_compensators_physical', 'damage_compensators_stun', 'stun', 'physical'],
-  
-  attributeLimits: ['mental_limit', 'physical_limit', 'social_limit'],
-  mental_limit: ['intuition', 'willpower', 'logic'],
-  physical_limit: ['body', 'reaction', 'strength'],
-  social_limit: ['essence', 'willpower', 'charisma'],
+<script type="text/worker">//Functions shared by all components
+const buildModiferTempFlagArray = name => [`${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
 
-  calculatedAttributes: ['body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition','charisma','magic', 'resonance', 'attack', 'sleaze', 'data_processing', 'firewall'],
-
-  initiative_mod: ['reaction', 'intuition', 'initiative_mod_modifier', 'initiative_mod_temp', 'initiative_mod_temp_flag'],
-  astral_mod: ['intuition', 'astral_mod_modifier'],
-  matrix_mod: [],
-
-  derivedAttributes: ['memory', 'composure', 'defense', 'soak', 'overflow', 'judge_intentions', 'lift_carry'],
-  lift_carry: ['body', 'strength', 'lift_carry_modifier'],
-  overflow: ['body', 'overflow_modifier'],
-  soak: ['body', 'armor_rating', 'soak_modifier', 'soak_temp', `soak_temp_flag`],
-  defense: ['reaction', 'intuition', 'defense_modifier', 'defense_temp', `defense_temp_flag`],
-  judge_intentions: ['charisma', 'intuition', 'judge_intentions_modifier'],
-  composure: ['charisma', 'willpower', 'composure_modifier'],
-  memory: ['logic', 'willpower', 'memory_modifier'],
-
-  conditionTracks: ['stun', 'physical', 'matrix'],
-  physical: ['physical_modifier', 'body', 'sheet_type', 'flag_drone'],
-  stun: ['stun_modifier', 'willpower'],
-  matrix: ['matrix_modifier', 'device_rating'],
-
-  stunCharacters: ['grunt', 'pc'],
-  physicalCharacters: ['grunt', 'pc', 'vehicle'],
-  matrixCharacters: ['vehicle', 'host', 'sprite'],
-  matrixAttributes: ['attack', 'sleaze', 'data_processing', 'firewall'],
-
-  weaponTypes: ['range', 'melee'],
-  rangeAttributes: ['dicepool', 'weapon', 'damage', 'acc', 'ap', 'skill', 'ammo', 'mode', 'recoil'],
-  meleeAttributes: ['dicepool', 'weapon', 'damage', 'acc', 'ap', 'skill', 'reach'],
-
-  spellTypes: ['spell', 'preps', 'ritual', 'forms'],
-
-  armorAttributes: ['name', 'rating', 'acid_modifier', 'electrical_modifier', 'cold_modifier', 'fire_modifier', 'radiation_modifier', 'dicepool_modifier'],
-  armorSoak: ['dicepool_modifier', 'rating'],
-  armorProtections: ['acid', 'electrical', 'cold', 'fire', 'radiation']
+const buildModiferTempFlagBaseArray = name => {
+  const bonus = buildModiferTempFlagArray(name)
+  return [`${name}_base`, ...bonus]
 }
 
-
-class PersonalData {
-  constructor() {
-    this.name = null,
-    this.metatype = null,
-    this.ethnicity = null,
-    this.age = null,
-    this.sex = null,
-    this.height = null,
-    this.weight = null
-  }
-}
-
-class RewardsData {
-  constructor() {
-    this.street_cred = null,
-    this.notoriety = null,
-    this.public_awareness = null,
-    this.karma = null,
-    this.total_karma = null,
-    this.misc = null
-  }
-}
-
-class PrimaryWeapon {
-  constructor(type) {
-    this[`primary_${type}_weapon`] = 'select a Primary in Arms',
-    this[`primary_${type}_weapon_skill`] = type === 'range' ?  '@{firearms}' : '@{closecombat}',
-    this[`primary_${type}_weapon_damage`] = '',
-    this[`primary_${type}_weapon_dicepool`] = '',
-    this[`primary_${type}_weapon_acc`] = '',
-    this[`primary_${type}_weapon_ap`] = ''
-  }
-}
-
-class PrimaryRangeWeapon extends PrimaryWeapon {
-  constructor(type) {
-    super(type)
-    this[`primary_${type}_weapon_mode`] = '',
-    this[`primary_${type}_weapon_recoil`] = '',
-    this[`primary_${type}_weapon_ammo`] = '',
-    this[`primary_${type}_weapon_ammo_max`] = ''
-  }
-}
-
-class PrimaryMeleeWeapon extends PrimaryWeapon {
-  constructor(type) {
-    super(type)
-    this[`primary_${type}_weapon_reach`] = ''
-  }
-}
-
-
-class PrimaryArmor {
-  constructor(name) {
-    this.armor_name = name || 'select a Primary in Arms',
-    this.soak = 0,
-    this.soak_modifier = 0,
-    this.armor_rating = 0,
-    this.acid_modifier = 0,
-    this.cold_modifier = 0,
-    this.fire_modifier = 0,
-    this.radiation_modifier = 0,
-    this.electrical_modifier = 0
-  }
-}
-
-
+const errorMessage = (title, message) => console.log(`%c ERROR ${title}: ${message}`, "color: orange; font-weight:bold");
 
 const processingFunctions = {
   convertIntegerNegative: number => number > 0 ? -Math.abs(number) : number,
@@ -913,738 +804,131 @@ const shadowrunFunctions = {
   }
 }
 
-//Edge toggle to include ! for exploding dice
-const edgeToggle = newValue => {
-  processingFunctions.setAttributes({
-    explode_toggle: shadowrunFunctions.determineExplodingEdge(newValue)
-  })
-}
 
-const updateHostAttributes = newValue => {
-  newValue = processingFunctions.parseInteger(newValue)
-  processingFunctions.setAttributes({
-    matrix_max: 8 + Math.ceil(newValue/2),
-    ic_attack: Math.min(newValue + newValue)
-  })
-}
+class AttributeLimit {
+  constructor(name) {
+    this.name = name,
+    this.bonus = [...buildModiferTempFlagArray(name)]
+  }
 
-const updateSpriteConditionTrack = newValue => {
-  newValue = processingFunctions.parseInteger(newValue)
-  processingFunctions.setAttributes({
-    matrix_max: 8 + Math.ceil(newValue/2)
-  })
-}
-
-//ALSO COVER COMPLEX FORMS
-const updateSpellsDicepool = eventinfo => {
-  const repRowID = processingFunctions.getReprowid(eventinfo.triggerName)
-  getAttrs([`${repRowID}_specialization`, `${repRowID}_dicepool_modifier`], attrs => {
-    attrs = processingFunctions.parseIntegers(attrs)
-    processingFunctions.setAttributes({
-      [`${repRowID}_dicepool`]: processingFunctions.sumIntegers(Object.values(attrs))
-    })
-  })
-}
-
-const resetNpcCondition = () => setAttributes({physical: 0, stun: 0, matrix: 0})
-
-const updatePrimary = eventinfo => {
-  const repRowID = processingFunctions.getReprowid(eventinfo.triggerName)
-  getAttrs([`${repRowID}_primary`], attrs => {
-    if (attrs[`${repRowID}_primary`] === 'primary') {
-      let update = {}
-
-      if (repRowID.includes('armor')) {
-        update = shadowrunFunctions.updatePrimaryArmor({[eventinfo.triggerName]: eventinfo.newValue})
-      } else {
-        update = shadowrunFunctions.updatePrimaryWeapons({[eventinfo.triggerName]: eventinfo.newValue})
-      }
-      processingFunctions.setAttributes(update)
-    }
-  })
-}
-
-const updateRepeatingPrimary = (eventinfo, type) => {
-  const repRowID = processingFunctions.getReprowid(eventinfo.triggerName)
-  if (eventinfo.newValue === undefined) {
-    return false
-  } else if (eventinfo.newValue === 'primary') {
-    const constructedAttributes = type === 'armor' ? shadowrunFunctions.addRepRow(repRowID, sheetAttributes.armorAttributes) : shadowrunFunctions.contructRepeatingWeaponAttributes(repRowID, type);
-    
-    //get the attributes to update primary
-    getAttrs(constructedAttributes, attrs => { 
-      const update = type === 'armor' ? shadowrunFunctions.updatePrimaryArmor(attrs) : shadowrunFunctions.updatePrimaryWeapons(attrs);
-      processingFunctions.setAttributes(update)
-    })
-
-    //Reset all the other primaries
-    shadowrunFunctions.resetRepeatingFieldsPrimaries(`repeating_${type}`, repRowID)
-  } else {
-    const update = type === 'armor' ? shadowrunFunctions.resetPrimaryArmor() : shadowrunFunctions.resetPrimaryWeapon(type);
-    processingFunctions.setAttributes(update)
+  buildGetAttrs(attributes) {
+    return [...attributes, ...this.bonus]
   }
 }
 
-const updateRepeatingWeaponDicepool = trigger => {
-  const repRowID = processingFunctions.getReprowid(trigger)
-  getAttrs([`${repRowID}_dicepool_modifier`, `${repRowID}_specialization`], attrs => {   
-    attrs = processingFunctions.parseIntegers(attrs)
-    processingFunctions.setAttributes({
-      [`${repRowID}_dicepool`]: processingFunctions.sumIntegers(Object.values(attrs))
-    })
-  })
-}
-
-const updateRepeatingSkillDicepool = eventinfo => {
-   const repRowID = processingFunctions.getReprowid(eventinfo.triggerName)
-    getAttrs([`${repRowID}_skill`], attrs => {
-      let skill = shadowrunFunctions.convertSkillSelectToHiddenSkill(attrs[`${repRowID}_skill`])
-      processingFunctions.setAttributes({
-        [`${skill}`]: eventinfo.newValue
-      })
-    })
-}
-
-const updateRepeatingSkillLimit = eventinfo => {
-  const repRowID = processingFunctions.getReprowid(eventinfo.triggerName)
-  if (eventinfo.newValue === "none") {
-    processingFunctions.setAttributes({[`${repRowID}_display_limit`]: ' '})
-  } else if (eventinfo.newValue != undefined) {
-    const translationKey = processingFunctions.sliceAttr(eventinfo.newValue)
-    const translation = getTranslationByKey(translationKey);
-    processingFunctions.setAttributes({
-      [`${repRowID}_display_limit`]: translation
-    })
+class MentalLimit extends AttributeLimit {
+  constructor() {
+    super('mental_limit')
+    this.attributes = ['intuition', 'willpower', 'logic']
   }
 }
 
-const updateRepeatingSkillName = eventinfo => {
-  const repRowID = processingFunctions.getReprowid(eventinfo.triggerName)
-  const translationKey = eventinfo.newValue.replace(/ /g, '').toLowerCase()
-  const translation = getTranslationByKey(translationKey);
-  processingFunctions.setAttributes({
-    [`${repRowID}_display_skill`]: translation
-  })
-}
-
-const updateRepeatingSkillAttribute = eventinfo => {
-  const repRowID = processingFunctions.getReprowid(eventinfo.triggerName)
-  const translationKey = processingFunctions.sliceAttr(eventinfo.newValue)
-  const translation = getTranslationByKey(translationKey);
-  processingFunctions.setAttributes({
-    [`${repRowID}_display_attribute`]: translation
-  })
-}
-
-const updateRepeatingSkillRating = trigger => {
-  const repRowID = processingFunctions.getReprowid(trigger)
-  getAttrs([`${repRowID}_rating`, `${repRowID}_rating_modifier`], attrs => {   
-    attrs = shadowrunFunctions.attributeFactory(attrs)
-    processingFunctions.setAttributes({
-      [`${repRowID}_dicepool`]: attrs.total,
-      [`${repRowID}_display_rating`]: shadowrunFunctions.buildDisplay(attrs.base, attrs.bonus)
-    })
-  })
-}
-
-const updateWounds = () => {
-  getAttrs(sheetAttributes.woundCalculation, attrs => {
-    attrs = processingFunctions.parseIntegers(attrs)
-    const sum = shadowrunFunctions.calculateWounds(attrs)
-    processingFunctions.setAttributes({wounds: sum})
-  })
-}
-
-const updateConditionTracks= conditionTrack => {
-  getAttrs(sheetAttributes[conditionTrack], attrs => {
-    attrs = shadowrunFunctions.conditionFactory(attrs)
-    const conditionTotal = shadowrunFunctions.calculateConditionTracks(attrs)
-    processingFunctions.setAttributes({[`${conditionTrack}_max`]: conditionTotal}, true)
-  })
-}
-
-const translations = () => {
-  const attributes = sheetAttributes.translationsAttributes
-  const translations = processingFunctions.getTranslations(attributes)
-  let attribute_roll = `?{${translations.attribute}`
-  delete translations.attribute
-  for (let [key, value] of Object.entries(translations)) {
-      attribute_roll += key !== 'none' ? `|${value},@{${key}}` : `|${value},0}`
+class PhysicalLimit extends AttributeLimit {
+  constructor() {
+    super('physical_limit')
+    this.attributes = ['body', 'reaction', 'strength']
   }
-  processingFunctions.setAttributes({attribute_roll: attribute_roll})
-} 
-
-const updateShotsFired = trigger => {
-  getAttrs([`shots_fired`], attrs => {   
-    attrs = processingFunctions.parseIntegers(attrs)
-    const shots = shadowrunFunctions.shotsFired(attrs.shots_fired, trigger)
-    processingFunctions.setAttributes({shots_fired: shots})
-  });
 }
 
-const updateAmmoWithShotsFired = () => {
-  getAttrs([`primary_range_weapon_ammo`, `shots_fired`], attrs => {
-    attrs = processingFunctions.parseIntegers(attrs)
-    attrs.shots_fired = processingFunctions.convertIntegerNegative(attrs.shots_fired)
-    processingFunctions.setAttributes({primary_range_weapon_ammo: processingFunctions.sumIntegers(Object.values(attrs))})
-  });
+class SocialLimit extends AttributeLimit {
+  constructor() {
+    super('social_limit')
+    this.attributes = ['essence', 'willpower', 'charisma']
+  }
 }
-
-const updateAmmoWithMax = () => {
-  getAttrs([`primary_range_weapon_ammo_max`], attrs => {
-    attrs = processingFunctions.parseIntegers(attrs)
-    processingFunctions.setAttributes({primary_range_weapon_ammo: attrs.primary_range_weapon_ammo_max})
-  });
+const determineLimit = name => {
+  switch(name) {
+    case 'mental_limit':
+      return new MentalLimit()
+    case 'physical_limit':
+      return new PhysicalLimit()
+    case 'social_limit':
+      return new SocialLimit()
+    default:
+      errorMessage('limitAttributes', 'limit name did not match the switch')
+  }
 }
-
-const updateTab = attr => processingFunctions.setAttributes({tab: attr})
-
-const updateAttributes = (array, attribute) => {
-  getAttrs(array, attrs => {
-    attrs = shadowrunFunctions.attributeFactory(attrs)
-    processingFunctions.setAttributes({
-      [attribute]: attrs.total,
-      [`display_${attribute}`]: attrs.base === attrs.total ? attrs.base : `${attrs.base} (${attrs.total})`
-    })
-  })
-}
-
-const updateLimitTotal = attrs => {
-  attrs.essence ? Math.ceil(attrs.essence) || 0 : false;
-  return shadowrunFunctions.calculateLimitTotal(Object.values(attrs))
-}
-
-const updateLimits = attributeLimit => {
-  const array = sheetAttributes[attributeLimit].concat([`${attributeLimit}_modifier`, `${attributeLimit}_temp`, `${attributeLimit}_temp_flag`])
-  getAttrs(array, attrs => {
+const updateLimits = limitName => {
+  const limit = determineLimit(limitName)
+  const attributes = limit.buildGetAttrs(limit.attributes)
+  const bonus = buildModiferTempFlagArray(limitName)
+  
+  getAttrs([...attributes, ...bonus], attrs => {
       attrs = shadowrunFunctions.attributeFactory(attrs)
       const bonus = attrs.bonus
       delete attrs.bonus
       const base = shadowrunFunctions.updateLimitTotal(attrs)
       processingFunctions.setAttributes({
-        [attributeLimit]: processingFunctions.sumIntegers([base, bonus])
+        [limitName]: processingFunctions.sumIntegers([base, bonus])
       })
   })
 }
+// EVENT HANDLERS
+const mentalLimitAttributes = ['intuition', 'willpower', 'logic']
+mentalLimitAttributes.forEach(attr => on(`change:${attr}`, () => {
+  updateLimits('mental_limit')
+}))
 
-const updateMovement = () => {
-  getAttrs(['agility', 'walk_modifier', 'run_modifier'], attrs => {
-    attrs = processingFunctions.parseIntegers(attrs)
-    processingFunctions.setAttributes({
-      walk: shadowrunFunctions.calculateWalkSpeed(attrs.agility, attrs.walk_modifier),
-      run: shadowrunFunctions.calculateRunSpeed(attrs.agility, attrs.run_modifier)
-    })
+const physicalLimitAttributes = ['body', 'reaction', 'strength']
+physicalLimitAttributes.forEach(attr => on(`change:${attr}`, () => {
+  updateLimits('physical_limit')
+}))
+
+const socialLimitAttributes = ['essence', 'willpower', 'charisma']
+socialLimitAttributes.forEach(attr => on(`change:${attr}`, () => {
+  updateLimits('social_limit')
+}))
+
+const attributeLimits = ['mental_limit', 'physical_limit', 'social_limit']
+attributeLimits.forEach(limit => {
+  on(`change:${limit}_modifier change:${limit}_temp change:${limit}_temp_flag`, () => {
+    updateLimits(limit)
   })
-}
+})
 
-const updateDerivedAttribute = derivedAttribute => {
-  getAttrs(sheetAttributes[derivedAttribute], attrs => {
-    attrs = shadowrunFunctions.attributeFactory(attrs)
-    processingFunctions.setAttributes({[derivedAttribute]: attrs.total})
-  })
-}
-
-const updateInitiativeDice = () => {
-  getAttrs(["initiative_dice_modifier", "edge_toggle", "initiative_dice_temp", "initiative_dice_temp_flag"], values => {
-    const edgeFlag = values.edge_toggle === "@{edge}" ? true : false;
-    values = shadowrunFunctions.processTempFlags(values)
-    values = processingFunctions.parseIntegers(values)
-    const bonus = shadowrunFunctions.calculateBonuses(values)
-    const total = Math.min(values.bonus+1,5)
-    processingFunctions.setAttributes({
-      initiative_dice: edgeFlag ? 5 : total
-    })
-  })
-}
-
-
-//- +======== EVERYTHING BELOW THIS LINE LACKS UNIT TESTS =======+
-//- +======== NEEDS REFACTORING =======+
-
-const resetConditionTrack = eventinfo => {
-  const attr = eventinfo.triggerName.split("_").pop();
-  processingFunctions.setAttributes({[`${attr}`] : 0})
-}
-
-//Calculate Matrix Initiatve.
-const updateMatrixInitiative = () => {
-  getAttrs(["sheet_type", "data_processing", "pilot", "intuition", "matrix_mod_modifier", "host_rating", "level"], v => {
-    const sheetType = v.sheet_type;
-    v = processingFunctions.parseIntegers(v);
-
-    let base = v.data_processing;
-    base += sheetType === "sprite" ? v.level : sheetType === "vehicle" ? v.pilot : sheetType === "host" ? v.host_rating : v.intuition;
-
-    const total = base + v.matrix_mod_modifier;
-
-    setAttrs({
-      ["matrix_mod"]: total,
-      ["display_matrix_mod"]: v.matrix_mod_modifier === 0 ? base : `${base} (${total})`
-    })
-  })
-}
-
-const updateMatrixInitiativeDice = () => {
-  getAttrs(["matrix_dice_modifier", "edge_toggle", "matrix_mode_toggle", "initiative_dice"], v => {
-    const matrixAttrs = {
-      dice: processingFunctions.parseInteger(v.initiative_dice) || 1, 
-      modifer: processingFunctions.parseInteger(v.matrix_dice_modifier), 
-      edge: v.edge_toggle === "@{edge}" ? true : false,
-      mode: v.matrix_mode_toggle,
-    }
-    const matrixDice = shadowrunFunctions.determineMatrixDice(matrixAttrs)
-
-    setAttrs({
-      ["matrix_dice"]: matrixDice
-    })
-  })
-}
-
-const updateHotSimsBonus = () => {
-  getAttrs(["matrix_mode_toggle"], v => {
-    setAttrs({
-      ["hot_sim"]: v.matrix_mode_toggle == "hot" ? 2 : 0
-    })
-  })
-}
-
-//Setting the Default attribute name for default skill
-const updateDefaultAttribute = newValue => {
-  getAttrs(["default_display"], value => {
-    const display   = value.default_display
-
-    //This sets a hidden input with the Attribute name so the roll template can use it to indicate what attribute was rolled
-    const attribute   = processingFunctions.sliceAttr(newValue)
-    const translation = getTranslationByKey(`${attribute}`)
-    if (translation != display) {
-      processingFunctions.setAttributes({default_display: translation})
-    }
-  })
-}
-
-  //Calculate Astral Initiatve
-const updateAstralInitiative = () => {
-  getAttrs(["intuition", "astral_mod_modifier"], v => {
-    v = processingFunctions.parseIntegers(v);
-    const base = v.intuition * 2, bonus = v.astral_mod_modifier, total = base + bonus;
-
-    setAttrs({
-      ["astral_mod"]: total,
-      ["display_astral_mod"]: bonus === 0 ? base : `${base} (${total})`
-    })
-  })
-}
-
-const updateAstralInitiativeDice = () => {
-  getAttrs(["astral_dice_modifier", "edge_toggle"], v => {
-    const edgeFlag = v.edge_toggle === "@{edge}" ? true : false;
-    const bonus = parseInt(v.astral_dice_modifier) || 0;
-
-    setAttrs({
-      astral_dice: edgeFlag ? 5 : Math.min(bonus+3,5)
-    })
-  })
-}
-
-
-
-//Weapon displays set into an Array
-  // Builder function to display details properly
-  // Note that since undefined are falsey if there's no label or sign we can leave the parameters blank
-  function repeatingStringBuilder(v, keyBase) {
-      return function(key, label, sign) {
-          // fetch the attr from v checking if it has a value
-          const val = v[`${keyBase}${key}`];
-          if (!val) return '';
-
-          // Apply the sign if needed
-          const disp = sign && val > 0 ? `+${val}` : val;
-
-          // Apply label if needed
-          return label ? `${label} ${disp}` : disp;
-      }
+class Attribute {
+  constructor(name) {
+    this.name = name,
+    this.base = null,
+    this.temp = null,
+    this.temp_flag = null,
+    this.modifier = null
   }
 
-  on("change:repeating_weapon", () => {
-    const source = "repeating_weapon_weapon";
-      getAttrs([`${source}_range`, `${source}_type`, `${source}_reach`, `${source}_acc`, `${source}_dv`, `${source}_ap`, `${source}_mode`, `${source}_rc`, `${source}_ammo`, `${source}_note`, `${source}_primary`], (v) => {
-          // Local builder putting the needed variables into scope for repeatingStringBuilder
-          const b = repeatingStringBuilder(v, `${source}_`);
-          // Determine fields to display and in their proper order and formatting
-          // Anonymous function is purely stylistic and adds more overhead than just a simple switch/case.  Personally I find the function looks cleaner and hides any internal scope that might conflict with outside
-          const display = (() => {
-              // 0 for weapon_range is a ranged weapon. A 1 is a melee weapon.
-              switch(v.repeating_weapon_weapon_range) {
-                  case '0':
-                  // Not a fan of how ammo has to be handled.  Could potentially be placed in the repeatingStringBuilder if used more often for other change:repeating functions as some sort of suffix parameter
-                  const ammo = b('amm');
-                  return [
-                      b('type'),
-                      b('acc', 'ACC'),
-                      b('dv', 'DV'),
-                      b('ap', 'AP', true),
-                      b('mode'),
-                      b('rc', 'RC'),
-                      ammo ? `${ammo} (c)` : '',
-                      b('note')
-                  ];
-                  case '1': return [
-                      b('type'),
-                      b('reach', 'Reach', true),
-                      b('acc', 'ACC'),
-                      b('dv', 'DV'),
-                      b('ap', 'AP', true),
-                      b('note')
-                  ];
-                  default: return [
-                      b('type'),
-                      b('acc', 'ACC'),
-                      b('dv', 'DV'),
-                      b('ap', 'AP', true),
-                      b('note')
-                  ];
-              }
-          })()
-              // Remove all empty strings
-              .filter(s => s)
-              // Concat all the strings and add comma between
-              .join(', ');
+  buildSheetAttrs() {
+    return buildModiferTempFlagBaseArray(this.name)
+  }
+}
+const updateAttributes = name => {
+  const attribute = new Attribute(name)
+  const array = attribute.buildSheetAttrs()
+  getAttrs(array, attrs => {
+    attrs = shadowrunFunctions.attributeFactory(attrs)
 
-          let update = {};
-          update[`${source}`] = `[${display}]`;
+    const display = attrs.base === attrs.total ? attrs.base : `${attrs.base} (${attrs.total})`
 
-          // Finally wrap square brackets around the weapon display
-          setAttrs(update);
-      });
-  });
-
-
-//Spell displays set into an Array
-  on("change:repeating_NPCspell", () => {
-      getAttrs(["repeating_NPCspell_combat_type", "repeating_NPCspell_type", "repeating_NPCspell_range", "repeating_NPCspell_damage", "repeating_NPCspell_duration", "repeating_NPCspell_drain", "repeating_NPCspell_note"], (v) =>{
-          const com = v.repeating_NPCspell_combat_type;
-          const typ = `Type ${v.repeating_NPCspell_type}, `;
-      const ran = `${v.repeating_NPCspell_range}, `;
-      const dam = `Damage ${v.repeating_NPCspell_damage}, `;
-      const dur = `Duration ${v.repeating_NPCspell_duration}, `;
-      const not = `, ${v.repeating_NPCspell_note}`;
-      const dra = v.repeating_NPCspell_drain;
-
-      const drain = (dra > 0) ? `F+${dra} ` : (dra < 0) ? `F${dra} ` :"F ";
-      const info = `[${typ}${ran}${dam}${dur}${drain}${not}]`;
-
-      display = (com === "Direct, Force ") ? ` (Direct) ${info}` : 
-        (com === "Indirect, Force ?{Force|}, AP -") ? ` (Indirect) ${info}` : `${info}`;
-          setAttrs({repeating_NPCspell_spell: display});
-      });
-  });
-
-//Complex Form displays  set into an Array
-  on("change:repeating_form", () => {
-      getAttrs(["repeating_form_form_duration", "repeating_form_form_target", "repeating_form_form_fade", "repeating_form_form_note", ], (v) =>{
-        const tar = `Target ${v.repeating_form_form_target}, `;
-      const dur = `Duration ${v.repeating_form_form_duration}, `;
-      const not = `, ${v.repeating_form_form_note}` || '';
-      const fad = (v.repeating_form_form_fade > 0) ? `L+${v.repeating_form_form_fade}` : 
-            (v.repeating_form_form_fade < 0) ? `L${v.repeating_form_form_fade}` : "L";
-
-          setAttrs({
-            repeating_form_form: ` [${tar}${dur}${fad}${not}]`
-          });
-      });
-  });
-
-//IC displays are set into an Array
-  on("change:repeating_IC", () => {
-      getAttrs(["attack", "data_processing", "repeating_IC_IC_limit", "repeating_IC_IC_attribute", "repeating_IC_IC_matrix", "repeating_IC_IC_note"], (v) =>{
-        const att = parseInt(v.attack) || 0;
-        const data = parseInt(v.data_processing) || 0;
-        const attr = v.repeating_IC_IC_attribute;
-        const mat = v.repeating_IC_IC_matrix;
-        const not = v.repeating_IC_IC_note;
-
-          setAttrs({
-            repeating_IC_IC: (v.repeating_IC_IC_limit === "@{data_processing}") ? ` ([${data}] vs. ${attr} + ${mat}, ${not})` : `([${att}] vs. ${attr} + ${mat}, ${not})`
-          });
-      });
-  });
-
-   ['acceleration', 'armor', 'body', 'data_processing', 'handling', 'handling_off', 'pilot', 'sensor','speed'].forEach(attr => {
-        // Attach listener
-        on(`change:repeating_vehicle:${attr}_base change:repeating_vehicle:${attr}_modifier change:repeating_vehicle:${attr}_temp`, () => {
-            // Load attribute values
-            getAttrs([`repeating_vehicle_${attr}_base`, `repeating_vehicle_${attr}_modifier`, `repeating_vehicle_${attr}_temp`], (v) => {
-                // Do some math to calculate the total
-                const bas = parseInt(v[`repeating_vehicle_${attr}_base`]) || 0;
-                const mod = parseInt(v[`repeating_vehicle_${attr}_modifier`]) || 0;
-                const tem = parseInt(v[`repeating_vehicle_${attr}_temp`]) || 0;
-                const bon = mod + tem;
-                const stat = bas + bon;
-
-                // Update the finalized total
-                setAttrs({
-                    [attr]: stat,
-                    [`repeating_vehicle_display_${attr}`]: bon === 0 ? bas : `${bas} (${stat})`
-                }, {silent: true});
-            });
-        });
-    });
-const versioning = version => {
-  	console.log(`%c Shadowrun 5th Edition versioning, ${version}`, "color: darkblue; font-weight:bold");
-
-    switch(true) {
-        case version < 1.35:
-          onepointthreefive()
-          setAttrs({version: 1.35}, () => versioning(1.35))
-          break;
-        case version < 1.41:
-          onepointfour()
-          setAttrs({version: 1.41}, () => versioning(1.41))
-          break;
-        case version < 4.0:
-          fourpointzero()
-          setAttrs({version: 4.0}, () => versioning(4.0))
-          break;
-        case version < 4.1:
-          fourpointone()
-          setAttrs({version: 4.1}, () => versioning(4.1))
-          break;
-        case version < 4.11:
-          fourpointone()
-          fourpointoneone()
-          setAttrs({version: 4.11}, () => versioning(4.11))
-          break;
-        case version < 4.15:
-          fourpointonefive()
-          setAttrs({version: 4.15}, () => versioning(4.15))
-          break;
-        default:
-            console.log(`%c Shadowrun 5th Edition is update to date. Version ${version}`, "color: green; font-weight:bold");
-    }
-};
-
-const fourpointonefive = () => {
-  updateDerivedAttribute('defense')
-  updateAttributes(sheetAttributes.initiative_mod, 'initiative_mod')
-  updateAstralInitiative()
-
-  sheetAttributes.repeatingSkills.forEach(skill => {
-    getSectionIDs(skill, idarray => {
-      let attributes = []
-      idarray.forEach(id => attributes.push(`repeating_${skill}_${id}_limit`))
-
-      getAttrs(attributes, values => {
-        let update = {}
-        for (let [key, value] of Object.entries(values)) {
-          const repRowID = processingFunctions.getReprowid(key)
-          if (value.includes('limit')) {
-            const translationKey = processingFunctions.sliceAttr(value)
-            update[`${repRowID}_display_limit`] = getTranslationByKey(translationKey)
-          } else {
-            update[`${repRowID}_display_limit`] = ' '
-          }
-        }
-        processingFunctions.setAttributes(update) 
-      })
+    processingFunctions.setAttributes({
+      [name]: attrs.total,
+      [`display_${name}`]: display
     })
   })
 }
 
-const fourpointoneone = () => {
-  getSectionIDs('forms', idarray => {
-    let attributes = [];
-    let update = {};
 
-    idarray.forEach(id => attributes.push(`repeating_forms_${id}_spec`))
+// EVENT HANDLERS
+const physicalAttributes = ['body', 'agility', 'reaction', 'strength']
+const mentalAttributes = ['willpower', 'logic', 'intuition', 'charisma']
+const specialAttributes = ['magic', 'resonance']
 
-    getAttrs(attributes, value => {
-      idarray.forEach(id => update[`repeating_forms_${id}_specialization`] = value[`repeating_forms_${id}_spec`])
-      setAttrs(update);
-    });
-  });
-}
+const allAttributes = [...physicalAttributes, ...mentalAttributes, ...specialAttributes]
 
-const fourpointone = () => {
-  getAttrs(["initiative_modifier", "initiative_temp", "initiative_temp_flag"], value => {
-    setAttrs({
-      initiative_mod_modifier: value.initiative_modifier,
-      initiative_mod_temp: value.initiative_temp,
-      initiative_mod_temp_flag: value.initiative_mod_temp_flag
-    })
+allAttributes.forEach(attribute => {
+  const array = new Attribute(attribute).buildSheetAttrs()
+  console.log(array)
+  array.forEach(attr => {
+    on(`change:${attr}`, () => updateAttributes(attribute) )
   })
-
-  getSectionIDs('range', idarray => {
-    let attributes = [];
-    let update = {};
-    idarray.forEach(id => attributes.push(`repeating_range_${id}_spec`))
-    getAttrs(attributes, value => {
-      idarray.forEach(id => update[`repeating_range_${id}_specialization`] = value[`repeating_range_${id}_spec`])
-      setAttrs(update);
-    });
-  });
-
-  getSectionIDs('melee', idarray => {
-    let attributes = [];
-    let update = {};
-    idarray.forEach(id => attributes.push(`repeating_melee_${id}_spec`))
-    getAttrs(attributes, value => {
-      idarray.forEach(id => update[`repeating_melee_${id}_specialization`] = value[`repeating_melee_${id}_spec`])
-      setAttrs(update);
-    });
-  });
-
-  getSectionIDs("active", idarray => {
-    let attributes = [];
-    let update = {};
-    idarray.forEach(id => attributes.push(`repeating_active_${id}_skill`))
-    getAttrs(attributes, value => {
-        idarray.forEach(id => update[`repeating_active_${id}_display_skill`] = value[`repeating_active_${id}_skill`])
-       setAttrs(update);
-    });
-  });
-}
-
-const fourpointzero = () => {
-    const attributes = ['physical', 'physical_damage', 'stun', 'stun_damage', 'sheet_type', 'matrix_con'];
-    getAttrs(attributes, value => {
-        let update = {};
-        update["physical"] = value.physical_damage || 0;
-        update["stun"] = value.stun_damage || 0;
-        update["matrix"] = value.matrix_con || 0;
-
-        setAttrs(update);
-    });
-
-    getSectionIDs("ritual", idarray => {
-        let ritualAttributes = [];
-        let update = {};
-
-        idarray.forEach(id => {
-            ritualAttributes.push(`repeating_ritual_${id}_spec`);
-        });
-
-        getAttrs(ritualAttributes, value => {
-            idarray.forEach(id => {
-                update[`repeating_ritual_${id}_specialization`] = value[`repeating_ritual_${id}_spec`]
-            }); 
-
-           setAttrs(update);
-        });
-    });
-};
-
-const onepointfour = () => {
-    const toggles = [`wound_toggle`, `edge_toggle`, `modifier_toggle`];
-    getAttrs(toggles, (v) => {
-        let set = {};
-        toggles.forEach(attr => {
-            const name = attr.split("_")[0], value = v[`${attr}`].toString();
-            value != "0" || !value.includes(name) ? set[`${attr}`] = 0 : false;
-        });
-        setAttrs(set);
-    });
-};
-
-const onepointthreefive = () => {
-    getAttrs(["sheet_type"], (v) => {
-        if (v.sheet_type === "goon") {
-            setAttrs({
-                ["sheet_type"]: "grunt" 
-            });
-        }
-    });  
-};
-
-  on('sheet:opened', () => {
-		getAttrs(['version'], v => { versioning(parseFloat(v.version) || 1); });
-		translations();
-	});
-
-  on('clicked:shots_remove clicked:shots_add', eventinfo => updateShotsFired(eventinfo.triggerName))
-
-	on('clicked:primary_ammo', () => updateAmmoWithShotsFired())
-
-  on('clicked:reload', () => updateAmmoWithMax())
-
-	sheetAttributes.tabs.forEach(attr => on(`clicked:tab_${attr}`, () => updateTab(attr)))
-
-	on('change:agility change:walk_modifier change:run_modifier', () => updateMovement())
-
-  sheetAttributes.calculatedAttributes.forEach(attribute => {
-      const attributeArray = [`${attribute}_base`, `${attribute}_modifier`, `${attribute}_temp`, `${attribute}_temp_flag`]
-      attributeArray.forEach(attr => on(`change:${attr}`, () => updateAttributes(attributeArray, attribute)))
-  });
-
-  sheetAttributes.initiative_mod.forEach(attr => on(`change:${attr}`, () => updateAttributes(sheetAttributes.initiative_mod, 'initiative_mod')))
-
-  sheetAttributes.astral_mod.forEach(attr => on(`change:${attr}`, () => updateAstralInitiative()))
-
-  sheetAttributes.derivedAttributes.forEach(derivedAttribute => {
-    sheetAttributes[derivedAttribute].forEach(attr => on(`change:${attr}`, () => updateDerivedAttribute(derivedAttribute)))
-  })
-
-  sheetAttributes.attributeLimits.forEach(attributeLimit => {
-    sheetAttributes[attributeLimit].forEach(attr => on(`change:${attr}`, () => updateLimits(attributeLimit)))
-    on(`change:${attributeLimit}_modifier change:${attributeLimit}_temp change:${attributeLimit}_temp_flag`, () => updateLimits([`${attributeLimit}`]))
-  })
-
-  sheetAttributes.conditionTracks.forEach(conditionTrack => {
-    sheetAttributes[conditionTrack].forEach(attr => on(`change:${attr}`, () => updateConditionTracks(conditionTrack)))
-  })
-
-	sheetAttributes.woundCalculation.forEach(attr => on(`change:${attr}`, () => updateWounds()))
-
-  sheetAttributes.repeatingSkills.forEach(field => {
-    on(`change:repeating_${field}:rating change:repeating_${field}:rating_modifier`, eventinfo => updateRepeatingSkillRating(eventinfo.triggerName || ''))
-    on(`change:repeating_${field}:attribute`, eventinfo => updateRepeatingSkillAttribute(eventinfo))
-    on(`change:repeating_${field}:limit`, eventinfo => updateRepeatingSkillLimit(eventinfo))
-    on(`change:repeating_${field}:dicepool`, eventinfo => updateRepeatingSkillDicepool(eventinfo))
-  })
-
-  sheetAttributes.weaponTypes.forEach(type => {
-    on(`change:repeating_${type}:dicepool_modifier change:repeating_${type}:specialization`, eventinfo => updateRepeatingWeaponDicepool(eventinfo.triggerName))
-    on(`change:repeating_${type}:primary`, eventinfo => updateRepeatingPrimary(eventinfo, type))
-  })
-
-  sheetAttributes.rangeAttributes.forEach(attr => on(`change:repeating_range:${attr}`, eventinfo => updatePrimary(eventinfo)))
-
-  sheetAttributes.meleeAttributes.forEach(attr => on(`change:repeating_melee:${attr}`, eventinfo => updatePrimary(eventinfo)))
-
-  sheetAttributes.armorAttributes.forEach(attr => on(`change:repeating_armor:${attr}`, eventinfo => updatePrimary(eventinfo)))
-
-  on("change:repeating_armor:primary", eventinfo => updateRepeatingPrimary(eventinfo, 'armor'))
-
-  on(`change:repeating_active:skill`, eventinfo => updateRepeatingSkillName(eventinfo))
-
-	on('clicked:cond_reset_physical clicked:cond_reset_stun', eventinfo => resetConditionTrack(eventinfo))
-
-	on('change:edge_toggle', eventinfo => edgeToggle(eventinfo.newValue))
-
-	on('change:device_rating change:matrix_modifier', () => updateMatrixMaximum())
-
-	on('change:intuition change:astral_mod_modifier', () => updateAstralInitiative())
-
-	on('change:initiative_dice_modifier change:edge_toggle change:initiative_dice_temp change:initiative_dice_temp_flag', () => updateInitiativeDice())
-
-	on('change:astral_dice_modifier change:edge_toggle', () => updateAstralInitiativeDice())
-
-	on('change:host_rating change:data_processing change:pilot change:intuition change:matrix_mod_modifier change:level', () => {
-		updateMatrixInitiative()
-	})
-
-  on('change:matrix_dice_modifier change:edge_toggle change:matrix_mode_toggle', () => updateMatrixInitiativeDice())
-  
-  on('change:matrix_mode_toggle', () => updateHotSimsBonus())
-
-  on("clicked:cond_reset", () => resetNpcCondition()); 
-
-  sheetAttributes.spellTypes.forEach(type => on(`change:repeating_${type}:dicepool_modifier change:repeating_${type}:specialization`, eventinfo => updateSpellsDicepool(eventinfo)))
-
-  on("change:level", eventinfo => updateSpriteConditionTrack(eventinfo.newValue))
-
-  on("change:host_rating", eventinfo => updateHostAttributes(eventinfo.newValue))
-
-  on("change:default_attribute", eventinfo => updateDefaultAttribute(eventinfo.newValue))
+})
 //Build a list of input which the user can edit manually if needed
 //This shows how all their data is going to be imported onto the sheet
 const importerHiddenInputsBuilder = update => {
@@ -2531,7 +1815,7 @@ const importHeroLab = character => {
 	//IMPORTERS
 	
 	//temporary force open
-	on('sheet:opened', () => startCharactermancer("importer"))
+//	on('sheet:opened', () => startCharactermancer("importer"))
 	
 	// APPLY Changes
 	on("clicked:import_launch", () => startCharactermancer("importer"))

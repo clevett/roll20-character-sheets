@@ -199,19 +199,6 @@ const updateLimitTotal = attrs => {
   return shadowrunFunctions.calculateLimitTotal(Object.values(attrs))
 }
 
-const updateLimits = attributeLimit => {
-  const array = sheetAttributes[attributeLimit].concat([`${attributeLimit}_modifier`, `${attributeLimit}_temp`, `${attributeLimit}_temp_flag`])
-  getAttrs(array, attrs => {
-      attrs = shadowrunFunctions.attributeFactory(attrs)
-      const bonus = attrs.bonus
-      delete attrs.bonus
-      const base = shadowrunFunctions.updateLimitTotal(attrs)
-      processingFunctions.setAttributes({
-        [attributeLimit]: processingFunctions.sumIntegers([base, bonus])
-      })
-  })
-}
-
 const updateMovement = () => {
   getAttrs(['agility', 'walk_modifier', 'run_modifier'], attrs => {
     attrs = processingFunctions.parseIntegers(attrs)

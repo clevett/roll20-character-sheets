@@ -1,0 +1,57 @@
+//- SCRIPTS
+script(type="text/worker")
+	//- :+: Generic helper functions
+	include ../js/helpers.js
+	//- Has unit tests
+	include ../js/processingFunctions.js
+	//- Has unit tests
+	include ../js/shadowrunFunctions.js
+
+	//- Attributes
+	include ../components/Attributes/Limits/Classes/AttributeLimit.js
+	include ../components/Attributes/Limits/Classes/MentalLimit.js
+	include ../components/Attributes/Limits/Classes/PhysicalLimit.js
+	include ../components/Attributes/Limits/Classes/SocialLimit.js
+	include ../components/Attributes/Limits/determineLimit.js
+	include ../components/Attributes/Limits/updateLimits.js
+	include ../components/Attributes/Limits/eventHandlers.js
+
+	include ../components/Attributes/Attribute.js
+	include ../components/Attributes/updateAttributes.js
+	include ../components/Attributes/eventHandlers.js
+
+	//- CHARACTER IMPORTER Functions
+	include ../components/CharacterImporter/importerHiddenInputsBuilder.js
+	//-Chummer
+	include ../components/CharacterImporter/Chummer/associateChummerData.js
+	include ../components/CharacterImporter/Chummer/importerChummer.js
+	//-Hero Lab
+	include ../components/CharacterImporter/HeroLab/helpers/getReputationsFromHeroLab.js
+	include ../components/CharacterImporter/HeroLab/associateHeroLabData.js
+	include ../components/CharacterImporter/HeroLab/importerHeroLab.js
+	//- Charactermancer
+	include ../components/CharacterImporter/importer.js
+	include ../components/CharacterImporter/importerUI.js
+
+	//- //- OLD JAVASCRIPT! Before @version 4.6
+	//- //- Always leave an empty space at the end of a js file
+	//- //- Else you'll get SyntaxError: Unexpected Token
+	//- include ../js/attributes.js
+
+	//- //- :+: Classes :+:
+	//- //- Setters can't be used in Character Sheets :(
+	//- include ../components/PersonalData/PersonalData.js
+	//- include ../components/PersonalData/RewardsData.js
+	//- include ../js/Classes/PrimaryWeapon.js
+	//- include ../js/Classes/PrimaryArmor.js
+	//- //-include ../js/Classes/RepeatingFieldset.js
+	//- //-include ../js/Classes/ComplexForm.js
+
+	//- //- Functions are called by the eventhandlers
+	//- include ../js/scripts.js
+
+	//- //- Handle version updates
+	//- include ../js/versioning.js
+
+	//- //- Listeners for changes
+	//- include ../js/eventhandlers.js
