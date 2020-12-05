@@ -8,7 +8,9 @@
 
 		const herolabDirections = `
 			<li>Export your character from Hero Lab as XML</li>
-			<li>Go to the website http://beautifytools.com/xml-to-json-converter.php</li>
+			<li>Go to the website 
+				<input style='width:45%' type='text' value='http://beautifytools.com/xml-to-json-converter.php' />
+			</li>
 			<li>Copy the XML into the left side</li>
 			<li>Click the button that says "<b>Minify json</b>"</li>
 			<li>Copy the Results</li>
@@ -19,18 +21,38 @@
 			${characterSoftware === "Chummer" ? chummerDirections : herolabDirections}
 			<li>Paste it into the textfield below</li>
 			<li>Click the Import button</li>
-			<li>Review the data. Use the checkbox <strong>Show Hidden Inputs</strong> to fix data.</li> 
-			<li>Click Apply to <u>overwrite</u> information on the character sheet</li>
+			<li>Move to the Results section below</li>
 		</ol>
 		`
 
 		return directions
 	}
 
+	const buildNotesString = characterSoftware => {
+		const chummerNotes = `
+			<h3>Chummer Notes</h3>
+			<ul>
+					<li>
+						Chummer frequently has the wrong information for <strong>Weapons</strong>. Review them in the Arms tab after clicking apply.
+					</li>
+					<li>
+						<strong>specialization</strong> will not be applied to Weapons or Magic. You will need to manually update the checkbox.
+					</li>
+			</ul>
+		`
+		const herolabNotes = `
+			<h3>Hero Lab Notes</h3>
+			<ul>
+			</ul>
+		`
+
+		return characterSoftware == "Chummer" ? chummerNotes : herolabNotes
+	}
 
 	on("page:importer", () => {
-		setAttrs({builder: "Chummer"});
-		setCharmancerText({	"directions" : buildDirectionsString("Chummer")	})
+		const defaultBuilder = "Hero Lab"
+		setAttrs({builder: defaultBuilder});
+		setCharmancerText({	"directions" : buildDirectionsString(defaultBuilder)	})
 	});
 
 	on("clicked:import", () => {
@@ -81,7 +103,10 @@
 		setCharmancerText(setText);
 	});
 
-	on("mancerchange:builder", eventinfo => setCharmancerText({directions : buildDirectionsString(eventinfo.newValue)}))
+	on("mancerchange:builder", eventinfo => setCharmancerText({
+		directions : buildDirectionsString(eventinfo.newValue),
+		notes: buildNotesString(eventinfo.newValue)
+	}))
 
   const clean = () => {
     ['active', 'knowledge', 'language', 'quality', 'martial',
@@ -112,3 +137,5 @@
 	const getSplitNum = value => value.split("/")[0]
 	
 	const checkForModifiedAttribute = value => value.includes("/") ? getSplitNum(value) : value
+
+	

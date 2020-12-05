@@ -2766,7 +2766,7 @@ div.sheet-mancer-box label {
   display: inline-block; }
 
 div.sheet-mancer-box div.sheet-pick-builder label {
-  margin: 2% 2% 1% 0%;
+  margin: 1% 2% 1% 0%;
   width: 15%; }
 
 div.sheet-mancer-box label {
@@ -2831,7 +2831,7 @@ div.sheet-mancer-box .sheet-results,
 div.sheet-mancer-box .sheet-error {
   border: 1px solid #333;
   box-shadow: inset 0px 0px 3px 1px #7c7c7c;
-  height: 30em;
+  height: 20em;
   margin-top: 2%;
   overflow: scroll;
   padding: 1%; }
@@ -2884,8 +2884,7 @@ div.sheet-hidden label {
 div.sheet-hidden div {
   display: inline-block;
   font-weight: bold;
-  margin-right: 2%;
-  width: 40%; }
+  margin-right: 2%; }
 
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {

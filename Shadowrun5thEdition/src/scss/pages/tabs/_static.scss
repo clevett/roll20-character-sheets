@@ -19,7 +19,7 @@ div.sheet-static {
     }
   }
 
-  @import './static/info';
+  @import '../../../components/PersonalData/info';
 
   div.sheet-attributes {
     min-height: 350px;

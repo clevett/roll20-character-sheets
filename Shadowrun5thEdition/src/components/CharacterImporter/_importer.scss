@@ -23,7 +23,7 @@
 	}
 
 	div.sheet-mancer-box div.sheet-pick-builder label {
-		margin: 2% 2% 1% 0%;
+		margin: 1% 2% 1% 0%;
 		width: 15%;
 	}
 
@@ -101,7 +101,7 @@
 	div.sheet-mancer-box .sheet-error {
 		border: 1px solid #333;
 		box-shadow: inset 0px 0px 3px 1px $grayshadow;
-		height: 30em;
+		height: 20em;
 		margin-top: 2%;
 		overflow: scroll;
 		padding: 1%;
@@ -167,5 +167,5 @@
 		display: inline-block;
 		font-weight: bold;
 		margin-right: 2%;
-		width: 40%
 	}
+	
