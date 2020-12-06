@@ -1,12 +1,12 @@
 
 class RewardsData {
   constructor() {
-    this.street_cred = null,
-    this.notoriety = null,
-    this.public_awareness = null,
-    this.karma = null,
-    this.total_karma = null,
-    this.misc = null
+    this.street_cred = 0
+    this.notoriety = 0
+    this.public_awareness = 0
+    this.karma = 0
+    this.total_karma = 0
+    this.misc = ''
   }
 
   setSteetCred(value) { this.street_cred = value}

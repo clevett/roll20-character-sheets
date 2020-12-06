@@ -1666,87 +1666,6 @@ class Attribute extends SheetAttribute {
     }
   }
 }
-class Composure extends SheetAttribute {
-  constructor() {
-    super('composure')
-  }
-
-  getAttrsArray() {
-    const attributes = ['charisma', 'willpower']
-    const bonus = ['composure_modifier']
-    return [...attributes, ...bonus]
-  }
-}
-class Defense extends SheetAttribute {
-  constructor() {
-    super('defense')
-  }
-
-  getAttrsArray() {
-    const attributes = ['reaction', 'intuition']
-    const bonus = ['defense_modifier', 'defense_temp', `defense_temp_flag`]
-    return [...attributes, ...bonus]
-  }
-}
-class JudgeIntentions extends SheetAttribute {
-  constructor() {
-    super('judge_intentions')
-    this.attributes = ['charisma', 'intuition']
-    this.bonus = ['judge_intentions_modifier']
-  }
-
-  getAttrsArray() {
-    const attributes = ['charisma', 'intuition']
-    const bonus = ['judge_intentions_modifier'] 
-    return [...attributes, ...bonus]
-  }
-}
-class LiftCarry extends SheetAttribute  {
-  constructor() {
-    super('lift_carry')
-    this.attributes = ['body', 'strength']
-    this.bonus = ['lift_carry_modifier']
-  }
-
-  getAttrsArray() {
-    const attributes = ['body', 'strength']
-    const bonus = ['lift_carry_modifier']
-    return [...attributes, ...bonus]
-  }
-}
-class Memory extends SheetAttribute  {
-  constructor() {
-    super('memory')
-  }
-
-  getAttrsArray() {
-    const attributes = ['logic', 'willpower']
-    const bonus = ['memory_modifier']
-    return [...attributes, ...bonus]
-  }
-}
-class Overflow extends SheetAttribute{
-  constructor() {
-    super('overflow')
-  }
-
-  getAttrsArray() {
-    const attributes = ['body']
-    const bonus = ['overflow_modifier']
-    return [...attributes, ...bonus]
-  }
-}
-class Soak extends SheetAttribute {
-  constructor() {
-    super('soak')
-  }
-
-  getAttrsArray() {
-    const attributes = ['body', 'armor_rating']
-    const bonus = ['soak_modifier', 'soak_temp', `soak_temp_flag`]
-    return [...attributes, ...bonus]
-  }
-}
 class Movement extends SheetAttribute {
   constructor(name, agility = 0) {
     super(name)
@@ -1792,24 +1711,23 @@ class Movement extends SheetAttribute {
 
 
 
-class MentalLimit extends AttributeLimit {
-  constructor() {
-    super('mental_limit')
-    this.attributes = ['intuition', 'willpower', 'logic']
+class Limit extends SheetAttribute {
+  constructor(name) {
+    super(name)
+    attributes = this.determineAttributes()
   }
-}
 
-class PhysicalLimit extends AttributeLimit {
-  constructor() {
-    super('physical_limit')
-    this.attributes = ['body', 'reaction', 'strength']
-  }
-}
-
-class SocialLimit extends AttributeLimit {
-  constructor() {
-    super('social_limit')
-    this.attributes = ['essence', 'willpower', 'charisma']
+  determineAttributes() {
+    switch(this.getName()) {
+      case 'mental':
+        return ['intuition', 'willpower', 'logic']
+      case 'physical': 
+        return ['body', 'reaction', 'strength']
+      case 'social':
+        return ['essence', 'willpower', 'charisma']
+      default:
+        errorMessage('determineAttributes in Limit class', 'name did not match the switch cases')
+    }
   }
 }
 
@@ -1954,7 +1872,7 @@ class PersonalData {
 
   getSheetAttributes() {
     return  {
-      name: this.getName(),
+      character_name: this.getName(),
       metatype: this.getMetatype(),
       ethnicity: this.getEthnicity(),
       age: this.getAge(),
@@ -1967,12 +1885,12 @@ class PersonalData {
 
 class RewardsData {
   constructor() {
-    this.street_cred = null,
-    this.notoriety = null,
-    this.public_awareness = null,
-    this.karma = null,
-    this.total_karma = null,
-    this.misc = null
+    this.street_cred = 0
+    this.notoriety = 0
+    this.public_awareness = 0
+    this.karma = 0
+    this.total_karma = 0
+    this.misc = ''
   }
 
   setSteetCred(value) { this.street_cred = value}
@@ -2893,8 +2811,8 @@ const associatePersonalData = character => {
 
   /* Rewards */
   const rewards = new RewardsData()
-  rewards.getKarma(character.karma._left)
-  rewards.getTotalKarma(character.karma._total)
+  rewards.setKarma(character.karma._left)
+  rewards.setTotalKarma(character.karma._total)
 
   /* Reputations */
   const reputations = getReputationsFromHeroLab(character.reputations)
@@ -2995,7 +2913,7 @@ const associateHeroLabData = character => {
   /* Player Name */
   const metaData = {
     player_name: character._playername,
-    sheet_type = character._role //Need to check this for NPCs
+    sheet_type: character._role //Need to check this for NPCs
   }
 
   /* Personal Info */
@@ -3015,6 +2933,7 @@ const associateHeroLabData = character => {
   const movementData = associateMovementFromHeroLab(characterMovement, attributeData)
 
   /* TESTING */
+  delete(character.creation)
   delete(character.karma)
   delete(character.attributes)
   delete(character.movementtypes)

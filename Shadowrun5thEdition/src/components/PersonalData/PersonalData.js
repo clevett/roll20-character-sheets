@@ -28,7 +28,7 @@ class PersonalData {
 
   getSheetAttributes() {
     return  {
-      name: this.getName(),
+      character_name: this.getName(),
       metatype: this.getMetatype(),
       ethnicity: this.getEthnicity(),
       age: this.getAge(),

@@ -11,8 +11,8 @@ const associatePersonalData = character => {
 
   /* Rewards */
   const rewards = new RewardsData()
-  rewards.getKarma(character.karma._left)
-  rewards.getTotalKarma(character.karma._total)
+  rewards.setKarma(character.karma._left)
+  rewards.setTotalKarma(character.karma._total)
 
   /* Reputations */
   const reputations = getReputationsFromHeroLab(character.reputations)

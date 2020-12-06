@@ -9,7 +9,7 @@ const associateHeroLabData = character => {
   /* Player Name */
   const metaData = {
     player_name: character._playername,
-    sheet_type = character._role //Need to check this for NPCs
+    sheet_type: character._role //Need to check this for NPCs
   }
 
   /* Personal Info */
@@ -29,6 +29,7 @@ const associateHeroLabData = character => {
   const movementData = associateMovementFromHeroLab(characterMovement, attributeData)
 
   /* TESTING */
+  delete(character.creation)
   delete(character.karma)
   delete(character.attributes)
   delete(character.movementtypes)
