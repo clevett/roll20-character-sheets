@@ -1,31 +1,27 @@
-const getAttributesFromHeroLab = (characterAttributes, attributes) => {
+const getAttributesFromHeroLab = (heroLabData, sheetAttributes) => {
   const attributeData = {}
 
-  const findAttribute = term => {
-    return characterAttributes.find(element => element._name.toLowerCase() == term)
-  }
-
-  attributes.forEach(name => {
-    const object = findAttribute(name)
-    const attribute = new Attribute(name)
+  sheetAttributes.forEach(name => {
+    const object = findInHeroLabAttributes(heroLabData, name)
+    const attribute = new CoreAttribute(name)
   
     if (object) {
-      attribute[`${name}_base`] = parseInteger(object._base)
-      attribute[`${name}_modifier`] = object._modified - object._base
-      attribute[`${name}`] = parseInteger(object._modified)
-  
-      attribute[`${name}_display`] = attribute.getDisplay()
+      attribute.setBase(parseInteger(object._base))
+      attribute.setModifier(object._modified - object._base)
+      attribute.setTotal(parseInteger(object._modified))
+
+      const display = attribute.buildDisplay()
+      attribute.setDisplay(display)
     }
-  
-    for (const [key, value] of Object.entries(attribute)) {
-      if (key != 'name') {
-        attributeData[key] = value
-      }
+
+    const updateAttribues = attribute.getSheetAttributes()
+    for (const [key, value] of Object.entries(updateAttribues)) {
+      attributeData[key] = value
     }
   })
   
-  attributeData['essence'] = findAttribute('essence')._modified
-  attributeData['edge'] = findAttribute('edge')._modified
+  attributeData['essence'] = findInHeroLabAttributes(heroLabData, 'essence')._modified
+  attributeData['edge'] = findInHeroLabAttributes(heroLabData, 'edge')._modified
   
   return attributeData
 }

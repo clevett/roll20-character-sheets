@@ -818,6 +818,105 @@ const shadowrunFunctions = {
 }
 
 
+class Attribute {
+  constructor(name) {
+    this.name = name
+    this.base = 0
+    this.temp = 0
+    this.tempFlag = true
+    this.modifier = 0
+    this.total = this.getTotal()
+    this.display = this.buildDisplay()
+  }
+
+  setBase(value) { this.base = value }
+  setTemp(value) { this.temp = value }
+  setTempFlag(value) { this.tempFlag = value }
+  setModifier(value) { this.modifier = value }
+  setTotal(value) { this.total = value }
+  setDisplay(value) { this.display = value }
+
+  getName() { return this.name }
+  getBase() { return this.base }
+  getTemp() { return this.temp }
+  getTempFlag() { return this.tempFlag }
+  getModifier() { return this.modifier }
+  getDisplay() { return this.display }
+
+  getBonus() {
+    const temp = this.tempFlag ? this.temp : 0
+    return temp + this.modifier
+  }
+
+  buildDisplay() {
+    const base = this.base
+    const total = this.total
+    return base == !total || total == base ? base : `${base} (${total})`
+  }
+
+  getTotal() {
+    return this.base + this.getBonus()
+  }
+}
+
+class CoreAttribute extends Attribute {
+  constructor(name) {
+    super(name)
+  }
+
+  getAttrsArray() {
+    const name = this.getName()
+    return [`${name}_base`, `${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
+  }
+
+  getSheetAttributes() {
+    const name = this.getName()
+
+    return  {
+      [`${name}`]: this.getTotal(),
+      [`${name}_base`]: this.getBase(),
+      [`${name}_temp`]: this.getTemp(),
+      [`${name}_temp_flag`]: this.getTempFlag(),
+      [`${name}_modifier`]: this.getModifier(),
+      [`${name}_display`]: this.getDisplay()
+    }
+  }
+}
+const updateAttributes = attribute => {
+  const array = attribute.getAttrsArray()
+  
+  getAttrs(array, attrs => {
+    attrs = shadowrunFunctions.attributeFactory(attrs)
+
+    const name = attribute.name
+    const display = buildDisplayString(attrs)
+
+    processingFunctions.setAttributes({
+      [name]: attrs.total,
+      [`display_${name}`]: display
+    })
+  })
+}
+
+
+// EVENT HANDLERS
+const physicalAttributes = ['body', 'agility', 'reaction', 'strength']
+const mentalAttributes = ['willpower', 'logic', 'intuition', 'charisma']
+const specialAttributes = ['magic', 'resonance']
+
+const allAttributes = [...physicalAttributes, ...mentalAttributes, ...specialAttributes]
+
+allAttributes.forEach(name => {
+  const newAttribute = new CoreAttribute(name)
+  const array = newAttribute.getAttrsArray()
+  
+  array.forEach(attr => {
+    on(`change:${attr}`, () => {
+      updateAttributes(newAttribute)
+    })
+  })
+})
+
 class AttributeLimit {
   constructor(name) {
     this.name = name,
@@ -1026,27 +1125,50 @@ soakAttributes.forEach(attr => {
 
 
 
-class Initiative extends DerivedAttribute {
+class Initiative {
   constructor() {
-    super('initiative_mod')
-    this.attributes = ['reaction', 'intuition']
-    this.bonus = ['initiative_mod_modifier', 'initiative_temp','initiative_temp_flag']
+    this.name = 'initiative_mod'
+    this.initiative_mod = 0
+    this.initiative_mod_modifier = 0
+    this.initiative_temp = 0
+    this.initiative_temp_flag = true
+  }
+
+  setModModifier(value) {
+    this.initiative_mod = value
+  }
+
+  getAttrsArray() {
+    const attributes = ['reaction', 'intuition']
+    const bonus = ['initiative_mod_modifier', 'initiative_temp','initiative_temp_flag']
+    return [...attributes, ...bonus]
   }
 }
 
 
-class InitiativeDice {
+class InitiativeDice extends Attribute {
   constructor(name) {
-    this.name = name
-    this.bonus = [`${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
+    super(name)
+    this.base = 1
+
+    this[`${this.name}`] = 0
     this[`${this.name}_modifier`] = 0
     this[`${this.name}_temp`] = 0
     this[`${this.name}_temp_flag`] = null
-    this.base = 1
+  }
+
+  getBase() {
+    return 1
+  }
+
+  setBase(value) {
+    this.base = value
   }
   
   getAttrsArray() {
-    return [...this.bonus, 'edge_toggle']
+    const name = this.name
+    const bonus = [`${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
+    return [...bonus, 'edge_toggle']
   }
 
   getBonus() {
@@ -1056,7 +1178,7 @@ class InitiativeDice {
   }
 
   getTotal(edgeFlag) {
-    const total = this.getBonus() + this.base
+    const total = this.getBonus() + this.getBase()
     return edgeFlag ? 5 : Math.min(total, 5)
   }
 }
@@ -1280,75 +1402,6 @@ movementAttributes.forEach(attr => {
 })
 
 
-
-class Attribute {
-  constructor(name) {
-    this.name = name
-    this[`${name}_base`] = 0
-    this[`${name}_temp`] = 0
-    this[`${name}_temp_flag`] = true
-    this[`${name}_modifier`] = 0
-    this[`${name}`] = this.getTotal()
-    this[`${name}_display`] = this.getDisplay()
-  }
-
-  getAttrsArray() {
-    const name = this.name
-    return [`${name}_base`, `${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
-  }
-
-  getBonus() {
-    const name = this.name
-    const temp = this[`${name}_temp_flag`] ? this[`${name}_temp`] : 0
-    return temp + this[`${name}_modifier`]
-  }
-
-  getDisplay() {
-    const name = this.name
-    const base = this[`${name}_base`]
-    const total = this[`${name}`]
-    return base == !total || total == base ? base : `${base} (${total})`
-  }
-
-  getTotal() {
-    const name = this.name
-    return this[`${name}_base`] + this.getBonus()
-  }
-}
-const updateAttributes = attribute => {
-  const array = attribute.getAttrsArray()
-  
-  getAttrs(array, attrs => {
-    attrs = shadowrunFunctions.attributeFactory(attrs)
-
-    const name = attribute.name
-    const display = buildDisplayString(attrs)
-
-    processingFunctions.setAttributes({
-      [name]: attrs.total,
-      [`display_${name}`]: display
-    })
-  })
-}
-
-
-// EVENT HANDLERS
-const physicalAttributes = ['body', 'agility', 'reaction', 'strength']
-const mentalAttributes = ['willpower', 'logic', 'intuition', 'charisma']
-const specialAttributes = ['magic', 'resonance']
-
-const allAttributes = [...physicalAttributes, ...mentalAttributes, ...specialAttributes]
-
-allAttributes.forEach(name => {
-  const newAttribute = new Attribute(name)
-  const array = newAttribute.getAttrsArray()
-  
-  array.forEach(attr => {
-    on(`change:${attr}`, () => {
-      updateAttributes(newAttribute)
-    })
-  })
-})
 
 class PersonalData {
   constructor() {
@@ -2253,38 +2306,68 @@ const getReputationsFromHeroLab = ({ reputation }) => {
   return characterSheetAttributes
 }
 
-const getAttributesFromHeroLab = (characterAttributes, attributes) => {
+const findInHeroLabAttributes = (array, term) => {
+  return array.find(element => element._name.toLowerCase() == term)
+}
+const getAttributesFromHeroLab = (heroLabData, sheetAttributes) => {
   const attributeData = {}
 
-  const findAttribute = term => {
-    return characterAttributes.find(element => element._name.toLowerCase() == term)
-  }
-
-  attributes.forEach(name => {
-    const object = findAttribute(name)
-    const attribute = new Attribute(name)
+  sheetAttributes.forEach(name => {
+    const object = findInHeroLabAttributes(heroLabData, name)
+    const attribute = new CoreAttribute(name)
   
     if (object) {
-      attribute[`${name}_base`] = parseInteger(object._base)
-      attribute[`${name}_modifier`] = object._modified - object._base
-      attribute[`${name}`] = parseInteger(object._modified)
-  
-      attribute[`${name}_display`] = attribute.getDisplay()
+      attribute.setBase(parseInteger(object._base))
+      attribute.setModifier(object._modified - object._base)
+      attribute.setTotal(parseInteger(object._modified))
+
+      const display = attribute.buildDisplay()
+      attribute.setDisplay(display)
     }
-  
-    for (const [key, value] of Object.entries(attribute)) {
-      if (key != 'name') {
-        attributeData[key] = value
-      }
+
+    const updateAttribues = attribute.getSheetAttributes()
+    for (const [key, value] of Object.entries(updateAttribues)) {
+      attributeData[key] = value
     }
   })
   
-  attributeData['essence'] = findAttribute('essence')._modified
-  attributeData['edge'] = findAttribute('edge')._modified
+  attributeData['essence'] = findInHeroLabAttributes(heroLabData, 'essence')._modified
+  attributeData['edge'] = findInHeroLabAttributes(heroLabData, 'edge')._modified
   
   return attributeData
 }
+const getInitiativeFromHeroLab = characterAttributes => {
+  const data = {}
+  const object = findInHeroLabAttributes(characterAttributes, 'initiative')
 
+  const initiativeModifier = new Initiative()
+  const modifierDifference = parseInteger(object._modified) - parseInteger(object._base)
+  initiativeModifier.setModModifier(modifierDifference)
+
+  const initiativeDice = new InitiativeDice('initiative_dice')
+
+  for (const [key, value] of Object.entries({...initiativeModifier, ...initiativeDice})) {
+    if (key != 'name') {
+      data[key] = value
+    }
+  }
+
+  return data
+}
+
+// attribute[`${name}_base`] = parseInteger(object._base)
+// attribute[`${name}_modifier`] = object._modified - object._base
+// attribute[`${name}`] = parseInteger(object._modified)
+
+
+// _augmentedmaximum: "13"
+// _base: "9"
+// _category: "Derived"
+// _minimum: "2"
+// _modified: "11"
+// _name: "Initiative"
+// _naturalmaximum: "12"
+// _text: "9/11+3D6"
 const associateHeroLabData = character => {
   let setText = {
     "error": "",
@@ -2324,10 +2407,13 @@ const associateHeroLabData = character => {
   const specialFlag = attributeData.magic ? 'magic' : attributeData.resonance ? 'resonance' : 'mundane'
   attributeData['flag_special'] = specialFlag
 
+  const initiativeData = getInitiativeFromHeroLab(characterAttributes)
+
   const Roll20Character = {
     ...personalData,
     ...rewardsData,
     ...attributeData,
+    ...initiativeData,
   }
 
   //Will need to return character eventually

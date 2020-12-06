@@ -2,34 +2,40 @@
 class Attribute {
   constructor(name) {
     this.name = name
-    this[`${name}_base`] = 0
-    this[`${name}_temp`] = 0
-    this[`${name}_temp_flag`] = true
-    this[`${name}_modifier`] = 0
-    this[`${name}`] = this.getTotal()
-    this[`${name}_display`] = this.getDisplay()
+    this.base = 0
+    this.temp = 0
+    this.tempFlag = true
+    this.modifier = 0
+    this.total = this.getTotal()
+    this.display = this.buildDisplay()
   }
 
-  getAttrsArray() {
-    const name = this.name
-    return [`${name}_base`, `${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
-  }
+  setBase(value) { this.base = value }
+  setTemp(value) { this.temp = value }
+  setTempFlag(value) { this.tempFlag = value }
+  setModifier(value) { this.modifier = value }
+  setTotal(value) { this.total = value }
+  setDisplay(value) { this.display = value }
+
+  getName() { return this.name }
+  getBase() { return this.base }
+  getTemp() { return this.temp }
+  getTempFlag() { return this.tempFlag }
+  getModifier() { return this.modifier }
+  getDisplay() { return this.display }
 
   getBonus() {
-    const name = this.name
-    const temp = this[`${name}_temp_flag`] ? this[`${name}_temp`] : 0
-    return temp + this[`${name}_modifier`]
+    const temp = this.tempFlag ? this.temp : 0
+    return temp + this.modifier
   }
 
-  getDisplay() {
-    const name = this.name
-    const base = this[`${name}_base`]
-    const total = this[`${name}`]
+  buildDisplay() {
+    const base = this.base
+    const total = this.total
     return base == !total || total == base ? base : `${base} (${total})`
   }
 
   getTotal() {
-    const name = this.name
-    return this[`${name}_base`] + this.getBonus()
+    return this.base + this.getBonus()
   }
 }

@@ -8,6 +8,11 @@ script(type="text/worker")
 	include ../js/shadowrunFunctions.js
 
 	//- Attributes
+	include ../components/Attributes/Attribute.js
+	include ../components/Attributes/CoreAttribute.js
+	include ../components/Attributes/updateAttributes.js
+	include ../components/Attributes/eventHandlers.js
+
 	include ../components/Attributes/Limits/Classes/AttributeLimit.js
 	include ../components/Attributes/Limits/Classes/MentalLimit.js
 	include ../components/Attributes/Limits/Classes/PhysicalLimit.js
@@ -47,10 +52,6 @@ script(type="text/worker")
 	include ../components/Attributes/Movement/updateMovement.js
 	include ../components/Attributes/Movement/eventHandlers.js
 
-	include ../components/Attributes/Attribute.js
-	include ../components/Attributes/updateAttributes.js
-	include ../components/Attributes/eventHandlers.js
-
 	//- CHARACTER IMPORTER Functions
 	include ../components/PersonalData/PersonalData.js
 	include ../components/PersonalData/RewardsData.js
@@ -63,7 +64,9 @@ script(type="text/worker")
 	include ../components/CharacterImporter/Chummer/importerChummer.js
 	//-Hero Lab
 	include ../components/CharacterImporter/HeroLab/helpers/getReputationsFromHeroLab.js
+	include ../components/CharacterImporter/HeroLab/helpers/findInHeroLabAttributes.js
 	include ../components/CharacterImporter/HeroLab/helpers/getAttributesFromHeroLab.js
+	include ../components/CharacterImporter/HeroLab/helpers/getInitiativeFromHeroLab.js
 	include ../components/CharacterImporter/HeroLab/associateHeroLabData.js
 	include ../components/CharacterImporter/HeroLab/importerHeroLab.js
 	//- Charactermancer

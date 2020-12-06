@@ -6,7 +6,7 @@ const specialAttributes = ['magic', 'resonance']
 const allAttributes = [...physicalAttributes, ...mentalAttributes, ...specialAttributes]
 
 allAttributes.forEach(name => {
-  const newAttribute = new Attribute(name)
+  const newAttribute = new CoreAttribute(name)
   const array = newAttribute.getAttrsArray()
   
   array.forEach(attr => {

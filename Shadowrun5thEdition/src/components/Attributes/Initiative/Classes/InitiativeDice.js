@@ -1,16 +1,27 @@
 
-class InitiativeDice {
+class InitiativeDice extends Attribute {
   constructor(name) {
-    this.name = name
-    this.bonus = [`${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
+    super(name)
+    this.base = 1
+
+    this[`${this.name}`] = 0
     this[`${this.name}_modifier`] = 0
     this[`${this.name}_temp`] = 0
     this[`${this.name}_temp_flag`] = null
-    this.base = 1
+  }
+
+  getBase() {
+    return 1
+  }
+
+  setBase(value) {
+    this.base = value
   }
   
   getAttrsArray() {
-    return [...this.bonus, 'edge_toggle']
+    const name = this.name
+    const bonus = [`${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
+    return [...bonus, 'edge_toggle']
   }
 
   getBonus() {
@@ -20,7 +31,7 @@ class InitiativeDice {
   }
 
   getTotal(edgeFlag) {
-    const total = this.getBonus() + this.base
+    const total = this.getBonus() + this.getBase()
     return edgeFlag ? 5 : Math.min(total, 5)
   }
 }

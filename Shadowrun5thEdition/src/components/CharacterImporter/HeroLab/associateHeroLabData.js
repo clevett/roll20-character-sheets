@@ -38,10 +38,13 @@ const associateHeroLabData = character => {
   const specialFlag = attributeData.magic ? 'magic' : attributeData.resonance ? 'resonance' : 'mundane'
   attributeData['flag_special'] = specialFlag
 
+  const initiativeData = getInitiativeFromHeroLab(characterAttributes)
+
   const Roll20Character = {
     ...personalData,
     ...rewardsData,
     ...attributeData,
+    ...initiativeData,
   }
 
   //Will need to return character eventually
