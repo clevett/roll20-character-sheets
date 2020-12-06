@@ -47,6 +47,9 @@
 				<li>
 					Drugs and other effects are not accounted for. They will be applied to your base attributes.
 				</li>
+				<li>
+					This will overwrite some data but not all. Be sure to review the character after.
+				</li>
 			</ul>
 		`
 

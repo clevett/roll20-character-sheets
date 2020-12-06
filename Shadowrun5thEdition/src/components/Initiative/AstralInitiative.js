@@ -1,9 +1,13 @@
 
-class AstralInitiative extends DerivedAttribute {
+class AstralInitiative extends SheetAttribute {
   constructor() {
     super('astral_mod')
-    this.attributes = ['intuition']
-    this.bonus = ['astral_mod_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['intuition']
+    const bonus = ['astral_mod_modifier']
+    return [...attributes, ...bonus]
   }
 }
 

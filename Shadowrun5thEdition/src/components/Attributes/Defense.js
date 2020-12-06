@@ -1,7 +1,11 @@
-class Defense extends DerivedAttribute {
+class Defense extends SheetAttribute {
   constructor() {
     super('defense')
-    this.attributes = ['reaction', 'intuition']
-    this.bonus = ['defense_modifier', 'defense_temp', `defense_temp_flag`]
+  }
+
+  getAttrsArray() {
+    const attributes = ['reaction', 'intuition']
+    const bonus = ['defense_modifier', 'defense_temp', `defense_temp_flag`]
+    return [...attributes, ...bonus]
   }
 }

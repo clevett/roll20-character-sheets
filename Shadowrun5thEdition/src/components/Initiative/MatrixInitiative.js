@@ -1,9 +1,13 @@
 
-class MatrixInitiative extends DerivedAttribute {
+class MatrixInitiative extends SheetAttribute {
   constructor() {
     super('matrix_mod')
-    this.attributes = ['intuition', "data_processing", "pilot", "host_rating", "level", "sheet_type"]
-    this.bonus = ['matrix_mod_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['intuition', "data_processing", "pilot", "host_rating", "level", "sheet_type"]
+    const bonus = ['matrix_mod_modifier']
+    return [...attributes, ...bonus]
   }
 
   determineSecondAttribute(type) {

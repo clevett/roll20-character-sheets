@@ -1,7 +1,11 @@
-class Composure extends DerivedAttribute {
+class Composure extends SheetAttribute {
   constructor() {
     super('composure')
-    this.attributes = ['charisma', 'willpower']
-    this.bonus = ['composure_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['charisma', 'willpower']
+    const bonus = ['composure_modifier']
+    return [...attributes, ...bonus]
   }
 }

@@ -1,7 +1,11 @@
-class Overflow extends DerivedAttribute{
+class Overflow extends SheetAttribute{
   constructor() {
     super('overflow')
-    this.attributes = ['body']
-    this.bonus = ['overflow_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['body']
+    const bonus = ['overflow_modifier']
+    return [...attributes, ...bonus]
   }
 }

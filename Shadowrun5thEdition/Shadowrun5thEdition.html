@@ -1666,64 +1666,85 @@ class Attribute extends SheetAttribute {
     }
   }
 }
-class DerivedAttribute {
-  constructor(name) {
-    this.name = name
-    this.attributes = []
-    this.bonus = []
+class Composure extends SheetAttribute {
+  constructor() {
+    super('composure')
   }
 
   getAttrsArray() {
-    return [...this.attributes, ...this.bonus]
+    const attributes = ['charisma', 'willpower']
+    const bonus = ['composure_modifier']
+    return [...attributes, ...bonus]
   }
 }
-class Composure extends DerivedAttribute {
-  constructor() {
-    super('composure')
-    this.attributes = ['charisma', 'willpower']
-    this.bonus = ['composure_modifier']
-  }
-}
-class Defense extends DerivedAttribute {
+class Defense extends SheetAttribute {
   constructor() {
     super('defense')
-    this.attributes = ['reaction', 'intuition']
-    this.bonus = ['defense_modifier', 'defense_temp', `defense_temp_flag`]
+  }
+
+  getAttrsArray() {
+    const attributes = ['reaction', 'intuition']
+    const bonus = ['defense_modifier', 'defense_temp', `defense_temp_flag`]
+    return [...attributes, ...bonus]
   }
 }
-class JudgeIntentions extends DerivedAttribute {
+class JudgeIntentions extends SheetAttribute {
   constructor() {
     super('judge_intentions')
     this.attributes = ['charisma', 'intuition']
     this.bonus = ['judge_intentions_modifier']
   }
+
+  getAttrsArray() {
+    const attributes = ['charisma', 'intuition']
+    const bonus = ['judge_intentions_modifier'] 
+    return [...attributes, ...bonus]
+  }
 }
-class LiftCarry extends DerivedAttribute  {
+class LiftCarry extends SheetAttribute  {
   constructor() {
     super('lift_carry')
     this.attributes = ['body', 'strength']
     this.bonus = ['lift_carry_modifier']
   }
+
+  getAttrsArray() {
+    const attributes = ['body', 'strength']
+    const bonus = ['lift_carry_modifier']
+    return [...attributes, ...bonus]
+  }
 }
-class Memory extends DerivedAttribute  {
+class Memory extends SheetAttribute  {
   constructor() {
     super('memory')
-    this.attributes = ['logic', 'willpower']
-    this.bonus = ['memory_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['logic', 'willpower']
+    const bonus = ['memory_modifier']
+    return [...attributes, ...bonus]
   }
 }
-class Overflow extends DerivedAttribute{
+class Overflow extends SheetAttribute{
   constructor() {
     super('overflow')
-    this.attributes = ['body']
-    this.bonus = ['overflow_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['body']
+    const bonus = ['overflow_modifier']
+    return [...attributes, ...bonus]
   }
 }
-class Soak extends DerivedAttribute {
+class Soak extends SheetAttribute {
   constructor() {
     super('soak')
-    this.attributes = ['body', 'armor_rating']
-    this.bonus = ['soak_modifier', 'soak_temp', `soak_temp_flag`]
+  }
+
+  getAttrsArray() {
+    const attributes = ['body', 'armor_rating']
+    const bonus = ['soak_modifier', 'soak_temp', `soak_temp_flag`]
+    return [...attributes, ...bonus]
   }
 }
 class Movement extends SheetAttribute {
@@ -1770,18 +1791,6 @@ class Movement extends SheetAttribute {
 }
 
 
-
-class AttributeLimit {
-  constructor(name) {
-    this.name = name,
-    this.bonus = [...buildModiferTempFlagArray(name)],
-    this.attributes = ['mental_limit', 'physical_limit', 'social_limit']
-  }
-
-  buildGetAttrs(attributes) {
-    return [...attributes, ...this.bonus]
-  }
-}
 
 class MentalLimit extends AttributeLimit {
   constructor() {
@@ -1859,11 +1868,15 @@ class InitiativeDice extends SheetAttribute {
 }
 
 
-class AstralInitiative extends DerivedAttribute {
+class AstralInitiative extends SheetAttribute {
   constructor() {
     super('astral_mod')
-    this.attributes = ['intuition']
-    this.bonus = ['astral_mod_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['intuition']
+    const bonus = ['astral_mod_modifier']
+    return [...attributes, ...bonus]
   }
 }
 
@@ -1876,11 +1889,15 @@ class AstralInitiativeDice extends InitiativeDice {
 }
 
 
-class MatrixInitiative extends DerivedAttribute {
+class MatrixInitiative extends SheetAttribute {
   constructor() {
     super('matrix_mod')
-    this.attributes = ['intuition', "data_processing", "pilot", "host_rating", "level", "sheet_type"]
-    this.bonus = ['matrix_mod_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['intuition', "data_processing", "pilot", "host_rating", "level", "sheet_type"]
+    const bonus = ['matrix_mod_modifier']
+    return [...attributes, ...bonus]
   }
 
   determineSecondAttribute(type) {
@@ -2975,7 +2992,11 @@ const associateHeroLabData = character => {
     "ignored": ""
   }
 
-  console.log(character)
+  /* Player Name */
+  const metaData = {
+    player_name: character._playername,
+    sheet_type = character._role //Need to check this for NPCs
+  }
 
   /* Personal Info */
   const personalData = associatePersonalData(character)
@@ -2993,13 +3014,24 @@ const associateHeroLabData = character => {
   const characterMovement = character.movementtypes.movementtype
   const movementData = associateMovementFromHeroLab(characterMovement, attributeData)
 
+  /* TESTING */
+  delete(character.karma)
+  delete(character.attributes)
+  delete(character.movementtypes)
+  delete(character.personal)
+  delete(character.reputations)
+  delete(character.race)
+  console.log(character)
+
   const Roll20Character = {
+    ...metaData,
     ...personalData,
     ...attributeData,
     ...initiativeData,
     ...movementData,
   }
 
+  
   //Will need to return character eventually
   return {text: setText, character: Roll20Character}
 }
@@ -3092,6 +3124,9 @@ const importHeroLab = character => {
 			<ul>
 				<li>
 					Drugs and other effects are not accounted for. They will be applied to your base attributes.
+				</li>
+				<li>
+					This will overwrite some data but not all. Be sure to review the character after.
 				</li>
 			</ul>
 		`

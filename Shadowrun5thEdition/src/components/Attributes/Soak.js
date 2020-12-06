@@ -1,7 +1,11 @@
-class Soak extends DerivedAttribute {
+class Soak extends SheetAttribute {
   constructor() {
     super('soak')
-    this.attributes = ['body', 'armor_rating']
-    this.bonus = ['soak_modifier', 'soak_temp', `soak_temp_flag`]
+  }
+
+  getAttrsArray() {
+    const attributes = ['body', 'armor_rating']
+    const bonus = ['soak_modifier', 'soak_temp', `soak_temp_flag`]
+    return [...attributes, ...bonus]
   }
 }

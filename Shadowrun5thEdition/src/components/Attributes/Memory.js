@@ -1,7 +1,11 @@
-class Memory extends DerivedAttribute  {
+class Memory extends SheetAttribute  {
   constructor() {
     super('memory')
-    this.attributes = ['logic', 'willpower']
-    this.bonus = ['memory_modifier']
+  }
+
+  getAttrsArray() {
+    const attributes = ['logic', 'willpower']
+    const bonus = ['memory_modifier']
+    return [...attributes, ...bonus]
   }
 }

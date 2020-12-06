@@ -6,7 +6,11 @@ const associateHeroLabData = character => {
     "ignored": ""
   }
 
-  console.log(character)
+  /* Player Name */
+  const metaData = {
+    player_name: character._playername,
+    sheet_type = character._role //Need to check this for NPCs
+  }
 
   /* Personal Info */
   const personalData = associatePersonalData(character)
@@ -24,13 +28,24 @@ const associateHeroLabData = character => {
   const characterMovement = character.movementtypes.movementtype
   const movementData = associateMovementFromHeroLab(characterMovement, attributeData)
 
+  /* TESTING */
+  delete(character.karma)
+  delete(character.attributes)
+  delete(character.movementtypes)
+  delete(character.personal)
+  delete(character.reputations)
+  delete(character.race)
+  console.log(character)
+
   const Roll20Character = {
+    ...metaData,
     ...personalData,
     ...attributeData,
     ...initiativeData,
     ...movementData,
   }
 
+  
   //Will need to return character eventually
   return {text: setText, character: Roll20Character}
 }
