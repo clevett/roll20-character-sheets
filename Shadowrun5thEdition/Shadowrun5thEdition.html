@@ -1726,22 +1726,46 @@ class Soak extends DerivedAttribute {
     this.bonus = ['soak_modifier', 'soak_temp', `soak_temp_flag`]
   }
 }
-class Movement extends DerivedAttribute {
-  constructor(name) {
+class Movement extends SheetAttribute {
+  constructor(name, agility = 0) {
     super(name)
-    this.agility = null
-    this.walkMultiplier = 2
-    this.runMuplitier = 4
-    this.attributes = ['agility']
-    this.bonus = ['walk_modifier', 'run_modifier']
+    this.agility = agility
+    this.multiplier = this.defaultMultiplier(name)
   }
 
-  getWalkSpeed(agility, modifier) {
-    return (agility * this.walkMultiplier) + modifier
+  setMultiplier(value) { this.multiplier = value }
+
+  getAgility() { return this.agility }
+  getMultiplier() { return this.multiplier }
+
+  defaultMultiplier(name) {
+    switch(name) {
+      case 'walk':
+        return 2
+      case 'run' :
+        return 4
+      default:
+        errorMessage('defaultMultiplier in Movement class', 'name did not match the switch cases')
+    }
   }
 
-  getRunSpeed(agility, modifier) {
-    return (agility * this.runMuplitier) + modifier
+  getAttrsArray() {
+    const attributes = ['agility']
+    const bonus = ['walk_modifier', 'run_modifier']
+    return [...attributes, ...bonus]
+  }
+
+  getSpeed() {
+    return (this.getAgility() * this.getMultiplier()) + this.getModifier()
+  }
+
+  getSheetAttributes() {
+    const name = this.getName()
+
+    return  {
+      [`${name}`]: this.getSpeed(),
+      [`${name}_modifier`]: this.getModifier()
+    }
   }
 }
 
@@ -2758,16 +2782,12 @@ const associateChummerData = character => {
           switch(duration) {
             case "E":
               return "extended"
-              break;
             case "I":
               return "instant"
-              break;
             case "P":
               return "permanent"
-              break;
             case "S":
               return "sustained"
-              break;
             default:
               return "other"
           }
@@ -2868,6 +2888,26 @@ const associatePersonalData = character => {
 
   return {...personal, ...rewards}
 }
+const associateMovementFromHeroLab = (characterMovement, { agility }) => {
+  const [land] = characterMovement
+  const {running, walking} = land
+  const walk = new Movement('walk', agility)
+  const run = new Movement('run', agility)
+
+  const checkForModifier = (speed, { _value }) => {
+    const heroLabSpeed = parseInt(_value)
+    return speed != heroLabSpeed ? heroLabSpeed - speed : false
+  }
+
+  const walkModifierCheck = checkForModifier(walk.getSpeed(), walking)
+  walkModifierCheck ? walk.setModifier(walkModifierCheck) : false
+
+  const runModifierCheck = checkForModifier(run.getSpeed(), running)
+  runModifierCheck ? run.setModifier(runModifierCheck) : false
+  
+  return { ...walk.getSheetAttributes(), ...run.getSheetAttributes() }
+}
+
 const getAttributesFromHeroLab = (heroLabData, sheetAttributes) => {
   const attributeData = {}
 
@@ -2924,9 +2964,6 @@ const getInitiativeFromHeroLab = characterAttributes => {
   const object = findInHeroLabAttributes(characterAttributes, 'initiative')
   const modifier = getInitiativeModifierFromHeroLab(object)
   const dice = getInitiativeDiceFromHeroLab(object)
-
-  console.log({...modifier, ...dice})
-
   return {...modifier, ...dice}
 }
 
@@ -2953,10 +2990,14 @@ const associateHeroLabData = character => {
 
   const initiativeData = getInitiativeFromHeroLab(character.attributes.attribute)
 
+  const characterMovement = character.movementtypes.movementtype
+  const movementData = associateMovementFromHeroLab(characterMovement, attributeData)
+
   const Roll20Character = {
     ...personalData,
     ...attributeData,
     ...initiativeData,
+    ...movementData,
   }
 
   //Will need to return character eventually
@@ -3017,6 +3058,7 @@ const importHeroLab = character => {
 				<input style='width:45%' type='text' value='http://beautifytools.com/xml-to-json-converter.php' />
 			</li>
 			<li>Copy the XML into the left side</li>
+			<li>Click the button that says "<b>Convert</b>"</li>
 			<li>Click the button that says "<b>Minify json</b>"</li>
 			<li>Copy the Results</li>
 		`

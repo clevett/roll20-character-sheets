@@ -21,10 +21,14 @@ const associateHeroLabData = character => {
 
   const initiativeData = getInitiativeFromHeroLab(character.attributes.attribute)
 
+  const characterMovement = character.movementtypes.movementtype
+  const movementData = associateMovementFromHeroLab(characterMovement, attributeData)
+
   const Roll20Character = {
     ...personalData,
     ...attributeData,
     ...initiativeData,
+    ...movementData,
   }
 
   //Will need to return character eventually

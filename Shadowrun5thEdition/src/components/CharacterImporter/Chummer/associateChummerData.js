@@ -720,16 +720,12 @@ const associateChummerData = character => {
           switch(duration) {
             case "E":
               return "extended"
-              break;
             case "I":
               return "instant"
-              break;
             case "P":
               return "permanent"
-              break;
             case "S":
               return "sustained"
-              break;
             default:
               return "other"
           }
