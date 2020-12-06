@@ -2561,6 +2561,9 @@ input.sheet-settings-toggle:checked ~ .sheet-attr-lim div.sheet-settings {
 input.sheet-settings-flag:checked ~ div.sheet-settings {
   display: inherit; }
 
+input.sheet-settings-flag[value='false'] ~ div.sheet-settings {
+  display: none; }
+
 /* OLD WAY TO SHOW & HIDE THINGS */
 /***** PC WEAPONS *****/
 /***** NPC TYPES *****/

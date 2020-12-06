@@ -1749,6 +1749,35 @@ class Limit extends SheetAttribute {
     }
   }
 }
+class Gear extends RepeatingFieldset {
+  constructor(name) {
+    super('items')
+    this.name = name
+    this.notes = ''
+    this.rating = ''
+    this.quantity = ''
+  }
+
+  getName() { return this.name }
+  getNotes() { return this.notes }
+  getRating() { return this.rating }
+  getQuantity() { return this.quantity }
+
+  setNotes(value) { this.notes = value }
+  setRating(value) { this.rating = value }
+  setQuantity(value) { this.quantity = value }
+
+  getSheetAttributes() {
+    const row = this.buildRowName()
+
+    return  {
+      [`${row}_item`]: this.getName(),
+      [`${row}_rating`]: this.getRating(),
+      [`${row}_quantity`]: this.getQuantity(),
+      [`${row}_notes`]: this.getNotes()
+    }
+  }
+}
 
 class Initiative extends SheetAttribute {
   constructor() {
@@ -2782,6 +2811,70 @@ const importChummer = character => {
 const findInHeroLabAttributes = (array, term) => {
   return array.find(element => element._name.toLowerCase() == term)
 }
+const buildItemNotesFromHeroLab = item => {
+  const { 
+    accessories,
+    ammunition,
+    availability,
+    description, 
+    gearcost,
+    matrix,
+    modifications,
+    othergear,
+    programs,
+    _size,
+    _wireless
+  } = item
+  let notes = ''
+
+  notes += accessories ? `Accessories: ${accessories} \n` : ''
+  notes += ammunition ? `Ammunition: ${ammunition._value} \n` : ''
+  notes += availability ? `Availability: ${availability._value} \n` : ''
+  notes += gearcost ? `Cost: ${gearcost._text} \n` : ''
+
+  if (matrix.matrixattribute) {
+    let matrixArray = ''
+    matrix.matrixattribute.forEach(attribute => {
+      const { _name, _modified } = attribute
+      const number = parseInt(_modified)
+      matrixArray += number ? `${_name}: ${_modified}` : ''
+    })
+
+    notes += matrixArray ? `${matrixArray} \n` : ''
+  }
+
+  notes += _wireless ? `Wireless: ${_wireless} \n` : ''
+  notes += programs ? `Programs: ${programs} \n` : ''
+
+  notes += modifications ? `Modifications: ${modifications} \n` : ''
+  notes += othergear ? `Other Gear: ${othergear} \n` : ''
+  notes += _size ? `Size: ${_size} \n` : ''
+
+  notes += description ? `\n${description}` : ''
+
+  return notes
+}
+const associateGearItemsFromHeroLab = ({ item }) => {
+  const data = {}
+
+  item.forEach(element => {
+    const { _name, _quantity, _rating } = element
+    const notes = buildItemNotesFromHeroLab(element)
+    const newItem = new Gear('items', _name)
+
+    newItem.setRating(_rating || '')
+    newItem.setQuantity(_quantity)
+    newItem.setNotes(notes)
+
+    const attribues = newItem.getSheetAttributes()
+    for (const [key, value] of Object.entries(attribues)) {
+      data[key] = value
+    }
+  })
+
+  return data
+}
+
 
 const getReputationsFromHeroLab = ({ reputation }) => {
   let characterSheetAttributes = {
