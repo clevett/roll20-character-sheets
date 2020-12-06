@@ -5,12 +5,11 @@ const updateAttributes = attribute => {
     attrs = shadowrunFunctions.attributeFactory(attrs)
 
     const name = attribute.name
-    attribute[`${name}_base`] = attrs.base
-    attribute.total = attrs.total
+    const display = buildDisplayString(attrs)
 
     processingFunctions.setAttributes({
-      [name]: attribute.total,
-      [`display_${name}`]: attribute.getDisplay()
+      [name]: attrs.total,
+      [`display_${name}`]: display
     })
   })
 }

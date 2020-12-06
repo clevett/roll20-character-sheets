@@ -1,11 +1,15 @@
-class Initiative extends DerivedAttribute {
+
+class Initiative {
   constructor() {
-    super('soak')
+    this.name = 'initiative_mod'
+    this.modifier = 0
+    this.dice = 0
     this.attributes = ['reaction', 'intuition']
-    this.bonus = ['initiative_mod_modifier', 'initiative_temp', 'initiative_temp_flag']
+    this.bonus = ['initiative_mod_modifier', 'initiative_temp','initiative_temp_flag']
   }
 
-  display(attrs) {
-    return buildDisplayString(attrs)
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
   }
 }
+

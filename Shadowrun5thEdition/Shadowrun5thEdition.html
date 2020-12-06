@@ -1018,6 +1018,29 @@ soakAttributes.forEach(attr => {
 
 
 
+class Initiative {
+  constructor() {
+    this.name = 'initiative_mod'
+    this.modifier = 0
+    this.dice = 0
+    this.attributes = ['reaction', 'intuition']
+    this.bonus = ['initiative_mod_modifier', 'initiative_temp','initiative_temp_flag']
+  }
+
+  getAttrsArray() {
+    return [...this.attributes, ...this.bonus]
+  }
+}
+
+const initiativeAttributes = new Initiative().getAttrsArray()
+
+initiativeAttributes.forEach(attr => {
+  on(`change:${attr}`, () => {
+    const initiative = new Initiative()
+    updateAttributes(initiative)
+  })
+})
+
 class Attribute {
   constructor(name) {
     this.name = name
@@ -1060,12 +1083,11 @@ const updateAttributes = attribute => {
     attrs = shadowrunFunctions.attributeFactory(attrs)
 
     const name = attribute.name
-    attribute[`${name}_base`] = attrs.base
-    attribute.total = attrs.total
+    const display = buildDisplayString(attrs)
 
     processingFunctions.setAttributes({
-      [name]: attribute.total,
-      [`display_${name}`]: attribute.getDisplay()
+      [name]: attrs.total,
+      [`display_${name}`]: display
     })
   })
 }
