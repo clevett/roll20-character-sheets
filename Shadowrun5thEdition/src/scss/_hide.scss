@@ -87,8 +87,12 @@
 	/* NEW REPEATING CONTAINER WAY TO SHOW & HIDE SETTINGS */
 	/* SLOWLY ELIMINATE ALL TRACES OF SETTINGS-TOGGLE WITH THIS WAY OF DOING THINGS */
 	input.sheet-settings-flag:checked ~ div.sheet-settings {
-   display   : inherit; 
- }
+  	display: inherit; 
+	 }
+	 
+	input.sheet-settings-flag[value='false'] ~ div.sheet-settings {
+  	display: none; 
+ 	}
 
 	/* OLD WAY TO SHOW & HIDE THINGS */
     input.sheet-settings-toggle[value='display'] ~ .sheet-settings { @extend %display-none;  }

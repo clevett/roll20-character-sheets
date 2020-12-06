@@ -37,7 +37,7 @@
               +displayRollButton(prepButton, false)
               each val in ['force', 'potency', 'trigger']
                 span.text-center(name=`attr_${val}`)
-              +repeatingSectionFlags()
+              +repeatingSectionFlagsWithNotes()
               .settings
                 label(data-i18n-title='name' title='name')
                   input(name='attr_name' placeholder='Name' title='@{repeating_preperations_${x}_name}' type='text' value='')
@@ -61,7 +61,7 @@
               +displayRollButton(pcRitualButton, true)
               each val in ['type', 'range', 'duration', 'drain']
                 span.text-center(name='attr_'+val)
-              +repeatingSectionFlags()
+              +repeatingSectionFlagsWithNotes()
               .settings
                 label(data-i18n-title='name' title='name')
                   input(name='attr_name' placeholder='Curse (MATERIAL LINK, SPELL)' title=`@{${repeatingRitualSection}_name}` type='text')
@@ -92,7 +92,7 @@
           fieldset(class=`repeating_powers`)
             span(name='attr_name')
             span.text-center(name='attr_rating')
-            +repeatingSectionFlags()
+            +repeatingSectionFlagsWithNotes()
             .settings
               label(data-i18n-title='name' title='name')
                 input(name='attr_name' placeholder='name' title='@{repeating_powers_${x}_name}' type='text' value='')

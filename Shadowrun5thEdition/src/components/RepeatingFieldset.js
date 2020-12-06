@@ -8,6 +8,8 @@ class RepeatingFieldset {
 
   getGroupName() { return this.groupname }
   getRowID() { return this.reprowid }
+  getFlag() { return this.flag }
+  getDisplayFlag() { return this.display_flag }
 
   buildRowName() {
     return `repeating_${this.getGroupName()}_${this.getRowID()}`

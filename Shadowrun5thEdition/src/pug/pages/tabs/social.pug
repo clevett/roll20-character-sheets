@@ -20,10 +20,7 @@
           fieldset(class='repeating_lifestyle')
             span.eclipse(name="attr_name")
             button.pictos(name="lifestyle_chat" type="roll" value="@{gm_toggle} &{template:rolls}{{header=@{name}}}{{desc=^{relatedlifestyle} @{lifestyle} , ^{nuyen} @{funds}, ^{licenses} @{licenses}}}") w
-            input.collapse-flag(name='attr_display_flag' type='checkbox')
-            span.pictos i
-            input.settings-flag(name='attr_flag' title='Settings toggle' type='checkbox' checked)
-            span.pictos x
+            +repeatingSectionFlags()
             .collapse
               .rows
                 h3(data-i18n="relatedlifestyle")
@@ -59,7 +56,7 @@
             span.text-center(name="attr_connection")
             span.text-center(name="attr_favors")
             button.pictos(name="ontact_chat" type="roll" value="@{gm_toggle} &{template:rolls}{{header=@{name}}}{{desc=^{loyalty} @{loyalty} , ^{connection} @{connection}, ^{favor} @{favors}}}") w
-            +repeatingSectionFlags()
+            +repeatingSectionFlagsWithNotes()
             .settings
               input(type="text" name="attr_name" placeholder="Old Crow" title="@{repeating_contacts_${x}_name}")
               input(type="number" name="attr_loyalty" min="1" placeholder="3" title="@{repeating_contacts_${x}_name}")

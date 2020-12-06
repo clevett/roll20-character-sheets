@@ -20,7 +20,7 @@
 		fieldset(class=`repeating_echos`)
 			span.eclipse.font-bolder(name='attr_echo')
 			button.pictos(name="echo_chat" type="roll" value="@{gm_toggle} &{template:rolls}{{header=@{echo}}}{{desc=@{notes}}}") w
-			+repeatingSectionFlags()
+			+repeatingSectionFlagsWithNotes()
 			.settings
 				label(data-i18n-title='echos' title='echos')
 					input(name='attr_echo' placeholder='echo name' title='@{repeating_echos_${x}_echo}' type='text' value='')

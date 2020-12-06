@@ -61,7 +61,7 @@
                   +attributeSelect(val[1])
                 select.limit-select(name='attr_limit' value='physical_limit' title=`${skillsRepeatingSection}_limit}`)
                   +limitSelect(val[2])
-                +repeatingSectionFlags()
+                +repeatingSectionFlagsWithNotes()
                 .settings
                   if key === 'active'
                     select.skill-select(name='attr_skill' value='Close Combat Group' title=`${skillsRepeatingSection}_skill}`)

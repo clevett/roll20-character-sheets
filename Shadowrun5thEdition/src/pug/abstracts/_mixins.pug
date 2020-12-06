@@ -124,12 +124,7 @@ mixin pcSpells(type)
 				span(name='attr_name')
 			each val in ['type', 'range', 'duration', 'drain']
 				span.text-center(name='attr_'+val)
-			input.collapse-flag(name='attr_display_flag' type='checkbox' checked)
-			span.pictos i
-			input.settings-flag(name='attr_flag' title='Settings toggle' type='checkbox' checked)
-			span.pictos x
-			.collapse
-				span(name='attr_notes')
+			+repeatingSectionFlagsWithNotes()
 			.settings
 				each val, key in pcCoreSpellObject
 					- const translationKey = key.toLowerCase();
@@ -193,18 +188,21 @@ mixin h2Headers(headerObject)
 
 //- REPEATING SECTIONS FLAGS
 mixin repeatingSectionFlags()
-		input.collapse-flag(name='attr_display_flag' type='checkbox')
-		span.pictos i
-		input.settings-flag(name='attr_flag' title='Settings toggle' type='checkbox' checked)
-		span.pictos x
-		.collapse
-				span(name='attr_notes')
+	input.collapse-flag(name='attr_display_flag' type='checkbox' value='true')
+	span.pictos i
+	input.settings-flag(name='attr_flag' title='Settings toggle' type='checkbox' value='true' checked)
+	span.pictos x
+
+mixin repeatingSectionFlagsWithNotes()
+	+repeatingSectionFlags()
+	.collapse
+			span(name='attr_notes')
 
 //- REPEATING SECTIONS NOTES
 mixin repeatingSectionNotes(section)   
 		h3(data-i18n='notes') notes
 		label(data-i18n-title='notes' title='notes')
-				textarea(name='attr_notes' placeholder='Notes' title=`@{repeating_${section}_`+'${x}_notes}' type='text' value='')
+			textarea(name='attr_notes' placeholder='Notes' title=`@{repeating_${section}_`+'${x}_notes}' type='text' value='')
 
 mixin repeatingPCVehicles(attribute)
 	- const repeatingRowVehicle = '@{repeating_vehicle_${x}';

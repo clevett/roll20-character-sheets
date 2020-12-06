@@ -32,7 +32,7 @@
                     option(data-i18n=val.toLowerCase() value=val) #{val}
               else
                 span.text-center(name=`attr_${attrName}`)
-            +repeatingSectionFlags()
+            +repeatingSectionFlagsWithNotes()
             .settings
               each val, key in pcRangeWeaponObject
                 - const attrName = key === 'Dam' ? 'damage' : key.toLowerCase();
@@ -88,7 +88,7 @@
             each val in ['Dam', 'Acc', 'AP', 'Reach']
               - const attrName = val === 'Dam' ? 'damage' : val.toLowerCase();
               span.text-center(name=`attr_${attrName}`)
-            +repeatingSectionFlags()
+            +repeatingSectionFlagsWithNotes()
             .settings
               each val, key in pcMeleeWeaponObject
                 - const attrName = key === 'Dam' ? 'damage' : key.toLowerCase();
@@ -139,7 +139,7 @@
               - const attrName = val.toLowerCase();
               button(name=`roll_${attrName}` type='roll' value!=noWoundsRollBegining+`{{header=^{${attrName}protection}}}{{base= ^{armor}}}{{dice=[[((@{body}+@{rating}+@{dicepool_modifier}+@{${attrName}_modifier})`+noWoundsRollEnding)
                 span.text-center(name=`attr_${attrName}_modifier`)
-            +repeatingSectionFlags()
+            +repeatingSectionFlagsWithNotes()
             .settings
               each val, key in pcArmorObject
                 - const attrName = key === 'Name' || key === 'Rating' ? key.toLowerCase() : `${key.toLowerCase()}_modifier`;

@@ -14,30 +14,38 @@ const buildItemNotesFromHeroLab = item => {
   } = item
   let notes = ''
 
-  notes += accessories ? `Accessories: ${accessories} \n` : ''
-  notes += ammunition ? `Ammunition: ${ammunition._value} \n` : ''
-  notes += availability ? `Availability: ${availability._value} \n` : ''
-  notes += gearcost ? `Cost: ${gearcost._text} \n` : ''
+  const lineBreak = '=================================================='
+
+  notes += accessories ? `Accessories: ${accessories}, \n` : ''
+  notes += ammunition ? `Ammunition: ${ammunition._value}, \n` : ''
+  notes += accessories || ammunition ? lineBreak : ''
+
+  notes += availability ? `Availability: ${availability._value}, \n` : ''
+  notes += gearcost ? `Cost: ${gearcost._text}, \n` : ''
+  notes += availability || gearcost ? lineBreak : ''
 
   if (matrix.matrixattribute) {
-    let matrixArray = ''
-    matrix.matrixattribute.forEach(attribute => {
-      const { _name, _modified } = attribute
-      const number = parseInt(_modified)
-      matrixArray += number ? `${_name}: ${_modified}` : ''
-    })
-
-    notes += matrixArray ? `${matrixArray} \n` : ''
+    const matrixArrayNotes = buildItemMatrixNotesFromHeroLab(matrix)
+    notes += matrixArrayNotes ? `${matrixArrayNotes} \n` : ''
   }
 
-  notes += _wireless ? `Wireless: ${_wireless} \n` : ''
-  notes += programs ? `Programs: ${programs} \n` : ''
+  notes += _wireless ? `Wireless: ${_wireless}, \n` : ''
+  notes += programs ? `Programs: ${programs}, \n` : ''
+  notes += _wireless || programs ? lineBreak : ''
 
-  notes += modifications ? `Modifications: ${modifications} \n` : ''
-  notes += othergear ? `Other Gear: ${othergear} \n` : ''
-  notes += _size ? `Size: ${_size} \n` : ''
+  //- I appears that Roll20 is cutting off the information. 
+  //- There is character limit maybe?
+  // if (modifications) {
+  //   const mods = buildItemModificationNotesFromHeroLab(modifications)
+  //   notes += `Modifications: ${mods.notes} \n`
+  //   notes += mods ? lineBreak : ''
+  // }
+
+  notes += othergear ? `Other Gear: ${othergear}, \n` : ''
+  notes += _size ? `Size: ${_size}, \n` : ''
+  notes += modifications || othergear || _size ? lineBreak : ''
 
   notes += description ? `\n${description}` : ''
-
+  
   return notes
 }

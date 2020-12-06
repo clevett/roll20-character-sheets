@@ -13,7 +13,7 @@
             span(name=`attr_augmentation`)
             span.text-center(name=`attr_rating`)
             span.text-center(name=`attr_essence`)
-            +repeatingSectionFlags()
+            +repeatingSectionFlagsWithNotes()
             .settings
               each val in augementations
                 - const attrName = val === 'Augmentations' ? 'augmentation' : val.toLowerCase();
