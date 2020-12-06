@@ -6,9 +6,8 @@ class Attribute {
     this[`${name}_temp`] = 0
     this[`${name}_temp_flag`] = true
     this[`${name}_modifier`] = 0
-    this.display = this.getDisplay()
-    this.bonus = this.getBonus()
-    this.total = this.getTotal()
+    this[`${name}`] = this.getTotal()
+    this[`${name}_display`] = this.getDisplay()
   }
 
   getAttrsArray() {
@@ -25,8 +24,8 @@ class Attribute {
   getDisplay() {
     const name = this.name
     const base = this[`${name}_base`]
-    const total = this.total
-    return base == total ? base : `${base} (${total})`
+    const total = this[`${name}`]
+    return base == !total || total == base ? base : `${base} (${total})`
   }
 
   getTotal() {

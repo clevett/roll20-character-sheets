@@ -7,7 +7,8 @@ const importerHiddenInputsBuilder = update => {
 
   //GENERATE INPUTS TO SAVE THE DATA
   Object.keys(update).forEach(key => {
-    const label = (key.includes("_")) ? key.replace("_", " ") : key;
+    const replaceUnderscoreWithSpace = word => word.replace(/_/g, ' ')
+    const label = (key.includes("_")) ? replaceUnderscoreWithSpace(key) : key;
     const input = `
       <label>
       <div>${label}</div>
@@ -18,7 +19,7 @@ const importerHiddenInputsBuilder = update => {
 
     const feedbackLabel = 
       (key.includes("repeating")) ? key.split("_")[3] : 
-      (key.includes("_")) ? key.replace("_", " ") : 
+      (key.includes("_")) ? replaceUnderscoreWithSpace(key) : 
       key;
 
     (feedbackLabel === "flag" || feedbackLabel === "display") ? 

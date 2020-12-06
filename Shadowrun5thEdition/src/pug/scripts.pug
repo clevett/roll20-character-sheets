@@ -52,12 +52,18 @@ script(type="text/worker")
 	include ../components/Attributes/eventHandlers.js
 
 	//- CHARACTER IMPORTER Functions
+	include ../components/PersonalData/PersonalData.js
+	include ../components/PersonalData/RewardsData.js
+	include ../js/Classes/PrimaryWeapon.js
+	include ../js/Classes/PrimaryArmor.js
+	//- Helper Functions
 	include ../components/CharacterImporter/importerHiddenInputsBuilder.js
 	//-Chummer
 	include ../components/CharacterImporter/Chummer/associateChummerData.js
 	include ../components/CharacterImporter/Chummer/importerChummer.js
 	//-Hero Lab
 	include ../components/CharacterImporter/HeroLab/helpers/getReputationsFromHeroLab.js
+	include ../components/CharacterImporter/HeroLab/helpers/getAttributesFromHeroLab.js
 	include ../components/CharacterImporter/HeroLab/associateHeroLabData.js
 	include ../components/CharacterImporter/HeroLab/importerHeroLab.js
 	//- Charactermancer
@@ -71,10 +77,6 @@ script(type="text/worker")
 
 	//- //- :+: Classes :+:
 	//- //- Setters can't be used in Character Sheets :(
-	//- include ../components/PersonalData/PersonalData.js
-	//- include ../components/PersonalData/RewardsData.js
-	//- include ../js/Classes/PrimaryWeapon.js
-	//- include ../js/Classes/PrimaryArmor.js
 	//- //-include ../js/Classes/RepeatingFieldset.js
 	//- //-include ../js/Classes/ComplexForm.js
 

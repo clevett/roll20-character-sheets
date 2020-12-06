@@ -43,6 +43,9 @@
 		const herolabNotes = `
 			<h3>Hero Lab Notes</h3>
 			<ul>
+				<li>
+					Drugs and other effects are not accounted for. They will be applied to your base attributes.
+				</li>
 			</ul>
 		`
 

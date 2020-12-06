@@ -1288,9 +1288,8 @@ class Attribute {
     this[`${name}_temp`] = 0
     this[`${name}_temp_flag`] = true
     this[`${name}_modifier`] = 0
-    this.display = this.getDisplay()
-    this.bonus = this.getBonus()
-    this.total = this.getTotal()
+    this[`${name}`] = this.getTotal()
+    this[`${name}_display`] = this.getDisplay()
   }
 
   getAttrsArray() {
@@ -1307,8 +1306,8 @@ class Attribute {
   getDisplay() {
     const name = this.name
     const base = this[`${name}_base`]
-    const total = this.total
-    return base == total ? base : `${base} (${total})`
+    const total = this[`${name}`]
+    return base == !total || total == base ? base : `${base} (${total})`
   }
 
   getTotal() {
@@ -1350,6 +1349,74 @@ allAttributes.forEach(name => {
     })
   })
 })
+
+class PersonalData {
+  constructor() {
+    this.name = null,
+    this.metatype = null,
+    this.ethnicity = null,
+    this.age = null,
+    this.sex = null,
+    this.height = null,
+    this.weight = null
+  }
+}
+
+class RewardsData {
+  constructor() {
+    this.street_cred = null,
+    this.notoriety = null,
+    this.public_awareness = null,
+    this.karma = null,
+    this.total_karma = null,
+    this.misc = null
+  }
+}
+
+class PrimaryWeapon {
+  constructor(type) {
+    this[`primary_${type}_weapon`] = 'select a Primary in Arms',
+    this[`primary_${type}_weapon_skill`] = type === 'range' ?  '@{firearms}' : '@{closecombat}',
+    this[`primary_${type}_weapon_damage`] = '',
+    this[`primary_${type}_weapon_dicepool`] = '',
+    this[`primary_${type}_weapon_acc`] = '',
+    this[`primary_${type}_weapon_ap`] = ''
+  }
+}
+
+class PrimaryRangeWeapon extends PrimaryWeapon {
+  constructor(type) {
+    super(type)
+    this[`primary_${type}_weapon_mode`] = '',
+    this[`primary_${type}_weapon_recoil`] = '',
+    this[`primary_${type}_weapon_ammo`] = '',
+    this[`primary_${type}_weapon_ammo_max`] = ''
+  }
+}
+
+class PrimaryMeleeWeapon extends PrimaryWeapon {
+  constructor(type) {
+    super(type)
+    this[`primary_${type}_weapon_reach`] = ''
+  }
+}
+
+
+class PrimaryArmor {
+  constructor(name) {
+    this.armor_name = name || 'select a Primary in Arms',
+    this.soak = 0,
+    this.soak_modifier = 0,
+    this.armor_rating = 0,
+    this.acid_modifier = 0,
+    this.cold_modifier = 0,
+    this.fire_modifier = 0,
+    this.radiation_modifier = 0,
+    this.electrical_modifier = 0
+  }
+}
+
+
 //Build a list of input which the user can edit manually if needed
 //This shows how all their data is going to be imported onto the sheet
 const importerHiddenInputsBuilder = update => {
@@ -1359,7 +1426,8 @@ const importerHiddenInputsBuilder = update => {
 
   //GENERATE INPUTS TO SAVE THE DATA
   Object.keys(update).forEach(key => {
-    const label = (key.includes("_")) ? key.replace("_", " ") : key;
+    const replaceUnderscoreWithSpace = word => word.replace(/_/g, ' ')
+    const label = (key.includes("_")) ? replaceUnderscoreWithSpace(key) : key;
     const input = `
       <label>
       <div>${label}</div>
@@ -1370,7 +1438,7 @@ const importerHiddenInputsBuilder = update => {
 
     const feedbackLabel = 
       (key.includes("repeating")) ? key.split("_")[3] : 
-      (key.includes("_")) ? key.replace("_", " ") : 
+      (key.includes("_")) ? replaceUnderscoreWithSpace(key) : 
       key;
 
     (feedbackLabel === "flag" || feedbackLabel === "display") ? 
@@ -2185,10 +2253,48 @@ const getReputationsFromHeroLab = ({ reputation }) => {
   return characterSheetAttributes
 }
 
+const getAttributesFromHeroLab = (characterAttributes, attributes) => {
+  const attributeData = {}
+
+  const findAttribute = term => {
+    return characterAttributes.find(element => element._name.toLowerCase() == term)
+  }
+
+  attributes.forEach(name => {
+    const object = findAttribute(name)
+    const attribute = new Attribute(name)
+  
+    if (object) {
+      attribute[`${name}_base`] = parseInteger(object._base)
+      attribute[`${name}_modifier`] = object._modified - object._base
+      attribute[`${name}`] = parseInteger(object._modified)
+  
+      attribute[`${name}_display`] = attribute.getDisplay()
+    }
+  
+    for (const [key, value] of Object.entries(attribute)) {
+      if (key != 'name') {
+        attributeData[key] = value
+      }
+    }
+  })
+  
+  attributeData['essence'] = findAttribute('essence')._modified
+  attributeData['edge'] = findAttribute('edge')._modified
+  
+  return attributeData
+}
 
 const associateHeroLabData = character => {
+  let setText = {
+    "error": "",
+    "results": "",
+    "ignored": ""
+  }
+
   console.log(character)
 
+  /* Personal Info */
   const personalData = new PersonalData()
   personalData.age = character.personal._age
   personalData.ethnicity = character.heritage._name
@@ -2198,23 +2304,34 @@ const associateHeroLabData = character => {
   personalData.sex = character.personal._gender
   personalData.weight = character.personal.charweight._text
 
+  /* Rewards */
   const rewardsData = new RewardsData()
   rewardsData.karma = character.karma._left,
   rewardsData.total_karma = character.karma._total
 
+  /* Reputations */
   const reputations = getReputationsFromHeroLab(character.reputations)
   rewardsData.street_cred = reputations.street_cred,
   rewardsData.notoriety = reputations.notoriety,
   rewardsData.public_awareness = reputations.public_awareness,
   rewardsData.misc = reputations.misc
 
+  /* ATTRIBUTES */
+  const characterAttributes = character.attributes.attribute
+  const attributes = [...physicalAttributes, ...mentalAttributes, ...specialAttributes]
+  const attributeData = getAttributesFromHeroLab(characterAttributes, attributes)
+  
+  const specialFlag = attributeData.magic ? 'magic' : attributeData.resonance ? 'resonance' : 'mundane'
+  attributeData['flag_special'] = specialFlag
+
   const Roll20Character = {
     ...personalData,
     ...rewardsData,
+    ...attributeData,
   }
 
   //Will need to return character eventually
-  return {text: '', character: Roll20Character}
+  return {text: setText, character: Roll20Character}
 }
 
 
@@ -2236,7 +2353,7 @@ const importHeroLab = character => {
 	//IMPORTERS
 	
 	//temporary force open
-//	on('sheet:opened', () => startCharactermancer("importer"))
+	on('sheet:opened', () => startCharactermancer("importer"))
 	
 	// APPLY Changes
 	on("clicked:import_launch", () => startCharactermancer("importer"))
@@ -2302,6 +2419,9 @@ const importHeroLab = character => {
 		const herolabNotes = `
 			<h3>Hero Lab Notes</h3>
 			<ul>
+				<li>
+					Drugs and other effects are not accounted for. They will be applied to your base attributes.
+				</li>
 			</ul>
 		`
 
