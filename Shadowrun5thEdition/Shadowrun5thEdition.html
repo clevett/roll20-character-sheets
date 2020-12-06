@@ -1103,8 +1103,6 @@ class AstralInitiativeDice extends InitiativeDice {
 const updateAstralInitiativeModifier = attribute => {
   const array = attribute.getAttrsArray()
 
-  console.log(attribute)
-
   getAttrs(array, attrs => {
     const values = processingFunctions.parseIntegers(attrs)
     const base = values.intuition * 2
@@ -1119,6 +1117,48 @@ const updateAstralInitiativeModifier = attribute => {
     })
   })
 }
+
+class MatrixInitiative extends DerivedAttribute {
+  constructor() {
+    super('matrix_mod')
+    this.attributes = ['intuition', "data_processing", "pilot", "host_rating", "level", "sheet_type"]
+    this.bonus = ['matrix_mod_modifier']
+  }
+
+  determineSecondAttribute(type) {
+    switch(type) {
+      case 'sprite':
+        return 'level'
+      case 'vehicle':
+        return 'pilot'
+      case 'host': 
+        return 'host_rating'
+      default:
+        return 'intuition'
+    }
+  }
+}
+
+const updateMatrixInitiative = attribute => {
+  const array = attribute.getAttrsArray()
+
+  getAttrs(array, v => {
+    const secondAttribute = attribute.determineSecondAttribute(v.sheet_type)
+
+    v = processingFunctions.parseIntegers(v);
+
+    const base = v.data_processing + v[secondAttribute];
+    const total = base + v.matrix_mod_modifier;
+
+    const display = buildDisplayString({base, total})
+
+    setAttrs({
+      ["matrix_mod"]: total,
+      ["display_matrix_mod"]: display
+    })
+  })
+}
+
 
 class MatrixInitiativeDice extends InitiativeDice {
   constructor() {
@@ -1174,7 +1214,6 @@ astralInitiativeAttributes.forEach(attr => {
   })
 })
 
-
 const astralInitiativeDiceAttributes = new AstralInitiativeDice().getAttrsArray()
 astralInitiativeDiceAttributes.forEach(attr => {
   on(`change:${attr}`, () => {
@@ -1183,8 +1222,12 @@ astralInitiativeDiceAttributes.forEach(attr => {
   })
 })
 
-
 //- MATRIX
+on(`change:host_rating change:data_processing change:pilot change:intuition change:matrix_mod_modifier change:level`, () => {
+    const initiative = new MatrixInitiative()
+    updateMatrixInitiative(initiative)
+})
+
 const matrixInitiativeDiceAttributes = new MatrixInitiativeDice().matrixGetAttrsArray()
 matrixInitiativeDiceAttributes.forEach(attr => {
   on(`change:${attr}`, () => {

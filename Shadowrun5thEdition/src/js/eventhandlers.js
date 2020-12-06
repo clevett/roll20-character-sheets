@@ -52,12 +52,10 @@
 
 	on('change:device_rating change:matrix_modifier', () => updateMatrixMaximum())
 
-
 	on('change:host_rating change:data_processing change:pilot change:intuition change:matrix_mod_modifier change:level', () => {
 		updateMatrixInitiative()
 	})
 
-  
   on('change:matrix_mode_toggle', () => updateHotSimsBonus())
 
   on("clicked:cond_reset", () => resetNpcCondition()); 

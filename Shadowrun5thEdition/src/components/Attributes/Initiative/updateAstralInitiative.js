@@ -1,8 +1,6 @@
 const updateAstralInitiativeModifier = attribute => {
   const array = attribute.getAttrsArray()
 
-  console.log(attribute)
-
   getAttrs(array, attrs => {
     const values = processingFunctions.parseIntegers(attrs)
     const base = values.intuition * 2

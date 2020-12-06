@@ -25,7 +25,6 @@ astralInitiativeAttributes.forEach(attr => {
   })
 })
 
-
 const astralInitiativeDiceAttributes = new AstralInitiativeDice().getAttrsArray()
 astralInitiativeDiceAttributes.forEach(attr => {
   on(`change:${attr}`, () => {
@@ -34,8 +33,12 @@ astralInitiativeDiceAttributes.forEach(attr => {
   })
 })
 
-
 //- MATRIX
+on(`change:host_rating change:data_processing change:pilot change:intuition change:matrix_mod_modifier change:level`, () => {
+    const initiative = new MatrixInitiative()
+    updateMatrixInitiative(initiative)
+})
+
 const matrixInitiativeDiceAttributes = new MatrixInitiativeDice().matrixGetAttrsArray()
 matrixInitiativeDiceAttributes.forEach(attr => {
   on(`change:${attr}`, () => {
