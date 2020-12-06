@@ -7,7 +7,6 @@ const sheetAttributes = {
   woundCalculation: ['high_pain_tolerance', 'low_pain_tolerance', 'damage_compensators_physical', 'damage_compensators_stun', 'stun', 'physical'],
 
   calculatedAttributes: ['attack', 'sleaze', 'data_processing', 'firewall'],
-  astral_mod: ['intuition', 'astral_mod_modifier'],
   matrix_mod: [],
 
   conditionTracks: ['stun', 'physical', 'matrix'],

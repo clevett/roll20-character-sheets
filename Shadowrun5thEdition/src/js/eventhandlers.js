@@ -19,7 +19,6 @@
       attributeArray.forEach(attr => on(`change:${attr}`, () => updateAttributes(attributeArray, attribute)))
   });
 
-  sheetAttributes.astral_mod.forEach(attr => on(`change:${attr}`, () => updateAstralInitiative()))
 
   sheetAttributes.conditionTracks.forEach(conditionTrack => {
     sheetAttributes[conditionTrack].forEach(attr => on(`change:${attr}`, () => updateConditionTracks(conditionTrack)))

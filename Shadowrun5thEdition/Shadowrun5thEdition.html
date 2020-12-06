@@ -1018,18 +1018,45 @@ soakAttributes.forEach(attr => {
 
 
 
-class Initiative {
+class Initiative extends DerivedAttribute {
   constructor() {
-    this.name = 'initiative_mod'
+    super('initiative_mod')
     this.modifier = 0
     this.dice = 0
     this.attributes = ['reaction', 'intuition']
     this.bonus = ['initiative_mod_modifier', 'initiative_temp','initiative_temp_flag']
   }
+}
 
-  getAttrsArray() {
-    return [...this.attributes, ...this.bonus]
+
+class AstralInitiative extends DerivedAttribute {
+  constructor() {
+    super('astral_mod')
+    this.modifier = 0
+    this.dice = 0
+    this.attributes = ['intuition']
+    this.bonus = ['astral_mod_modifier']
   }
+}
+
+const updateAstralInitiativeModifier = attribute => {
+  const array = attribute.getAttrsArray()
+
+  console.log(attribute)
+
+  getAttrs(array, attrs => {
+    const values = processingFunctions.parseIntegers(attrs)
+    const base = values.intuition * 2
+    const bonus = values.astral_mod_modifier
+    const total = base + bonus
+
+    const display = buildDisplayString({base, total})
+
+    setAttrs({
+      ["astral_mod"]: total,
+      ["display_astral_mod"]: display
+    })
+  })
 }
 
 const initiativeAttributes = new Initiative().getAttrsArray()
@@ -1038,6 +1065,14 @@ initiativeAttributes.forEach(attr => {
   on(`change:${attr}`, () => {
     const initiative = new Initiative()
     updateAttributes(initiative)
+  })
+})
+
+const astralInitiativeAttributes = new AstralInitiative().getAttrsArray()
+astralInitiativeAttributes.forEach(attr => {
+  on(`change:${attr}`, () => {
+    const initiative = new AstralInitiative()
+    updateAstralInitiativeModifier(initiative)
   })
 })
 
