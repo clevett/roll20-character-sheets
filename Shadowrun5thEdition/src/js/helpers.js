@@ -12,3 +12,9 @@ const buildDisplayString = ({base, total}) => {
 }
 
 const errorMessage = (title, message) => console.log(`%c ERROR ${title}: ${message}`, "color: orange; font-weight:bold");
+
+const parseInteger = string => parseInt(string) || 0
+
+const checkFlag = value => !value || value == '0' ? false : true
+
+

@@ -2,8 +2,8 @@ class Movement extends DerivedAttribute {
   constructor(name) {
     super(name)
     this.agility = null
-    this.walkMultiplier = 4
-    this.runMuplitier = 2
+    this.walkMultiplier = 2
+    this.runMuplitier = 4
     this.attributes = ['agility']
     this.bonus = ['walk_modifier', 'run_modifier']
   }

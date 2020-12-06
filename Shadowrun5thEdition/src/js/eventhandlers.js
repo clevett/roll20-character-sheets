@@ -52,17 +52,11 @@
 
 	on('change:device_rating change:matrix_modifier', () => updateMatrixMaximum())
 
-	on('change:intuition change:astral_mod_modifier', () => updateAstralInitiative())
-
-	on('change:initiative_dice_modifier change:edge_toggle change:initiative_dice_temp change:initiative_dice_temp_flag', () => updateInitiativeDice())
-
-	on('change:astral_dice_modifier change:edge_toggle', () => updateAstralInitiativeDice())
 
 	on('change:host_rating change:data_processing change:pilot change:intuition change:matrix_mod_modifier change:level', () => {
 		updateMatrixInitiative()
 	})
 
-  on('change:matrix_dice_modifier change:edge_toggle change:matrix_mode_toggle', () => updateMatrixInitiativeDice())
   
   on('change:matrix_mode_toggle', () => updateHotSimsBonus())
 

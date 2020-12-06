@@ -199,20 +199,6 @@ const updateLimitTotal = attrs => {
   return shadowrunFunctions.calculateLimitTotal(Object.values(attrs))
 }
 
-const updateInitiativeDice = () => {
-  getAttrs(["initiative_dice_modifier", "edge_toggle", "initiative_dice_temp", "initiative_dice_temp_flag"], values => {
-    const edgeFlag = values.edge_toggle === "@{edge}" ? true : false;
-    values = shadowrunFunctions.processTempFlags(values)
-    values = processingFunctions.parseIntegers(values)
-    const bonus = shadowrunFunctions.calculateBonuses(values)
-    const total = Math.min(values.bonus+1,5)
-    processingFunctions.setAttributes({
-      initiative_dice: edgeFlag ? 5 : total
-    })
-  })
-}
-
-
 //- +======== EVERYTHING BELOW THIS LINE LACKS UNIT TESTS =======+
 //- +======== NEEDS REFACTORING =======+
 

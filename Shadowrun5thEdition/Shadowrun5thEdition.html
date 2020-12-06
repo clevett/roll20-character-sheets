@@ -606,6 +606,12 @@ const buildDisplayString = ({base, total}) => {
 
 const errorMessage = (title, message) => console.log(`%c ERROR ${title}: ${message}`, "color: orange; font-weight:bold");
 
+const parseInteger = string => parseInt(string) || 0
+
+const checkFlag = value => !value || value == '0' ? false : true
+
+
+
 const processingFunctions = {
   convertIntegerNegative: number => number > 0 ? -Math.abs(number) : number,
   convertIntegersNegatives: numbers => {
@@ -1023,21 +1029,74 @@ soakAttributes.forEach(attr => {
 class Initiative extends DerivedAttribute {
   constructor() {
     super('initiative_mod')
-    this.modifier = 0
-    this.dice = 0
     this.attributes = ['reaction', 'intuition']
     this.bonus = ['initiative_mod_modifier', 'initiative_temp','initiative_temp_flag']
   }
 }
 
 
+class InitiativeDice {
+  constructor(name) {
+    this.name = name
+    this.bonus = [`${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
+    this[`${this.name}_modifier`] = 0
+    this[`${this.name}_temp`] = 0
+    this[`${this.name}_temp_flag`] = null
+    this.base = 1
+  }
+  
+  getAttrsArray() {
+    return [...this.bonus, 'edge_toggle']
+  }
+
+  getBonus() {
+    const temp = this[`${this.name}_temp_flag`] ? this[`${this.name}_temp`] : 0
+    const sum = this[`${this.name}_modifier`] + temp
+    return Math.min(sum, 5)
+  }
+
+  getTotal(edgeFlag) {
+    const total = this.getBonus() + this.base
+    return edgeFlag ? 5 : Math.min(total, 5)
+  }
+}
+
+
+const updateInitiativeDice = attribute => {
+  const array = attribute.getAttrsArray()
+  const name = attribute.name
+
+  getAttrs(array, values => {
+    const edgeFlag = checkFlag(values.edge_toggle)
+    const flag = checkFlag(values[`${name}_temp_flag`])
+    const temp = values[`${name}_temp`]
+    const modifier = values[`${name}_modifier`]
+
+    attribute[`${name}_modifier`] = parseInteger(modifier)
+    attribute[`${name}_temp`] = parseInteger(temp)
+    attribute[`${name}_temp_flag`] = flag
+
+    const total = attribute.getTotal(edgeFlag)
+
+    processingFunctions.setAttributes({
+      [`${name}`]: total
+    })
+  })
+}
+
 class AstralInitiative extends DerivedAttribute {
   constructor() {
     super('astral_mod')
-    this.modifier = 0
-    this.dice = 0
     this.attributes = ['intuition']
     this.bonus = ['astral_mod_modifier']
+  }
+}
+
+
+class AstralInitiativeDice extends InitiativeDice {
+  constructor() {
+    super('astral_dice')
+    this.base = 3
   }
 }
 
@@ -1061,8 +1120,36 @@ const updateAstralInitiativeModifier = attribute => {
   })
 }
 
-const initiativeAttributes = new Initiative().getAttrsArray()
+class MatrixInitiativeDice extends InitiativeDice {
+  constructor() {
+    super('matrix_dice')
+  }
 
+  matrixGetAttrsArray() {
+    return [...this.getAttrsArray(), 'matrix_mode_toggle']
+  }
+}
+const updateMatrixInitiativeDice = attribute => {
+  const array = attribute.matrixGetAttrsArray()
+
+  getAttrs([...array, "initiative_dice"], v => {
+    const matrixAttrs = {
+      dice: processingFunctions.parseInteger(v.initiative_dice) || 1, 
+      modifer: processingFunctions.parseInteger(v.matrix_dice_modifier), 
+      edge: v.edge_toggle === "@{edge}" ? true : false,
+      mode: v.matrix_mode_toggle,
+    }
+    const matrixDice = shadowrunFunctions.determineMatrixDice(matrixAttrs)
+
+    setAttrs({
+      ["matrix_dice"]: matrixDice
+    })
+  })
+}
+
+
+//- MUNDANE
+const initiativeAttributes = new Initiative().getAttrsArray()
 initiativeAttributes.forEach(attr => {
   on(`change:${attr}`, () => {
     const initiative = new Initiative()
@@ -1070,6 +1157,15 @@ initiativeAttributes.forEach(attr => {
   })
 })
 
+const initiativeDiceAttributes = new InitiativeDice('initiative_dice').getAttrsArray()
+initiativeDiceAttributes.forEach(attr => {
+  on(`change:${attr}`, () => {
+    const initiative = new InitiativeDice('initiative_dice')
+    updateInitiativeDice(initiative)
+  })
+})
+
+//- ASTRAL
 const astralInitiativeAttributes = new AstralInitiative().getAttrsArray()
 astralInitiativeAttributes.forEach(attr => {
   on(`change:${attr}`, () => {
@@ -1077,12 +1173,31 @@ astralInitiativeAttributes.forEach(attr => {
     updateAstralInitiativeModifier(initiative)
   })
 })
+
+
+const astralInitiativeDiceAttributes = new AstralInitiativeDice().getAttrsArray()
+astralInitiativeDiceAttributes.forEach(attr => {
+  on(`change:${attr}`, () => {
+    const initiative = new AstralInitiativeDice()
+    updateInitiativeDice(initiative)
+  })
+})
+
+
+//- MATRIX
+const matrixInitiativeDiceAttributes = new MatrixInitiativeDice().matrixGetAttrsArray()
+matrixInitiativeDiceAttributes.forEach(attr => {
+  on(`change:${attr}`, () => {
+    const initiative = new MatrixInitiativeDice()
+    updateMatrixInitiativeDice(initiative)
+  })
+})
 class Movement extends DerivedAttribute {
   constructor(name) {
     super(name)
     this.agility = null
-    this.walkMultiplier = 4
-    this.runMuplitier = 2
+    this.walkMultiplier = 2
+    this.runMuplitier = 4
     this.attributes = ['agility']
     this.bonus = ['walk_modifier', 'run_modifier']
   }
