@@ -1,5 +1,5 @@
 
-class Attribute {
+class SheetAttribute {
   constructor(name) {
     this.name = name
     this.base = 0

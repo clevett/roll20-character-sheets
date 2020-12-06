@@ -1,5 +1,5 @@
 
-class CoreAttribute extends Attribute {
+class Attribute extends SheetAttribute {
   constructor(name) {
     super(name)
   }

@@ -3,7 +3,7 @@ const getAttributesFromHeroLab = (heroLabData, sheetAttributes) => {
 
   sheetAttributes.forEach(name => {
     const object = findInHeroLabAttributes(heroLabData, name)
-    const attribute = new CoreAttribute(name)
+    const attribute = new Attribute(name)
   
     if (object) {
       attribute.setBase(parseInteger(object._base))

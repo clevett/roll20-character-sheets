@@ -1,6 +1,10 @@
+const physicalAttributes = ['body', 'agility', 'reaction', 'strength']
+const mentalAttributes = ['willpower', 'logic', 'intuition', 'charisma']
+const specialAttributes = ['magic', 'resonance']
+
 
 const sheetAttributes = {
-  attributes: ['body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge'],
+  attributes: [...physicalAttributes, ...mentalAttributes, 'edge'],
   translationsAttributes: ['attribute', 'body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge', 'none'],
   repeating: ['quality', 'martial', 'items', 'range', 'melee', 'armor', 'spell', 'preps', 'ritual', 'powers', 'forms', 'vehicle', 'augementations', 'lifestyle', 'contacts', 'programs'],
   repeatingSkills: ['active', 'knowledge', 'language'],

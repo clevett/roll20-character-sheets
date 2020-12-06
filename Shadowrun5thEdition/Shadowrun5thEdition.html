@@ -591,9 +591,13 @@
 <input type="hidden" name="attr_throwingweapons" min="0" value="0" />
 <input type="hidden" name="attr_tracking" min="0" value="0" />
 <input type="hidden" name="attr_unarmedcombat" min="0" value="0" />
-<script type="text/worker">
+<script type="text/worker">const physicalAttributes = ['body', 'agility', 'reaction', 'strength']
+const mentalAttributes = ['willpower', 'logic', 'intuition', 'charisma']
+const specialAttributes = ['magic', 'resonance']
+
+
 const sheetAttributes = {
-  attributes: ['body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge'],
+  attributes: [...physicalAttributes, ...mentalAttributes, 'edge'],
   translationsAttributes: ['attribute', 'body', 'agility', 'reaction', 'strength', 'willpower', 'logic', 'intuition', 'charisma', 'edge', 'none'],
   repeating: ['quality', 'martial', 'items', 'range', 'melee', 'armor', 'spell', 'preps', 'ritual', 'powers', 'forms', 'vehicle', 'augementations', 'lifestyle', 'contacts', 'programs'],
   repeatingSkills: ['active', 'knowledge', 'language'],
@@ -1577,8 +1581,28 @@ const onepointthreefive = () => {
   on("change:host_rating", eventinfo => updateHostAttributes(eventinfo.newValue))
 
   on("change:default_attribute", eventinfo => updateDefaultAttribute(eventinfo.newValue))
+//Functions shared by all components
+const buildModiferTempFlagArray = name => [`${name}_modifier`, `${name}_temp`, `${name}_temp_flag`]
 
-class Attribute {
+const buildModiferTempFlagBaseArray = name => {
+  const bonus = buildModiferTempFlagArray(name)
+  return [`${name}_base`, ...bonus]
+}
+
+const buildDisplayString = ({base, total}) => {
+  const bonus = base === total
+  return bonus ? base : `${base} (${total})`
+}
+
+const errorMessage = (title, message) => console.log(`%c ERROR ${title}: ${message}`, "color: orange; font-weight:bold");
+
+const parseInteger = string => parseInt(string) || 0
+
+const checkFlag = value => !value || value == '0' ? false : true
+
+
+
+class SheetAttribute {
   constructor(name) {
     this.name = name
     this.base = 0
@@ -1619,7 +1643,7 @@ class Attribute {
   }
 }
 
-class CoreAttribute extends Attribute {
+class Attribute extends SheetAttribute {
   constructor(name) {
     super(name)
   }
@@ -2774,7 +2798,7 @@ const getAttributesFromHeroLab = (heroLabData, sheetAttributes) => {
 
   sheetAttributes.forEach(name => {
     const object = findInHeroLabAttributes(heroLabData, name)
-    const attribute = new CoreAttribute(name)
+    const attribute = new Attribute(name)
   
     if (object) {
       attribute.setBase(parseInteger(object._base))
