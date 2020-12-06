@@ -2558,7 +2558,8 @@ input.sheet-settings-toggle:checked ~ .sheet-attr-lim div.sheet-settings {
 
 /* NEW REPEATING CONTAINER WAY TO SHOW & HIDE SETTINGS */
 /* SLOWLY ELIMINATE ALL TRACES OF SETTINGS-TOGGLE WITH THIS WAY OF DOING THINGS */
-input.sheet-settings-flag:checked ~ div.sheet-settings {
+input.sheet-settings-flag:checked ~ div.sheet-settings,
+input.sheet-settings-flag[value='true'] ~ div.sheet-settings {
   display: inherit; }
 
 /* OLD WAY TO SHOW & HIDE THINGS */

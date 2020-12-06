@@ -28,7 +28,12 @@ const associateHeroLabData = character => {
   const characterMovement = character.movementtypes.movementtype
   const movementData = associateMovementFromHeroLab(characterMovement, attributeData)
 
+  /* GEAR */
+  const gearItemData = associateGearItemsFromHeroLab(character.gear.equipment)
+  
   /* TESTING */
+  delete(character.settings)
+  delete(character.images)
   delete(character.creation)
   delete(character.karma)
   delete(character.attributes)
@@ -36,7 +41,7 @@ const associateHeroLabData = character => {
   delete(character.personal)
   delete(character.reputations)
   delete(character.race)
-  console.log(character)
+  //console.log(character)
 
   const Roll20Character = {
     ...metaData,
@@ -44,6 +49,7 @@ const associateHeroLabData = character => {
     ...attributeData,
     ...initiativeData,
     ...movementData,
+    ...gearItemData,
   }
 
   
