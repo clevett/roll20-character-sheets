@@ -1,21 +1,21 @@
-@import 'src/scss/abstracts/variables'; 
-@import 'src/scss/abstracts/mixins'; 
+@import 'scss/abstracts/variables'; 
+@import 'scss/abstracts/mixins'; 
 
-@import 'src/scss/base/base';
-@import 'src/scss/base/grid';
-@import 'src/scss/base/utilities';
-@import 'src/scss/base/typography';
+@import 'scss/base/base';
+@import 'scss/base/grid';
+@import 'scss/base/utilities';
+@import 'scss/base/typography';
 
-@import 'src/scss/components/switch';
-@import 'src/scss/components/switch-3';
-@import 'src/scss/components/collapse';
-@import 'src/scss/components/indicator';
-@import 'src/scss/components/hexagons';
-@import 'src/scss/components/conditionmonitor';
+@import 'scss/components/switch';
+@import 'scss/components/switch-3';
+@import 'scss/components/collapse';
+@import 'scss/components/indicator';
+@import 'scss/components/hexagons';
+@import 'scss/components/conditionmonitor';
 
-@import 'src/scss/pages/tabs/matrix/cyberdeck';
+@import 'scss/pages/tabs/matrix/cyberdeck';
 
-@import 'src/scss/layout/tabs';
+@import 'scss/layout/tabs';
 
 /***** TABS FOR SHEETS *****/
 .sheet-settings-toggle,
@@ -46,7 +46,7 @@ select {
 	}
 }
 
-@import 'src/scss/_matrixdevice'; 
+@import 'scss/_matrixdevice'; 
 
 /***** GRID *****/
 %gridGap {
@@ -293,9 +293,9 @@ select {
 			input[type='number'] { text-align: center; }
 		}
 
-  @import 'src/scss/pages/tabs/static';
+  @import 'scss/pages/tabs/static';
 
-  @import 'src/scss/pages/tabs/core';
+  @import 'scss/pages/tabs/core';
 
 		/***** SKILLS *****/
 		div.sheet-skill-box {
@@ -380,11 +380,11 @@ select {
 			}
 		}
 
-  @import 'src/scss/pages/tabs/arms';
+  @import 'scss/pages/tabs/arms';
 
-  @import 'src/scss/pages/tabs/augs';
+  @import 'scss/pages/tabs/augs';
 
-  @import 'src/scss/pages/tabs/gear';
+  @import 'scss/pages/tabs/gear';
 
 
 		//used in magic & complex forms
@@ -392,24 +392,24 @@ select {
 			margin-top: 1%;
 		}
 
-  @import 'src/scss/pages/tabs/magic';
+  @import 'scss/pages/tabs/magic';
 
-  @import 'src/scss/pages/tabs/matrix';
+  @import 'scss/pages/tabs/matrix';
 
-  @import 'src/scss/pages/tabs/social';
+  @import 'scss/pages/tabs/social';
 
-	@import 'src/scss/pages/tabs/vehicle';
+	@import 'scss/pages/tabs/vehicle';
 	
-	@import 'src/scss/pages/tabs/options';
+	@import 'scss/pages/tabs/options';
 }
 
-	@import 'src/scss/pages/_pc'; 
+	@import 'scss/pages/_pc'; 
 
 
 /******************************************************************************************/
 /**************************** START OF THE NPC SHEET *************************************/
 /****************************************************************************************/
-	@import 'src/scss/pages/npc'; 
+	@import 'scss/pages/npc'; 
 
 /**************************************************************************/
 /***************** PC & NPC SHEET SHOW & HIDE SETTINGS *******************/
@@ -417,31 +417,31 @@ select {
 
 /* DISPLAY SETTINGS
 	============================= */
-	@import 'src/scss/_hide'; 
+	@import 'scss/_hide'; 
 		
 
 /*****************************************************************************************/
 /**************************************** FOOTER ****************************************/
 /***************************************************************************************/
-@import 'src/scss/layout/footer';
+@import 'scss/layout/footer';
 
 /*****************************************************************************************************/
 /**************************************** REPEATING SECTIONS ****************************************/
 /***************************************************************************************************/
-	@import 'src/scss/_repeatingsection'; 
+	@import 'scss/_repeatingsection'; 
 
 /***************************************************************************************************/
 /**************************************** Roll template *******************************************/
 /*************************************************************************************************/
 
-	@import 'src/scss/_rolltemplate';
+	@import 'scss/_rolltemplate';
 
 /********************************************************************************************************/
 /*******************************         Charactermancer        ****************************************/
 /******************************************************************************************************/
-	@import 'src/components/CharacterImporter/_importer';
+	@import 'components/CharacterImporter/_importer';
 
 
-@import 'src/scss/layout/firefox';
+@import 'scss/layout/firefox';
 
-@import 'src/scss/layout/lang-fr';
+@import 'scss/layout/lang-fr';

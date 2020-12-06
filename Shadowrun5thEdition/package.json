@@ -14,8 +14,8 @@
   "scripts": {
     "test": "mocha",
     "start": "npm-run-all --parallel compile:sass compile:pug",
-    "compile:sass": "node-sass Shadowrun5thEdition.scss Shadowrun5thEdition.css -w",
-    "compile:pug": "pug Shadowrun5thEdition.pug Shadowrun5thEdition.html -w",
+    "compile:sass": "node-sass ./src/Shadowrun5thEdition.scss ./Shadowrun5thEdition.css -w",
+    "compile:pug": "pug ./src/Shadowrun5thEdition.pug -o ./ -w",
     "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.comp.css -o css/style.prefix.css",
     "build:css": "npm-run-all compile:sass prefix:css"
   },

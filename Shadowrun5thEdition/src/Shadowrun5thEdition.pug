@@ -7,18 +7,18 @@ input.sheet_type(name='attr_sheet_type' type='hidden' value='pc')
 input.character-type(name='attr_flag_special' type='hidden' value='mundane')
 
 //- MIXINS
-include src/pug/abstracts/_mixins.pug
+include pug/abstracts/_mixins.pug
 
 //- VARIABLES
-include src/pug/base/_variables.pug
+include pug/base/_variables.pug
 
-- const imageSource = 'https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Shadowrun5thEdition/src/imgs/'
+- const imageSource = 'https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Shadowrun5thEdition/imgs/'
 
 //- PCs
-include src/pug/pages/pc.pug
+include pug/pages/pc.pug
 
 //- NPCs
-include src/pug/pages/npc.pug
+include pug/pages/npc.pug
 
 //- FOOTER
 .footer
@@ -29,13 +29,13 @@ include src/pug/pages/npc.pug
 	img(alt='Emerald Productins, LLC' src=`${imageSource}/EProd_Emerald_Gloss.png`)
 
 //- ROLL TEMPLATES
-include src/pug/_rolltemplates.pug
+include pug/_rolltemplates.pug
 
 //- HIDDEN
-include src/html/hidden.html
+include html/hidden.html
 
 //- SCRIPTS
-include src/pug/scripts.pug
+include pug/scripts.pug
 
 //- CHARACTER IMPORTER
-include src/components/CharacterImporter/importer.html
+include components/CharacterImporter/importer.html
