@@ -25,13 +25,13 @@ class SheetAttribute {
   getDisplay() { return this.display }
 
   getBonus() {
-    const temp = this.tempFlag ? this.temp : 0
-    return temp + this.modifier
+    const temp = this.getTempFlag() ? this.getTemp() : 0
+    return temp + this.getModifier()
   }
 
   buildDisplay() {
-    const base = this.base
-    const total = this.total
+    const base = this.getBase()
+    const total = this.getTotal()
     return base == !total || total == base ? base : `${base} (${total})`
   }
 

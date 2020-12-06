@@ -1628,13 +1628,13 @@ class SheetAttribute {
   getDisplay() { return this.display }
 
   getBonus() {
-    const temp = this.tempFlag ? this.temp : 0
-    return temp + this.modifier
+    const temp = this.getTempFlag() ? this.getTemp() : 0
+    return temp + this.getModifier()
   }
 
   buildDisplay() {
-    const base = this.base
-    const total = this.total
+    const base = this.getBase()
+    const total = this.getTotal()
     return base == !total || total == base ? base : `${base} (${total})`
   }
 
@@ -1780,17 +1780,9 @@ class SocialLimit extends AttributeLimit {
   }
 }
 
-class Initiative {
+class Initiative extends SheetAttribute {
   constructor() {
-    this.name = 'initiative_mod'
-    this.initiative_mod = 0
-    this.initiative_mod_modifier = 0
-    this.initiative_temp = 0
-    this.initiative_temp_flag = true
-  }
-
-  setModModifier(value) {
-    this.initiative_mod = value
+    super('initiative_mod')
   }
 
   getAttrsArray() {
@@ -1798,10 +1790,22 @@ class Initiative {
     const bonus = ['initiative_mod_modifier', 'initiative_temp','initiative_temp_flag']
     return [...attributes, ...bonus]
   }
+
+  getSheetAttributes() {
+    const name = this.getName()
+
+    return  {
+      [`${name}`]: this.getTotal(),
+      [`initiative_temp`]: this.getTemp(),
+      [`initiative_temp_flag`]: this.getTempFlag(),
+      [`${name}_modifier`]: this.getModifier(),
+      [`${name}_display`]: this.getDisplay()
+    }
+  }
 }
 
 
-class InitiativeDice extends Attribute {
+class InitiativeDice extends SheetAttribute {
   constructor(name) {
     super(name)
     this.base = 1
@@ -1813,14 +1817,8 @@ class InitiativeDice extends Attribute {
     return [...bonus, 'edge_toggle']
   }
 
-  getBonus() {
-    const temp = this[`${this.name}_temp_flag`] ? this[`${this.name}_temp`] : 0
-    const sum = this[`${this.name}_modifier`] + temp
-    return Math.min(sum, 5)
-  }
-
-  getTotal(edgeFlag) {
-    const total = this.getBonus() + this.getBase()
+  getInitiativeDice(edgeFlag) {
+    const total = this.getTotal()
     return edgeFlag ? 5 : Math.min(total, 5)
   }
 
@@ -1831,8 +1829,7 @@ class InitiativeDice extends Attribute {
       [`${name}`]: this.getTotal(),
       [`${name}_temp`]: this.getTemp(),
       [`${name}_temp_flag`]: this.getTempFlag(),
-      [`${name}_modifier`]: this.getModifier(),
-      [`${name}_display`]: this.getDisplay()
+      [`${name}_modifier`]: this.getModifier()
     }
   }
 }
@@ -1897,6 +1894,34 @@ class PersonalData {
     this.height = null,
     this.weight = null
   }
+
+  setName(value) { this.name = value}
+  setMetatype(value) { this.metatype = value}
+  setEthnicity(value) { this.ethnicity = value}
+  setAge(value) { this.age = value}
+  setSex(value) { this.sex = value}
+  setHeight(value) { this.height = value}
+  setWeight(value) { this.weight = value}
+
+  getName() { return this.name }
+  getMetatype() { return this.metatype }
+  getEthnicity() { return this.ethnicity }
+  getAge() { return this.age  }
+  getSex() { return this.sex  }
+  getHeight() { return this.height }
+  getWeight() { return this.weight }
+
+  getSheetAttributes() {
+    return  {
+      name: this.getName(),
+      metatype: this.getMetatype(),
+      ethnicity: this.getEthnicity(),
+      age: this.getAge(),
+      sex: this.getSex(),
+      height: this.getHeight(),
+      weight: this.getWeight()
+    }
+  }
 }
 
 class RewardsData {
@@ -1907,6 +1932,31 @@ class RewardsData {
     this.karma = null,
     this.total_karma = null,
     this.misc = null
+  }
+
+  setSteetCred(value) { this.street_cred = value}
+  setNotoriety(value) { this.notoriety = value}
+  setPublicAwareness(value) { this.public_awareness = value}
+  setKarma(value) { this.karma = value}
+  setTotalKarma(value) { this.total_karma = value}
+  setMisc(value) { this.misc = value}
+
+  getSteetCred() { return this.street_cred }
+  getNotoriety() { return this.notoriety }
+  getPublicAwareness() { return this.public_awareness }
+  getKarma() { return this.karma  }
+  getTotalKarma() { return this.total_karma }
+  getMisc() { return this.misc }
+
+  getSheetAttributes() {
+    return  {
+      street_cred: this.getSteetCred(),
+      notoriety: this.getNotoriety(),
+      public_awareness: this.getPublicAwareness(),
+      karma: this.getKarma(),
+      total_karma: this.getTotalKarma(),
+      misc: this.getMisc()
+    }
   }
 }
 
@@ -2755,6 +2805,9 @@ const importChummer = character => {
     setCharmancerText(importerHiddenInputs)
   })
 }
+const findInHeroLabAttributes = (array, term) => {
+  return array.find(element => element._name.toLowerCase() == term)
+}
 
 const getReputationsFromHeroLab = ({ reputation }) => {
   let characterSheetAttributes = {
@@ -2790,8 +2843,30 @@ const getReputationsFromHeroLab = ({ reputation }) => {
   return characterSheetAttributes
 }
 
-const findInHeroLabAttributes = (array, term) => {
-  return array.find(element => element._name.toLowerCase() == term)
+const associatePersonalData = character => {
+  /* Personal Info */
+  const personal = new PersonalData()
+  personal.setName(character._name )
+  personal.setMetatype(character.race._name)
+  personal.setEthnicity(character.heritage._name)
+  personal.setAge(character.personal._age)
+  personal.setSex(character.personal._gender)
+  personal.setHeight(character.personal.charheight._text)
+  personal.setWeight(character.personal.charweight._text)
+
+  /* Rewards */
+  const rewards = new RewardsData()
+  rewards.getKarma(character.karma._left)
+  rewards.getTotalKarma(character.karma._total)
+
+  /* Reputations */
+  const reputations = getReputationsFromHeroLab(character.reputations)
+  rewards.setSteetCred(reputations.street_cred)
+  rewards.setNotoriety(reputations.notoriety)
+  rewards.setPublicAwareness(reputations.public_awareness)
+  rewards.setMisc(reputations.misc)
+
+  return {...personal, ...rewards}
 }
 const getAttributesFromHeroLab = (heroLabData, sheetAttributes) => {
   const attributeData = {}
@@ -2820,38 +2895,42 @@ const getAttributesFromHeroLab = (heroLabData, sheetAttributes) => {
   
   return attributeData
 }
-const getInitiativeFromHeroLab = characterAttributes => {
-  const data = {}
-  const object = findInHeroLabAttributes(characterAttributes, 'initiative')
+const getInitiativeModifierFromHeroLab = object => {
+  const modifier = new Initiative()
 
-  const initiativeModifier = new Initiative()
+  modifier.setBase( parseInteger(object._base))
+
   const modifierDifference = parseInteger(object._modified) - parseInteger(object._base)
-  initiativeModifier.setModModifier(modifierDifference)
+  modifier.setModifier(modifierDifference)
+  
+  const display = modifier.buildDisplay()
+  modifier.setDisplay(display)
 
-  const initiativeDice = new InitiativeDice('initiative_dice')
-
-  for (const [key, value] of Object.entries({...initiativeModifier, ...initiativeDice})) {
-    if (key != 'name') {
-      data[key] = value
-    }
-  }
-
-  return data
+  return modifier.getSheetAttributes()
 }
 
-// attribute[`${name}_base`] = parseInteger(object._base)
-// attribute[`${name}_modifier`] = object._modified - object._base
-// attribute[`${name}`] = parseInteger(object._modified)
+const getInitiativeDiceFromHeroLab = object => {
+  const dice = new InitiativeDice('initiative_dice')
+
+  const heroLabDice = object._text.split('+')[1].split('D6')[0]
+
+  const diceDifference = parseInteger(heroLabDice) - dice.getBase()
+  dice.setModifier(diceDifference)
+
+  return dice.getSheetAttributes()
+}
+
+const getInitiativeFromHeroLab = characterAttributes => {
+  const object = findInHeroLabAttributes(characterAttributes, 'initiative')
+  const modifier = getInitiativeModifierFromHeroLab(object)
+  const dice = getInitiativeDiceFromHeroLab(object)
+
+  console.log({...modifier, ...dice})
+
+  return {...modifier, ...dice}
+}
 
 
-// _augmentedmaximum: "13"
-// _base: "9"
-// _category: "Derived"
-// _minimum: "2"
-// _modified: "11"
-// _name: "Initiative"
-// _naturalmaximum: "12"
-// _text: "9/11+3D6"
 const associateHeroLabData = character => {
   let setText = {
     "error": "",
@@ -2862,26 +2941,7 @@ const associateHeroLabData = character => {
   console.log(character)
 
   /* Personal Info */
-  const personalData = new PersonalData()
-  personalData.age = character.personal._age
-  personalData.ethnicity = character.heritage._name
-  personalData.height = character.personal.charheight._text
-  personalData.metatype = character.race._name
-  personalData.name = character._name 
-  personalData.sex = character.personal._gender
-  personalData.weight = character.personal.charweight._text
-
-  /* Rewards */
-  const rewardsData = new RewardsData()
-  rewardsData.karma = character.karma._left,
-  rewardsData.total_karma = character.karma._total
-
-  /* Reputations */
-  const reputations = getReputationsFromHeroLab(character.reputations)
-  rewardsData.street_cred = reputations.street_cred,
-  rewardsData.notoriety = reputations.notoriety,
-  rewardsData.public_awareness = reputations.public_awareness,
-  rewardsData.misc = reputations.misc
+  const personalData = associatePersonalData(character)
 
   /* ATTRIBUTES */
   const characterAttributes = character.attributes.attribute
@@ -2891,11 +2951,10 @@ const associateHeroLabData = character => {
   const specialFlag = attributeData.magic ? 'magic' : attributeData.resonance ? 'resonance' : 'mundane'
   attributeData['flag_special'] = specialFlag
 
-  const initiativeData = getInitiativeFromHeroLab(characterAttributes)
+  const initiativeData = getInitiativeFromHeroLab(character.attributes.attribute)
 
   const Roll20Character = {
     ...personalData,
-    ...rewardsData,
     ...attributeData,
     ...initiativeData,
   }

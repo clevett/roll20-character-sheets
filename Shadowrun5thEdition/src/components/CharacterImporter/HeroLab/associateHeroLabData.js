@@ -9,26 +9,7 @@ const associateHeroLabData = character => {
   console.log(character)
 
   /* Personal Info */
-  const personalData = new PersonalData()
-  personalData.age = character.personal._age
-  personalData.ethnicity = character.heritage._name
-  personalData.height = character.personal.charheight._text
-  personalData.metatype = character.race._name
-  personalData.name = character._name 
-  personalData.sex = character.personal._gender
-  personalData.weight = character.personal.charweight._text
-
-  /* Rewards */
-  const rewardsData = new RewardsData()
-  rewardsData.karma = character.karma._left,
-  rewardsData.total_karma = character.karma._total
-
-  /* Reputations */
-  const reputations = getReputationsFromHeroLab(character.reputations)
-  rewardsData.street_cred = reputations.street_cred,
-  rewardsData.notoriety = reputations.notoriety,
-  rewardsData.public_awareness = reputations.public_awareness,
-  rewardsData.misc = reputations.misc
+  const personalData = associatePersonalData(character)
 
   /* ATTRIBUTES */
   const characterAttributes = character.attributes.attribute
@@ -38,11 +19,10 @@ const associateHeroLabData = character => {
   const specialFlag = attributeData.magic ? 'magic' : attributeData.resonance ? 'resonance' : 'mundane'
   attributeData['flag_special'] = specialFlag
 
-  const initiativeData = getInitiativeFromHeroLab(characterAttributes)
+  const initiativeData = getInitiativeFromHeroLab(character.attributes.attribute)
 
   const Roll20Character = {
     ...personalData,
-    ...rewardsData,
     ...attributeData,
     ...initiativeData,
   }

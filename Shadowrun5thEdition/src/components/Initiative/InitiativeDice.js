@@ -1,5 +1,5 @@
 
-class InitiativeDice extends Attribute {
+class InitiativeDice extends SheetAttribute {
   constructor(name) {
     super(name)
     this.base = 1
@@ -11,14 +11,8 @@ class InitiativeDice extends Attribute {
     return [...bonus, 'edge_toggle']
   }
 
-  getBonus() {
-    const temp = this[`${this.name}_temp_flag`] ? this[`${this.name}_temp`] : 0
-    const sum = this[`${this.name}_modifier`] + temp
-    return Math.min(sum, 5)
-  }
-
-  getTotal(edgeFlag) {
-    const total = this.getBonus() + this.getBase()
+  getInitiativeDice(edgeFlag) {
+    const total = this.getTotal()
     return edgeFlag ? 5 : Math.min(total, 5)
   }
 
@@ -29,8 +23,7 @@ class InitiativeDice extends Attribute {
       [`${name}`]: this.getTotal(),
       [`${name}_temp`]: this.getTemp(),
       [`${name}_temp_flag`]: this.getTempFlag(),
-      [`${name}_modifier`]: this.getModifier(),
-      [`${name}_display`]: this.getDisplay()
+      [`${name}_modifier`]: this.getModifier()
     }
   }
 }
