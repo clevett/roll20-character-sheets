@@ -207,40 +207,6 @@ const resetConditionTrack = eventinfo => {
   processingFunctions.setAttributes({[`${attr}`] : 0})
 }
 
-//Calculate Matrix Initiatve.
-const updateMatrixInitiative = () => {
-  getAttrs(["sheet_type", "data_processing", "pilot", "intuition", "matrix_mod_modifier", "host_rating", "level"], v => {
-    const sheetType = v.sheet_type;
-    v = processingFunctions.parseIntegers(v);
-
-    let base = v.data_processing;
-    base += sheetType === "sprite" ? v.level : sheetType === "vehicle" ? v.pilot : sheetType === "host" ? v.host_rating : v.intuition;
-
-    const total = base + v.matrix_mod_modifier;
-
-    setAttrs({
-      ["matrix_mod"]: total,
-      ["display_matrix_mod"]: v.matrix_mod_modifier === 0 ? base : `${base} (${total})`
-    })
-  })
-}
-
-const updateMatrixInitiativeDice = () => {
-  getAttrs(["matrix_dice_modifier", "edge_toggle", "matrix_mode_toggle", "initiative_dice"], v => {
-    const matrixAttrs = {
-      dice: processingFunctions.parseInteger(v.initiative_dice) || 1, 
-      modifer: processingFunctions.parseInteger(v.matrix_dice_modifier), 
-      edge: v.edge_toggle === "@{edge}" ? true : false,
-      mode: v.matrix_mode_toggle,
-    }
-    const matrixDice = shadowrunFunctions.determineMatrixDice(matrixAttrs)
-
-    setAttrs({
-      ["matrix_dice"]: matrixDice
-    })
-  })
-}
-
 const updateHotSimsBonus = () => {
   getAttrs(["matrix_mode_toggle"], v => {
     setAttrs({
