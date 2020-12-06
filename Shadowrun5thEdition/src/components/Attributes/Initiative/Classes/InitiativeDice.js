@@ -3,19 +3,6 @@ class InitiativeDice extends Attribute {
   constructor(name) {
     super(name)
     this.base = 1
-
-    this[`${this.name}`] = 0
-    this[`${this.name}_modifier`] = 0
-    this[`${this.name}_temp`] = 0
-    this[`${this.name}_temp_flag`] = null
-  }
-
-  getBase() {
-    return 1
-  }
-
-  setBase(value) {
-    this.base = value
   }
   
   getAttrsArray() {
@@ -33,6 +20,18 @@ class InitiativeDice extends Attribute {
   getTotal(edgeFlag) {
     const total = this.getBonus() + this.getBase()
     return edgeFlag ? 5 : Math.min(total, 5)
+  }
+
+  getSheetAttributes() {
+    const name = this.getName()
+
+    return  {
+      [`${name}`]: this.getTotal(),
+      [`${name}_temp`]: this.getTemp(),
+      [`${name}_temp_flag`]: this.getTempFlag(),
+      [`${name}_modifier`]: this.getModifier(),
+      [`${name}_display`]: this.getDisplay()
+    }
   }
 }
 
