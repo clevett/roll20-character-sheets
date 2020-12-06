@@ -6,7 +6,7 @@ const sheetAttributes = {
   tabs: [`core`, `arms`, `augs`, `gear`, `magic`, `matrix`, `social`, `vehicle`, `options`],
   woundCalculation: ['high_pain_tolerance', 'low_pain_tolerance', 'damage_compensators_physical', 'damage_compensators_stun', 'stun', 'physical'],
 
-  calculatedAttributes: ['attack', 'sleaze', 'data_processing', 'firewall'],
+  calculatedMatrixAttributes: ['attack', 'sleaze', 'data_processing', 'firewall'],
   matrix_mod: [],
 
   conditionTracks: ['stun', 'physical', 'matrix'],

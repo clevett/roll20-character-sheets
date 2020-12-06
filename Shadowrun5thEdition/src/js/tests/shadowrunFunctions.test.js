@@ -50,10 +50,6 @@ QUnit.test('returns a string of "base (base+bonus)"', assert => assert.ok(shadow
 
 QUnit.test('calculates total of (z + y (x * 2))/3', assert => assert.strictEqual(shadowrunFunctions.calculateLimitTotal([1, 3, 4]), 4))
 
-QUnit.test('walk speed is agilQUnit.testy * 2 then add modifier', assert => assert.strictEqual(shadowrunFunctions.calculateWalkSpeed(2, 20), 24))
-
-QUnit.test('run speed is agilQUnit.testy * 4 then add modifier', assert => assert.strictEqual(shadowrunFunctions.calculateRunSpeed(2, 20), 28))
-
 QUnit.test('searchs an array of keys for any containing "_flag"', assert => {
   const actual = shadowrunFunctions.findFlagInKeys({body: "5", soak_modifier: "6", soak_temp_flag: 'on'})
   assert.ok(actual, "soak_temp_flag")

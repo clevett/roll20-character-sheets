@@ -184,29 +184,19 @@ const updateAmmoWithMax = () => {
 
 const updateTab = attr => processingFunctions.setAttributes({tab: attr})
 
-// const updateAttributes = (array, attribute) => {
-//   getAttrs(array, attrs => {
-//     attrs = shadowrunFunctions.attributeFactory(attrs)
-//     processingFunctions.setAttributes({
-//       [attribute]: attrs.total,
-//       [`display_${attribute}`]: attrs.base === attrs.total ? attrs.base : `${attrs.base} (${attrs.total})`
-//     })
-//   })
-// }
+const calculateMatrixAttributes = (array, attribute) => {
+  getAttrs(array, attrs => {
+    attrs = shadowrunFunctions.attributeFactory(attrs)
+    processingFunctions.setAttributes({
+      [attribute]: attrs.total,
+      [`display_${attribute}`]: attrs.base === attrs.total ? attrs.base : `${attrs.base} (${attrs.total})`
+    })
+  })
+}
 
 const updateLimitTotal = attrs => {
   attrs.essence ? Math.ceil(attrs.essence) || 0 : false;
   return shadowrunFunctions.calculateLimitTotal(Object.values(attrs))
-}
-
-const updateMovement = () => {
-  getAttrs(['agility', 'walk_modifier', 'run_modifier'], attrs => {
-    attrs = processingFunctions.parseIntegers(attrs)
-    processingFunctions.setAttributes({
-      walk: shadowrunFunctions.calculateWalkSpeed(attrs.agility, attrs.walk_modifier),
-      run: shadowrunFunctions.calculateRunSpeed(attrs.agility, attrs.run_modifier)
-    })
-  })
 }
 
 const updateInitiativeDice = () => {

@@ -10,13 +10,11 @@
 
   on('clicked:reload', () => updateAmmoWithMax())
 
-	sheetAttributes.tabs.forEach(attr => on(`clicked:tab_${attr}`, () => updateTab(attr)))
-
-	on('change:agility change:walk_modifier change:run_modifier', () => updateMovement())
-
-  sheetAttributes.calculatedAttributes.forEach(attribute => {
+  sheetAttributes.tabs.forEach(attr => on(`clicked:tab_${attr}`, () => updateTab(attr)))
+  
+  sheetAttributes.calculatedMatrixAttributes.forEach(attribute => {
       const attributeArray = [`${attribute}_base`, `${attribute}_modifier`, `${attribute}_temp`, `${attribute}_temp_flag`]
-      attributeArray.forEach(attr => on(`change:${attr}`, () => updateAttributes(attributeArray, attribute)))
+      attributeArray.forEach(attr => on(`change:${attr}`, () => calculateMatrixAttributes(attributeArray, attribute)))
   });
 
 

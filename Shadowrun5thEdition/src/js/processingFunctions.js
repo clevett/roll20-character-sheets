@@ -28,7 +28,11 @@ const processingFunctions = {
     }
     return numbers  
   },
-  setAttributes: (update, silent) => silent && typeof update === 'object' ? setAttrs(update, {silent:true}) : typeof update === 'object' ? setAttrs(update) : console.error(`${update} is not an object`),
+  setAttributes: (update, silent) => {
+    silent && typeof update === 'object' ? setAttrs(update, {silent:true}) : 
+    typeof update === 'object' ? setAttrs(update) :
+    console.error(`${update} is not an object`)
+  },
   sliceAttr: attribute => attribute.slice(2, -1), 
   sumIntegers: numbers => numbers.reduce((a,b) => a + b, 0),
 }

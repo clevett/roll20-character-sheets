@@ -635,7 +635,11 @@ const processingFunctions = {
     }
     return numbers  
   },
-  setAttributes: (update, silent) => silent && typeof update === 'object' ? setAttrs(update, {silent:true}) : typeof update === 'object' ? setAttrs(update) : console.error(`${update} is not an object`),
+  setAttributes: (update, silent) => {
+    silent && typeof update === 'object' ? setAttrs(update, {silent:true}) : 
+    typeof update === 'object' ? setAttrs(update) :
+    console.error(`${update} is not an object`)
+  },
   sliceAttr: attribute => attribute.slice(2, -1), 
   sumIntegers: numbers => numbers.reduce((a,b) => a + b, 0),
 }
@@ -684,8 +688,6 @@ const shadowrunFunctions = {
   },
   calculateConditionTracks: conditionInts => Math.ceil(conditionInts.attribute/2) + conditionInts.base + conditionInts.modifier,
   calculateLimitTotal: attrs => Math.ceil((attrs[0] + attrs[1] + (attrs[2] * 2))/3),
-  calculateRunSpeed: (agility, modifier) => (agility * 4) + modifier,
-  calculateWalkSpeed:(agility, modifier) => (agility * 2) + modifier,
   calculateWounds: attrs => {
     const divisor  = attrs.low_pain_tolerance === 2 ? attrs.low_pain_tolerance : 3;
     const highPain = attrs.high_pain_tolerance >= 1 ? attrs.high_pain_tolerance : 0;
@@ -1075,6 +1077,48 @@ astralInitiativeAttributes.forEach(attr => {
     updateAstralInitiativeModifier(initiative)
   })
 })
+class Movement extends DerivedAttribute {
+  constructor(name) {
+    super(name)
+    this.agility = null
+    this.walkMultiplier = 4
+    this.runMuplitier = 2
+    this.attributes = ['agility']
+    this.bonus = ['walk_modifier', 'run_modifier']
+  }
+
+  getWalkSpeed(agility, modifier) {
+    return (agility * this.walkMultiplier) + modifier
+  }
+
+  getRunSpeed(agility, modifier) {
+    return (agility * this.runMuplitier) + modifier
+  }
+}
+
+
+const updateMovement = attribute => {
+  const array = attribute.getAttrsArray()
+
+  getAttrs(array, attrs => {
+    const {agility, run_modifier, walk_modifier} = processingFunctions.parseIntegers(attrs)
+
+    const walk = attribute.getWalkSpeed(agility, walk_modifier)
+    const run = attribute.getRunSpeed(agility, run_modifier)
+
+    processingFunctions.setAttributes({
+      walk,
+      run
+    })
+  })
+}
+const movementAttributes = new Movement().getAttrsArray()
+movementAttributes.forEach(attr => {
+  const movement = new Movement()
+  on(`change:${attr}`, () => updateMovement(movement))
+})
+
+
 
 class Attribute {
   constructor(name) {
