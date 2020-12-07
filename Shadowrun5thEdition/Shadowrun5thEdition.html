@@ -1751,6 +1751,37 @@ class Limit extends SheetAttribute {
     }
   }
 }
+class Augmentations extends RepeatingFieldset {
+  constructor(name) {
+    super('augementations')
+    this.name = name
+    this.notes = ''
+    this.rating = ''
+    this.essence = ''
+  }
+
+  getName() { return this.name }
+  getNotes() { return this.notes }
+  getRating() { return this.rating }
+  getEssence() { return this.essence }
+
+  setNotes(value) { this.notes = value }
+  setRating(value) { this.rating = value }
+  setEssence(value) { this.essence = value }
+
+  getSheetAttributes() {
+    const row = this.buildRowName()
+
+    return  {
+      [`${row}_augmentation`]: this.getName(),
+      [`${row}_rating`]: this.getRating(),
+      [`${row}_essence`]: this.getEssence(),
+      [`${row}_notes`]: this.getNotes(),
+      [`${row}_flag`]: this.getFlag(),
+      [`${row}_display_flag`]: this.getDisplayFlag()
+    }
+  }
+}
 class Gear extends RepeatingFieldset {
   constructor(name) {
     super('items')
@@ -2882,14 +2913,6 @@ const buildItemNotesFromHeroLab = item => {
   notes += programs ? `Programs: ${programs}, \n` : ''
   notes += _wireless || programs ? lineBreak : ''
 
-  //- I appears that Roll20 is cutting off the information. 
-  //- There is character limit maybe?
-  // if (modifications) {
-  //   const mods = buildItemModificationNotesFromHeroLab(modifications)
-  //   notes += `Modifications: ${mods.notes} \n`
-  //   notes += mods ? lineBreak : ''
-  // }
-
   notes += othergear ? `Other Gear: ${othergear}, \n` : ''
   notes += _size ? `Size: ${_size}, \n` : ''
   notes += modifications || othergear || _size ? lineBreak : ''
@@ -2924,6 +2947,41 @@ const associateGearItemsFromHeroLab = ({ item }) => {
   return data
 }
 
+const associateAugmentationFromHeroLab = ({ cyberware, bioware }) => {
+  const cyber = Array.isArray(cyberware) ? cyberware.item : [cyberware.item]
+  const bio = Array.isArray(bioware) ? bioware.item : [bioware.item]
+  let data = {}
+
+  const associateData = (ware, type) => {
+    const {_essencecost, _rating, _name } = ware
+    const aug = new Augmentations(`${_name} (${type})`)
+    let notes = buildItemNotesFromHeroLab(ware)
+
+    aug.setRating(_rating || '')
+    aug.setEssence(_essencecost || '')
+    aug.setNotes(notes)
+
+    return aug
+  }
+
+  cyber.forEach(ware => {
+    const newAug = associateData(ware, 'cyberware')
+    const attribues = newAug.getSheetAttributes()
+    for (const [key, value] of Object.entries(attribues)) {
+      data[key] = value
+    }
+  })
+
+  bio.forEach(ware => {
+    const newAug = associateData(ware, 'bioware')
+    const attribues = newAug.getSheetAttributes()
+    for (const [key, value] of Object.entries(attribues)) {
+      data[key] = value
+    }
+  })
+
+  return data
+}
 
 const getReputationsFromHeroLab = ({ reputation }) => {
   let characterSheetAttributes = {
@@ -3063,6 +3121,10 @@ const getInitiativeFromHeroLab = characterAttributes => {
   return {...modifier, ...dice}
 }
 
+const heroLabGearLists {
+  
+}
+
 
 const associateHeroLabData = character => {
   let setText = {
@@ -3095,7 +3157,13 @@ const associateHeroLabData = character => {
 
   /* GEAR */
   const gearItemData = associateGearItemsFromHeroLab(character.gear.equipment)
-  
+
+  /* Augs */ 
+  if (character.gear.augmentations) {
+    const augsData = associateAugmentationFromHeroLab(character.gear.augmentations)
+    console.log(augsData)
+  }
+
   /* TESTING */
   delete(character.settings)
   delete(character.images)
@@ -3106,7 +3174,7 @@ const associateHeroLabData = character => {
   delete(character.personal)
   delete(character.reputations)
   delete(character.race)
-  //console.log(character)
+  console.log(character)
 
   const Roll20Character = {
     ...metaData,

@@ -33,14 +33,6 @@ const buildItemNotesFromHeroLab = item => {
   notes += programs ? `Programs: ${programs}, \n` : ''
   notes += _wireless || programs ? lineBreak : ''
 
-  //- I appears that Roll20 is cutting off the information. 
-  //- There is character limit maybe?
-  // if (modifications) {
-  //   const mods = buildItemModificationNotesFromHeroLab(modifications)
-  //   notes += `Modifications: ${mods.notes} \n`
-  //   notes += mods ? lineBreak : ''
-  // }
-
   notes += othergear ? `Other Gear: ${othergear}, \n` : ''
   notes += _size ? `Size: ${_size}, \n` : ''
   notes += modifications || othergear || _size ? lineBreak : ''

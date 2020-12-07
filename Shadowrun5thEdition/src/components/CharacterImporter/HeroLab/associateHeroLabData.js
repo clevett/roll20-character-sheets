@@ -1,3 +1,7 @@
+const heroLabGearLists {
+  
+}
+
 
 const associateHeroLabData = character => {
   let setText = {
@@ -30,7 +34,13 @@ const associateHeroLabData = character => {
 
   /* GEAR */
   const gearItemData = associateGearItemsFromHeroLab(character.gear.equipment)
-  
+
+  /* Augs */ 
+  if (character.gear.augmentations) {
+    const augsData = associateAugmentationFromHeroLab(character.gear.augmentations)
+    console.log(augsData)
+  }
+
   /* TESTING */
   delete(character.settings)
   delete(character.images)
@@ -41,7 +51,7 @@ const associateHeroLabData = character => {
   delete(character.personal)
   delete(character.reputations)
   delete(character.race)
-  //console.log(character)
+  console.log(character)
 
   const Roll20Character = {
     ...metaData,
