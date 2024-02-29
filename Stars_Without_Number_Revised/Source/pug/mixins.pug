@@ -27,7 +27,7 @@ mixin text-input(name, label, extraclass)
 	- classes = attributes.class;
 	- delete attributes.class;
 	label(class=["text-input", classes])
-		input(type="text", name=`attr_${name}`, class=extraclass)&attributes(attributes)
+		input(type="text", name=`attr_${name}`, class=extraclass data-lpignore="true")&attributes(attributes)
 		if (label)
 			.label(data-i18n=label)
 				block
