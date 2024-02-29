@@ -187,164 +187,13 @@
     }
   }
 
-  .footer {
-    font-size: 10px;
-    border-top: 1px solid #ccc;
-    margin-top: 10px;
-    color: #666;
-
-    button[data-i18n="REPORT_AN_ISSUE"] {
-      font-size: 0.9em;
-    }
-  }
+  @import "./scss/footer";
 
   /* tab environment */
-  .tabs {
-    border-top: 1px solid #333;
-    flex-flow: row-reverse;
-    font-family: $contrail;
-    justify-content: flex-end;
-    margin: 10px 0px;
-    position: relative;
-    width: 100%;
-    z-index: 2;
-
-    input {
-      opacity: 0;
-      position: absolute;
-
-      &:checked + span {
-        background: $darkblue;
-      }
-
-      &:not(:checked) + span {
-        background: $navyblue;
-      }
-    }
-
-    span {
-      padding: 1px 25px 0;
-    }
-
-    label {
-      cursor: pointer;
-      line-height: 17px;
-      display: flex;
-      margin: -1px -10px 0 0;
-      color: $white;
-      clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 10px,
-        calc(100% - 10px) 100%,
-        0 100%
-      );
-    }
-  }
+  @import "./scss/tabs";
 
   /* organisation */
-  .flex {
-    display: flex;
-  }
-
-  .flex-start {
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .flex-center {
-    display: flex;
-    align-items: center;
-  }
-
-  .flex-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .flex-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    align-items: flex-start;
-  }
-
-  .grow {
-    flex-grow: 1;
-  }
-
-  .halfgrid {
-    display: grid;
-    grid: auto/ 1fr 1fr;
-    grid-gap: 5px;
-  }
-
-  .thirdsgrid {
-    display: grid;
-    grid: auto/ repeat(3, 1fr);
-    grid-column-gap: 1%;
-  }
-
-  .column > div:not(:first-child) {
-    margin-top: 5px;
-  }
-
-  .col-2 {
-    grid-column: 2;
-  }
-
-  .col-3 {
-    grid-column: 3;
-  }
-
-  .col-4 {
-    grid-column: 4;
-  }
-
-  .cols-2 {
-    grid-column: span 2;
-  }
-
-  .cols-3 {
-    grid-column: span 3;
-  }
-
-  .cols-4 {
-    grid-column: span 4;
-  }
-
-  .rows-2 {
-    grid-row: span 2;
-  }
-
-  .col55 {
-    width: 55%;
-  }
-
-  .col50 {
-    width: 50%;
-  }
-
-  .col40 {
-    width: 40%;
-  }
-
-  .colthird {
-    width: calc(100% / 3);
-  }
-
-  .col25 {
-    width: 25%;
-  }
-
-  .col20 {
-    width: 20%;
-  }
-
-  .colsixth {
-    width: calc(100% / 6);
-  }
+  @import "./scss/utility";
 
   /* containers */
   .grey-box,
@@ -461,7 +310,7 @@
 
       > span {
         font-size: 16px;
-        color: #333;
+        color: $darkgrey;
       }
 
       .label {
@@ -479,7 +328,7 @@
 
       > span {
         font-size: 16px;
-        color: #333;
+        color: $darkgrey;
       }
 
       .label {
@@ -565,43 +414,10 @@
     vertical-align: super;
   }
 
-  /* force repeating row behaviour */
+  /* force repeating row behavior */
+  @import "./scss/repeating_sections";
 
-  .simple-repsection {
-    .repitem {
-      margin-bottom: 3px;
-    }
-
-    textarea {
-      margin: 3px 0 0;
-      height: 50px;
-    }
-
-    .display {
-      .name {
-        font-weight: bold;
-        font-size: 1.1em;
-        border-bottom: 1px solid #777;
-      }
-
-      .details {
-        line-height: 1.4;
-        text-align: justify;
-        $white-space: pre-wrap;
-      }
-    }
-  }
-
-  .rep-grid {
-    display: grid;
-    align-items: start;
-    grid-column-gap: 3px;
-    margin-bottom: 3px;
-
-    .text-input {
-      padding: 0;
-    }
-  }
+  /* repeating section controls */
 
   /* global skill settings */
   .skills-type[value="neither"] ~ div .skills-either,
@@ -633,37 +449,6 @@
   .skills-query[value="hover"] ~ div .skill:hover .skills-query-display,
   .skill .display .query:focus + .skills-query-display {
     display: none;
-  }
-
-  /* repeating section controls */
-  .repcontrol {
-    display: flex;
-    margin-top: 4px;
-
-    button {
-      padding: 3px 10px;
-    }
-  }
-
-  .repcontrol_edit {
-    order: 1;
-    margin-left: auto;
-  }
-
-  .repcontrol button {
-    background: $navyblue;
-    color: $white;
-    box-shadow: none;
-    text-shadow: none;
-  }
-
-  .repcontrol_move,
-  .repcontrol_del {
-    padding: 1px 10px;
-  }
-
-  .itemcontrol {
-    z-index: 100;
   }
 
   /* Section visibility toggling */
@@ -1144,7 +929,7 @@
       position: absolute;
 
       &:checked + span {
-        color: #333;
+        color: $darkgrey;
       }
     }
   }
