@@ -149,9 +149,8 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 			thead
 				tr
 					th
-					th(data-i18n="BASE").edit
-					th(data-i18n="BOOSTS").edit
-					th(data-i18n="ATTR").edit
+					each val in ["BASE", "BOOSTS", "ATTR"]
+						th(data-i18n=val).edit
 					th(data-i18n="ATTRIBUTE").display
 					th(data-i18n="BONUS")
 					th.edit
@@ -209,11 +208,8 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 				select(name="attr_generate_weapons_source").generate-source
 					option(value="", data-i18n="CHOOSE_WEAPON", selected)
 					optgroup(data-i18n-label="RANGED_WEAPONS")
-						option(value="primitive_bow", data-i18n="PRIMITIVE_BOW")
-						option(value="advanced_bow", data-i18n="ADVANCED_BOW")
-						option(value="conversion_bow", data-i18n="CONVERSION_BOW")
-						option(value="grenade", data-i18n="GRENADE")
-						option(value="crude_pistol", data-i18n="CRUDE_PISTOL")
+						each val in ["primitive_bow", "advanced_bow", "conversion_bow", "grenade", "crude_pistol"]
+							option(value=val, data-i18n=val.toUpperCase())
 						option(value="musket", data-i18n="MUSKET")
 						option(value="revolver", data-i18n="REVOLVER")
 						option(value="rifle", data-i18n="RIFLE")

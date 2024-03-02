@@ -58,10 +58,8 @@ input(type="hidden", name="attr_setting_individual_hidden", value="1").input-ind
 	+fake-text-input("TYPE").center
 		select(name="attr_npc_armor_type")
 			option(value="", data-i18n="NONE")
-			option(value="PRIMITIVE", data-i18n="PRIMITIVE")
-			option(value="STREET", data-i18n="STREET")
-			option(value="COMBAT", data-i18n="COMBAT")
-			option(value="POWERED", data-i18n="POWERED")
+			each val in ["PRIMITIVE", "STREET", "COMBAT", "POWERED"]
+				option(value=val, data-i18n=val)
 
 //- Quick rolls
 .core-box.rolls
