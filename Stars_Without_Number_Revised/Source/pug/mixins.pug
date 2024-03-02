@@ -200,6 +200,6 @@ mixin makeSkill(skillName, custom, label)
 					option(value="?{@{translation_numdice}|2d6,2d6|3d6,3d6d1|4d6,4d6d2}", data-i18n="ASK")
 
 
-mixin combatSkillList(skillName, classes, select)
+mixin combatSkillList(skillName, select)
 	- const selected = skillName === select;
-	option(class=classes value=`@{skill_${skillName}}` data-i18n=`${skillName.toUpperCase()}` selected=selected)
+	option(class=attributes.class value=`@{skill_${skillName}}` data-i18n=`${skillName.toUpperCase()}` selected=selected)
