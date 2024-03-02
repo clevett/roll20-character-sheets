@@ -199,7 +199,41 @@ mixin makeSkill(skillName, custom, label)
 					option(value="4d6d2") 4d6
 					option(value="?{@{translation_numdice}|2d6,2d6|3d6,3d6d1|4d6,4d6d2}", data-i18n="ASK")
 
-
 mixin combatSkillList(skillName, select)
 	- const selected = skillName === select;
 	option(class=attributes.class value=`@{skill_${skillName}}` data-i18n=`${skillName.toUpperCase()}` selected=selected)
+
+mixin foci
+	+sectionheader("show_foci", "FOCI")
+	.foci.grey-box.simple-repsection
+		input(type="hidden", name="attr_show_focus_details", value="1").input-details
+		.class-ability
+			button.display.invisible-button(type="roll", name="roll_Class_ability", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=^{CLASS_ABILITY}}} {{desc=@{class_ability}}}")
+			.display
+				.name.flex
+					div #[span(data-i18n="CLASS_ABILITY")]: #[span(name="attr_class")]
+					label.details-button
+						input(type="checkbox", name="attr_show_focus_details", value="1", checked)
+						span(data-i18n="EXPAND")
+				.details
+					span(name="attr_class_ability")
+			.edit
+				.name.flex
+					div #[span(data-i18n="CLASS_ABILITY")]: #[span(name="attr_class")]
+					label.details-button
+						input(type="checkbox", name="attr_show_focus_details", value="1", checked)
+						span(data-i18n="EXPAND")
+				.details
+					textarea.details(name="attr_class_ability")
+		fieldset.repeating_foci
+			button.display.invisible-button(type="roll", name="roll_Focus", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{FOCUS}}} {{title=@{focus_name}}} {{desc=@{focus_description}}}")
+			.display
+				.name.flex
+					span(name="attr_focus_name")
+					span.level #[span(data-i18n="LEVEL")]-#[span(name="attr_focus_level")]
+				.details
+					span(name="attr_focus_description")
+			.edit.flex-wrap
+				input.name(type="text", name="attr_focus_name", data-i18n-placeholder="FOCUS")
+				input.level(type="number", min="0", value="1", name="attr_focus_level", data-i18n-placeholder="LEVEL")
+				textarea.details(name="attr_focus_description", data-i18n-placeholder="DESCRIPTION")

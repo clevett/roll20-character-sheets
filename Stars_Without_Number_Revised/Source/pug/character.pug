@@ -1,41 +1,5 @@
 include constants.pug
 
-//- We have foci in two locations, so they are outsourced to this mixin
-mixin foci
-	+sectionheader("show_foci", "FOCI")
-	.foci.grey-box.simple-repsection
-		input(type="hidden", name="attr_show_focus_details", value="1").input-details
-		.class-ability
-			button.display.invisible-button(type="roll", name="roll_Class_ability", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=^{CLASS_ABILITY}}} {{desc=@{class_ability}}}")
-			.display
-				.name.flex
-					div #[span(data-i18n="CLASS_ABILITY")]: #[span(name="attr_class")]
-					label.details-button
-						input(type="checkbox", name="attr_show_focus_details", value="1", checked)
-						span(data-i18n="EXPAND")
-				.details
-					span(name="attr_class_ability")
-			.edit
-				.name.flex
-					div #[span(data-i18n="CLASS_ABILITY")]: #[span(name="attr_class")]
-					label.details-button
-						input(type="checkbox", name="attr_show_focus_details", value="1", checked)
-						span(data-i18n="EXPAND")
-				.details
-					textarea.details(name="attr_class_ability")
-		fieldset.repeating_foci
-			button.display.invisible-button(type="roll", name="roll_Focus", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{FOCUS}}} {{title=@{focus_name}}} {{desc=@{focus_description}}}")
-			.display
-				.name.flex
-					span(name="attr_focus_name")
-					span.level #[span(data-i18n="LEVEL")]-#[span(name="attr_focus_level")]
-				.details
-					span(name="attr_focus_description")
-			.edit.flex-wrap
-				input.name(type="text", name="attr_focus_name", data-i18n-placeholder="FOCUS")
-				input.level(type="number", min="0", value="1", name="attr_focus_level", data-i18n-placeholder="LEVEL")
-				textarea.details(name="attr_focus_description", data-i18n-placeholder="DESCRIPTION")
-
 input(type="hidden", name="attr_homebrew_skill_list", value="revised").skills-type
 input(type="hidden", name="attr_setting_super_type", value="psionics").super-type
 input(type="hidden", name="attr_setting_foci_location", value="left").foci-loc
@@ -50,18 +14,15 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 		+text-input("character_name", "NAME").important
 		+text-input("level", "LEVEL", "no-spinners")(type="number", min="1", value="1").level.center
 		+text-input("class", "CLASS").level-rest
-		+text-input("background", "BACKGROUND").col25
-		+text-input("species_gender", "SPECIES_GENDER").col25
-		+text-input("faction", "FACTION").col25
-		+text-input("homeworld", "HOMEWORLD").col25
+		each val in ["background", "species_gender", "faction", "homeworld"]
+			+text-input(val, val.toUpperCase()).col25
 	.saves.core-box
 		h3(data-i18n="SAVING_THROWS")
 		.flex-between
-			+makeSave("physical")
-			+makeSave("mental")
-			+makeSave("evasion")
-			input(type="hidden", name="attr_homebrew_luck_save", value="0").hider
-			+makeSave("luck")
+			each val in saves
+				if val === "luck"
+					input(type="hidden", name="attr_homebrew_luck_save", value="0").hider
+				+makeSave(val)
 	.menus.core-box
 		h3(data-i18n="INITIATIVE_FIXED")
 		.menus-content.blue-button
@@ -105,16 +66,13 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 							if ["strength", "dexterity", "constitution"].includes(attr)
 								input(type="number", name=`attr_${attr}_base`, value="10").ai-disabled.transhuman-disabled
 							else
-								input(type="number", name=`attr_${attr}_base`, value="10")
-							//span(name=`attr_${attr}`).display
+								input(type="number", name=`attr_${attr}_base`, value="10")y
 						td.edit
 							if ["strength", "dexterity", "constitution"].includes(attr)
 								input(type="number", name=`attr_${attr}_boosts`, value="0").ai-disabled.transhuman-disabled
 							else
 								input(type="number", name=`attr_${attr}_boosts`, value="0")
-							//span(name=`attr_${attr}_boosts`).display
 						td
-							//input(type="number", name=`attr_${attr}_boosts`, value="0").edit
 							span(name=`attr_${attr}`)
 						td
 							input(type="number", name=`attr_${attr}_bonus`, value="0").edit
