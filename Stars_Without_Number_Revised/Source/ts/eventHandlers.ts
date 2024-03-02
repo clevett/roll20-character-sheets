@@ -28,7 +28,6 @@ on("change:setting_use_ammo", () => {
 });
 
 /* Character sheet */
-on("change:class", fillClassStats);
 attributes.forEach((attr) =>
   on(`change:${attr}_base change:${attr}_boosts`, () => calculateAttr(attr))
 );
@@ -130,21 +129,9 @@ on(
   buildMagicMenu
 );
 
-/* Repeating autofill */
-autofillSections.forEach((sName: AutofillSectionsKey) => {
-  on(`change:generate_${sName}_source`, () => generateAutofillInfo(sName));
-  on(`change:generate_${sName}_button`, () => generateAutofillRow(sName));
-});
-
 /* Ship sheet */
-on("change:ship_hulltype", fillShipStats);
 on("change:ship_calculate_price", calculateShipStats);
-on("change:ship_class", () => {
-  setShipClass();
-  ["ship-fittings", "ship-defenses"].forEach(
-    (sName: "ship-fittings" | "ship-defenses") => generateAutofillInfo(sName)
-  );
-});
+on("change:ship_class", () => setShipClass());
 on(shipStatEvent, calculateShipStats);
 on(
   "change:repeating_ship-weapons:weapon_name change:repeating_ship-weapons:weapon_attack_bonus " +
@@ -153,12 +140,6 @@ on(
 );
 
 /* Drones */
-[1, 2, 3, 4, 5].forEach((num) => {
-  on(`change:repeating_drones:drone_fitting_${num}_name`, () =>
-    fillDroneFitting(num)
-  );
-});
-on("change:repeating_drones:drone_model", fillDroneStats);
 on(
   "change:attack_bonus change:intelligence_mod change:skill_pilot change:skill_program change:npc",
   () =>
@@ -175,7 +156,6 @@ on(
 );
 
 /* NPC sheet */
-on("change:npc_stat_block", fillNPC);
 on("change:npc_rolls_hidden", handleNPCRollHide);
 on("change:repeating_npc-attacks:attack_name", addNPCAttackBonus);
 on(
