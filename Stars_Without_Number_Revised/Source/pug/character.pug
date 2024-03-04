@@ -61,12 +61,11 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 				input(type="hidden", name="attr_str_dex_mod", value="0")
 				each attr in attributes
 					tr
-						td(data-i18n=attr.toUpperCase(), data-i18n-title=`${attr.toUpperCase()}_DESC`)
 						td.edit
 							if ["strength", "dexterity", "constitution"].includes(attr)
-								input(type="number", name=`attr_${attr}_base`, value="10").ai-disabled.transhuman-disabled
+								input(type="number", name=`attr_${attr}_base`, value="0").ai-disabled.transhuman-disabled
 							else
-								input(type="number", name=`attr_${attr}_base`, value="10")y
+								input(type="number", name=`attr_${attr}_base`, value="0")
 						td.edit
 							if ["strength", "dexterity", "constitution"].includes(attr)
 								input(type="number", name=`attr_${attr}_boosts`, value="0").ai-disabled.transhuman-disabled
@@ -238,6 +237,10 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 				.skills-psionic.skill-container(data-i18n-list="SKILL_ORDER_PSIONIC")
 					each skill in skills.psionic
 						+makeSkill(skill)
+				.skills-repeating
+					fieldset.repeating_psychic-skills
+						+makeSkill("", true)
+				.skills-psionic.skill-container
 					.skill.skill-points
 						.display.flex-center
 							span(data-i18n="UNSPENT_PSIONIC_SKILL_POINTS").name
@@ -245,9 +248,6 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 						.edit.flex-center
 							span(data-i18n="UNSPENT_PSIONIC_SKILL_POINTS").name
 							input(type="number", min="0", value="0", name="attr_unspent_psionic_skill_points").level
-				.skills-repeating
-					fieldset.repeating_psychic-skills
-						+makeSkill("", true)
 				.psionics-effort.grey-box
 					h3(data-i18n="COMMITTED_EFFORT")
 					+text-input("psionics_extra_effort", "BONUS")(type="number", value="0").center
@@ -360,38 +360,24 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 			.skills-revised.skill-container(data-i18n-list="SKILL_ORDER_REVISED")
 				each skill in skills.revised
 					+makeSkill(skill)
-				.skill.skill-points
-					.display.flex-center
-						span(data-i18n="UNSPENT_SKILL_POINTS").name
-						span(name="attr_unspent_skill_points").level
-					.edit.flex-center
-						span(data-i18n="UNSPENT_SKILL_POINTS").name
-						input(type="number", min="0", value="0", name="attr_unspent_skill_points").level
 			.skills-first.skill-container(data-i18n-list="SKILL_ORDER_FIRST")
 				each skill in skills.first
 					+makeSkill(skill, !!customSkills[skill], customSkills[skill])
-				.skill.skill-points
-					.display.flex-center
-						span(data-i18n="UNSPENT_SKILL_POINTS").name
-						span(name="attr_unspent_skill_points").level
-					.edit.flex-center
-						span(data-i18n="UNSPENT_SKILL_POINTS").name
-						input(type="number", min="0", value="0", name="attr_unspent_skill_points").level
 			.skills-wwn.skill-container(data-i18n-list="SKILL_ORDER_WWN")
 				each skill in skills.wwn
 					+makeSkill(skill, !!customSkills[skill], customSkills[skill])
-				.skill.skill-points
-					.display.flex-center
-						span(data-i18n="UNSPENT_SKILL_POINTS").name
-						span(name="attr_unspent_skill_points").level
-					.edit.flex-center
-						span(data-i18n="UNSPENT_SKILL_POINTS").name
-						input(type="number", min="0", value="0", name="attr_unspent_skill_points").level
 			input(type="hidden", name="attr_homebrew_extra_skills", value="0").hider
 			.skills-repeating
 				fieldset.repeating_skills
 					+makeSkill("", true)
+			.skills-revised.skill-container
+				+unspentSkillPoints()
+			.skills-first.skill-container
+				+unspentSkillPoints()
+			.skills-wwn.skill-container
+				+unspentSkillPoints()
 			.skill-blurb.edit(data-i18n="SKILL_BLURB")
+			
 
 	//- Foci
 	.section.foci-right

@@ -237,3 +237,12 @@ mixin foci
 				input.name(type="text", name="attr_focus_name", data-i18n-placeholder="FOCUS")
 				input.level(type="number", min="0", value="1", name="attr_focus_level", data-i18n-placeholder="LEVEL")
 				textarea.details(name="attr_focus_description", data-i18n-placeholder="DESCRIPTION")
+
+mixin unspentSkillPoints
+	.skill.skill-points
+		.display.flex-center
+			span(data-i18n="UNSPENT_SKILL_POINTS").name
+			span(name="attr_unspent_skill_points").level
+		.edit.flex-center
+			span(data-i18n="UNSPENT_SKILL_POINTS").name
+			input(type="number", min="0", value="0", name="attr_unspent_skill_points").level
