@@ -174,10 +174,6 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 			.grey-box
 				.flex-center
 					h3(data-i18n="SHELLS")
-					label.details-button
-						input(type="checkbox", name="attr_show_shell_details", value="1", checked)
-						span(data-i18n="EXPAND")
-				input(type="hidden", name="attr_show_shell_details", value="1").input-details
 				.table-header.shells-grid.rep-grid.notdetails
 					.active(data-i18n="ACTIVE?").notdetails
 					.str(data-i18n="STRENGTH_SHORT").notdetails
@@ -186,35 +182,37 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					.affinity(data-i18n="AFFINITY?").notdetails
 					.name(data-i18n="NAME").notdetails
 				fieldset.repeating_shells
-					button.display.invisible-button(name="roll_Shell", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{SHELL} — STR @{shell_strength} - DEX @{shell_dexterity} - CON @{shell_constitution}}} {{title=@{shell_name}}} {{desc=^{BASIC_ABILITIES}:\n @{shell_ability} @{shell_affinity_active}}}")
-					.table-header.shells-grid.rep-grid.details.no-highlight
-						.active(data-i18n="ACTIVE?")
-						.str(data-i18n="STRENGTH_SHORT")
-						.dex(data-i18n="DEXTERITY_SHORT")
-						.con(data-i18n="CONSTITUTION_SHORT")
-						.affinity(data-i18n="AFFINITY?")
-						.name(data-i18n="NAME")
-					.shells-grid.rep-grid
-						+fake-text-input().center
-							input(type="checkbox", name="attr_shell_active", value="1").inline-input.rep-radio
-						+text-input("shell_strength")(type="number", value="0").center.inline-input
-						+text-input("shell_dexterity")(type="number", value="0").center.inline-input
-						+text-input("shell_constitution")(type="number", value="0").center.inline-input
-						+fake-text-input().center
-							input(type="checkbox", name="attr_shell_affinity_active" value="\n\n^{AFFINITY_ABILITIES}:\n @{shell_affinity}").inline-input
-						+text-input("shell_name").inline-input.edit
-						+text-input("shell_name").display
-					input(type="hidden", name="attr_shell_ability", value="").hide-empty
-					.rep-grid.details
-						.table-header
-							.shell-ability(data-i18n="BASIC_ABILITIES")
-						span(name="attr_shell_ability").display
-						textarea(name="attr_shell_ability").edit
-					.rep-grid.details
-						.table-header
-							.shell-affinity(data-i18n="AFFINITY_ABILITIES")
-						span(name="attr_shell_affinity").display
-						textarea(name="attr_shell_affinity").edit
+					.show-chevron
+						+collapseChevron
+						button.display.invisible-button(name="roll_Shell", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{SHELL} — STR @{shell_strength} - DEX @{shell_dexterity} - CON @{shell_constitution}}} {{title=@{shell_name}}} {{desc=^{BASIC_ABILITIES}:\n @{shell_ability} @{shell_affinity_active}}}")
+						.table-header.shells-grid.rep-grid.details.no-highlight
+							.active(data-i18n="ACTIVE?")
+							.str(data-i18n="STRENGTH_SHORT")
+							.dex(data-i18n="DEXTERITY_SHORT")
+							.con(data-i18n="CONSTITUTION_SHORT")
+							.affinity(data-i18n="AFFINITY?")
+							.name(data-i18n="NAME")
+						.shells-grid.rep-grid
+							+fake-text-input().center
+								input(type="checkbox", name="attr_shell_active", value="1").inline-input.rep-radio
+							+text-input("shell_strength")(type="number", value="0").center.inline-input
+							+text-input("shell_dexterity")(type="number", value="0").center.inline-input
+							+text-input("shell_constitution")(type="number", value="0").center.inline-input
+							+fake-text-input().center
+								input(type="checkbox", name="attr_shell_affinity_active" value="\n\n^{AFFINITY_ABILITIES}:\n @{shell_affinity}").inline-input
+							+text-input("shell_name").inline-input.edit
+							+text-input("shell_name").display
+						input(type="hidden", name="attr_shell_ability", value="").hide-empty
+						.rep-grid.details
+							.table-header
+								.shell-ability(data-i18n="BASIC_ABILITIES")
+							span(name="attr_shell_ability").display
+							textarea(name="attr_shell_ability").edit
+						.rep-grid.details
+							.table-header
+								.shell-affinity(data-i18n="AFFINITY_ABILITIES")
+							span(name="attr_shell_affinity").display
+							textarea(name="attr_shell_affinity").edit
 	//- Foci
 	.section.foci-left
 		+foci
@@ -296,56 +294,49 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					.spells.grey-box.simple-repsection
 						.flex-center
 							h3(data-i18n="ABILITIES")
-							label.details-button
-								input(type="checkbox", name="attr_show_spell_details", value="1", checked)
-								span(data-i18n="EXPAND")
-						input(type="hidden", name="attr_show_spell_details", value="1").input-details
 						.flex.edit
 							.name(data-i18n="NAME")
 						fieldset.repeating_abilities
-							button.display.invisible-button(type="roll", name="roll_Ability", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=@{ability_name}}} {{info=^{ABILITY}}} {{desc=@{ability_description}}}")
-							.display
-								.name.flex-center
-									span(name="attr_ability_name")
-								.details #[span(name="attr_ability_description")]
-							.edit.flex-wrap
-								input.name(type="text", name="attr_ability_name")
-								textarea.details(name="attr_ability_description")
+							.show-chevron
+								+collapseChevron
+								button.display.invisible-button(type="roll", name="roll_Ability", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=@{ability_name}}} {{info=^{ABILITY}}} {{desc=@{ability_description}}}")
+								.display
+									.name.flex-center
+										span(name="attr_ability_name")
+									.details #[span(name="attr_ability_description")]
+								.edit.flex-wrap
+									input.name(type="text", name="attr_ability_name")
+									textarea.details(name="attr_ability_description")
 				.spellcaster
 					.spell-slots.grey-box
 						h3(data-i18n="SPELL_SLOTS")
-						+text-input("spell-slots-first-level", "FIRST_LEVEL")(type="number", value="0", min="0").center
-						+text-input("spell-slots-second-level", "SECOND_LEVEL")(type="number", value="0", min="0").center
-						+text-input("spell-slots-third-level", "THIRD_LEVEL")(type="number", value="0", min="0").center
-						+text-input("spell-slots-fourth-level", "FOURTH_LEVEL")(type="number", value="0", min="0").center
-						+text-input("spell-slots-fifth-level", "FIFTH_LEVEL")(type="number", value="0", min="0").center
+						each val in ["first", "second", "third", "fourth", "fifth"]
+							+text-input(`spell-slots-${val}-level`, `${val.toUpperCase()}_LEVEL`)(type="number", value="0", min="0").center
 					.spells.grey-box.simple-repsection
 						.flex-center
 							h3(data-i18n="SPELLS")
-							label.details-button
-								input(type="checkbox", name="attr_show_spell_details", value="1", checked)
-								span(data-i18n="EXPAND")
-						input(type="hidden", name="attr_show_spell_details", value="1").input-details
 						.flex.edit
 							.name(data-i18n="NAME")
 							.level(data-i18n="LEVEL")
 							.prepared.arcanist(data-i18n="PREPARED")
 							.damage(data-i18n="DAMAGE")
 						fieldset.repeating_spells
-							button.display.invisible-button(type="roll", name="roll_Spell", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=@{spell_name}}} {{info=^{SPELL}}} {{desc=@{spell_description}}} {{damage=[[@{spell_damage}]]}}")
-							.display
-								.name.flex-center
-									span(name="attr_spell_name")
-									span(name="attr_spell_level")
-									span.prepared.arcanist #[span(data-i18n="PREPARED")]:
+							.show-chevron
+								+collapseChevron
+								button.display.invisible-button(type="roll", name="roll_Spell", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=@{spell_name}}} {{info=^{SPELL}}} {{desc=@{spell_description}}} {{damage=[[@{spell_damage}]]}}")
+								.display
+									.name.flex-center
+										span(name="attr_spell_name")
+										span(name="attr_spell_level")
+										span.prepared.arcanist #[span(data-i18n="PREPARED")]:
+										input.prepared.arcanist(type="number", name="attr_spell_prepared", value="0", min="0")
+									.details #[span(name="attr_spell_description")]
+								.edit.flex-wrap
+									input.name(type="text", name="attr_spell_name")
+									input.level(type="number", name="attr_spell_level", value="0", min="0")
 									input.prepared.arcanist(type="number", name="attr_spell_prepared", value="0", min="0")
-								.details #[span(name="attr_spell_description")]
-							.edit.flex-wrap
-								input.name(type="text", name="attr_spell_name")
-								input.level(type="number", name="attr_spell_level", value="0", min="0")
-								input.prepared.arcanist(type="number", name="attr_spell_prepared", value="0", min="0")
-								input.damage(type="text", name="attr_spell_damage", value="0")
-								textarea.details(name="attr_spell_description")
+									input.damage(type="text", name="attr_spell_damage", value="0")
+									textarea.details(name="attr_spell_description")
 
 
 .column
@@ -407,19 +398,17 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 			.routines.grey-box.simple-repsection
 				.flex-center
 					h3(data-i18n="AI_ROUTINES") AI Routines
-					label.details-button
-						input(type="checkbox", name="attr_show_routines_details", value="1", checked)
-						span(data-i18n="EXPAND")
-				input(type="hidden", name="attr_show_routines_details", value="1").input-details
 				fieldset.repeating_routines
-					button.display.invisible-button(name="roll_Routine", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{AI_ROUTINE}}} {{title=@{routine_name}}} {{desc=@{routine_description}}}")
-					.display
-						.name.flex
-							span(name="attr_routine_name")
-						.details #[span(name="attr_routine_description")]
-					.edit.flex-wrap
-						input.name.grow(type="text", name="attr_routine_name", data-i18n-placeholder="ROUTINE")
-						textarea.details(name="attr_routine_description", data-i18n-placeholder="DESCRIPTION")
+					.show-chevron
+						+collapseChevron
+						button.display.invisible-button(name="roll_Routine", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{AI_ROUTINE}}} {{title=@{routine_name}}} {{desc=@{routine_description}}}")
+						.display
+							.name.flex
+								span(name="attr_routine_name")
+							.details #[span(name="attr_routine_description")]
+						.edit.flex-wrap
+							input.name.grow(type="text", name="attr_routine_name", data-i18n-placeholder="ROUTINE")
+							textarea.details(name="attr_routine_description", data-i18n-placeholder="DESCRIPTION")
 
 //- Gear
 .section.cols-2
@@ -478,9 +467,6 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 				.flex-center
 					h3
 						| #[span(data-i18n="ARMOR")] – #[span(data-i18n="AC")] #[span(name="attr_AC")]
-					label.details-button
-						input(type="checkbox", name="attr_show_armor_details", value="1", checked)
-						span(data-i18n="EXPAND")
 				.table-header.armor-grid.rep-grid
 					.active.center(data-i18n="ACTIVE?")
 					.name(data-i18n="NAME")
@@ -502,19 +488,16 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 						+fake-text-input()
 							select(name="attr_armor_type")
 								option(value="none", data-i18n="NONE")
-								option(value="PRIMITIVE", data-i18n="PRIMITIVE")
-								option(value="STREET", data-i18n="STREET", selected)
-								option(value="COMBAT", data-i18n="COMBAT")
-								option(value="POWERED", data-i18n="POWERED")
-								option(value="SHIELD", data-i18n="SHIELD")
-								option(value="ARTIFACT", data-i18n="ARTIFACT")
+								each val in armorTypes
+									- const selected = val === "STREET";
+									option(value=val, data-i18n=val selected=selected)
 						+text-input("armor_encumbrance")(type="number", value="0").center
 						+text-input("armor_encumbrance_bonus")(type="number", value="0").center
 						+fake-text-input()
 							select(name="attr_armor_status")
 								option(value="", data-i18n="OTHER", selected)
-								option(value="READIED", data-i18n="READIED")
-								option(value="STOWED", data-i18n="STOWED")
+								each val in armorStatus
+									option(value=val, data-i18n=val)
 					input(type="hidden", name="attr_armor_description", value="").hide-empty
 					.armor-grid.rep-grid.details
 						.display
@@ -525,22 +508,20 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 				.flex-center
 					h3
 						| #[span(data-i18n="CYBERWARE")] – #[span(data-i18n="TOTAL_CYBERWARE_STRAIN")] #[span(name="attr_cyberware_strain_total")]
-					label.details-button
-						input(type="checkbox", name="attr_show_cyberware_details", value="1", checked)
-						span(data-i18n="EXPAND")
-				input(type="hidden", name="attr_show_cyberware_details", value="1").input-details
 				fieldset.repeating_cyberware
-					button.display.invisible-button(name="roll_Cyberware", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=@{cyberware_name}}} {{info=^{CYBERWARE}; @{cyberware_strain} ^{STRAIN}}} {{desc=@{cyberware_description}}}")
-					.display
-						.name.flex-between
-							span(name="attr_cyberware_name")
-							span #[span(name="attr_cyberware_strain")] #[span(data-i18n="STRAIN").lower]
-						.details #[span(name="attr_cyberware_description")]
-					.edit.flex-center
-						input(type="text", name="attr_cyberware_name").name
-						span #[span(data-i18n="STRAIN_COST")]:
-						input(type="number", name="attr_cyberware_strain", value="0").strain
-						textarea(name="attr_cyberware_description", data-i18n-placeholder="DESCRIPTION").details
+					.show-chevron
+						+collapseChevron
+						button.display.invisible-button(name="roll_Cyberware", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=@{cyberware_name}}} {{info=^{CYBERWARE}; @{cyberware_strain} ^{STRAIN}}} {{desc=@{cyberware_description}}}")
+						.display
+							.name.flex-between
+								span(name="attr_cyberware_name")
+								span #[span(name="attr_cyberware_strain")] #[span(data-i18n="STRAIN").lower]
+							.details #[span(name="attr_cyberware_description")]
+						.edit.flex-center
+							input(type="text", name="attr_cyberware_name").name
+							span #[span(data-i18n="STRAIN_COST")]:
+							input(type="number", name="attr_cyberware_strain", value="0").strain
+							textarea(name="attr_cyberware_description", data-i18n-placeholder="DESCRIPTION").details
 
 //- Misc
 .section.cols-2
