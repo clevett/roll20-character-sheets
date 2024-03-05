@@ -6,8 +6,8 @@
     scale: 0.8;
   }
 
-  input.input-collapse:checked ~ div .details,
-  input.input-collapse[value="0"] ~ div .details {
+  input.input-collapse:checked ~ div.display .details,
+  input.input-collapse[value="0"] ~ div.display .details {
     display: none;
   }
 
@@ -30,5 +30,10 @@
 
   input.input-collapse:not(:checked) + span.chevron {
     transform: rotate(180deg);
+  }
+
+  .editmode[value="1"] ~ .content input.input-collapse,
+  .editmode[value="1"] ~ .content input.input-collapse + span {
+    display: none;
   }
 }
