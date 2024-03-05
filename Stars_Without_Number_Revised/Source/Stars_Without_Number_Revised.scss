@@ -103,12 +103,7 @@
       border-bottom: 2px solid $highlightyellow;
     }
 
-    .tabs {
-      border-color: $highlightyellow;
-      border-style: solid;
-      border-width: 0 2px 0 2px;
-    }
-
+    .tabs,
     .settings {
       border-color: $highlightyellow;
       border-style: solid;
@@ -422,8 +417,6 @@
   /* repeating section controls */
 
   /* global settings */
-  @import "./scss/system_settings";
-
   .super-type:not([value="psionics"]):not([value="both"]) ~ div.skills-psionics,
   .super-type:not([value="magic"]):not([value="both"]) ~ div .skills-magic,
   .skills-query:not([value="hover"]) ~ div .skills-query-hover,
@@ -1663,4 +1656,6 @@
       flex-wrap: wrap;
     }
   }
+
+  @import "./scss/system_settings";
 }

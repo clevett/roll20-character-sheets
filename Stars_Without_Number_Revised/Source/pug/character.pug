@@ -19,7 +19,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 		each val in core.wwnInfo
 			+text-input(val, val.toUpperCase()).col25.wwn
 		each val in ["first", "second", "third"]
-			+text-input(`${val}_edge`, `${val.toUpperCase()}_EDGE`).col25.cwn
+			+text-input(`edge_${val}`, `${val.toUpperCase()}_EDGE`).col25.cwn
 	.saves.core-box
 		h3(data-i18n="SAVING_THROWS")
 		.flex-between
@@ -352,7 +352,6 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 		input(type="hidden" vale="attr_skills")
 		+sectionheader("show_skills", "SKILLS")
 		.skills
-			input(type="hidden", name="attr_homebrew_skill_list", value="revised").skills-type
 			.swn.skill-container(data-i18n-list="SKILL_ORDER_REVISED")
 				each skill in skills.revised
 					+makeSkill(skill)

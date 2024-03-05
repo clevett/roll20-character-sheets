@@ -16,7 +16,7 @@ on("sheet:opened change:npc", validateTab);
 on("sheet:opened", setTranslatedQueries);
 on("sheet:opened change:setting_skill_query", handleAttributeQueries);
 on("sheet:opened change:setting_modifier_query", handleModifierQuery);
-on("change:homebrew_skill_list", setTranslatedDefaults);
+on("change:system", setTranslatedDefaults);
 
 /* API use ammo boilerplate */
 ["weapons", "ship-weapons"].forEach((sName) => {
@@ -49,7 +49,7 @@ on(
 on(weaponDisplayEvent, generateWeaponDisplay);
 
 on("change:repeating_weapons:weapon_name", () => validateWeaponSkills());
-on("change:homebrew_skill_list", () =>
+on("change:system", () =>
   getSectionIDs("repeating_weapons", validateWeaponSkills)
 );
 
@@ -105,7 +105,7 @@ on(
   [
     ...skills.revised.map((x) => `change:skill_${x}`),
     ...skills.first.map((x) => `change:skill_${x}`),
-    "change:homebrew_skill_list",
+    "change:system",
     "change:repeating_skills",
     "change:setting_show_untrained_skills",
     "remove:repeating_skills",

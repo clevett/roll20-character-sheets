@@ -1150,5 +1150,6 @@
   "RACE_SPECIES": "Race / Species",
   "EDGE_FIRST": "First Edge",
   "EDGE_SECOND": "Second Edge",
-  "EDGE_THIRD": "Third Edge"
+  "EDGE_THIRD": "Third Edge",
+  "MOUNT": "Mount"
 }
