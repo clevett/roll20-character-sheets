@@ -426,6 +426,7 @@
   .skills-type:not([value="first"]) ~ div .skills-first,
   .skills-type:not([value="revised"]) ~ div .skills-revised,
   .skills-type:not([value="wwn"]) ~ div .skills-wwn,
+  .skills-type:not([value="cwn"]) ~ div .skills-cwn,
   .skills-type:not([value="neither"]) ~ div .skills-neither,
   .super-type:not([value="psionics"]):not([value="both"])
     ~ div
