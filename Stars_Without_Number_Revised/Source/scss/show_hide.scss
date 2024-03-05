@@ -6,6 +6,7 @@
     scale: 0.8;
   }
 
+  input.input-collapse:checked ~ div .details,
   input.input-collapse[value="0"] ~ div .details {
     display: none;
   }

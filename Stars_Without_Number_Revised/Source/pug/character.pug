@@ -257,21 +257,20 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 				.techniques.grey-box.simple-repsection
 					.flex-center
 						h3(data-i18n="PSYCHIC_TECHNIQUES")
-						label.details-button
-							input(type="checkbox", name="attr_show_technique_details", value="1", checked)
-							span(data-i18n="EXPAND")
 					input(type="hidden", name="attr_show_technique_details", value="1").input-details
 					fieldset.repeating_techniques
-						button.display.invisible-button(name="roll_Technique", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{PSYCHIC_TECHNIQUE} — @{technique_discipline}}} {{title=@{technique_name}}} {{desc=@{technique_description}}}")
-						.display
-							.name.flex
-								span(name="attr_technique_name")
-								span.discipline(name="attr_technique_discipline")
-							.details #[span(name="attr_technique_description")]
-						.edit.flex-wrap
-							input.name.grow(type="text", name="attr_technique_name", data-i18n-placeholder="TECHNIQUE")
-							input.discipline(type="text", name="attr_technique_discipline", data-i18n-placeholder="DISCIPLINE")
-							textarea.details(name="attr_technique_description", data-i18n-placeholder="DESCRIPTION")
+						.show-chevron
+							+collapseChevron()
+							button.display.invisible-button(name="roll_Technique", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{PSYCHIC_TECHNIQUE} — @{technique_discipline}}} {{title=@{technique_name}}} {{desc=@{technique_description}}}")
+							.display
+								.name.flex
+									span(name="attr_technique_name")
+									span.discipline(name="attr_technique_discipline")
+								.details #[span(name="attr_technique_description")]
+							.edit.flex-wrap
+								input.name.grow(type="text", name="attr_technique_name", data-i18n-placeholder="TECHNIQUE")
+								input.discipline(type="text", name="attr_technique_discipline", data-i18n-placeholder="DISCIPLINE")
+								textarea.details(name="attr_technique_description", data-i18n-placeholder="DESCRIPTION")
 			.magic
 				.skill-container
 					+makeSkill("know_magic")
