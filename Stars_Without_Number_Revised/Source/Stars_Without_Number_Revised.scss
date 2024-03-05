@@ -4,6 +4,8 @@
 
 @import "./scss/roll_template";
 
+@import "./scss/show_hide";
+
 .charsheet {
   .hider[value="0"] {
     + div,
@@ -459,15 +461,15 @@
 
     input {
       cursor: pointer;
-      position: absolute;
-      width: 22px;
       height: 100%;
-      z-index: 2;
-      right: 0;
       opacity: 0;
+      position: absolute;
+      right: 0;
+      width: 22px;
+      z-index: 2;
 
       + h1::after {
-        background-image: url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/white_arrow.svg");
+        background-image: url($chevron);
       }
 
       &:not(:checked) + h1::after {
@@ -934,10 +936,6 @@
         color: $darkgrey;
       }
     }
-  }
-
-  .input-details:not([value="1"]) ~ div .details {
-    display: none;
   }
 
   .input-details:not([value="0"]) ~ div .notdetails {

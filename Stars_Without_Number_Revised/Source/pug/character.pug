@@ -251,9 +251,8 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 				.psionics-effort.grey-box
 					h3(data-i18n="COMMITTED_EFFORT")
 					+text-input("psionics_extra_effort", "BONUS")(type="number", value="0").center
-					+text-input("psionics_committed_effort_current", "CURRENT")(type="number", value="0", min="0").center
-					+text-input("psionics_committed_effort_scene", "SCENE")(type="number", value="0", min="0").center
-					+text-input("psionics_committed_effort_day", "DAY")(type="number", value="0", min="0").center
+					each val in ["current", "scene", "day"]
+						+text-input(`psionics_committed_effort_${val}`, `${val.toUpperCase()}`)(type="number", value="0", min="0").center
 					+text-input("psionics_total_effort", "UNCOMMITTED")(type="number", value="1", readonly, data-i18n-title="MAXIMUM_EFFORT_DESC").center
 				.techniques.grey-box.simple-repsection
 					.flex-center
@@ -286,16 +285,14 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 						+makeSkill("", true)
 				h3(data-i18n="TYPE_OF_MAGIC")
 				select(name="attr_magic_type")
-					option(value="arcanist" data-i18n="ARCANIST")
-					option(value="magister" data-i18n="MAGISTER")
-					option(value="adept" data-i18n="ADEPT")
+					each val in ["arcanist", "magister", "adept"]
+						option(value=val data-i18n=val.toUpperCase())
 				.adept
 					.magic-effort.grey-box
 						h3(data-i18n="MAGIC_EFFORT")
 						+text-input("magic_total_effort", "TOTAL")(type="number", value="0", min="0").center
-						+text-input("magic_committed_effort_current", "CURRENT")(type="number", value="0", min="0").center
-						+text-input("magic_committed_effort_scene", "SCENE")(type="number", value="0", min="0").center
-						+text-input("magic_committed_effort_day", "DAY")(type="number", value="0", min="0").center
+						each val in ["current", "scene", "day"]
+							+text-input(`magic_committed_effort_${val}`, `${val.toUpperCase()}`)(type="number", value="0", min="0").center
 						+text-input("magic_uncommitted_effort", "UNCOMMITTED")(type="number", value="1", readonly).center
 					.spells.grey-box.simple-repsection
 						.flex-center

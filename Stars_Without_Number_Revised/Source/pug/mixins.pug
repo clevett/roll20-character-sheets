@@ -13,6 +13,18 @@ mixin sectionheader(name, label)
 				block
 	input.hider(type="hidden", name=`attr_${name}`, value="1")
 
+mixin abilityHeader(name, label)
+	.section-toggle-header
+		input(type="checkbox", name=`attr_${name}`, value="1", data-i18n-title="SHOW_HIDE", checked)
+		h1
+			if (label)
+				span(data-i18n=label)
+					block
+			else
+				block
+	input.hider(type="hidden", name=`attr_${name}`, value="1")
+
+
 mixin text-input(name, label, extraclass)
 	//- Creates one of the standard underlined text inputs
 		Defaults to a input of type text
@@ -203,18 +215,20 @@ mixin combatSkillList(skillName, select)
 	- const selected = skillName === select;
 	option(class=attributes.class value=`@{skill_${skillName}}` data-i18n=`${skillName.toUpperCase()}` selected=selected)
 
+mixin collapseChevron(attr)
+	- const attribute = attr ? attrr : "collapse"
+	input(type="checkbox", name=`attr_${attribute}`, value="1").input-collapse
+	span.chevron
+
 mixin foci
 	+sectionheader("show_foci", "FOCI")
 	.foci.grey-box.simple-repsection
-		input(type="hidden", name="attr_show_focus_details", value="1").input-details
-		.class-ability
+		.class-ability.show-chevron
+			+collapseChevron("show_focus_details")
 			button.display.invisible-button(type="roll", name="roll_Class_ability", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=^{CLASS_ABILITY}}} {{desc=@{class_ability}}}")
 			.display
 				.name.flex
 					div #[span(data-i18n="CLASS_ABILITY")]: #[span(name="attr_class")]
-					label.details-button
-						input(type="checkbox", name="attr_show_focus_details", value="1", checked)
-						span(data-i18n="EXPAND")
 				.details
 					span(name="attr_class_ability")
 			.edit
@@ -226,17 +240,20 @@ mixin foci
 				.details
 					textarea.details(name="attr_class_ability")
 		fieldset.repeating_foci
-			button.display.invisible-button(type="roll", name="roll_Focus", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{FOCUS}}} {{title=@{focus_name}}} {{desc=@{focus_description}}}")
-			.display
-				.name.flex
-					span(name="attr_focus_name")
-					span.level #[span(data-i18n="LEVEL")]-#[span(name="attr_focus_level")]
-				.details
-					span(name="attr_focus_description")
-			.edit.flex-wrap
-				input.name(type="text", name="attr_focus_name", data-i18n-placeholder="FOCUS")
-				input.level(type="number", min="0", value="1", name="attr_focus_level", data-i18n-placeholder="LEVEL")
-				textarea.details(name="attr_focus_description", data-i18n-placeholder="DESCRIPTION")
+			.show-chevron
+				input(type="checkbox", name="attr_collapse", value="1").input-collapse
+				span.chevron
+				button.display.invisible-button(type="roll", name="roll_Focus", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{FOCUS}}} {{title=@{focus_name}}} {{desc=@{focus_description}}}")
+				.display
+					.name.flex
+						span(name="attr_focus_name")
+						span.level #[span(data-i18n="LEVEL")]-#[span(name="attr_focus_level")]
+					.details
+						span(name="attr_focus_description")
+				.edit.flex-wrap
+					input.name(type="text", name="attr_focus_name", data-i18n-placeholder="FOCUS")
+					input.level(type="number", min="0", value="1", name="attr_focus_level", data-i18n-placeholder="LEVEL")
+					textarea.details(name="attr_focus_description", data-i18n-placeholder="DESCRIPTION")
 
 mixin unspentSkillPoints
 	.skill.skill-points
@@ -246,3 +263,4 @@ mixin unspentSkillPoints
 		.edit.flex-center
 			span(data-i18n="UNSPENT_SKILL_POINTS").name
 			input(type="number", min="0", value="0", name="attr_unspent_skill_points").level
+
