@@ -1,6 +1,5 @@
 include constants.pug
 
-input(type="hidden", name="attr_homebrew_skill_list", value="revised").skills-type
 input(type="hidden", name="attr_setting_super_type", value="psionics").super-type
 input(type="hidden", name="attr_setting_foci_location", value="left").foci-loc
 input(type="hidden", name="attr_setting_skill_query", value="hover").skills-query
@@ -13,9 +12,14 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 	.info.flex.core-box-text
 		+text-input("character_name", "NAME").important
 		+text-input("level", "LEVEL", "no-spinners")(type="number", min="1", value="1").level.center
-		+text-input("class", "CLASS").level-rest
-		each val in ["background", "species_gender", "faction", "homeworld"]
-			+text-input(val, val.toUpperCase()).col25
+		+text-input("class", "CLASS").level-rest.swn.wwn
+		+text-input("background", "BACKGROUND").col25
+		each val in core.swnInfo
+			+text-input(val, val.toUpperCase()).col25.swn
+		each val in core.wwnInfo
+			+text-input(val, val.toUpperCase()).col25.wwn
+		each val in ["first", "second", "third"]
+			+text-input(`${val}_edge`, `${val.toUpperCase()}_EDGE`).col25.cwn
 	.saves.core-box
 		h3(data-i18n="SAVING_THROWS")
 		.flex-between
@@ -129,18 +133,18 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					+fake-text-input("SKILL").skills-either.weapon-skill.center
 						select(name="attr_weapon_skill_bonus")
 							each val in skills.combatRevised
-								+combatSkillList(val,"shoot").skills-revised
+								+combatSkillList(val,"shoot").swn
 							each val in skills.combatSkills
-								+combatSkillList(val, "shoot").skills-wwn
+								+combatSkillList(val, "shoot").wwn
 							each val in skills.combatRevised
-								+combatSkillList(val, "shoot").skills-cwn
+								+combatSkillList(val, "shoot").cwn
 							each val in skills.combatsFirst
 								+combatSkillList(`combat_${val}`).skills-first
 							option.skills-psionics(value="@{skill_telekinesis}", data-i18n="TELEKINESIS")
 							option.skills-magic(value="@{skill_sunblade}", data-i18n="SUNBLADE")
 							option.skills-magic(value="@{skill_fight}", data-i18n="FIGHT")
 							option(value="0", data-i18n="NONE")
-					+text-input("weapon_skill_bonus", "SKILL_AB").weapon-skill.skills-neither.center
+					+text-input("weapon_skill_bonus", "SKILL_AB").weapon-skill.neither.center
 					+fake-text-input("ATTRIBUTE").attribute.center
 						select(name="attr_weapon_attribute_mod")
 							each attr in attributes
@@ -349,16 +353,13 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 		+sectionheader("show_skills", "SKILLS")
 		.skills
 			input(type="hidden", name="attr_homebrew_skill_list", value="revised").skills-type
-			.skills-revised.skill-container(data-i18n-list="SKILL_ORDER_REVISED")
+			.swn.skill-container(data-i18n-list="SKILL_ORDER_REVISED")
 				each skill in skills.revised
 					+makeSkill(skill)
-			.skills-first.skill-container(data-i18n-list="SKILL_ORDER_FIRST")
-				each skill in skills.first
-					+makeSkill(skill, !!customSkills[skill], customSkills[skill])
-			.skills-wwn.skill-container(data-i18n-list="SKILL_ORDER_WWN")
+			.wwn.skill-container(data-i18n-list="SKILL_ORDER_WWN")
 				each skill in skills.wwn
 					+makeSkill(skill, !!customSkills[skill], customSkills[skill])
-			.skills-cwn.skill-container(data-i18n-list="SKILL_ORDER_CWN")
+			.cwn.skill-container(data-i18n-list="SKILL_ORDER_CWN")
 				each skill in skills.cwn
 					+makeSkill(skill, !!customSkills[skill], customSkills[skill])
 			input(type="hidden", name="attr_homebrew_extra_skills", value="0").hider
