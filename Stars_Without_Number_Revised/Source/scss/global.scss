@@ -20,15 +20,15 @@
 
   label,
   .label {
-    margin: 0;
-    padding: 0;
+    $white-space: normal;
+    border-radius: inherit;
     color: inherit;
+    display: block;
     font-size: 1em;
     font-weight: normal;
+    margin: 0;
+    padding: 0;
     width: auto;
-    display: block;
-    border-radius: inherit;
-    $white-space: normal;
   }
 
   p {

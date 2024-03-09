@@ -48,12 +48,6 @@ const weaponSkills = [
   "skill_punch",
   "skill_shoot",
   "skill_stab",
-  "skill_combat_energy",
-  "skill_combat_gunnery",
-  "skill_combat_primitive",
-  "skill_combat_projectile",
-  "skill_combat_psitech",
-  "skill_combat_unarmed",
   "skill_telekinesis",
   "skill_sunblade",
 ];
@@ -116,54 +110,6 @@ const skills: { [key: string]: string[] } = {
     "trade",
     "work",
   ],
-  first: [
-    "artist",
-    "athletics",
-    "bureaucracy",
-    "business",
-    "combat_energy",
-    "combat_gunnery",
-    "combat_primitive",
-    "combat_projectile",
-    "combat_psitech",
-    "combat_unarmed",
-    "computer",
-    "culture_alien",
-    "culture_criminal",
-    "culture_spacer",
-    "culture_traveller",
-    "culture_one",
-    "culture_two",
-    "culture_three",
-    "exosuit",
-    "gambling",
-    "history",
-    "instructor",
-    "language",
-    "leadership",
-    "navigation",
-    "perception",
-    "persuade",
-    "profession",
-    "religion",
-    "science",
-    "security",
-    "stealth",
-    "steward",
-    "survival",
-    "tactics",
-    "tech_astronautic",
-    "tech_maltech",
-    "tech_medical",
-    "tech_postech",
-    "tech_pretech",
-    "tech_psitech",
-    "vehicle_air",
-    "vehicle_grav",
-    "vehicle_land",
-    "vehicle_space",
-    "vehicle_water",
-  ],
   psionic: [
     "biopsionics",
     "metapsionics",
@@ -211,32 +157,3 @@ const shipStats = [
   "ship_speed",
   "ship_hull_price",
 ];
-
-type ReverseHullTypes =
-  | "battleship"
-  | "bulk_freighter"
-  | "carrier"
-  | "corvette"
-  | "fleet_cruiser"
-  | "free_merchant"
-  | "heavy_frigate"
-  | "large_station"
-  | "patrol_boat"
-  | "small_station"
-  | "strike_fighter"
-  | "shuttle";
-
-const reverseHullTypes = {
-  [translate("BATTLESHIP").toString().toLowerCase()]: "battleship",
-  [translate("BULK_FREIGHTER").toString().toLowerCase()]: "bulk_freighter",
-  [translate("CARRIER").toString().toLowerCase()]: "carrier",
-  [translate("CORVETTE").toString().toLowerCase()]: "corvette",
-  [translate("FLEET_CRUISER").toString().toLowerCase()]: "fleet_cruiser",
-  [translate("FREE_MERCHANT").toString().toLowerCase()]: "free_merchant",
-  [translate("HEAVY_FRIGATE").toString().toLowerCase()]: "heavy_frigate",
-  [translate("LARGE_STATION").toString().toLowerCase()]: "large_station",
-  [translate("PATROL_BOAT").toString().toLowerCase()]: "patrol_boat",
-  [translate("SMALL_STATION").toString().toLowerCase()]: "small_station",
-  [translate("STRIKE_FIGHTER").toString().toLowerCase()]: "strike_fighter",
-  [translate("SHUTTLE").toString().toLowerCase()]: "shuttle",
-};

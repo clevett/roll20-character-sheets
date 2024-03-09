@@ -26,12 +26,6 @@ const setTranslatedDefaults = () => {
   };
   getAttrs([...Object.keys(specialSkills), "system", "innate_ac_name"], (v) => {
     const setting: { [key: string]: string } = {};
-    if (v.system === "first") {
-      Object.entries(specialSkills).forEach(([name, data]) => {
-        if (v[name] === data.default && v[name] !== data.trans)
-          setting[name] = data.trans;
-      });
-    }
     setting.innate_ac_name = translate("INNATE_AC").toString();
     mySetAttrs(setting, v);
   });

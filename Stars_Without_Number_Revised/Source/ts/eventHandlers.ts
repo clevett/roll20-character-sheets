@@ -104,7 +104,6 @@ on("change:homebrew_luck_save", buildSaveMenu);
 on(
   [
     ...skills.revised.map((x) => `change:skill_${x}`),
-    ...skills.first.map((x) => `change:skill_${x}`),
     "change:system",
     "change:repeating_skills",
     "change:setting_show_untrained_skills",

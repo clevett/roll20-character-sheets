@@ -1,9 +1,9 @@
 {
-  "html": "Stars_Without_Number_Revised.html",
-  "css": "Stars_Without_Number_Revised.css",
+  "html": "Without_Number.html",
+  "css": "Without_Number.css",
   "authors": "Karl H., Panzer",
   "roll20userid": "1164773, 2223776",
-  "preview": "Stars_Without_Number_Revised.png",
+  "preview": "sheet.png",
   "instructions": "Character sheet for Stars Without Number, Revised Edition.",
   "useroptions": [
     {
@@ -98,16 +98,8 @@
       "displayname": "XP scheme",
       "displaytranslationkey": "XP_SCHEME",
       "type": "select",
-      "options": [
-        "Normal XP|xp",
-        "Money|money",
-        "Custom amounts|custom"
-      ],
-      "optiontranslationkeys": [
-        "NORMAL_XP",
-        "MONEY",
-        "CUSTOM_AMOUNTS"
-      ],
+      "options": ["Normal XP|xp", "Money|money", "Custom amounts|custom"],
+      "optiontranslationkeys": ["NORMAL_XP", "MONEY", "CUSTOM_AMOUNTS"],
       "default": "xp",
       "description": "Chose what to show in the \"next level xp\" field, if anything.",
       "descriptiontranslationkey": "XP_SCHEME_DESC"
@@ -117,14 +109,8 @@
       "displayname": "Foci location",
       "displaytranslationkey": "FOCI_LOCATION",
       "type": "select",
-      "options": [
-        "Left column|left",
-        "Right column|right"
-      ],
-      "optiontranslationkeys": [
-        "LEFT_COLUMN",
-        "RIGHT_COLUMN"
-      ],
+      "options": ["Left column|left", "Right column|right"],
+      "optiontranslationkeys": ["LEFT_COLUMN", "RIGHT_COLUMN"],
       "default": "left",
       "description": "Determines where the foci section on the character sheet is shown.",
       "descriptiontranslationkey": "FOCI_LOCATION_DESC"
@@ -143,14 +129,8 @@
       "displayname": "Fine-grained NPC whispers",
       "displaytranslationkey": "FINE_NPC_WHISPERING",
       "type": "select",
-      "options": [
-        "Yes|1",
-        "No|0"
-      ],
-      "optiontranslationkeys": [
-        "YES",
-        "NO"
-      ],
+      "options": ["Yes|1", "No|0"],
+      "optiontranslationkeys": ["YES", "NO"],
       "default": "1",
       "description": "Show checkboxes to control public rolls vs whispering for all NPC rolls individually.",
       "descriptiontranslationkey": "FINE_NPC_WHISPERING_DESC"
@@ -160,14 +140,8 @@
       "displayname": "Query for modifiers",
       "displaytranslationkey": "QUERY_FOR_MODIFIERS",
       "type": "select",
-      "options": [
-        "Yes|1",
-        "No|0"
-      ],
-      "optiontranslationkeys": [
-        "YES",
-        "NO"
-      ],
+      "options": ["Yes|1", "No|0"],
+      "optiontranslationkeys": ["YES", "NO"],
       "default": "1",
       "description": "Turn this off to stop roll buttons on the sheet from querying for roll modifiers.",
       "descriptiontranslationkey": "QUERY_FOR_MODIFIERS_DESC"

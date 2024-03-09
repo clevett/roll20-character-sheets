@@ -18,6 +18,12 @@
   justify-content: space-between;
 }
 
+.flex-even {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .flex-wrap {
   display: flex;
   flex-wrap: wrap;

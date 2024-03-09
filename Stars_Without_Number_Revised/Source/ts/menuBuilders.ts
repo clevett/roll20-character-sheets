@@ -62,7 +62,6 @@ const buildSkillMenu = () => {
   getSectionIDs("repeating_skills", (idArray) => {
     const sourceAttrs = [
       ...skills.revised.map((sk) => `skill_${sk}`),
-      ...skills.first.map((sk) => `skill_${sk}`),
       "system",
       "setting_show_untrained_skills",
       "macro_skills",

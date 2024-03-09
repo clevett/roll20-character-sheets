@@ -47,7 +47,7 @@ input(type="hidden", name="attr_show_settings" value="0").hider
 			span(data-i18n="REQUIRES_CHATSETATTR")
 	div
 		h2(data-i18n="CHARACTER_OPTIONS")
-		p
+		div
 			label
 				span(data-i18n="HEROIC_CHARACTERS").colon-after
 				input(type="checkbox", name="attr_setting_heroic_enable", value="1")
@@ -56,16 +56,15 @@ input(type="hidden", name="attr_show_settings" value="0").hider
 			label
 				span(data-i18n="DEFY_DOOM_DIE_SIZE")
 				input(type="number", name="attr_doom_size", value="6")
-		p
-			label
-				span(data-i18n="SUBSYSTEMS").colon-after
-				select(name="attr_setting_super_type").wide
-					option(value="psionics", data-i18n="PSIONICS", selected)
-					option(value="magic", data-i18n="SPACE_MAGIC")
-					option(value="both", data-i18n="PSIONICS_AND_SPACE_MAGIC")
-					option(value="neither", data-i18n="NEITHER")
+		div
+			span(data-i18n="SUBSYSTEMS").colon-after
+			.flex-between
+				each val in subSystems
+					label
+						span(data-i18n=val.toUpperCase())
+						input(type="checkbox", name=`attr_subsystem_${val}`, value=val)
 			span(data-i18n="SUBSYSTEMS_DESC")
-		p
+		div
 			label
 				span(data-i18n="XP_SCHEME").colon-after
 				select(name="attr_setting_xp_scheme")
@@ -73,12 +72,12 @@ input(type="hidden", name="attr_show_settings" value="0").hider
 					option(value="money", data-i18n="MONEY")
 					option(value="custom", data-i18n="CUSTOM_AMOUNTS")
 			span(data-i18n="XP_SCHEME_DESC")
-		p
+		div
 			label
 				span(data-i18n="AI_CHARACTER").colon-after AI Character
 				input(type="checkbox", name="attr_setting_ai_enable", value="ai")
 			span(data-i18n="AI_CHARACTER_DESC") Play as an AI, with mechanical Shells and advanced Processing and Routines. Rules for this are in the Deluxe Edition.
-		p
+		div
 			label
 				span(data-i18n="TRANSHUMAN_CHARACTERS").colon-after Transhuman Characters
 				input(type="checkbox", name="attr_setting_transhuman_enable", value="transhuman")

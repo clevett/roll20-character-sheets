@@ -50,16 +50,6 @@ const validateWeaponSkills = (ids?: [string]) => {
           "@{skill_telekinesis}",
           "0",
         ],
-        firstList = [
-          "@{skill_combat_energy}",
-          "@{skill_combat_gunnery}",
-          "@{skill_combat_primitive}",
-          "@{skill_combat_projectile}",
-          "@{skill_combat_psitech}",
-          "@{skill_combat_unarmed}",
-          "@{skill_telekinesis}",
-          "0",
-        ],
         type = v.system,
         setting: { [key: string]: string } = {};
       prefixes.forEach((prefix) => {
@@ -68,11 +58,6 @@ const validateWeaponSkills = (ids?: [string]) => {
           !revisedList.includes(v[`${prefix}_weapon_skill_bonus`])
         )
           setting[`${prefix}_weapon_skill_bonus`] = "@{skill_shoot}";
-        if (
-          type === "first" &&
-          !firstList.includes(v[`${prefix}_weapon_skill_bonus`])
-        )
-          setting[`${prefix}_weapon_skill_bonus`] = "@{skill_combat_energy}";
       });
       setAttrs(setting);
     }
