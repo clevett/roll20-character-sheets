@@ -639,11 +639,11 @@
     grid: auto / 1fr 1fr;
   }
 
-  .resources {
-    .credits {
-      margin-left: auto;
-    }
+  .credits {
+    margin-left: auto;
+  }
 
+  .resources {
     .repcontainer {
       display: grid;
       grid-row-gap: 3px;
@@ -660,6 +660,7 @@
     }
   }
 
+  .money,
   .wealth {
     textarea {
       height: 100px;
