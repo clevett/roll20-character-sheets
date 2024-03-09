@@ -74,7 +74,8 @@
   .tab-input:not([value="character"]) ~ .character,
   .tab-input:not([value="ship"]) ~ .ship,
   .tab-input:not([value="drones"]) ~ .drones,
-  .tab-input:not([value="npc"]) ~ .npc {
+  .tab-input:not([value="npc"]) ~ .npc,
+  .tab-input:not([value="mount"]) ~ .mount {
     display: none;
   }
 
@@ -656,6 +657,13 @@
 
     .slash {
       margin: 0 2px;
+    }
+  }
+
+  .wealth {
+    textarea {
+      height: 100px;
+      min-height: 100px;
     }
   }
 

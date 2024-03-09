@@ -82,7 +82,15 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 						td.mod
 							input(type="hidden", name=`attr_${attr}_mod`, value="0").add-plus
 							span(name=`attr_${attr}_mod`)
-	.resources.core-box-text
+	.wealth.grid.core-box-text.wwn
+		h3(data-i18n="WEALTH")
+		.grid.grid-flow-col
+			each val in ["gp", "sp", "cp"]
+				+text-input(val, val.toUpperCase())
+		.grid.mt
+			h3(data-i18n="OTHER_WEALTH")
+			textarea(name=`attr_wealth`)
+	.resources.core-box-text.swn
 		.flex
 			h3(data-i18n="RESOURCES")
 			+text-input("credits", "CREDITS")(type="number", value="0").credits.center.col50
@@ -103,9 +111,8 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 		.weapons
 			input(type="hidden", name="attr_show_weapon_details", value="1").input-details
 			fieldset.repeating_weapons
-				input(type="hidden", name="attr_weapon_api", value="")
-				input(type="hidden", name="attr_weapon_attack_display", value="")
-				input(type="hidden", name="attr_weapon_damage_display", value="")
+				each val in ["api", "attack_display", "damage_display"]
+					input(type="hidden", name=`attr_weapon_${val}`, value="")
 				button(type="roll", name="roll_Attack", value!="&{template:swn-attack} {{charname=@{character_name}}} {{title=@{weapon_name}}}  {{attack=[[1d20 + @{attack_bonus}[AB] + @{weapon_attack}[Weapon AB] + [[{{@{weapon_skill_bonus},-1}>0}*(@{weapon_skill_bonus}+2) - 2]][Skill] + @{weapon_attribute_mod}[Attribute] @{weapon_burst} @{modifier_query}]]}} {{damage=[[@{weapon_damage} + @{weapon_attribute_mod}[Attribute] + @{weapon_skill_to_damage}[Skill] @{weapon_burst}]]}} {{burst=[[0@{weapon_burst}]]}} @{weapon_shock} {{range=@{weapon_range}}} @{weapon_use_ammo} {{mod=[[0 @{modifier_query}]]}} {{desc=@{weapon_description}}} @{weapon_api}").invisible-button.display
 				.display
 					span.name.space-after
@@ -214,6 +221,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 								.shell-affinity(data-i18n="AFFINITY_ABILITIES")
 							span(name="attr_shell_affinity").display
 							textarea(name="attr_shell_affinity").edit
+	
 	//- Foci
 	.section.foci-left
 		+foci
@@ -229,13 +237,13 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 		input(type="hidden" vale="attr_skills")
 		+sectionheader("show_skills", "SKILLS")
 		.skills
-			.swn.skill-container(data-i18n-list="SKILL_ORDER_REVISED")
+			.grid.swn.skill-container(data-i18n-list="SKILL_ORDER_REVISED")
 				each skill in skills.revised
 					+makeSkill(skill)
-			.wwn.skill-container(data-i18n-list="SKILL_ORDER_WWN")
+			.grid.wwn.skill-container(data-i18n-list="SKILL_ORDER_WWN")
 				each skill in skills.wwn
 					+makeSkill(skill, !!customSkills[skill], customSkills[skill])
-			.cwn.skill-container(data-i18n-list="SKILL_ORDER_CWN")
+			.grid.cwn.skill-container(data-i18n-list="SKILL_ORDER_CWN")
 				each skill in skills.cwn
 					+makeSkill(skill, !!customSkills[skill], customSkills[skill])
 			input(type="hidden", name="attr_homebrew_extra_skills", value="0").hider
@@ -252,44 +260,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 		+foci
 
 //- AI
-.section.cols-2.ai-enabled
-	+sectionheader("show_ai", "AI")
-	.ai.halfgrid
-		.column
-			.grey-box.ai-processing
-				h3(data-i18n="COMMITTED_PROCESSING")
-				+text-input("ai_extra_processing", "BONUS")(type="number", value="0").center
-				+text-input("ai_committed_processing_current", "CURRENT")(type="number", value="0", min="0").center
-				+text-input("ai_committed_processing_scene", "SCENE")(type="number", value="0", min="0").center
-				+text-input("ai_committed_processing_day", "DAY")(type="number", value="0", min="0").center
-				+text-input("ai_total_processing", "UNCOMMITTED")(type="number", value="1", readonly, data-i18n-title="MAXIMUM_EFFORT_DESC").center
-			.grey-box.ai-processing-nodes
-				h3(data-i18n="PROCESSING_NODES") Processing Nodes
-				.table-header.nodes-grid.rep-grid
-					.connected(data-i18n="CONNECTED?")
-					.value(data-i18n="PROCESSING")
-					.location(data-i18n="LOCATION")
-				fieldset.repeating_processing-nodes
-					.nodes-grid.rep-grid
-						+fake-text-input().center
-							input(type="checkbox" value="1" name="attr_node_connected")
-						+text-input("node_value")(type="number" value="0")
-						+text-input("node_location")
-		.column
-			.routines.grey-box.simple-repsection
-				.flex-center
-					h3(data-i18n="AI_ROUTINES") AI Routines
-				fieldset.repeating_routines
-					.show-chevron
-						+collapseChevron
-						button.display.invisible-button(name="roll_Routine", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{AI_ROUTINE}}} {{title=@{routine_name}}} {{desc=@{routine_description}}}")
-						.display
-							.name.flex
-								span(name="attr_routine_name")
-							.details #[span(name="attr_routine_description")]
-						.edit.flex-wrap
-							input.name.grow(type="text", name="attr_routine_name", data-i18n-placeholder="ROUTINE")
-							textarea.details(name="attr_routine_description", data-i18n-placeholder="DESCRIPTION")
+include components/ai.pug
 
 //- Gear
 .section.cols-2

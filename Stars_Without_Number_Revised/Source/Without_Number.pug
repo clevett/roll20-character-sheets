@@ -3,12 +3,10 @@ include pug/constants.pug
 
 //- Hidden translated attributes
 div
-	input(type="hidden", name="attr_attribute_query_str", value="+ @{strength_mod}[Strength]]]}} {{attribute= + STR}}")
-	input(type="hidden", name="attr_attribute_query_dex", value="+ @{dexterity_mod}[Dexterity]]]}} {{attribute= + DEX}}")
-	input(type="hidden", name="attr_attribute_query_con", value="+ @{constitution_mod}[Constitution]]]}} {{attribute= + CON}}")
-	input(type="hidden", name="attr_attribute_query_int", value="+ @{intelligence_mod}[Intelligence]]]}} {{attribute= + INT}}")
-	input(type="hidden", name="attr_attribute_query_wis", value="+ @{wisdom_mod}[Wisdom]]]}} {{attribute= + WIS}}")
-	input(type="hidden", name="attr_attribute_query_cha", value="+ @{charisma_mod}[Charisma]]]}} {{attribute= + CHA}}")
+	each val in attributes
+		- const abbr = val.substring(0,3)
+		- const capitalized = val.charAt(0).toUpperCase() + val.slice(1)
+		input(type="hidden", name=`attr_attribute_query_${abbr}`, value=`+ @{${val}_mod}[${capitalized}]]]}} {{attribute= + ${abbr.toUpperCase()}}}`)
 	input(type="hidden", name="attr_attribute_query", value="?{Attribute|Strength,+ @{strength_mod}[Strength]]]&#125;&#125; {{attribute= + STR&#125;&#125;|Dexterity,+ @{dexterity_mod}[Dexterity]]]&#125;&#125; {{attribute= + DEX&#125;&#125;|Constitution,+ @{constitution_mod}[Constitution]]]&#125;&#125; {{attribute= + CON&#125;&#125;|Intelligence,+ @{intelligence_mod}[Intelligence]]]&#125;&#125; {{attribute= + INT&#125;&#125;|Wisdom,+ @{wisdom_mod}[Wisdom]]]&#125;&#125; {{attribute= + WIS&#125;&#125;|Charisma,+ @{charisma_mod}[Charisma]]]&#125;&#125; {{attribute= + CHA&#125;&#125;}")
 	input(type="hidden", name="attr_burst_query", value="?{Burst|Yes,+ 2[Burst]|No,&#32;}")
 	input(type="hidden", name="attr_extra_hp_query", value!="?{Extra hit points? Enter 2 for Warrior|0}[Bonus]")
@@ -35,6 +33,8 @@ include pug/header.pug
 	include pug/npc.pug
 .drones.content
 	include pug/drones.pug
+.mount.content
+	include pug/mount.pug
 
 .footer.flex-between
 	span(name="attr_character_sheet")

@@ -35,6 +35,10 @@
   display: grid;
 }
 
+.grid-flow-col {
+  grid-auto-flow: column;
+}
+
 .grow {
   flex-grow: 1;
 }
@@ -116,4 +120,12 @@
   background-image: url($chevron);
   background-position: center;
   scale: 0.8;
+}
+
+.mt {
+  margin-top: 2%;
+}
+
+.mb {
+  margin-bottom: 2%;
 }

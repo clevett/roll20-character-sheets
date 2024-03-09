@@ -358,5 +358,13 @@
   "EDGE_FIRST": "First Edge",
   "EDGE_SECOND": "Second Edge",
   "EDGE_THIRD": "Third Edge",
-  "MOUNT": "Mount"
+  "MOUNT": "Mount",
+  "SPD": "SPD",
+  "CARRYING_CAPACITY": "Carrying Capacity",
+  "HP": "HP",
+  "WEALTH": "Wealth",
+  "OTHER_WEALTH": "Other Wealth",
+  "GP": "GP",
+  "SP": "SP",
+  "CP": "CP"
 }

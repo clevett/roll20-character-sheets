@@ -31,12 +31,8 @@ fieldset.repeating_drones
 					span.desc(name=`attr_drone_fitting_${num}_desc`)
 		.grey-box.drone-weapons
 			.table-header.rep-grid.weapon-grid.edit
-				div(data-i18n="ACTIVE?")
-				div(data-i18n="WEAPON")
-				div(data-i18n="DAMAGE")
-				div(data-i18n="BURST")
-				div(data-i18n="ATTACK_BONUS_SHORT")
-				div(data-i18n="AMMO")
+				each val in ["ACTIVE?", "WEAPON", "DAMAGE", "BURST", "ATTACK_BONUS_SHORT", "AMMO"]
+					div(data-i18n=val)
 			each num in [1,2,3]
 				.weapon
 					input(type="hidden", name=`attr_drone_weapon${num}_active`, value="0").hider
