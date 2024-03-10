@@ -96,7 +96,7 @@
     color: inherit;
 
     &:hover {
-      color: red;
+      color: $red;
     }
 
     &[href^="~"] {
@@ -110,11 +110,8 @@
 
 .sheet-rolltemplate-swn-default {
   .sheet-container {
-    background: url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-top-black.png")
-        top no-repeat,
-      url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-bottom.png")
-        bottom no-repeat,
-      #0f0f0f;
+    background: url($templateBackground) top no-repeat,
+      url($templateBottom) bottom no-repeat, #0f0f0f;
   }
 
   .sheet-name {
@@ -146,11 +143,8 @@
 
 .sheet-rolltemplate-swn-attack {
   .sheet-container {
-    background: url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-top-purple.png")
-        top no-repeat,
-      url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-bottom.png")
-        bottom no-repeat,
-      #0f0f0f;
+    background: url($templateAttackBackground) top no-repeat,
+      url($templateBottom) bottom no-repeat, #0f0f0f;
   }
 
   .sheet-name {
@@ -205,11 +199,8 @@
 
 .sheet-rolltemplate-swn-skill {
   .sheet-container {
-    background: url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-top-blue.png")
-        top no-repeat,
-      url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-bottom.png")
-        bottom no-repeat,
-      #0f0f0f;
+    background: url($templateSkillBackground) top no-repeat,
+      url($templateBottom) bottom no-repeat, #0f0f0f;
   }
 
   .sheet-name {
@@ -235,11 +226,8 @@
 .sheet-rolltemplate-swn-save {
   .sheet-container {
     &.sheet-success {
-      background: url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-top-green.png")
-          top no-repeat,
-        url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-bottom.png")
-          bottom no-repeat,
-        #0f0f0f;
+      background: url($templateSaveSuccessBackground) top no-repeat,
+        url($templateBottom) bottom no-repeat, #0f0f0f;
 
       .sheet-name {
         color: $rt-green;
@@ -247,11 +235,8 @@
     }
 
     &.sheet-failure {
-      background: url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-top-red.png")
-          top no-repeat,
-        url("https://raw.githubusercontent.com/roll20/roll20-character-sheets/master/Stars_Without_Number_Revised/Assets/rt-bottom.png")
-          bottom no-repeat,
-        #0f0f0f;
+      background: url($templateSaveFailBackground) top no-repeat,
+        url($templateBottom) bottom no-repeat, #0f0f0f;
 
       .sheet-name {
         color: $rt-red;
