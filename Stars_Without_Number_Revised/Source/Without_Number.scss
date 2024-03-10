@@ -1201,8 +1201,29 @@
       margin-bottom: 2px;
     }
 
+    .goal {
+      grid-template-columns: 1fr 15%;
+    }
+
     .xp {
       width: 50px;
+    }
+
+    .goal-lang,
+    .proj-ally {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .projects {
+      .name {
+        grid-template-columns: 1fr 15%;
+      }
+    }
+
+    .allies {
+      .subheaders {
+        grid-template-columns: 2fr 1.5fr 1fr;
+      }
     }
   }
 

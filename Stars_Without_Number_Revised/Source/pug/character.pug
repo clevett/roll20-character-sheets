@@ -41,7 +41,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 			.swn.cwn
 				+text-input-duo("strain_permanent_extra", "cyberware_strain_total", "PERMANENT_STRAIN", {readonly: true, "data-i18n-title": "TOTAL_CYBERWARE_STRAIN"}, "", "+", "+")(type="number", min="0", value="0", data-i18n-title="PERMANENT_STRAIN_EXTRA").center
 			.wwn
-				+text-input("current_strain", "CURRENT_STRAIN")(type="number", min="0", value="0").center.important
+				+text-input("current_strain", "CURRENT_STRAIN")(type="number", min="0", value="0").center
 			input(type="hidden" name="attr_strain_above_max", value="0").strain-above-max
 			+text-input-trio("strain_extra", "strain", "strain_max", "SYSTEM_STRAIN_/_MAX", {readonly: true, title: "Total Strain", "data-i18n-title": "TOTAL_STRAIN", class: "total-strain"}, {value: "10", readonly: true, "data-i18n-title": "CONSTITUTION"}, "", "=")(min="0", value="0", data-i18n-title="STRAIN_EXTRA", title: "Strain Extra") System Strain / Max
 			+text-input-duo("xp", "xp_next", "XP_NEXT_LEVEL", {min: "0", value: "3"})(min="0", value="0")
@@ -162,9 +162,9 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 								+combatSkillList(val,"shoot").swn.cwn
 							each val in skills.combatSkills
 								+combatSkillList(val, "shoot").wwn
-							option.skills-psionics(value="@{skill_telekinesis}", data-i18n="TELEKINESIS")
-							option.skills-magic(value="@{skill_sunblade}", data-i18n="SUNBLADE")
-							option.skills-magic(value="@{skill_fight}", data-i18n="FIGHT")
+							option.psionics(value="@{skill_telekinesis}", data-i18n="TELEKINESIS")
+							option.space_magic.magic(value="@{skill_sunblade}", data-i18n="SUNBLADE")
+							option.space_magic.magic(value="@{skill_fight}", data-i18n="FIGHT")
 							option(value="0", data-i18n="NONE")
 					+text-input("weapon_skill_bonus", "SKILL_AB").weapon-skill.neither.center
 					+fake-text-input("ATTRIBUTE").attribute.center
@@ -273,7 +273,6 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					+makeSkill("", true)
 			.skill-container
 				+unspentSkillPoints()
-			.skill-blurb.edit(data-i18n="SKILL_BLURB")
 			
 
 	//- Foci
@@ -400,17 +399,58 @@ include components/ai.pug
 .section.cols-2
 	+sectionheader("show_misc", "MISCELLANEOUS")
 	.misc
-		.thirdsgrid.repeating-flex-row
-			.goals.grey-box.cols-2
+		.grid.gap-1.goal-lang
+			.goals.grey-box
 				h3(data-i18n="GOALS")
 				fieldset.repeating_goals
-					.flex
-						+text-input("goal_name").name.grow
-						+text-input("goal_xp")(type="number", min="0", data-i18n-placeholder="XP").xp.center
+					.show-chevron.simple-repsection 
+						input(type="checkbox", name="attr_collapse", value="1").input-collapse
+						span.chevron
+						.display
+							.grid.grid-flow-col.goal.mb.name
+								span(name="attr_goal_name")
+								span.level #[span(data-i18n="XP")]:#[span(name="attr_goal_xp")]
+							.details
+								span(name="attr_goal_description")
+						.edit
+							.grid.grid-flow-col.goal.mb
+								+text-input("goal_name").name.grow
+								+text-input("goal_xp")(type="number", min="0", data-i18n-placeholder="XP").xp.center
+							.grid
+								textarea(name="attr_goal_description", data-i18n-placeholder="DESCRIPTION")
 			.languages.grey-box
 				h3(data-i18n="LANGUAGES")
 				fieldset.repeating_languages
 					+text-input("language")
-		.halfgrid.notes
+		.grid.wwn.mt.gap-1.proj-ally
+			.projects.grey-box
+				.grid.grid-flow-col.name
+					h3(data-i18n="PROJECTS")
+					+text-input("renown", "RENOWN")
+				fieldset.repeating_projects
+					.show-chevron.simple-repsection 
+						input(type="checkbox", name="attr_collapse", value="1").input-collapse
+						span.chevron
+						.display
+							.grid.grid-flow-col.mb.name
+								span(name="attr_name")
+							.details
+								span(name="attr_description")
+						.edit
+							.grid.grid-flow-col.mb
+								+text-input("name").name
+							.grid
+								textarea(name="attr_description", data-i18n-placeholder="DESCRIPTION")
+			.allies.grey-box
+				.div
+					h3(data-i18n="ALLIES_ENEMIES")
+				.grid.grid-flow-col.subheaders.gap-1
+					.name(data-i18n="NAME")
+					.location(data-i18n="LOCATION")
+					.status(data-i18n="STATUS")
+				fieldset.repeating_allies
+					.grid.grid-flow-col.subheaders.gap-1
+						each val in ["name", "location", "status"]
+							+text-input(val)
+		.notes
 			textarea(name="attr_notes", data-i18n-placeholder="NOTES")
-			textarea(name="attr_other_notes", data-i18n-placeholder="NOTES")
