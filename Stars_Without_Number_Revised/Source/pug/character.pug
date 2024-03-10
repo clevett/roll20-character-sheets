@@ -34,19 +34,31 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 .core.core-stats.cols-2
 	.main.core-box-text
 		h3(data-i18n="CORE_STATISTICS")
-		.main-content
+		.main-content.gap-1
 			+text-input-duo("HP", "HP_max", false, {value: "0"}).important
 				.label
 					button(type="roll", name="roll_HP", data-i18n="HIT_POINTS" value!="&{template:swn-default} {{charname=@{character_name}}} {{title=^{HIT_POINTS}}} {{=[[{abs(@{setting_heroic_enable}-1)*@{level}d6 + @{level}*@{constitution_mod}[CON] + @{level}*@{extra_hp_query}, abs(@{setting_heroic_enable}-1)*@{hp|max} + 1d1, 0d0 + @{setting_heroic_enable}*ceil(([[6*@{level}]] [Level] + [[@{level}*@{constitution_mod}]] [Con] + [[@{level}*@{extra_hp_query}]] [Bonus])/2)}kh1]]}} {{info=^{MAXIMUM_HP_1} @{level}d6 + @{level}&ast;[[@{constitution_mod}[CON] + @{extra_hp_query}]] ^{MAXIMUM_HP_2} [[@{hp|max} + 1]]}}").btn
-			+text-input-duo("strain_permanent_extra", "cyberware_strain_total", "PERMANENT_STRAIN", {readonly: true, "data-i18n-title": "TOTAL_CYBERWARE_STRAIN"}, "", "+", "+")(type="number", min="0", value="0", data-i18n-title="PERMANENT_STRAIN_EXTRA").center
+			.swn.cwn
+				+text-input-duo("strain_permanent_extra", "cyberware_strain_total", "PERMANENT_STRAIN", {readonly: true, "data-i18n-title": "TOTAL_CYBERWARE_STRAIN"}, "", "+", "+")(type="number", min="0", value="0", data-i18n-title="PERMANENT_STRAIN_EXTRA").center
+			.wwn
+				+text-input("current_strain", "CURRENT_STRAIN")(type="number", min="0", value="0").center.important
 			input(type="hidden" name="attr_strain_above_max", value="0").strain-above-max
 			+text-input-trio("strain_extra", "strain", "strain_max", "SYSTEM_STRAIN_/_MAX", {readonly: true, title: "Total Strain", "data-i18n-title": "TOTAL_STRAIN", class: "total-strain"}, {value: "10", readonly: true, "data-i18n-title": "CONSTITUTION"}, "", "=")(min="0", value="0", data-i18n-title="STRAIN_EXTRA", title: "Strain Extra") System Strain / Max
 			+text-input-duo("xp", "xp_next", "XP_NEXT_LEVEL", {min: "0", value: "3"})(min="0", value="0")
 			+text-input("AC", "ARMOR_CLASS")(type="number", value="10", readonly, data-i18n-title="AC_DESC").center
-			+text-input("attack_bonus", "ATTACK_BONUS")(type="number", min="0", value="0").center
+			.swn.cwn
+				+text-input("attack_bonus", "ATTACK_BONUS")(type="number", min="0", value="0").center
+			.wwn
+				+text-input("dexterity_mod", "DEX_MOD")(type="number", min="0", value="0").center
 			input(type="hidden", name="attr_setting_heroic_enable", value="0").hider
 			+text-input("hp_doom")(type="number").center
 				button(type="roll", name="roll_Doom", data-i18n="DOOM_DAMAGE", data-i18n-title="DEFY_DOOM", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=^{DEFYING_DOOM}}} {{^{DOOM_DAMAGE}=[[@{level}d@{doom_size}]]}}").btn
+		.grid.wwn.grid-flow-col.gap-1.mt
+			+text-input("attack_bonus", "ATTACK_BONUS")(type="number", min="0", value="0").center
+			+text-input("melee_attack_bonus", "MELEE_ATTACK_BONUS")(type="number", min="0", value="0").center
+			+text-input("ranged_attack_bonus", "RANGED_ATTACK_BONUS")(type="number", min="0", value="0").center
+		.grid.wwd.grid-flow-col.gap-1.mt
+			+text-input("initiative_bonus", "INITIATIVE_BONUS")(type="number", min="0", value="0").center
 	.attributes.core-box
 		table
 			thead

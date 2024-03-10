@@ -201,7 +201,7 @@
   }
 
   .grey-box-bordered {
-    border: 1px solid #aaa;
+    border: 1px solid $headergrey;
   }
 
   .core-box {
@@ -232,15 +232,16 @@
   }
 
   .text-input {
-    color: #666;
+    color: $gray;
     padding-right: 5px;
     line-height: 1;
 
     .label {
+      color: $darkgrey;
       font-size: 0.9em;
       text-align: inherit;
       line-height: 14px;
-      border-top: 1px solid #aaa;
+      border-top: 1px solid $headergrey;
 
       input[type="checkbox"] {
         height: 14px;
@@ -341,7 +342,7 @@
 
   .table-header {
     font-size: 0.9em;
-    color: #666;
+    color: $gray;
 
     .center {
       text-align: center;
@@ -349,7 +350,7 @@
 
     > div {
       padding-left: 2px;
-      border-bottom: 1px solid #aaa;
+      border-bottom: 1px solid $headergrey;
     }
   }
 
@@ -561,7 +562,6 @@
       margin-top: 3px;
       display: grid;
       grid: auto / repeat(3, 1fr);
-      grid-row-gap: 3px;
 
       .left-margin {
         margin-left: 15px;
@@ -639,11 +639,11 @@
     grid: auto / 1fr 1fr;
   }
 
-  .credits {
-    margin-left: auto;
-  }
-
   .resources {
+    .credits {
+      margin-left: auto;
+    }
+
     .repcontainer {
       display: grid;
       grid-row-gap: 3px;
@@ -990,7 +990,7 @@
     }
 
     > .flex {
-      border-bottom: 1px solid #666;
+      border-bottom: 1px solid $gray;
       margin-bottom: 3px;
 
       :not(:first-child) {

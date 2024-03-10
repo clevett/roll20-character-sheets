@@ -367,5 +367,10 @@
   "GP": "GP",
   "SP": "SP",
   "CP": "CP",
-  "OTHER_MONEY": "Other Money"
+  "OTHER_MONEY": "Other Money",
+  "DEX_MOD": "Dex Mod.",
+  "MELEE_ATTACK_BONUS": "Melee Attack Bonus",
+  "RANGED_ATTACK_BONUS": "Ranged Attack Bonus",
+  "INITIATIVE_BONUS": "Initiative Bonus",
+  "CURRENT_STRAIN": "Current Strain"
 }
