@@ -374,5 +374,8 @@
   "CURRENT_STRAIN": "Current Strain",
   "RENOWN": "Renown",
   "ALLIES_ENEMIES": "Allies & Enemies",
-  "PROJECTS": "Projects"
+  "PROJECTS": "Projects",
+  "MAGICAL_ARTS": "Magical Arts",
+  "CURRENT_EFFORT": "Current Effort",
+  "MAX_EFFORT": "Max Effort"
 }

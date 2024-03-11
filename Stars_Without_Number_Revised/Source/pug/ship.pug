@@ -82,7 +82,7 @@ input(type="hidden", name="attr_ship_vehicle_type", value="SHIP").input-type
 			.display.grey-box-bordered
 				input(type="hidden", name="attr_weapon_broken", value="0").hider
 				span.broken.space-after #[span(data-i18n="BROKEN")]:
-				span.name.space-after
+				span.name.ellipsis.space-after
 					span(name="attr_weapon_name").space-after
 					input(type="hidden", name="attr_weapon_attack_bonus").add-plus
 					span(name="attr_weapon_attack_bonus")
@@ -108,7 +108,7 @@ input(type="hidden", name="attr_ship_vehicle_type", value="SHIP").input-type
 					| &nbsp;/&nbsp;
 					span(name="attr_weapon_ammo_max")
 			.edit.flex-wrap.grey-box-bordered
-				+text-input("weapon_name", "NAME").name
+				+text-input("weapon_name", "NAME").name.ellipsis
 				+text-input("weapon_power", "POWER")(type="number", value="0", min="0").center.number
 				+text-input("weapon_mass", "MASS")(type="number", value="0", min="0").center.number
 				+text-input("weapon_hardpoints", "HARDPOINTS_SHORT")(type="number", value="0", min="0").center.number
@@ -132,7 +132,7 @@ input(type="hidden", name="attr_ship_vehicle_type", value="SHIP").input-type
 			.display
 				input(type="hidden", name="attr_fitting_broken", value="0").hider
 				span.broken.space-after #[span(data-i18n="BROKEN")]:
-				span(name="attr_fitting_name").name.space-after
+				span(name="attr_fitting_name").name.ellipsis.space-after
 				span.space-after
 					| (#[span(data-i18n="POWER")]&nbsp;
 					span(name="attr_fitting_power")
@@ -141,7 +141,7 @@ input(type="hidden", name="attr_ship_vehicle_type", value="SHIP").input-type
 					| ).
 				span(name="attr_fitting_effect").description
 			.edit.flex.grey-box-bordered
-				+text-input("fitting_name", "NAME").name
+				+text-input("fitting_name", "NAME").name.ellipsis
 				+text-input("fitting_power", "POWER")(type="number", value="0").center.number
 				+text-input("fitting_mass", "MASS")(type="number", value="0").center.number
 				+fake-text-input("EFFECT").effect
@@ -158,7 +158,7 @@ input(type="hidden", name="attr_ship_vehicle_type", value="SHIP").input-type
 			.display
 				input(type="hidden", name="attr_defense_broken", value="0").hider
 				span.broken.space-after #[span(data-i18n="BROKEN")]:
-				span(name="attr_defense_name").name.space-after
+				span(name="attr_defense_name").name.ellipsis.space-after
 				span.space-after
 					| (#[span(data-i18n="POWER")]&nbsp;
 					span(name="attr_defense_power")
@@ -167,7 +167,7 @@ input(type="hidden", name="attr_ship_vehicle_type", value="SHIP").input-type
 					| ).
 				span(name="attr_defense_effect").description
 			.edit.flex.grey-box-bordered
-				+text-input("defense_name", "NAME").name
+				+text-input("defense_name", "NAME").name.ellipsis
 				+text-input("defense_power", "POWER")(type="number", value="0").center.number
 				+text-input("defense_mass", "MASS")(type="number", value="0").center.number
 				+fake-text-input("EFFECT").effect

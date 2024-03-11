@@ -136,7 +136,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					input(type="hidden", name=`attr_weapon_${val}`, value="")
 				button(type="roll", name="roll_Attack", value!="&{template:swn-attack} {{charname=@{character_name}}} {{title=@{weapon_name}}}  {{attack=[[1d20 + @{attack_bonus}[AB] + @{weapon_attack}[Weapon AB] + [[{{@{weapon_skill_bonus},-1}>0}*(@{weapon_skill_bonus}+2) - 2]][Skill] + @{weapon_attribute_mod}[Attribute] @{weapon_burst} @{modifier_query}]]}} {{damage=[[@{weapon_damage} + @{weapon_attribute_mod}[Attribute] + @{weapon_skill_to_damage}[Skill] @{weapon_burst}]]}} {{burst=[[0@{weapon_burst}]]}} @{weapon_shock} {{range=@{weapon_range}}} @{weapon_use_ammo} {{mod=[[0 @{modifier_query}]]}} {{desc=@{weapon_description}}} @{weapon_api}").invisible-button.display
 				.display
-					span.name.space-after
+					span.name.ellipsis.space-after
 						span(name="attr_weapon_name").space-after
 						span(name="attr_weapon_attack_display")
 					span
@@ -154,7 +154,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					.details
 						span(name="attr_weapon_description")
 				.edit.flex-wrap.grey-box-bordered
-					+text-input("weapon_name", "NAME").grow.name
+					+text-input("weapon_name", "NAME").grow.name.ellipsis
 					+text-input("weapon_attack", "ATTACK_BONUS_SHORT")(type="number", value="0").ab.center
 					+fake-text-input("SKILL").skills-either.weapon-skill.center
 						select(name="attr_weapon_skill_bonus")
@@ -209,7 +209,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					.dex(data-i18n="DEXTERITY_SHORT").notdetails
 					.con(data-i18n="CONSTITUTION_SHORT").notdetails
 					.affinity(data-i18n="AFFINITY?").notdetails
-					.name(data-i18n="NAME").notdetails
+					.name.ellipsis(data-i18n="NAME").notdetails
 				fieldset.repeating_shells
 					.show-chevron
 						+collapseChevron
@@ -220,7 +220,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 							.dex(data-i18n="DEXTERITY_SHORT")
 							.con(data-i18n="CONSTITUTION_SHORT")
 							.affinity(data-i18n="AFFINITY?")
-							.name(data-i18n="NAME")
+							.name.ellipsis(data-i18n="NAME")
 						.shells-grid.rep-grid
 							+fake-text-input().center
 								input(type="checkbox", name="attr_shell_active", value="1").inline-input.rep-radio
@@ -249,6 +249,8 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 	
 	//- Psionics and/or Space Magic
 	include components/psionics.pug
+
+	include components/space_magic.pug
 
 	include components/magic.pug
 
@@ -298,7 +300,7 @@ include components/ai.pug
 			.grey-box
 				.table-header.gear-grid.rep-grid
 					.amount #
-					.name(data-i18n="NAME")
+					.name.ellipsis(data-i18n="NAME")
 					.details(data-i18n="DESCRIPTION")
 					.enc(data-i18n="ENCUMBRANCE_SHORT" data-i18n-title="ENCUMBRANCE")
 					.status(data-i18n="STATUS")
@@ -341,7 +343,7 @@ include components/ai.pug
 						| #[span(data-i18n="ARMOR")] – #[span(data-i18n="AC")] #[span(name="attr_AC")]
 				.table-header.armor-grid.rep-grid
 					.active.center(data-i18n="ACTIVE?")
-					.name(data-i18n="NAME")
+					.name.ellipsis(data-i18n="NAME")
 					.ac(data-i18n="AC")
 					.type(data-i18n="TYPE")
 					.enc(data-i18n="ENCUMBRANCE_SHORT")
@@ -385,12 +387,12 @@ include components/ai.pug
 						+collapseChevron
 						button.display.invisible-button(name="roll_Cyberware", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=@{cyberware_name}}} {{info=^{CYBERWARE}; @{cyberware_strain} ^{STRAIN}}} {{desc=@{cyberware_description}}}")
 						.display
-							.name.flex-between
+							.name.ellipsis.flex-between
 								span(name="attr_cyberware_name")
 								span #[span(name="attr_cyberware_strain")] #[span(data-i18n="STRAIN").lower]
 							.details #[span(name="attr_cyberware_description")]
 						.edit.flex-center
-							input(type="text", name="attr_cyberware_name").name
+							input(type="text", name="attr_cyberware_name").name.ellipsis
 							span #[span(data-i18n="STRAIN_COST")]:
 							input(type="number", name="attr_cyberware_strain", value="0").strain
 							textarea(name="attr_cyberware_description", data-i18n-placeholder="DESCRIPTION").details
@@ -407,14 +409,14 @@ include components/ai.pug
 						input(type="checkbox", name="attr_collapse", value="1").input-collapse
 						span.chevron
 						.display
-							.grid.grid-flow-col.goal.mb.name
+							.grid.grid-flow-col.goal.mb.name.ellipsis
 								span(name="attr_goal_name")
 								span.level #[span(data-i18n="XP")]:#[span(name="attr_goal_xp")]
 							.details
 								span(name="attr_goal_description")
 						.edit
 							.grid.grid-flow-col.goal.mb
-								+text-input("goal_name").name.grow
+								+text-input("goal_name").name.ellipsis.grow
 								+text-input("goal_xp")(type="number", min="0", data-i18n-placeholder="XP").xp.center
 							.grid
 								textarea(name="attr_goal_description", data-i18n-placeholder="DESCRIPTION")
@@ -424,7 +426,7 @@ include components/ai.pug
 					+text-input("language")
 		.grid.wwn.mt.gap-1.proj-ally
 			.projects.grey-box
-				.grid.grid-flow-col.name
+				.grid.grid-flow-col.name.ellipsis
 					h3(data-i18n="PROJECTS")
 					+text-input("renown", "RENOWN")
 				fieldset.repeating_projects
@@ -432,20 +434,20 @@ include components/ai.pug
 						input(type="checkbox", name="attr_collapse", value="1").input-collapse
 						span.chevron
 						.display
-							.grid.grid-flow-col.mb.name
+							.grid.grid-flow-col.mb.name.ellipsis
 								span(name="attr_name")
 							.details
 								span(name="attr_description")
 						.edit
 							.grid.grid-flow-col.mb
-								+text-input("name").name
+								+text-input("name").name.ellipsis
 							.grid
 								textarea(name="attr_description", data-i18n-placeholder="DESCRIPTION")
 			.allies.grey-box
 				.div
 					h3(data-i18n="ALLIES_ENEMIES")
 				.grid.grid-flow-col.subheaders.gap-1
-					.name(data-i18n="NAME")
+					.name.ellipsis(data-i18n="NAME")
 					.location(data-i18n="LOCATION")
 					.status(data-i18n="STATUS")
 				fieldset.repeating_allies

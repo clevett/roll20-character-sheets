@@ -86,7 +86,7 @@ input(type="hidden", name="attr_setting_individual_hidden", value="1").input-ind
 			input(type="hidden", name="attr_attack_extra_macro", value="")
 			button(type="roll", name="roll_Attack", value!="@{npc_attacks_hidden} &{template:swn-attack} {{charname=@{npc_name}}} {{title=@{attack_name}}} {{attack=[[1d20 + @{attack_ab} @{attack_burst} @{modifier_query}]]}} {{damage=[[@{attack_damage} @{attack_burst}]]}} {{burst=[[0@{attack_burst}]]}} {{range=@{attack_range}}} @{attack_shock} @{attack_extra_macro}").invisible-button.display
 			.display.flex-between.grey-box-bordered
-				span.name
+				span.name.ellipsis
 					span(name="attr_attack_name").space-after
 					input(type="hidden", name="attr_attack_ab", value="0").add-plus
 					span(name="attr_attack_ab").space-after
@@ -98,7 +98,7 @@ input(type="hidden", name="attr_setting_individual_hidden", value="1").input-ind
 					span(data-i18n="DAMAGE").space-after
 					span(name="attr_attack_damage")
 			.edit.flex.grey-box-bordered
-				+text-input("attack_name", "NAME").name
+				+text-input("attack_name", "NAME").name.ellipsis
 				+text-input("attack_range", "RANGE").range.center
 				+text-input("attack_ab", "ATTACK_BONUS_SHORT")(type="number", value="0").ab.center
 				+text-input("attack_damage", "DAMAGE")(value="0").damage.center
@@ -126,10 +126,10 @@ input(type="hidden", name="attr_setting_individual_hidden", value="1").input-ind
 		fieldset.repeating_npc-abilities
 			button.display.invisible-button(type="roll", name="roll_Ability", value!="@{npc_abilities_hidden} &{template:swn-default} {{charname=@{npc_name}}} {{title=@{ability_name}}} {{desc=@{ability_description}}}")
 			.display.grey-box-bordered
-				span(name="attr_ability_name").name.space-after
+				span(name="attr_ability_name").name.ellipsis.space-after
 				span(name="attr_ability_description").description
 			.edit.flex.grey-box-bordered
-				+text-input("ability_name", "NAME").name
+				+text-input("ability_name", "NAME").name.ellipsis
 				+fake-text-input("DESCRIPTION").description
 					textarea(name="attr_ability_description", data-i18n-placeholder="DESCRIPTION")
 

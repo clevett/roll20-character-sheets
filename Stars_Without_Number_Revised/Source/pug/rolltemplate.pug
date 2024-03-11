@@ -1,7 +1,7 @@
 rolltemplate.sheet-rolltemplate-swn-default
 	.container
 		.header
-			.name {{charname}}
+			.name.ellipsis {{charname}}
 			.title {{title}}
 		.content
 			| {{#reaction}}
@@ -30,7 +30,7 @@ rolltemplate.sheet-rolltemplate-swn-default
 rolltemplate.sheet-rolltemplate-swn-attack
 	.container
 		.header
-			.name {{charname}}
+			.name.ellipsis {{charname}}
 			.title
 				| {{title}} {{#rollGreater() burst 0}}(#[span(data-i18n="BURST")]){{/rollGreater() burst 0}} {{#rollLess() mod 0}}{{mod}}{{/rollLess() mod 0}}{{#rollGreater() mod 0}}+ {{mod}}{{/rollGreater() mod 0}}
 		.content
@@ -95,7 +95,7 @@ rolltemplate.sheet-rolltemplate-swn-attack
 rolltemplate.sheet-rolltemplate-swn-skill
 	.container
 		.header
-			.name {{charname}}
+			.name.ellipsis {{charname}}
 			.title
 				| {{title}} #[span.italic {{attribute}} {{#rollLess() mod 0}}{{mod}}{{/rollLess() mod 0}}{{#rollGreater() mod 0}}+ {{mod}}{{/rollGreater() mod 0}}]
 		.content
@@ -106,7 +106,7 @@ rolltemplate.sheet-rolltemplate-swn-skill
 mixin save-success
 	.container.success
 		.header
-			.name {{charname}}
+			.name.ellipsis {{charname}}
 			.title {{title}}
 		.content
 			.rolls
@@ -118,7 +118,7 @@ mixin save-success
 mixin save-failure
 	.container.failure
 		.header
-			.name {{charname}}
+			.name.ellipsis {{charname}}
 			.title {{title}}
 		.content
 			.rolls

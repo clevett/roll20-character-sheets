@@ -970,7 +970,7 @@
 
   .magic-effort {
     display: grid;
-    grid: auto/ auto 45px 45px 45px 45px 80px;
+    grid: auto/ auto repeat(4, 45px) 80px;
     align-items: center;
     grid-column-gap: 4px;
     margin-top: 5px;
@@ -1032,7 +1032,7 @@
 
   .spell-slots {
     display: grid;
-    grid: auto/ auto 55px 55px 55px 55px 55px;
+    grid: auto/ auto repeat(5, 55px);
     align-items: center;
     grid-column-gap: 4px;
     margin-top: 5px;
@@ -1048,6 +1048,19 @@
     &:not([value="arcanist"]) ~ div .arcanist,
     &[value="adept"] ~ div .spellcaster {
       display: none;
+    }
+  }
+
+  .magical-arts {
+    .name {
+      grid-template-columns: 1fr 25% 25%;
+    }
+  }
+
+  .space-magic,
+  .magic {
+    .spells .display .name {
+      grid-template-columns: 1fr auto auto;
     }
   }
 

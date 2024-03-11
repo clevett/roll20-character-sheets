@@ -170,9 +170,9 @@ mixin makeSkill(skillName, custom, label)
 			.display.flex-center
 				input(type="hidden", name=`attr_${skillPrefix}_specialist`, value="2d6").dice
 				if (custom)
-					span(name=`attr_${skillPrefix}_name`).name
+					span(name=`attr_${skillPrefix}_name`).name.ellipsis
 				else
-					span(data-i18n=skillName.toUpperCase()).name
+					span(data-i18n=skillName.toUpperCase()).name.ellipsis
 				select(name=`attr_${skillPrefix}_query`).query.skills-query-hover
 					option(value="@{attribute_query_str}", data-i18n="STRENGTH_SHORT")
 					option(value="@{attribute_query_dex}", data-i18n="DEXTERITY_SHORT")
@@ -193,9 +193,9 @@ mixin makeSkill(skillName, custom, label)
 				span(name=`attr_${skillPrefix}`).level
 			div(class=["edit", custom ? "flex-wrap" : "flex-center"])
 				if (custom)
-					input(type="text", name=`attr_${skillPrefix}_name`, value=label, data-i18n-placeholder="SKILL_NAME").name
+					input(type="text", name=`attr_${skillPrefix}_name`, value=label, data-i18n-placeholder="SKILL_NAME").name.ellipsis
 				else
-					div(data-i18n=skillName.toUpperCase()).name
+					div(data-i18n=skillName.toUpperCase()).name.ellipsis
 				select(name=`attr_${skillPrefix}_query`).query
 					option(value="@{attribute_query_str}", data-i18n="STRENGTH_SHORT")
 					option(value="@{attribute_query_dex}", data-i18n="DEXTERITY_SHORT")
@@ -227,12 +227,12 @@ mixin foci
 			+collapseChevron("show_focus_details")
 			button.display.invisible-button(type="roll", name="roll_Class_ability", value!="&{template:swn-default} {{charname=@{character_name}}} {{title=^{CLASS_ABILITY}}} {{desc=@{class_ability}}}")
 			.display
-				.name.flex
+				.name.ellipsis.flex
 					div #[span(data-i18n="CLASS_ABILITY")]: #[span(name="attr_class")]
 				.details
 					span(name="attr_class_ability")
 			.edit
-				.name.flex
+				.name.ellipsis.flex
 					div #[span(data-i18n="CLASS_ABILITY")]: #[span(name="attr_class")]
 				.details
 					textarea.details(name="attr_class_ability")
@@ -242,22 +242,22 @@ mixin foci
 				span.chevron
 				button.display.invisible-button(type="roll", name="roll_Focus", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{FOCUS}}} {{title=@{focus_name}}} {{desc=@{focus_description}}}")
 				.display
-					.name.flex
+					.name.ellipsis.flex
 						span(name="attr_focus_name")
 						span.level #[span(data-i18n="LEVEL")]-#[span(name="attr_focus_level")]
 					.details
 						span(name="attr_focus_description")
 				.edit.flex-wrap
-					input.name(type="text", name="attr_focus_name", data-i18n-placeholder="FOCUS")
+					input.name.ellipsis(type="text", name="attr_focus_name", data-i18n-placeholder="FOCUS")
 					input.level(type="number", min="0", value="1", name="attr_focus_level", data-i18n-placeholder="LEVEL")
 					textarea.details(name="attr_focus_description", data-i18n-placeholder="DESCRIPTION")
 
 mixin unspentSkillPoints
 	.skill.skill-points
 		.display.flex-center
-			span(data-i18n="UNSPENT_SKILL_POINTS").name
+			span(data-i18n="UNSPENT_SKILL_POINTS").name.ellipsis
 			span(name="attr_unspent_skill_points").level
 		.edit.flex-center
-			span(data-i18n="UNSPENT_SKILL_POINTS").name
+			span(data-i18n="UNSPENT_SKILL_POINTS").name.ellipsis
 			input(type="number", min="0", value="0", name="attr_unspent_skill_points").level
 
