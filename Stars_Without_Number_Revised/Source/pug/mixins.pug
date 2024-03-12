@@ -261,3 +261,10 @@ mixin unspentSkillPoints
 			span(data-i18n="UNSPENT_SKILL_POINTS").name.ellipsis
 			input(type="number", min="0", value="0", name="attr_unspent_skill_points").level
 
+
+mixin gearStatus(name)
+	+fake-text-input()
+		select.status(name=`attr_${name}_status`)
+			option(value="", data-i18n="OTHER", selected)
+			option(value="READIED", data-i18n="READIED")
+			option(value="STOWED", data-i18n="STOWED")

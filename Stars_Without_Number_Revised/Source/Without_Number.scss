@@ -1159,8 +1159,6 @@
   .readied-stowed {
     display: grid;
     align-items: center;
-    grid: auto / 1fr 60px 60px 80px 80px;
-    grid-column-gap: 7px;
 
     .input-gear-over[value="1"] + .text-input input:first-child {
       color: red;
@@ -1192,7 +1190,7 @@
     }
 
     .gear-grid {
-      grid: auto / 35px minmax(130px, 1fr) 2fr 35px 70px 40px;
+      grid: auto / 35px minmax(130px, 1fr) 35px 70px 40px;
     }
 
     .other h3 {
