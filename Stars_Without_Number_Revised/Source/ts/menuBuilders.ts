@@ -36,7 +36,7 @@ const buildSkillMacro = (
 };
 /* End helper functions */
 const buildSaveMenu = () => {
-  getAttrs(["homebrew_luck_save", "macro_saves"], (v) => {
+  getAttrs(["luck_save", "macro_saves"], (v) => {
     const macro_saves =
       buildLink("^{PHYSICAL} (v@{save_physical})", "save_physical") +
       " " +
@@ -45,9 +45,9 @@ const buildSaveMenu = () => {
       buildLink(
         "^{EVASION} (v@{save_evasion})",
         "save_evasion",
-        v.homebrew_luck_save !== "1"
+        v.luck_save !== "1"
       ) +
-      (v.homebrew_luck_save === "1"
+      (v.luck_save === "1"
         ? " " + buildLink("^{LUCK} (v@{save_luck})", "save_luck", true)
         : "");
     mySetAttrs(

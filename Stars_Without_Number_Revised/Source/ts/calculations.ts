@@ -6,7 +6,7 @@ const calculateSaves = () => {
     [
       ...attributes.map((attr) => `${attr}_mod`),
       "level",
-      "homebrew_luck_save",
+      "luck_save",
       "save_physical",
       "save_mental",
       "save_evasion",
@@ -27,7 +27,7 @@ const calculateSaves = () => {
           (Math.max(parseInt(v.intelligence_mod), parseInt(v.dexterity_mod)) ||
             0),
       };
-      if (v.homebrew_luck_save === "1") setting.save_luck = base;
+      if (v.luck_save === "1") setting.save_luck = base;
       mySetAttrs(setting, v);
     }
   );

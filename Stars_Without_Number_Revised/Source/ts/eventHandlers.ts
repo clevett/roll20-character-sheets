@@ -99,7 +99,7 @@ on("change:level change:setting_xp_scheme", calculateNextLevelXP);
 on("change:setting_super_type", validateSuperTab);
 
 /* Character chat macros */
-on("change:homebrew_luck_save", buildSaveMenu);
+on("change:luck_save", buildSaveMenu);
 
 on(
   [

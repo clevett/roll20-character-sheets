@@ -16,7 +16,7 @@
       "descriptiontranslationkey": "REQUIRES_CHATSETATTR"
     },
     {
-      "attribute": "homebrew_luck_save",
+      "attribute": "luck_save",
       "displayname": "Add a luck save",
       "displaytranslationkey": "ADD_LUCK_SAVE",
       "type": "checkbox",

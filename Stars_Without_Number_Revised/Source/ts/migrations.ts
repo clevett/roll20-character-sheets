@@ -126,10 +126,10 @@ const upgradeSheet = (
         );
       });
     } else if (major === 2 && minor < 2) {
-    /** v2.2.0
-     *  convert single armor line to repeating armor
-     *  Change @{attribute_query_none} to @{attribute_query}
-     **/
+      /** v2.2.0
+       *  convert single armor line to repeating armor
+       *  Change @{attribute_query_none} to @{attribute_query}
+       **/
       const upgradeFunction = _.after(2, () => {
         calculateStrDexMod();
         calculateEffort();
@@ -197,9 +197,9 @@ const upgradeSheet = (
         })
       );
     } else if (major === 2 && (minor < 3 || (minor === 3 && patch === 0))) {
-    /** v2.3.1
-     *  Regenerate drone and weapon ABs
-     **/
+      /** v2.3.1
+       *  Regenerate drone and weapon ABs
+       **/
       const upgradeFunction = _.after(1, () => {
         upgradeSheet("2.3.1");
       });
@@ -211,15 +211,15 @@ const upgradeSheet = (
         );
       });
     } else if (major === 2 && (minor < 4 || (minor === 4 && patch < 3))) {
-    /** v2.4.3
-     * Regenerate Cyberware strain because it was bugged
-     **/
+      /** v2.4.3
+       * Regenerate Cyberware strain because it was bugged
+       **/
       calculateCyberwareStrain();
       upgradeSheet("2.4.3");
     } else if (major === 2 && minor === 4 && patch < 7) {
-    /** v2.4.7
-     * Move attr to attr_base, and recalculate attr
-     **/
+      /** v2.4.7
+       * Move attr to attr_base, and recalculate attr
+       **/
       attributes.forEach((attr) => {
         getAttrs([attr, `${attr}_base`], (v) => {
           mySetAttrs(
@@ -234,27 +234,24 @@ const upgradeSheet = (
       });
       upgradeSheet("2.4.7");
     } else if (major === 2 && minor === 4 && patch < 12) {
-
-    /** v2.4.11
-     * Recalculate drone attack to remove incorrect double Int bonus
-     */
+      /** v2.4.11
+       * Recalculate drone attack to remove incorrect double Int bonus
+       */
       getSectionIDs("repeating_drones", (idArray) => {
         calculateDroneAttack(idArray.map((id) => `repeating_drones_${id}`));
       });
       upgradeSheet("2.4.12");
     } else if (major === 2 && minor < 5) {
-
-    /** v2.5.3
-     * Rebuild magic "Quick Menu" to fix incorrect skills being listed.
-     */
+      /** v2.5.3
+       * Rebuild magic "Quick Menu" to fix incorrect skills being listed.
+       */
       buildMagicMenu();
       upgradeSheet("2.5.3");
     } else if (major === 2 && minor < 6) {
-
-    /** v2.6.0
-     * Move extra strain into strain_extra
-     * Move NPC AC and HD into npc_ac and npc_hd
-     */
+      /** v2.6.0
+       * Move extra strain into strain_extra
+       * Move NPC AC and HD into npc_ac and npc_hd
+       */
       getAttrs(
         ["strain", "strain_permanent", "strain_extra", "AC", "HP", "HP_max"],
         (v) => {
@@ -276,10 +273,9 @@ const upgradeSheet = (
         }
       );
     } else if (major === 2 && minor < 6) {
-
-    /** v2.6.3
-     * Regenerate weapon displays (to fix incorrect bonus displayed with Sunblade)
-     */
+      /** v2.6.3
+       * Regenerate weapon displays (to fix incorrect bonus displayed with Sunblade)
+       */
       generateWeaponDisplay();
       upgradeSheet("2.6.3");
     } else upgradeSheet(sheetVersion, false, true);
@@ -385,7 +381,7 @@ const upgradeFrom162 = () => {
     wis_misc: "wisdom_bonus",
   };
   const attrsToConvertFromOnTo1 = [
-    "homebrew_luck_save",
+    "luck_save",
     "homebrew_extra_skills",
     "setting_heroic_enable",
   ];
