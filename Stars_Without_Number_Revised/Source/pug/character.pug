@@ -132,8 +132,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 			input(type="hidden", name="attr_show_weapon_details", value="1").input-details
 			fieldset.repeating_weapons
 				.show-chevron
-					input(type="checkbox", name="attr_collapse", value="1").input-collapse
-					span.chevron
+					+collapseChevron()
 					each val in ["api", "attack_display", "damage_display"]
 						input(type="hidden", name=`attr_weapon_${val}`, value="")
 					button(type="roll", name="roll_Attack", value!="&{template:swn-attack} {{charname=@{character_name}}} {{title=@{weapon_name}}}  {{attack=[[1d20 + @{attack_bonus}[AB] + @{weapon_attack}[Weapon AB] + [[{{@{weapon_skill_bonus},-1}>0}*(@{weapon_skill_bonus}+2) - 2]][Skill] + @{weapon_attribute_mod}[Attribute] @{weapon_burst} @{modifier_query}]]}} {{damage=[[@{weapon_damage} + @{weapon_attribute_mod}[Attribute] + @{weapon_skill_to_damage}[Skill] @{weapon_burst}]]}} {{burst=[[0@{weapon_burst}]]}} @{weapon_shock} {{range=@{weapon_range}}} @{weapon_use_ammo} {{mod=[[0 @{modifier_query}]]}} {{desc=@{weapon_description}}} @{weapon_api}").invisible-button.display
@@ -215,7 +214,7 @@ input(type="hidden", name="attr_setting_transhuman_enable", value="").transhuman
 					.name.ellipsis(data-i18n="NAME").notdetails
 				fieldset.repeating_shells
 					.show-chevron
-						+collapseChevron
+						+collapseChevron()
 						button.display.invisible-button(name="roll_Shell", type="roll", value!="&{template:swn-default} {{charname=@{character_name}}} {{info=^{SHELL} — STR @{shell_strength} - DEX @{shell_dexterity} - CON @{shell_constitution}}} {{title=@{shell_name}}} {{desc=^{BASIC_ABILITIES}:\n @{shell_ability} @{shell_affinity_active}}}")
 						.table-header.shells-grid.rep-grid.details.no-highlight
 							.active(data-i18n="ACTIVE?")
@@ -314,8 +313,7 @@ include components/ai.pug
 
 				fieldset.repeating_gear
 					.show-chevron
-						input(type="checkbox", name="attr_collapse", value="1").input-collapse
-						span.chevron
+						+collapseChevron()
 						.grid.rep-grid.gap-1
 							.grid.grid-flow-col.gap-1.gear-grid
 								+text-input("gear_amount")(type="number", value="1", min="0")
@@ -399,8 +397,7 @@ include components/ai.pug
 				h3(data-i18n="GOALS")
 				fieldset.repeating_goals
 					.show-chevron.simple-repsection 
-						input(type="checkbox", name="attr_collapse", value="1").input-collapse
-						span.chevron
+						+collapseChevron()
 						.display
 							.grid.grid-flow-col.goal.mb.name.ellipsis
 								span(name="attr_goal_name")
@@ -424,8 +421,7 @@ include components/ai.pug
 					+text-input("renown", "RENOWN")
 				fieldset.repeating_projects
 					.show-chevron.simple-repsection 
-						input(type="checkbox", name="attr_collapse", value="1").input-collapse
-						span.chevron
+						+collapseChevron()
 						.display
 							.grid.grid-flow-col.mb.name.ellipsis
 								span(name="attr_name")
