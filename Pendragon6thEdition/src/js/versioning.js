@@ -38,29 +38,37 @@ const versionTwoFive = () => {
   renameSectionAttrTargetValue("repeating_skill", "skill");
 };
 
-const versionTwoFiveOne = () => {
-  const renameRepeatingSectionName = (section, newName) => {
+const versionThreeZero = () => {
+  const renameRepeatingSectionName = (section, newName, targetValue) => {
     const attrs = ["name", "target_value", "check"];
 
     getSectionIDs(section, (ids) => {
-      const map = ids
-        .map((id) => attrs.map((e) => `repeating_${section}_${id}_${e}`))
-        .flat();
+      const map = ids.map((id) =>
+        [...attrs, targetValue].map((e) => `repeating_${section}_${id}_${e}`)
+      );
 
-      getAttrs(map, (v) => {
-        const newSection = getRow(newName);
-        let update = {};
-        Object.entries(v).forEach(([key, value]) => {
-          const attr = getReprowAttribute(key);
-          update[`${newSection}_${attr}`] = value;
+      map.forEach((e) => {
+        getAttrs(e, (v) => {
+          const newSection = getRow(newName);
+          let update = {};
+          Object.entries(v).forEach(([key, value]) => {
+            const attr = getReprowAttribute(key);
+
+            if (attr === targetValue) {
+              update[`${newSection}_target_value`] = value;
+              return;
+            }
+
+            update[`${newSection}_${attr}`] = value;
+          });
+          setAttrs(update);
         });
-        setAttrs(update);
       });
     });
   };
 
-  renameRepeatingSectionName("passion", "passions");
-  renameRepeatingSectionName("direct-trait", "traits");
+  renameRepeatingSectionName("passion", "passions", "passion");
+  renameRepeatingSectionName("direct-trait", "traits", "trait");
 };
 
 const versionTwoFiveTwo = () => {
@@ -76,12 +84,12 @@ const versionTwoFiveThree = () => {
   const renameSectionAttrTargetValue = (section, attribute) => {
     getSectionIDs(section, (ids) => {
       const map = ids.map((id) => `${section}_${id}_${attribute}`);
-
       getAttrs(map, (v) => {
         let update = {};
         map.forEach((e) => {
           const rowId = getReprowid(e);
-          update[`${rowId}_name`] = v[`${e}`] ? v[`${e}`] : 0;
+          update[`${rowId}_name`] = v[`${e}`] ? v[`${e}`] : "";
+          update[`${rowId}_flag`] = false;
         });
         setAttrs(update);
       });
@@ -119,11 +127,6 @@ const versioning = async (version) => {
       versionTwoFive();
       versioning(2.5);
       break;
-    case version < 2.51:
-      updateMessage(2.51);
-      versionTwoFiveOne();
-      versioning(2.51);
-      break;
     case version < 2.52:
       updateMessage(2.52);
       versionTwoFiveTwo();
@@ -133,6 +136,11 @@ const versioning = async (version) => {
       updateMessage(2.53);
       versionTwoFiveThree();
       versioning(2.53);
+      break;
+    case version < 3:
+      updateMessage(3);
+      versionThreeZero();
+      versioning(3);
       break;
     default:
       console.log(
