@@ -587,5 +587,7 @@
 	"beastheart-rampage-table-24": "24 (10th level)",
 	"beastheart-rampage-table-24-text": "When your companion increases their size, they can increase it up to size 3, or increase their size by 1 if their original size is already 3 or larger. Whenever they make a power roll while their size is increased this way, they can roll 3d10 and discard the lowest roll.",
 	"import-companion": "Import Companion (Beastheart)",
-	"fire-keyword": "Fire"
+	"fire-keyword": "Fire",
+	"global-damage-modifiers": "Global Damage Modifiers",
+	"options-show-recoveries": "Show Recoveries"
 }

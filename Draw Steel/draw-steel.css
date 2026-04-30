@@ -21,7 +21,7 @@
 
     /* Borders & Accents */
     --color-border: rgb(102, 102, 102); 
-    --color-accent-steel: rgb(135, 186, 205);
+    --color-accent-steel: rgb(40, 82, 98);
 
     /* Inputs & UI */
     --color-input-bg: rgb(248, 248, 248); 
@@ -60,7 +60,7 @@
 	
     /* Borders & Accents */
     --color-border: rgb(102, 102, 102);
-	--color-accent-steel: rgb(40, 82, 98);
+	--color-accent-steel: rgb(135, 186, 205); 
 
     /* Inputs & UI */
     --color-input-bg: rgb(30,30,30); 
@@ -192,6 +192,19 @@
 	background-color: var(--color-input-bg);
 	border: 1px solid var(--color-input-border);
 	border-radius: var(--border-radius);
+	
+	&.input-md {
+		height: 20px;
+		font-size: 0.9em;
+	}
+	
+	&.input-stamina {
+		height: 20px;
+		font-size: 0.9em;
+		width: 100%;
+		box-sizing: border-box;
+		min-width: 6em;
+	}
 }
 
 .charsheet input[type=number] { 
@@ -232,23 +245,11 @@
 .charsheet .repcontrol {
 	margin: var(--sheet-padding);
 }
-
+/*
 .border-right {
 	border-right: var(--border-main);
 }
-
-.charsheet input.input-md {
-	height: 20px;
-	font-size: 0.9em;
-}
-
-.charsheet input.input-stamina {
-	height: 20px;
-	font-size: 0.9em;
-    width: 100%;
- 	box-sizing: border-box;
-  	min-width: 6em;
-}
+*/
 
 .charsheet label.sublabel {
 	height: min-content;
@@ -270,40 +271,58 @@
   z-index: 1;
 }
 
-/* Sheet Options Panel */
-.charsheet label.sheet-options-checkbox-label {
-	font-family: "Pictos";
-	font-size: 25px;
+.sheet-header {
+	position: relative;
+}
+
+/* Toggle Buttons */
+.charsheet .toggle-button {
+	top: 0px;
+	right: 5px;
 	position: absolute;
-	color: var(--color-button-bg);
-	cursor: pointer;
-	right: 30px;
-	top: 100px;
-	font-weight: normal;
+	appearance: none;
+	background-color: transparent;
+	border-color: transparent;
+	color: var(--color-button-border);
+	
+	&::before {
+		font-family: "Pictos";
+		font-size: 25px;
+		cursor: pointer;
+	}
+	
+	&.-edit::before {
+		font-size: 1.5em;
+		content: 'p';
+	}
+	
+	&.-edit:checked::before {
+		content: '_';
+	}
+	
+	&.-gear::before {
+		content: 'y';
+	}
+	
+	&:hover {
+		color: var(--color-accent-steel);
+	}
+	
+	&:checked::before {
+		content: '*';
+		color: var(--color-accent-steel);
+	}
+	
+	&:checked ~ .-togglehide {
+		display: none;
+	}
+	
+	&:not(:checked) ~ .-toggleshow {
+		display: none;
+	}
 }
 
-.charsheet label.sheet-options-checkbox-label::before {
-	content: 'y';
-}
-
-.charsheet .sheet-header:has(#sheet-options-checkbox:checked) > .sheet-options-checkbox-label::before { /*~ label.sheet-options-checkbox-label::before {*/
-  color: var(--color-accent-steel);
-  content: '*';
-}
-
-.charsheet label.sheet-options-checkbox-label:hover {
-	color: var(--color-accent-steel);
-}
-
-
-input.sheet-options-checkbox {
-	display: none;
-}
-
-#sheet-options-checkbox:not(:checked) + div.sheet-panel {
-    display: none;
-} 
-
+/* Sheet Options Panel */
 .sheet-options-toggle {
   display: grid;
   gap: 0.5em;
@@ -320,14 +339,12 @@ input.sheet-options-checkbox {
 	font-weight: normal;
 }
 
-
 /* Switches between Character and NPC Sheets */
 .charsheet input.npc-checkbox:not([value="on"]) ~ .npc-sheet-body,
 .charsheet input.npc-checkbox[value="on"] ~ .sheet-body
 {
   display: none;
 }
-
 
 /* Player Character Sheet */
 .sheet-body { /* Sets the minimum width for the player character sheet */
@@ -338,20 +355,6 @@ input.sheet-options-checkbox {
 .minimize {
 	display:none; 
 }
-
-/*
-#stats-minimize-checkbox:checked + label::before,
-#biography-minimize-checkbox:checked + label::before,
-#skills-languages-minimize-checkbox:checked + label::before,
-#features-minimize-checkbox:checked + label::before,
-#abilities-minimize-checkbox:checked + label::before,
-#inventory-minimize-checkbox:checked + label::before,
-#projects-minimize-checkbox:checked + label::before,
-#notes-minimize-checkbox:checked + label::before,
-#director-screen-minimize-checkbox:checked + label::before {
-	content:'&';
-}
-*/
 
 [id*='minimize-checkbox']:checked + label::before {
 	content: '&';
@@ -636,10 +639,10 @@ label[for*='minimize']::before {
 	
 }
 
-.resource-container .ability-edit:checked ~ .growing-resource-grid .display-mode {
+.resource-container .toggle-button:checked ~ .growing-resource-grid .display-mode {
     display: none;
 }
-.resource-container .ability-edit:checked ~ .growing-resource-grid .edit-mode {
+.resource-container .toggle-button:checked ~ .growing-resource-grid .edit-mode {
     display: contents;
 }
 
@@ -1278,36 +1281,6 @@ label[for*='minimize']::before {
 .standard-abilities-item {
 	position: relative;
 }
-/* ---- Ability Card Styling */
-
-#ability-edit::before {
-	content: 'p';
-	font-family: "Pictos";
-	font-size: 1.5em;
-	cursor: pointer;
-}
-
-#ability-edit:checked::before {
-  content: '_';
-}
-
-#ability-edit {
-	top: 0px;
-	right: 5px;
-	position: absolute;
-	appearance: none;
-	background-color: transparent;
-	border-color: transparent;
-	color: var(--color-button-border);
-}
-
-#ability-edit:hover {
-  color: var(--color-accent-steel);
-}
-
-.charsheet input.ability-edit:not(:checked) ~ div.card-edit, .charsheet input.ability-edit:checked ~ div.card-display {
-    display: none;
-}
 
 /* -- Ability Card Styling */
 
@@ -1498,8 +1471,8 @@ label[for*='minimize']::before {
 	grid-column-start: 1;
 }
 
-.ability-card.card-display input:not([value*="triggered"]) ~ .ability-trigger,
-.ability-card.card-display input[value="no-action"] ~ .ability-type {
+.ability-card.-togglehide input:not([value*="triggered"]) ~ .ability-trigger,
+.ability-card.-togglehide input[value="no-action"] ~ .ability-type {
 	display: none;
 }
 
@@ -1825,7 +1798,8 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 
 
 .npc-stats-panel {
-	grid-template-columns: repeat(5, 1fr);
+	display: flex;
+	align-items: baseline;
 }
 
 .npc-stats-panel div {
@@ -1840,6 +1814,7 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 
 .npc-stat {
 	font-size: 1.5em;
+	flex-grow: 1;
 }
 
 .npc-skills-panel {
@@ -2327,11 +2302,16 @@ input.npc-edit-toggle:checked ~ div.npc-display {
   align-items: baseline;
 }
 
-.advanced-stamina-panel .npc-winded-group {
+.advanced-stamina-panel,
+.npc-recovery-panel {
+	flex-grow: 0;
+}
+
+.npc-small-stat {
   font-size: 0.7em;
 }
 
-.npc-winded-group .npc-dying-group {
+.npc-small-stat .npc-dying-group {
 	flex-direction: row;
 	gap: 0.2em;
 	min-width: 60px;
@@ -2345,12 +2325,29 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 	grid-column: span 2;
 }
 
-.advanced-stamina-panel .advanced-stamina-stat input {
+.advanced-stamina-panel .advanced-stamina-stat input,
+.npc-recovery-panel .recovery-input-group input {
 	height: 40px;
 	font-size: 1.2em;
 	min-width: 3.5em;
 }
 
+.npc-stats-panel .npc-recovery-toggle[value="0"] ~ .npc-recovery-panel {
+	display: none;
+}
+
+.npc-recovery-panel {
+	gap:0.2em;
+}
+
+.npc-recovery-panel .npc-recovery-subpanel {
+	flex-direction: row;
+	gap: 0.5em;
+}
+
+.npc-recovery-panel .npc-recovery-subpanel input {
+	min-width: 3.5em;
+}
 
 /* NPC Companion Panel */
 .npc-sheet-body .npc-companion-toggle[value="0"] + .npc-companion-panel {
@@ -2369,6 +2366,7 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 .npc-stat input {
 	min-width: 4.5em;
 }
+
 
 .button-bar {
 	display: flex;
@@ -2389,4 +2387,42 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 
 .ui-dialog .charsheet .button-bar button[type=roll]::before {
     content: "";
+}
+
+/* Hide Edit Row by default */
+.sheet-edit-row {
+    background: var(--color-bg-section);
+    padding: var(--sheet-padding);
+}
+
+.sheet-edit-icon {
+    margin-left: -20px;
+    font-style: italic;
+    font-weight: bold;
+    color: #0073aa;
+}
+
+/* Formatting for the display row */
+.sheet-display-row {
+    display: grid;
+    grid-template-columns: 30px 1fr 1fr 80px 20px;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.sheet-display-row.header {
+	font-weight: bold;
+}
+
+.global-damage-container {
+	margin-top: 10px;
+}
+
+.global-damage-container .section-title {
+	text-align: center;
+}
+
+
+.repcontainer[data-groupname="repeating_damagemods"] > .repitem {
+	border-bottom: var(--border-main);
 }

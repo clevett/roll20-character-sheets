@@ -7,10 +7,9 @@
 			style="height: 60px"
 		/>
 	</h1>
-	<label class="sheet-options-checkbox-label" for="sheet-options-checkbox"></label>
-	<input id="sheet-options-checkbox" class="sheet-options-checkbox" type="checkbox" />
-	<div class="sheet-panel sheet-options-toggle">
+	<input id="sheet-options-checkbox" class="toggle-button -gear sheet-options-checkbox" type="checkbox" value="1" />
 	<!-- Options Panel -->
+	<div class="sheet-panel sheet-options-toggle -toggleshow">
 		<div class="sheet-panel-box">
 			<div>
 				<span data-i18n="whisper-gm"></span>
@@ -91,6 +90,10 @@
 				<div>
 					<input id="npc-advanced-stamina" name="attr_options_npc_advanced_stamina" class="npc-checkbox" type="checkbox" value="1" />
 					<label for="npc-advanced-stamina" data-i18n="options-advanced-stamina"></label>
+				</div>
+				<div>
+					<input id="npc-show-recoveries" name="attr_options_npc_show_recoveries" class="npc-checkbox" type="checkbox" value="1" />
+					<label for="npc-show-recoveries" data-i18n="options-show-recoveries"></label>
 				</div>
 			</div>
 			
@@ -473,13 +476,14 @@
 </div>
 <!-- Character Sheet Start -->
 <div class="sheet-body">
-	<!-- Header Panel --> 
+	<!-- Button Bar -->
 	<div class="button-bar">
 		<button class="initiative-button" type="roll" name="roll_init" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d10}} {{roll=[[ [[1d10]][1d10]]]}} {{name=Initiative}} {{charactername=@{character_name}}}" data-i18n-title="initiative-title" data-i18n="initiative"></button>
 		<button class="startcombat-button" type="action" data-i18n-title="startcombat-title" name="act_startcombat" data-i18n="startcombat"></button>
 		<button class="endcombat-button" type="action" data-i18n-title="endcombat-title" name="act_endcombat" data-i18n="endcombat"></button>
 		<button class="respite-button" type="action" data-i18n-title="respite-title" name="act_respite" data-i18n="respite"></button>
 	</div>
+	<!-- Header Panel --> 
 	<div class="sheet-panel header-panel">
 		<div class="sheet-panel-box profile-panel">
 			<div class="name-input-group">
@@ -701,7 +705,7 @@
 			<input type="hidden" class="row-toggle-12" name="attr_growingresource_show_12" value="1" />
 
 			<div class="resource-container sheet-panel-box minimize-ignore">
-				<input type="checkbox" class="ability-edit" id="ability-edit" name="attr_growing_resource_edit" />
+				<input type="checkbox" class="toggle-button -edit" name="attr_growing_resource_edit" />
 				<div class="growing-resource-grid">
 					<div class="grid-header">
 						<span class="header-label" name="attr_resource_name"></span>
@@ -892,12 +896,12 @@
 		<div class="sheet-panel-box class-panel">
 			<h5 class="panel-title" data-i18n="class-features"></h5>
 			<fieldset class="repeating_classfeatures">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="feature-accordion card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="feature-accordion -toggleshow">
 					<input type="text" name="attr_classfeature_name" title="Macro: @{NAME|repeating_classfeatures_<id>_classfeature_name}" />
 					<textarea name="attr_classfeature_description" title="Macro: @{NAME|repeating_classfeatures_<id>_classfeature_description}"></textarea>
 				</div>
-				<div class="feature-accordion">
+				<div class="feature-accordion -togglehide">
 					<div class="class-feature-header">
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_classfeatureshare">
 							<!-- speech balloon -->
@@ -913,12 +917,12 @@
 		<div class="sheet-panel-box ancestry-panel">
 			<h5 class="panel-title" data-i18n="ancestry-traits"></h5>
 			<fieldset class="repeating_ancestrytraits">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="feature-accordion card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="feature-accordion -toggleshow">
 					<input type="text" name="attr_ancestrytrait_name" title="Macro: @{NAME|repeating_ancestrytraits_<id>_ancestrytrait_name}"/>
 					<textarea name="attr_ancestrytrait_description" title="Macro: @{NAME|repeating_ancestrytraits_<id>_ancestrytrait_description}"></textarea>
 				</div>
-				<div class="feature-accordion">
+				<div class="feature-accordion -togglehide">
 					<div class="anc-feature-header">
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_ancfeatureshare">
 							<!-- speech balloon -->
@@ -931,7 +935,7 @@
 			</fieldset>
 		</div>
 		<!-- Equipment and Modifiers Panel -->
-		<div class="sheet-panel-box modifiers-panel">
+		<div class="modifiers-panel sheet-panel-box">
 			<div class="modifiers-title">
 				<h5 class="panel-title" data-i18n="equipment-modifiers"></h5>
 				<span data-i18n="kit"></span>
@@ -1017,7 +1021,7 @@
 					<label class="kit-damage-label" data-i18n="effect"></label>
 					<textarea name="attr_modifier_description"></textarea>
 				</div>
-				<div class="other-modifiers">
+				<!--<div class="other-modifiers">
 					<div class="other-modifiers-forcemove-group">
 						<input type="number" class="other-modifiers-forcemove" name="attr_forcemove" value="0" />
 						<label class="sublabel" data-i18n="forcemove"></label>
@@ -1034,19 +1038,60 @@
 						<input type="number" class="other-modifiers-sanct-weap" name="attr_sanct_weap" value="0" />
 						<label class="sublabel" data-i18n="sanct-weap"></label>
 					</div>
+				</div>-->
+			</div>
+			<div class="global-damage-container sheet-panel-box">
+				<div class="ds-header">
+					<h5 class="section-title" data-i18n="global-damage-modifiers"></h5>
+					<input type="checkbox" class="toggle-button -edit" />
+					<div class="help-toggle -toggleshow">
+						<span>This is some help text for using the Global damage modifiers</span>
+					</div>
 				</div>
+				<div class="sheet-display-row header">
+					<span></span>
+					<span class="sheet-mod-name" name="attr_mod_name">Modifier Name</span>
+					<span class="sheet-mod-keywords" name="attr_mod_keywords">Keywords</span>
+					<span class="sheet-mod-value">Damage</span>
+				</div>
+				<fieldset class="repeating_damagemods">
+					<input type="checkbox" class="toggle-button -edit" />
+
+					<div class="sheet-display-row">
+						<input type="checkbox" name="attr_is_active" value="1" checked />
+						<span class="sheet-mod-name" name="attr_mod_name">New Modifier</span>
+						<span class="sheet-mod-keywords" name="attr_mod_keywords">Keywords</span>
+						<span class="sheet-mod-value"><span name="attr_mod_value">0</span> Damage</span>
+					</div>
+					<div class="sheet-edit-row grid-span-full -toggleshow">
+						<div class="sheet-input-group">
+							<label>Modifier Name</label>
+							<input type="text" name="attr_mod_name" placeholder="e.g., Acolyte of Fire" />
+						</div>
+
+						<div class="sheet-input-group">
+							<label>Keywords (Comma separated)</label>
+							<input type="text" name="attr_mod_keywords" placeholder="Fire, Magic" />
+						</div>
+
+						<div class="sheet-input-group">
+							<label>Damage Bonus</label>
+							<input type="number" name="attr_mod_value" value="0" />
+						</div>
+					</div>
+				</fieldset>
 			</div>
 		</div>
 		<!-- Perks Panel -->
 		<div class="sheet-panel-box perks-panel">
 			<h5 class="panel-title" data-i18n="perks"></h5>
 			<fieldset class="repeating_perks">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="feature-accordion card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="feature-accordion -toggleshow">
 					<input type="text" name="attr_perk_name" />
 					<textarea name="attr_perk_description"></textarea>
 				</div>
-				<div class="feature-accordion">
+				<div class="feature-accordion -togglehide">
 					<div class="perk-feature-header">
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_perkfeatureshare">
 							<!-- speech balloon -->
@@ -1062,12 +1107,12 @@
 		<div class="sheet-panel-box titles-panel">
 			<h5 class="panel-title" data-i18n="titles"></h5>
 			<fieldset class="repeating_titles">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="feature-accordion card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="feature-accordion -toggleshow">
 					<input type="text" name="attr_title_name" />
 					<textarea name="attr_title_description"></textarea>
 				</div>
-				<div class="feature-accordion">
+				<div class="feature-accordion -togglehide">
 					<div class="title-feature-header">
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_titlefeatureshare">
 							<!-- speech balloon -->
@@ -1100,8 +1145,8 @@
 			<!-- Main Actions: repeating_abilities -->
 		    <h2 data-i18n="main-actions"></h2>
 			<fieldset class="repeating_abilities">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
@@ -1184,7 +1229,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -1257,8 +1302,8 @@
 			<div class="standard-abilities">
 				<!-- Melee Free Strike Ability -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="melee-free-strike" name="attr_melee_free_strike_name" data-i18n="melee-free-strike" spellcheck="false"></textarea>
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect" data-i18n-placeholder="melee-free-strike-keywords" name="attr_melee_free_strike_keywords" data-i18n="melee-free-strike-keywords" spellcheck="false"></textarea>
@@ -1290,7 +1335,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_melee_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1325,8 +1370,8 @@
 				</div>
 				<!-- Ranged Free Strike Ability -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="ranged-free-strike" name="attr_ranged_free_strike_name" data-i18n="ranged-free-strike" spellcheck="false"></textarea>
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="ranged-free-strike-keywords" name="attr_ranged_free_strike_keywords" data-i18n="ranged-free-strike-keywords" spellcheck="false"></textarea>
@@ -1358,7 +1403,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_ranged_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1393,14 +1438,14 @@
 				</div>
 				<!-- Charge Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="charge" name="attr_charge_name" data-i18n="charge" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="charge-keywords" name="attr_charge_keywords" value="" />
 						<input type="hidden" name="attr_charge_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="charge-effect" name="attr_charge_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_charge_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1418,14 +1463,14 @@
 				</div>
 				<!-- Defend Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-name grid-span-full" data-i18n-placeholder="defend" name="attr_defend_name" data-i18n="defend" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="defend-keywords" name="attr_defend_keywords" value="" />
 						<input type="hidden" name="attr_defend_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="defend-effect" name="attr_defend_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_defend_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1443,8 +1488,8 @@
 				</div>
 				<!-- Heal Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="heal" name="attr_heal_name" data-i18n="heal" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="heal-keywords" name="attr_heal_keywords" value="" />
 						<input type="hidden" name="attr_heal_type" value="main-action" />
@@ -1452,7 +1497,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="one-creature" name="attr_heal_target" data-i18n="one-creature" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="heal-effect" name="attr_heal_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_heal_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1472,14 +1517,14 @@
 				</div>
 				<!-- Convert Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="convert" name="attr_convert_name" data-i18n="convert" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="convert-keywords" name="attr_convert_keywords" value="" />
 						<input type="hidden" name="attr_convert_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="convert-effect" name="attr_convert_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_convert_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1502,8 +1547,8 @@
 			<!-- Maneuvers: repeating_maneuvers -->
 			<h2 data-i18n="maneuvers"></h2>
 			<fieldset class="repeating_maneuvers">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_maneuver_name" />
 					<select class="ability-subtype-selector" name="attr_maneuver_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
@@ -1576,7 +1621,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -1650,8 +1695,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_knockback_type" value="maneuver" />
 					<input type="hidden" name="attr_knockback_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="knockback" data-i18n="knockback" name="attr_knockback_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="keywords" data-i18n="knockback-keywords" name="attr_knockback_keywords" spellcheck="false"></textarea>
@@ -1676,7 +1721,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="knockback-effect" name="attr_knockback_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_knockback_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1717,8 +1762,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_grab_type" value="maneuver" />
 					<input type="hidden" name="attr_grab_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="grab" data-i18n="grab" name="attr_grab_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="keywords" data-i18n="grab-keywords" name="attr_grab_keywords" spellcheck="false"></textarea>
@@ -1743,7 +1788,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="grab-effect" name="attr_grab_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" data-i18n-title="ability-share" name="act_grab_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1784,8 +1829,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_escape_grab_type" value="maneuver" />
 					<input type="hidden" name="attr_escape_grab_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="escape-grab" data-i18n="escape-grab" name="attr_escape_grab_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="distance" data-i18n="self" name="attr_escape_grab_distance" spellcheck="false"></textarea>
@@ -1809,7 +1854,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="escape-grab-effect" name="attr_escape_grab_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_escape_grab_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1850,8 +1895,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_claw_dirt_type" value="maneuver" />
 					<input type="hidden" name="attr_claw_dirt_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="claw-dirt" data-i18n="claw-dirt" name="attr_claw_dirt_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="distance" data-i18n="self" name="attr_claw_dirt_distance" spellcheck="false"></textarea>
@@ -1873,7 +1918,7 @@
 							</div>
 						</div>
 					</div>		
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_claw_dirt_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1909,8 +1954,8 @@
 				</div>
 				<!-- Aid Attack -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="aid-attack" name="attr_aid_attack_name" data-i18n="aid-attack" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="heal-keywords" name="attr_aid_attack_keywords" value="" />
 						<input type="hidden" name="attr_aid_attack_type" value="maneuver" />
@@ -1918,7 +1963,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_aid_attack_target" data-i18n="one-enemy" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="aid-attack-effect" name="attr_aid_attack_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_aid_attack_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1938,8 +1983,8 @@
 				</div>
 				<!-- Catch Breath -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="catch-breath" name="attr_catch_breath_name" data-i18n="catch-breath" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="catch-breath-keywords" name="attr_catch_breath_keywords" value="" />
 						<input type="hidden" name="attr_catch_breath_type" value="maneuver" />
@@ -1947,7 +1992,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_catch_breath_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="catch-breath-effect" name="attr_catch_breath_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_catch_breath_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1967,8 +2012,8 @@
 				</div>
 				<!-- Hide Maneuver -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="hide" name="attr_hide_name" data-i18n="hide" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="hide-keywords" name="attr_hide_keywords" value="" />
 						<input type="hidden" name="attr_hide_type" value="maneuver" />
@@ -1976,7 +2021,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_hide_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="hide-effect" name="attr_hide_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_hide_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -1996,8 +2041,8 @@
 				</div>
 				<!-- Search Maneuver -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="search" name="attr_search_name" data-i18n="search" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="search-keywords" name="attr_search_keywords" value="" />
 						<input type="hidden" name="attr_search_type" value="maneuver" />
@@ -2005,7 +2050,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_search_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="search-effect" name="attr_search_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_search_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2025,8 +2070,8 @@
 				</div>
 				<!-- Stand Up -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="stand-up" name="attr_standup_name" data-i18n="stand-up" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="stand-up-keywords" name="attr_standup_keywords" value="" />
 						<input type="hidden" name="attr_standup_type" value="maneuver" />
@@ -2034,7 +2079,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_standup_target" data-i18n="self-one-creature" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="stand-up-effect" name="attr_standup_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_standup_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2054,8 +2099,8 @@
 				</div>
 				<!-- Use Consumable -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="consumable" name="attr_consumable_name" data-i18n="consumable" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="consumable-keywords" name="attr_consumable_keywords" value="" />
 						<input type="hidden" name="attr_consumable_type" value="maneuver" />
@@ -2063,7 +2108,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_consumable_target" data-i18n="self-one-creature" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="consumable-effect" name="attr_consumable_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_consumable_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2088,8 +2133,8 @@
 		    <h2 data-i18n="triggered"></h2>
 			<!-- Triggered: repeating_triggered -->
 			<fieldset class="repeating_triggered">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_triggered_name" />
 					<select class="ability-subtype-selector" name="attr_triggered_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
@@ -2162,7 +2207,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -2233,15 +2278,15 @@
 			<div class="standard-abilities">
 				<!-- Opportunity Attack -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="opportunity-attack" data-i18n="opportunity-attack" name="attr_opportunity_attack_name" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="opportunity-attack-keywords" name="attr_opportunity_attack_keywords" value="" />
 						<input type="hidden" name="attr_opportunity_attack_type" value="free-triggered-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="trigger" data-i18n="opportunity-attack-trigger" name="attr_opportunity_attack_trigger" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="effect" data-i18n="opportunity-attack-effect" name="attr_opportunity_attack_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_opportunity_attack_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2268,8 +2313,8 @@
 		    <h2 data-i18n="no-action-trait"></h2>
 			<!-- No Actions/Traits: repeating_noaction -->
 			<fieldset class="repeating_noaction">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_noaction_name" />
 					<select class="ability-subtype-selector" name="attr_noaction_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
@@ -2336,7 +2381,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -2404,8 +2449,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_jump_type" value="no-action" />
 					<input type="hidden" name="attr_jump_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="jump" data-i18n="jump" name="attr_jump_name" spellcheck="false"></textarea>
 							<div class="power-roll">
@@ -2427,7 +2472,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="jump-effect" name="attr_jump_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_jump_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2463,8 +2508,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_climb_creature_type" value="no-action" />
 					<input type="hidden" name="attr_climb_creature_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="climb-creature" data-i18n="climb-creature" name="attr_climb_creature_name" spellcheck="false"></textarea>
 							<div class="power-roll">
@@ -2486,7 +2531,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="climb-creature-effect" name="attr_climb_creature_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_climb_creature_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2525,8 +2570,8 @@
 		    <h2 data-i18n="move-actions"></h2>
 			<!-- Moves: repeating_moves -->
 			<fieldset class="repeating_moves">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_moves_name" />
 					<select class="ability-subtype-selector" name="attr_moves_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
@@ -2593,7 +2638,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -2659,8 +2704,8 @@
 			<div class="standard-abilities">
 				<!-- Advance Move Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="advance" name="attr_advance_name" data-i18n="advance" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="advance-keywords" name="attr_advance_keywords" value="" />
 						<input type="hidden" name="attr_advance_type" value="move-action" />
@@ -2668,7 +2713,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_advance_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="advance-effect" name="attr_advance_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_advance_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2688,8 +2733,8 @@
 				</div>
 				<!--Disengage Move Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="disengage" name="attr_disengage_name" data-i18n="disengage" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="disengage-keywords" name="attr_disengage_keywords" value="" />
 						<input type="hidden" name="attr_disengage_type" value="move-action" />
@@ -2697,7 +2742,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_disengage_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="disengage-effect" name="attr_disengage_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_disengage_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2717,8 +2762,8 @@
 				</div>
 				<!-- Ride Move Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="ride" name="attr_ride_name" data-i18n="ride" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="ride-keywords" name="attr_ride_keywords" value="" />
 						<input type="hidden" name="attr_ride_type" value="move-action" />
@@ -2726,7 +2771,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_ride_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="ride-effect" name="attr_ride_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_ride_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -2757,8 +2802,8 @@
 		<div class="sheet-panel-box trinket-panel">
 			<h5 class="panel-title" data-i18n="trinkets"></h5>
 			<fieldset class="repeating_trinkets">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="feature-accordion card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="feature-accordion -toggleshow">
 					<input type="text" name="attr_trinket_name" />
 					<textarea name="attr_trinket_description"></textarea>
 				</div>
@@ -2774,8 +2819,8 @@
 		<div class="sheet-panel-box consumable-panel">
 			<h5 class="panel-title" data-i18n="consumables"></h5>
 			<fieldset class="repeating_consumables">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="feature-accordion card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="feature-accordion -toggleshow">
 					<input type="text" name="attr_consumable_name" />
 					<textarea name="attr_consumable_description"></textarea>
 				</div>
@@ -2797,8 +2842,8 @@
 				<label><input type="checkbox" name="attr_carry_3" /></label>
 			</div>
 			<fieldset class="repeating_leveltreasure">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="feature-accordion card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="feature-accordion -toggleshow">
 					<input type="text" name="attr_leveltreasure_name" />
 					<textarea name="attr_leveltreasure_description"></textarea>
 				</div>
@@ -2859,7 +2904,7 @@
 			</div>
 			<div>
 				<label data-i18n="encounter-value-abbr" for="attr_npc_EV"></label>
-				<input type="text" id="attr_npc_EV" name="attr_npc_EV" /></span>
+				<input type="text" id="attr_npc_EV" name="attr_npc_EV" />
 			</div>
 		</div>
 		<div class="npc-stats-panel npc-panel">
@@ -2952,22 +2997,22 @@
 					<input type="number" name="attr_stamina" title="Macro: @{NAME|stamina}" />	
 					<label class="sublabel" data-i18n="stamina">Stamina</label>
 				</div>
-				<div class="npc-winded-group">
+				<div class="npc-small-stat">
 					<input type="number" name="attr_stamina_max" title="Macro: @{NAME|stamina_max}">
-					<label class="sublabel minimize-ignore" data-i18n="stamina-max"></label>
+					<label class="sublabel" data-i18n="stamina-max"></label>
 				</div>
-				<div class="npc-winded-group">
+				<div class="npc-small-stat">
 					<label class="sublabel" data-i18n="winded"></label>
 					<div>
 						<span class="sublabel" name="attr_stamina_winded" title="Macro: @{NAME|stamina_winded}"></span>
 					</div>
 				</div>
-				<div class="npc-winded-group">
+				<div class="npc-small-stat">
 					<label class="sublabel" data-i18n="dying"></label>
 					<div class="npc-dying-group">
 						0 to <span class="sublabel" name="attr_stamina_dead" title="Macro: @{NAME|stamina_dead}"></span></div>
 				</div>
-				<div class="npc-winded-group">
+				<div class="npc-small-stat">
 					<input type="number" name="attr_stamina_temporary" title="Macro: @{NAME|stamina_temporary}" />
 					<label class="sublabel" data-i18n="stamina-temporary">Temporary</label>
 				</div>
@@ -2979,6 +3024,23 @@
 			<div class="npc-stat">
 				<span name="attr_npc_freestrike"></span>
 				<label class="sublabel" data-i18n="free-strike"></label>
+			</div>
+			<input type="hidden" class="npc-recovery-toggle" name="attr_options_npc_show_recoveries" />
+			<div class="npc-stat npc-recovery-panel">
+				<div class="recovery-input-group">
+					<input type="number" name="attr_recoveries" title="Macro: @{NAME|recoveries}" />			
+					<label class="sublabel" data-characteristic="recoveries" data-i18n="recoveries" data-i18n-title="recoveries-tooltip">Recoveries</label>
+				</div>
+				<div class="npc-recovery-subpanel">
+					<div class="npc-small-stat">
+						<input type="number" name="attr_recovery_amount" title="Macro: @{NAME|recovery_amount}" />
+						<label class="sublabel" data-i18n="recovery-amount"></label>
+					</div>
+					<div class="npc-small-stat">
+						<input type="number" name="attr_recoveries_max" title="Macro: @{NAME|recoveries_max}" />
+						<label class="sublabel" data-i18n="recoveries-max"></label>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="npc-skills-panel npc-panel" >
@@ -3122,8 +3184,8 @@
 		<div class="sheet-npcabilities">
 			<h2 data-i18n="statblock-abilities"></h2>
 			<fieldset class="repeating_npcabilities">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
@@ -3205,7 +3267,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -3285,8 +3347,8 @@
 		<div class="sheet-malice">
 			<h2 data-i18n="malice-abilities"></h2>
 			<fieldset class="repeating_malice">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="malice-ability" data-i18n="malice-ability"></option>
@@ -3354,7 +3416,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -3435,8 +3497,8 @@
 			<div class="standard-abilities">
 				<!-- Brutal Effectiveness -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit" />
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" name="attr_brutaleffect_name" data-i18n="brutal-effect-name" />
 						<select class="ability-subtype-selector" name="attr_brutaleffect_subtype">
 							<option value="malice-trait" data-i18n="malice-trait"></option>
@@ -3449,7 +3511,7 @@
 						<input type="hidden" name="attr_brutaleffect_type" value="no-action" />
 						<textarea class="npc-ability-trait grid-span-full" name="attr_brutaleffect_trait" data-i18n="brutal-effect-trait" />
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_brutaleffect_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3465,8 +3527,8 @@
 				</div>
 				<!-- Malicious Strike -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit" />
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" name="attr_maliciousstrike_name" data-i18n="malicious-strike-name" />
 						<select class="ability-subtype-selector" name="attr_maliciousstrike_subtype">
 							<option value="malice-trait" data-i18n="malice-trait"></option>
@@ -3479,7 +3541,7 @@
 						<input type="hidden" name="attr_maliciousstrike_type" value="no-action" />
 						<textarea class="npc-ability-trait grid-span-full" name="attr_maliciousstrike_trait" data-i18n="malicious-strike-trait" />
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_maliciousstrike_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3498,8 +3560,8 @@
 		<div class="sheet-villainaction">
 			<h2 data-i18n="villain-action"></h2>
 			<fieldset class="repeating_villainaction">
-				<input class="ability-edit" type="checkbox" id="ability-edit" />
-				<div class="ability-card card-edit">
+				<input class="toggle-button -edit" type="checkbox" />
+				<div class="ability-card -toggleshow">
 					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="villain-ability" data-i18n="villain-ability"></option>
@@ -3569,7 +3631,7 @@
 						</div>
 					</div>			
 				</div>
-				<div class="ability-card card-display">
+				<div class="ability-card -togglehide">
 					<button class="ability-share-button" type="action" data-i18n-title="ability-share" name="act_share">
 						<!-- speech balloon -->
 						&#128172;
@@ -3664,13 +3726,13 @@
 			<div class="standard-abilities">
 				<!-- Free Strike Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" name="attr_freestrike_name" data-i18n="free-strike" />
 						<input type="hidden" name="attr_freestrike_type" value="main-action" />
 						<textarea class="ability-effect" name="attr_freestrike_effect" data-i18n="free-strike-effect" />
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_freestrike_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3688,14 +3750,14 @@
 				</div>
 				<!-- Charge Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="charge" name="attr_charge_name" data-i18n="charge" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="charge-keywords" name="attr_charge_keywords" value="" />
 						<input type="hidden" name="attr_charge_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="charge-effect" name="attr_charge_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_charge_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3713,14 +3775,14 @@
 				</div>
 				<!-- Defend Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-name grid-span-full" data-i18n-placeholder="defend" name="attr_defend_name" data-i18n="defend" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="defend-keywords" name="attr_defend_keywords" value="" />
 						<input type="hidden" name="attr_defend_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="defend-effect" name="attr_defend_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_defend_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3738,14 +3800,14 @@
 				</div>
 				<!-- Convert Main Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="convert" name="attr_convert_name" data-i18n="convert" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="convert-keywords" name="attr_convert_keywords" value="" />
 						<input type="hidden" name="attr_convert_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="convert-effect" name="attr_convert_effect" spellcheck="false"></textarea>
 					</div>	
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_convert_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3773,8 +3835,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_knockback_type" value="maneuver" />
 					<input type="hidden" name="attr_knockback_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="knockback" data-i18n="knockback" name="attr_knockback_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="keywords" data-i18n="knockback-keywords" name="attr_knockback_keywords" spellcheck="false"></textarea>
@@ -3799,7 +3861,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="knockback-effect" name="attr_knockback_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_knockback_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3840,8 +3902,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_grab_type" value="maneuver" />
 					<input type="hidden" name="attr_grab_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="grab" data-i18n="grab" name="attr_grab_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="keywords" data-i18n="grab-keywords" name="attr_grab_keywords" spellcheck="false"></textarea>
@@ -3866,7 +3928,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="grab-effect" name="attr_grab_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" data-i18n-title="ability-share" name="act_grab_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3907,8 +3969,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_escape_grab_type" value="maneuver" />
 					<input type="hidden" name="attr_escape_grab_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="escape-grab" data-i18n="escape-grab" name="attr_escape_grab_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="distance" data-i18n="self" name="attr_escape_grab_distance" spellcheck="false"></textarea>
@@ -3932,7 +3994,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="escape-grab-effect" name="attr_escape_grab_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_escape_grab_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -3973,8 +4035,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_claw_dirt_type" value="maneuver" />
 					<input type="hidden" name="attr_claw_dirt_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="claw-dirt" data-i18n="claw-dirt" name="attr_claw_dirt_name" spellcheck="false"></textarea>
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="distance" data-i18n="self" name="attr_claw_dirt_distance" spellcheck="false"></textarea>
@@ -3996,7 +4058,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_claw_dirt_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4032,8 +4094,8 @@
 				</div>
 				<!-- Aid Attack -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="aid-attack" name="attr_aid_attack_name" data-i18n="aid-attack" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="heal-keywords" name="attr_aid_attack_keywords" value="" />
 						<input type="hidden" name="attr_aid_attack_type" value="maneuver" />
@@ -4041,7 +4103,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_aid_attack_target" data-i18n="one-enemy" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="aid-attack-effect" name="attr_aid_attack_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_aid_attack_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4061,8 +4123,8 @@
 				</div>
 				<!-- Catch Breath -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="catch-breath" name="attr_catch_breath_name" data-i18n="catch-breath" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="catch-breath-keywords" name="attr_catch_breath_keywords" value="" />
 						<input type="hidden" name="attr_catch_breath_type" value="maneuver" />
@@ -4070,7 +4132,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_catch_breath_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="catch-breath-effect" name="attr_catch_breath_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_catch_breath_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4090,8 +4152,8 @@
 				</div>
 				<!-- Hide Maneuver -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="hide" name="attr_hide_name" data-i18n="hide" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="hide-keywords" name="attr_hide_keywords" value="" />
 						<input type="hidden" name="attr_hide_type" value="maneuver" />
@@ -4099,7 +4161,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_hide_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="hide-effect" name="attr_hide_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_hide_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4119,8 +4181,8 @@
 				</div>
 				<!-- Search Maneuver -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="search" name="attr_search_name" data-i18n="search" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="search-keywords" name="attr_search_keywords" value="" />
 						<input type="hidden" name="attr_search_type" value="maneuver" />
@@ -4128,7 +4190,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_search_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="search-effect" name="attr_search_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_search_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4148,8 +4210,8 @@
 				</div>
 				<!-- Stand Up -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="stand-up" name="attr_standup_name" data-i18n="stand-up" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="stand-up-keywords" name="attr_standup_keywords" value="" />
 						<input type="hidden" name="attr_standup_type" value="maneuver" />
@@ -4157,7 +4219,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_standup_target" data-i18n="self-one-creature" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="stand-up-effect" name="attr_standup_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_standup_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4177,8 +4239,8 @@
 				</div>
 				<!-- Use Consumable -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="consumable" name="attr_consumable_name" data-i18n="consumable" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="consumable-keywords" name="attr_consumable_keywords" value="" />
 						<input type="hidden" name="attr_consumable_type" value="maneuver" />
@@ -4186,7 +4248,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_consumable_target" data-i18n="self-one-creature" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="consumable-effect" name="attr_consumable_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_consumable_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4213,15 +4275,15 @@
 			<div class="standard-abilities">
 				<!-- Opportunity Attack -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="opportunity-attack" data-i18n="opportunity-attack" name="attr_opportunity_attack_name" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="opportunity-attack-keywords" name="attr_opportunity_attack_keywords" value="" />
 						<input type="hidden" name="attr_opportunity_attack_type" value="free-triggered-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="trigger" data-i18n="opportunity-attack-trigger" name="attr_opportunity_attack_trigger" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="effect" data-i18n="opportunity-attack-effect" name="attr_opportunity_attack_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_opportunity_attack_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4252,8 +4314,8 @@
 				<div class="standard-abilities-item">
 					<input type="hidden" name="attr_climb_creature_type" value="no-action" />
 					<input type="hidden" name="attr_climb_creature_has_power_roll" value="on" />
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<div class="ability-details grid-span-full">
 							<textarea class="ability-effect grid-span-full" data-i18n-placeholder="climb-creature" data-i18n="climb-creature" name="attr_climb_creature_name" spellcheck="false"></textarea>
 							<div class="power-roll">
@@ -4275,7 +4337,7 @@
 							<textarea class="ability-effect grid-span-full" data-i18n="climb-creature-effect" name="attr_climb_creature_effect" spellcheck="false"></textarea>
 						</div>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_climb_creature_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4316,8 +4378,8 @@
 			<div class="standard-abilities">
 				<!-- Advance Move Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="advance" name="attr_advance_name" data-i18n="advance" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="advance-keywords" name="attr_advance_keywords" value="" />
 						<input type="hidden" name="attr_advance_type" value="move-action" />
@@ -4325,7 +4387,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_advance_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="advance-effect" name="attr_advance_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_advance_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4345,8 +4407,8 @@
 				</div>
 				<!--Disengage Move Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="disengage" name="attr_disengage_name" data-i18n="disengage" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="disengage-keywords" name="attr_disengage_keywords" value="" />
 						<input type="hidden" name="attr_disengage_type" value="move-action" />
@@ -4354,7 +4416,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_disengage_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="disengage-effect" name="attr_disengage_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_disengage_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -4374,8 +4436,8 @@
 				</div>
 				<!-- Ride Move Action -->
 				<div class="standard-abilities-item">
-					<input class="ability-edit" type="checkbox" id="ability-edit"/>
-					<div class="ability-card card-edit">
+					<input class="toggle-button -edit" type="checkbox" />
+					<div class="ability-card -toggleshow">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="ride" name="attr_ride_name" data-i18n="ride" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="ride-keywords" name="attr_ride_keywords" value="" />
 						<input type="hidden" name="attr_ride_type" value="move-action" />
@@ -4383,7 +4445,7 @@
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_ride_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="ride-effect" name="attr_ride_effect" spellcheck="false"></textarea>
 					</div>
-					<div class="ability-card card-display">
+					<div class="ability-card -togglehide">
 						<button type="action" class="ability-share-button" data-i18n-title="ability-share" name="act_ride_share">
 							<!-- speech balloon -->
 							&#128172;
@@ -5142,6 +5204,13 @@
 	async function handleAbilityShare(prefix, abilityPrefix, isPowerRoll = false) {
 		console.log('~~~ handleAbilityShare ~~~', prefix, abilityPrefix, isPowerRoll);
 		
+		const idarray = await getSectionIDsAsync("repeating_damagemods");
+		
+		const nameArray = idarray.map(id => `repeating_damagemods_${id}_mod_name`);
+		const attrArray = idarray.map(id => `repeating_damagemods_${id}_mod_keywords`);
+		const valArray = idarray.map(id => `repeating_damagemods_${id}_mod_value`);
+		const activeArray = idarray.map(id => `repeating_damagemods_${id}_is_active`);
+		
 		// 1. Define all possible ability attributes across both player and NPC sections.
 		const allAbilityAttributeNames = [
 			'name', 'cost', 'description', 'keywords',
@@ -5173,6 +5242,7 @@
 			...characteristics,
 			...allAbilityAttributeNames.map(x => `${prefix}_${abPrefix}${x}`),
 			...allAbilityToggles.map(x => `${prefix}_${x}`),
+			...nameArray, ...attrArray, ...valArray, ...activeArray,
 			'options_calculate_damage',
 		];
 		
@@ -5189,7 +5259,57 @@
 	
 	const NPC_ABILITIES = ["repeating_npcabilities", "repeating_malice", "repeating_villainaction"];
 
-	 
+	/**
+	 * Creates damage string from Global Damage Modifers
+	 */
+	function getGlobalDamage(keywords, attrs) {
+		console.log('~~~ getGlobalDamage ~~~');
+		if (!keywords) {
+			return "";
+		}
+		
+		idarray = [...new Set(
+            Object.keys(attrs)
+                .filter(key => key.startsWith("repeating_damagemods_"))
+                .map(key => key.split("_")[2])
+        )];
+		
+		const abilityKeywords = keywords
+			.map(k => k.toLowerCase())
+			.filter(k => k !== "");
+
+		let globalDamage = "";
+
+		idarray.forEach(id => {
+			const isActive = attrs[`repeating_damagemods_${id}_is_active`] === "1";
+			const modValue = parseInt(attrs[`repeating_damagemods_${id}_mod_value`]) || 0;
+			const rawKeywords = attrs[`repeating_damagemods_${id}_mod_keywords`] || "";
+			const modName = attrs[`repeating_damagemods_${id}_mod_name`] || "";
+			
+			const modKeywords = rawKeywords
+				.toLowerCase()
+				.split(',')
+				.map(k => k.trim())
+				.filter(k => k !== "");
+			console.log(isActive, modName, modValue, rawKeywords);
+			if (isActive) {
+				// Logic: 
+				// - If modKeywords is empty, it applies to everything.
+				// - Otherwise, ALL modKeywords must be present in the abilityKeywords.
+				const allKeywordsMatch = modKeywords.every(k => abilityKeywords.includes(k));
+
+				if (modKeywords.length === 0 || allKeywordsMatch) {
+					globalDamage += `+${modValue}[${modName}]`;
+				}
+			}
+		});
+		console.log(globalDamage);
+		return globalDamage;
+	
+		
+	}
+
+	
 	/**
 	 * Helper to handle the complex damage calculation logic
 	 */
@@ -5205,7 +5325,7 @@
 		}
 
 		let kit = [];
-		let otherDamage = "";
+		const otherDamage = getGlobalDamage(keywords, attrs);
 		const weapon = getTranslationByKey('weapon');
 
 		// Kit Calculation
@@ -5217,12 +5337,12 @@
 				parseInt(attrs[`kit_${type}_damage_2`]) || 0,
 				parseInt(attrs[`kit_${type}_damage_3`]) || 0
 			];
-			
+/*			
 			if (attrs['sanct_weap']) {
 				otherDamage += `+${attrs['sanct_weap']}[${getTranslationByKey('sanct-weap')}]`;
-			}
+			}*/
 		}
-
+/*
 		// Magic/Psionic Calculation
 		const magPsiDam = attrs['mag_psi_dam'];
 		if (magPsiDam) {
@@ -5238,7 +5358,7 @@
 		if (keywords.includes(getTranslationByKey('magic')) && keywords.includes(getTranslationByKey('fire-keyword'))) {
 			otherDamage += `+${fireDam}[${getTranslationByKey('fire-keyword')}]`;
 		}
-
+*/
 		return rawTiers.map((val, i) => damageCalculation(val, kit[i] || 0, otherDamage));
 	}
 	
