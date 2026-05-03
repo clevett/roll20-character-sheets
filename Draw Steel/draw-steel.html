@@ -1,107 +1,96 @@
 <div class="sheet-header">
 	<!-- Header Start -->
-	<h1 class="title">
+	<div class="title">
 		<img
 			src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Draw%20Steel/images/powered_by_draw_steel.webp"
 			alt="Powered By Draw Steel"
 			style="height: 60px"
 		/>
-	</h1>
+	</div>
 	<input id="sheet-options-checkbox" class="toggle-button -gear sheet-options-checkbox" type="checkbox" value="1" />
 	<!-- Options Panel -->
-	<div class="sheet-panel sheet-options-toggle -toggleshow">
+	<div class="sheet-panel sheet-options -toggleshow">
 		<div class="sheet-panel-box">
-			<div>
-				<span data-i18n="whisper-gm"></span>
-				<select name="attr_wtype">
-					<option value="" data-i18n="never-whisper-roll" selected></option>
-					<option value="?{Whisper?|Public Roll,|Whisper Roll,/w gm }" data-i18n="query-whisper-roll"></option>
-					<option value="/w gm " data-i18n="always-whisper-roll"></option>
-				</select>	
-				<hr>
-				<div>
-					<input id="options-show-director-screen" name="attr_show_director_screen" type="checkbox" value="1" />
-					<label for="options-show-director-screen" data-i18n="options-show-director-screen"></label>
-				</div>
-				<hr>
-				<h5 data-i18n="player-options-title"></h5>
-				<div>
-					<input id="options-calculate-damage" name="attr_options_calculate_damage" type="checkbox" value="1" />
-					<label for="options-calculate-damage" data-i18n="options-calculate-damage"></label>
-				</div>
-				<div>
-					<input id="options-sticky-characteristics" name="attr_options_sticky_characteristics" type="checkbox" value="1" />
-					<label for="options-sticky-characteristics" data-i18n="options-sticky-characteristics"></label>
-				</div>
-				<div>
-					<input id="growing-resource-checkbox" name="attr_has_growing_resource" class="npc-checkbox" type="checkbox" />
-					<label for="growing-resource-checkbox" data-i18n="growing-resource-checkbox"></label>
-				</div>
-				<div class="resource-selector-container">
-					<input type="hidden" class="main-resource-state" name="attr_growing_resource_type" value="custom" />
-
-					<div class="selector-row">
-						<select name="attr_growing_resource_type">
-							<option value="custom" data-i18n="growing-resource-custom"></option>
-							<option value="furyberserker" data-i18n="fury-berserker"></option>
-							<option value="furyreaver" data-i18n="fury-reaver"></option>
-							<option value="furystormwight" data-i18n="fury-stormwight"></option>
-							<option value="nullchronokinetic" data-i18n="null-chronokinetic"></option>
-							<option value="nullcryokinetic" data-i18n="null-cryokinetic"></option>
-							<option value="nullmetakinetic" data-i18n="null-metakinetic"></option>
-						</select>
-					</div>
-
-					<div class="selector-row stormwight-only">
-						<label data-i18n="kit"></label>
-						<select name="attr_stormwight_growing_resource_type">
-							<option value="" selected></option>
-							<option value="boren" data-i18n="boren"></option>
-							<option value="corven" data-i18n="corven"></option>
-							<option value="raden" data-i18n="raden"></option>
-							<option value="vuken" data-i18n="vuken"></option>
-						</select>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="sheet-panel-box">
-			<div>
-				
-				<div class="grid-span-full">
-					<h5 data-i18n="npc-options-title"></h5>
-				</div>
-				<div>
-					<input id="npc-checkbox" name="attr_is_npc" class="npc-checkbox" type="checkbox" />
-					<label for="npc-checkbox" data-i18n="npc-toggle"></label>
-				</div>
-				<div>
-					<input id="npc-has-malice-actions" name="attr_malice_action_show" class="npc-checkbox" type="checkbox" value="1" />
-					<label for="npc-has-malice-actions" data-i18n="has-malice-actions"></label>
-				</div>
-				<div>
-					<input id="npc-has-villain-actions" name="attr_villain_action_show" class="npc-checkbox" type="checkbox" value="1" />
-					<label for="npc-has-villain-actions" data-i18n="has-villain-actions"></label>
-				</div>
-				<div>
-					<input id="npc-is-companion" name="attr_options_is_companion" class="npc-checkbox" type="checkbox" value="1" />
-					<label for="npc-is_companion" data-i18n="options-is-companion"></label>
-				</div>
-				<div>
-					<input id="npc-advanced-stamina" name="attr_options_npc_advanced_stamina" class="npc-checkbox" type="checkbox" value="1" />
-					<label for="npc-advanced-stamina" data-i18n="options-advanced-stamina"></label>
-				</div>
-				<div>
-					<input id="npc-show-recoveries" name="attr_options_npc_show_recoveries" class="npc-checkbox" type="checkbox" value="1" />
-					<label for="npc-show-recoveries" data-i18n="options-show-recoveries"></label>
-				</div>
-			</div>
+			<span data-i18n="whisper-gm"></span>
+			<select name="attr_wtype">
+				<option value="" data-i18n="never-whisper-roll" selected></option>
+				<option value="?{Whisper?|Public Roll,|Whisper Roll,/w gm }" data-i18n="query-whisper-roll"></option>
+				<option value="/w gm " data-i18n="always-whisper-roll"></option>
+			</select>	
+			<hr class="separator">
+			<input id="options-show-director-screen" name="attr_show_director_screen" type="checkbox" value="1" />
+			<label for="options-show-director-screen" data-i18n="options-show-director-screen"></label>
 			
-		</div>
-		<div class="sheet-panel-box import-panel grid-span-full">
-			<div class="grid-span-full">
-				<h5 data-i18n="import">Import</h5>
+			<hr class="separator">
+			<h5 data-i18n="player-options-title"></h5>
+			<div>
+				<input id="options-calculate-damage" name="attr_options_calculate_damage" type="checkbox" value="1" />
+				<label for="options-calculate-damage" data-i18n="options-calculate-damage"></label>
 			</div>
+			<div>
+				<input id="options-sticky-characteristics" name="attr_options_sticky_characteristics" type="checkbox" value="1" />
+				<label for="options-sticky-characteristics" data-i18n="options-sticky-characteristics"></label>
+			</div>
+			<div>
+				<input id="growing-resource-checkbox" name="attr_has_growing_resource" class="npc-checkbox" type="checkbox" />
+				<label for="growing-resource-checkbox" data-i18n="growing-resource-checkbox"></label>
+			</div>
+			<div class="resource-selector-container">
+				<input type="hidden" class="growing-resource-state" name="attr_growing_resource_type" value="custom" />
+
+				<div class="selector-row">
+					<select name="attr_growing_resource_type">
+						<option value="custom" data-i18n="growing-resource-custom"></option>
+						<option value="furyberserker" data-i18n="fury-berserker"></option>
+						<option value="furyreaver" data-i18n="fury-reaver"></option>
+						<option value="furystormwight" data-i18n="fury-stormwight"></option>
+						<option value="nullchronokinetic" data-i18n="null-chronokinetic"></option>
+						<option value="nullcryokinetic" data-i18n="null-cryokinetic"></option>
+						<option value="nullmetakinetic" data-i18n="null-metakinetic"></option>
+					</select>
+				</div>
+
+				<div class="selector-row -stormwightonly">
+					<label data-i18n="kit"></label>
+					<select name="attr_stormwight_growing_resource_type">
+						<option value="" selected></option>
+						<option value="boren" data-i18n="boren"></option>
+						<option value="corven" data-i18n="corven"></option>
+						<option value="raden" data-i18n="raden"></option>
+						<option value="vuken" data-i18n="vuken"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="sheet-panel-box">
+			<h5 data-i18n="npc-options-title"></h5>
+			<div>
+				<input id="npc-checkbox" name="attr_is_npc" type="checkbox" />
+				<label for="npc-checkbox" data-i18n="npc-toggle"></label>
+			</div>
+			<div>
+				<input id="npc-has-malice-actions" name="attr_malice_action_show" type="checkbox" value="1" />
+				<label for="npc-has-malice-actions" data-i18n="has-malice-actions"></label>
+			</div>
+			<div>
+				<input id="npc-has-villain-actions" name="attr_villain_action_show" type="checkbox" value="1" />
+				<label for="npc-has-villain-actions" data-i18n="has-villain-actions"></label>
+			</div>
+			<div>
+				<input id="npc-is-companion" name="attr_options_is_companion" type="checkbox" value="1" />
+				<label for="npc-is_companion" data-i18n="options-is-companion"></label>
+			</div>
+			<div>
+				<input id="npc-advanced-stamina" name="attr_options_npc_advanced_stamina" type="checkbox" value="1" />
+				<label for="npc-advanced-stamina" data-i18n="options-advanced-stamina"></label>
+			</div>
+			<div>
+				<input id="npc-show-recoveries" name="attr_options_npc_show_recoveries" type="checkbox" value="1" />
+				<label for="npc-show-recoveries" data-i18n="options-show-recoveries"></label>
+			</div>
+		</div>
+		<div class="import-panel sheet-panel-box grid-span-full">
+			<h5 class="grid-span-full" data-i18n="import">Import</h5>
 			<div>
 				<p data-i18n="import-warning1">Paste the contents of the Forge Steel data export (*.ds-hero file) into the text box below, then click 'Import'.</p>
 				<p class="text-warning" data-i18n="import-warning2">This will overwrite attributes on this sheet. This cannot be undone.</p>
@@ -109,9 +98,9 @@
 				
 			</div>
 			<div>
-				<textarea name="attr_forgesteel_json" style="width: 100%;"></textarea>
-				<button type="action" name="act_import" data-i18n="import-player">Import Player</button>
-				<button type="action" name="act_importmonster" data-i18n="import-monster">Import Monster</button>
+				<textarea class="importtext" name="attr_forgesteel_json"></textarea>
+				<button class="action-button" type="action" name="act_import" data-i18n="import-player">Import Player</button>
+				<button class="action-button" type="action" name="act_importmonster" data-i18n="import-monster">Import Monster</button>
 				<!--<button type="action" name="act_importcompanion" data-i18n="import-companion">Import Companion</button>-->
 			</div>
 		</div>
@@ -121,9 +110,9 @@
 <!-- Header End -->
 
 <input type="hidden" class="npc-checkbox" name="attr_is_npc" />
-<input type="hidden" id="director-screen-toggle" name="attr_show_director_screen" />
+<input type="hidden" class="director-toggle" name="attr_show_director_screen" />
 <!-- Director Screen-->
-<div class="sheet-panel director-screen-panel minimizable">
+<div class="director-screen sheet-panel minimizable">
 	<div class="minimize-control">
 		<input id="director-screen-minimize-checkbox" class="minimize" type="checkbox" checked />
 		<label for="director-screen-minimize-checkbox" data-i18n="director-screen"></label>
@@ -132,246 +121,246 @@
 	<details>
 		<summary><span data-i18n="conditions"></span></summary>
 		
-		<p class="director-section-text" data-i18n="conditions-desc"></p>
-		<div class="director-rules-container">
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="bleeding"></span>
-				<span class="director-rule-desc" data-i18n="bleeding-desc"></span>
+		<p class="rule-desc" data-i18n="conditions-desc"></p>
+		<div class="rules-container">
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="bleeding"></span>
+				<span class="rule-desc" data-i18n="bleeding-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="dazed"></span>
-				<span class="director-rule-desc" data-i18n="dazed-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="dazed"></span>
+				<span class="rule-desc" data-i18n="dazed-desc"></span>
 			</div>
 			
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="frightened"></span>
-				<span class="director-rule-desc" data-i18n="frightened-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="frightened"></span>
+				<span class="rule-desc" data-i18n="frightened-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="grabbed"></span>
-				<span class="director-rule-desc" data-i18n="grabbed-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="grabbed"></span>
+				<span class="rule-desc" data-i18n="grabbed-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="prone"></span>
-				<span class="director-rule-desc" data-i18n="prone-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="prone"></span>
+				<span class="rule-desc" data-i18n="prone-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="restrained"></span>
-				<span class="director-rule-desc" data-i18n="restrained-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="restrained"></span>
+				<span class="rule-desc" data-i18n="restrained-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="slowed"></span>
-				<span class="director-rule-desc" data-i18n="slowed-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="slowed"></span>
+				<span class="rule-desc" data-i18n="slowed-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="taunted"></span>
-				<span class="director-rule-desc" data-i18n="taunted-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="taunted"></span>
+				<span class="rule-desc" data-i18n="taunted-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="weakened"></span>
-				<span class="director-rule-desc" data-i18n="weakened-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="weakened"></span>
+				<span class="rule-desc" data-i18n="weakened-desc"></span>
 			</div>
 		</div>
 	</details>
     <!-- Basics -->
 	<details>
 		<summary><span data-i18n="basics"></span></summary>
-		<div class="director-rules-container">
-            <div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="characteristics-scores"></span>
-                <span class="director-rule-desc" data-i18n="characteristics-scores-desc"></span>
+		<div class="rules-container">
+            <div class="rule-item">
+                <span class="rule-name" data-i18n="characteristics-scores"></span>
+                <span class="rule-desc" data-i18n="characteristics-scores-desc"></span>
             </div>
-            <div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="natural-19-20"></span>
-                <span class="director-rule-desc" data-i18n="natural-19-20-desc"></span>
+            <div class="rule-item">
+                <span class="rule-name" data-i18n="natural-19-20"></span>
+                <span class="rule-desc" data-i18n="natural-19-20-desc"></span>
             </div>
-			<div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="power-roll-director"></span>
-                <span class="director-rule-desc" data-i18n="power-roll-desc"></span>
+			<div class="rule-item">
+                <span class="rule-name" data-i18n="power-roll-director"></span>
+                <span class="rule-desc" data-i18n="power-roll-desc"></span>
             </div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="recovery"></span>
-				<span class="director-rule-desc" data-i18n="recovery-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="recovery"></span>
+				<span class="rule-desc" data-i18n="recovery-desc"></span>
 			</div>
-            <div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="respites"></span>
-                <span class="director-rule-desc" data-i18n="respites-desc"></span>
+            <div class="rule-item">
+                <span class="rule-name" data-i18n="respites"></span>
+                <span class="rule-desc" data-i18n="respites-desc"></span>
             </div>
-            <div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="skill"></span>
-                <span class="director-rule-desc" data-i18n="skill-desc"></span>
+            <div class="rule-item">
+                <span class="rule-name" data-i18n="skill"></span>
+                <span class="rule-desc" data-i18n="skill-desc"></span>
             </div>
-            <div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="victories-director"></span>
-                <span class="director-rule-desc" data-i18n="victories-desc"></span>
+            <div class="rule-item">
+                <span class="rule-name" data-i18n="victories-director"></span>
+                <span class="rule-desc" data-i18n="victories-desc"></span>
             </div>
 			
 			<h5 data-i18n="edges-and-banes"></h5>
 			
-			<div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="edge-director"></span>
-                <span class="director-rule-desc" data-i18n="edge-desc"></span>
+			<div class="rule-item">
+                <span class="rule-name" data-i18n="edge-director"></span>
+                <span class="rule-desc" data-i18n="edge-desc"></span>
             </div>
-			<div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="double-edge-director"></span>
-                <span class="director-rule-desc" data-i18n="double-edge-desc"></span>
+			<div class="rule-item">
+                <span class="rule-name" data-i18n="double-edge-director"></span>
+                <span class="rule-desc" data-i18n="double-edge-desc"></span>
             </div>
-			<div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="bane-director"></span>
-                <span class="director-rule-desc" data-i18n="bane-desc"></span>
+			<div class="rule-item">
+                <span class="rule-name" data-i18n="bane-director"></span>
+                <span class="rule-desc" data-i18n="bane-desc"></span>
             </div>
-			<div class="director-rule-item">
-                <span class="director-rule-name" data-i18n="double-bane-director"></span>
-                <span class="director-rule-desc" data-i18n="double-bane-desc"></span>
+			<div class="rule-item">
+                <span class="rule-name" data-i18n="double-bane-director"></span>
+                <span class="rule-desc" data-i18n="double-bane-desc"></span>
             </div>
-			<p class="director-section-text" data-i18n="edges-and-banes-desc"></p>
+			<p class="rule-desc" data-i18n="edges-and-banes-desc"></p>
 			
 			<h5 data-i18n="hero-tokens"></h5>
-			<p class="director-section-text" data-i18n="hero-tokens-desc"></p>
+			<p class="rule-desc" data-i18n="hero-tokens-desc"></p>
         </div>
 	</details>
 	<!-- Combat -->
 	<details>
 		<summary><span data-i18n="combat"></span></summary>
-		<div class="director-rules-container">
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="combat-turn"></span>
-				<span class="director-rule-desc" data-i18n="combat-turn-desc"></span>
+		<div class="rules-container">
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="combat-turn"></span>
+				<span class="rule-desc" data-i18n="combat-turn-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="triggered-action-director"></span>
-				<span class="director-rule-desc" data-i18n="triggered-action-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="triggered-action-director"></span>
+				<span class="rule-desc" data-i18n="triggered-action-desc"></span>
 			</div>
 			<h5 data-i18n="main-actions"></h5>
-			<p class="director-section-text" data-i18n="main-actions-desc"></p>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="charge-director"></span>
-				<span class="director-rule-desc" data-i18n="charge-desc"></span>
+			<p class="rule-desc" data-i18n="main-actions-desc"></p>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="charge-director"></span>
+				<span class="rule-desc" data-i18n="charge-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="defend-director"></span>
-				<span class="director-rule-desc" data-i18n="defend-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="defend-director"></span>
+				<span class="rule-desc" data-i18n="defend-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="free-strike-director"></span>
-				<span class="director-rule-desc" data-i18n="free-strike-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="free-strike-director"></span>
+				<span class="rule-desc" data-i18n="free-strike-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="heal-director"></span>
-				<span class="director-rule-desc" data-i18n="heal-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="heal-director"></span>
+				<span class="rule-desc" data-i18n="heal-desc"></span>
 			</div>		
 			<h5 data-i18n="move-actions"></h5>
-			<p class="director-section-text" data-i18n="move-actions-desc"></p>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="advance-director"></span>
-				<span class="director-rule-desc" data-i18n="advance-desc"></span>
+			<p class="rule-desc" data-i18n="move-actions-desc"></p>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="advance-director"></span>
+				<span class="rule-desc" data-i18n="advance-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="disengage-director"></span>
-				<span class="director-rule-desc" data-i18n="disengage-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="disengage-director"></span>
+				<span class="rule-desc" data-i18n="disengage-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="ride-director"></span>
-				<span class="director-rule-desc" data-i18n="ride-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="ride-director"></span>
+				<span class="rule-desc" data-i18n="ride-desc"></span>
 			</div>		
 			<h5 data-i18n="maneuvers"></h5>
-			<p class="director-section-text" data-i18n="maneuvers-desc"></p>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="aid-attack-director"></span>
-				<span class="director-rule-desc" data-i18n="aid-attack-desc"></span>
+			<p class="rule-desc" data-i18n="maneuvers-desc"></p>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="aid-attack-director"></span>
+				<span class="rule-desc" data-i18n="aid-attack-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="catch-breath-director"></span>
-				<span class="director-rule-desc" data-i18n="catch-breath-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="catch-breath-director"></span>
+				<span class="rule-desc" data-i18n="catch-breath-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="escape-grab-director"></span>
-				<span class="director-rule-desc" data-i18n="escape-grab-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="escape-grab-director"></span>
+				<span class="rule-desc" data-i18n="escape-grab-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="grab-director"></span>
-				<span class="director-rule-desc" data-i18n="grab-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="grab-director"></span>
+				<span class="rule-desc" data-i18n="grab-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="hide-director"></span>
-				<span class="director-rule-desc" data-i18n="hide-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="hide-director"></span>
+				<span class="rule-desc" data-i18n="hide-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="knockback-director"></span>
-				<span class="director-rule-desc" data-i18n="knockback-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="knockback-director"></span>
+				<span class="rule-desc" data-i18n="knockback-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="stand-up-director"></span>
-				<span class="director-rule-desc" data-i18n="stand-up-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="stand-up-director"></span>
+				<span class="rule-desc" data-i18n="stand-up-desc"></span>
 			</div>		
 			<h5 data-i18n="combat-glossary"></h5>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="critical-hit-director"></span>
-				<span class="director-rule-desc" data-i18n="critical-hit-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="critical-hit-director"></span>
+				<span class="rule-desc" data-i18n="critical-hit-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="stand-up-director"></span>
-				<span class="director-rule-desc" data-i18n="stand-up-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="stand-up-director"></span>
+				<span class="rule-desc" data-i18n="stand-up-desc"></span>
 			</div>		
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="critical-hit-director"></span>
-				<span class="director-rule-desc" data-i18n="critical-hit-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="critical-hit-director"></span>
+				<span class="rule-desc" data-i18n="critical-hit-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="concealment"></span>
-				<span class="director-rule-desc" data-i18n="concealment-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="concealment"></span>
+				<span class="rule-desc" data-i18n="concealment-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="cover"></span>
-				<span class="director-rule-desc" data-i18n="cover-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="cover"></span>
+				<span class="rule-desc" data-i18n="cover-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="damage-immunity"></span>
-				<span class="director-rule-desc" data-i18n="damage-immunity-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="damage-immunity"></span>
+				<span class="rule-desc" data-i18n="damage-immunity-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="damage-weakness"></span>
-				<span class="director-rule-desc" data-i18n="damage-weakness-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="damage-weakness"></span>
+				<span class="rule-desc" data-i18n="damage-weakness-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="dying-director"></span>
-				<span class="director-rule-desc" data-i18n="dying-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="dying-director"></span>
+				<span class="rule-desc" data-i18n="dying-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="eot-director"></span>
-				<span class="director-rule-desc" data-i18n="eot-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="eot-director"></span>
+				<span class="rule-desc" data-i18n="eot-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="flanking"></span>
-				<span class="director-rule-desc" data-i18n="flanking-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="flanking"></span>
+				<span class="rule-desc" data-i18n="flanking-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="high-ground"></span>
-				<span class="director-rule-desc" data-i18n="high-ground-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="high-ground"></span>
+				<span class="rule-desc" data-i18n="high-ground-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="line-of-effect"></span>
-				<span class="director-rule-desc" data-i18n="line-of-effect-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="line-of-effect"></span>
+				<span class="rule-desc" data-i18n="line-of-effect-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="opportunity-attack-director"></span>
-				<span class="director-rule-desc" data-i18n="opportunity-attack-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="opportunity-attack-director"></span>
+				<span class="rule-desc" data-i18n="opportunity-attack-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="saving-throws"></span>
-				<span class="director-rule-desc" data-i18n="saving-throws-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="saving-throws"></span>
+				<span class="rule-desc" data-i18n="saving-throws-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="stamina-director"></span>
-				<span class="director-rule-desc" data-i18n="stamina-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="stamina-director"></span>
+				<span class="rule-desc" data-i18n="stamina-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="surges-director"></span>
-				<span class="director-rule-desc" data-i18n="surges-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="surges-director"></span>
+				<span class="rule-desc" data-i18n="surges-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name"  data-i18n="winded-director"></span>
-				<span class="director-rule-desc" data-i18n="winded-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name"  data-i18n="winded-director"></span>
+				<span class="rule-desc" data-i18n="winded-desc"></span>
 			</div>
 			<h5 data-i18n="size-and-space"></h5>
 			<p data-i18n="size-and-space-desc"></p>
@@ -380,96 +369,96 @@
 	<!-- Movement -->
 	<details>
 		<summary><span data-i18n="movement"></span></summary>
-		<div class="director-rules-container">
-			<p class="director-section-text" data-i18n="movement-desc"></p>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="climb"></span>
-				<span class="director-rule-desc" data-i18n="climb-desc"></span>
+		<div class="rules-container">
+			<p class="rule-desc" data-i18n="movement-desc"></p>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="climb"></span>
+				<span class="rule-desc" data-i18n="climb-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="crawl"></span>
-				<span class="director-rule-desc" data-i18n="crawl-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="crawl"></span>
+				<span class="rule-desc" data-i18n="crawl-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="difficult-terrain"></span>
-				<span class="director-rule-desc" data-i18n="difficult-terrain-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="difficult-terrain"></span>
+				<span class="rule-desc" data-i18n="difficult-terrain-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="jump-director"></span>
-				<span class="director-rule-desc" data-i18n="jump-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="jump-director"></span>
+				<span class="rule-desc" data-i18n="jump-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="teleport"></span>
-				<span class="director-rule-desc" data-i18n="teleport-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="teleport"></span>
+				<span class="rule-desc" data-i18n="teleport-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="shifting"></span>
-				<span class="director-rule-desc" data-i18n="shifting-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="shifting"></span>
+				<span class="rule-desc" data-i18n="shifting-desc"></span>
 			</div>
 			<h5 data-i18n="forced-movement"></h5>
-			<p class="director-section-text" data-i18n="forced-movement-desc"></p>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="push-x"></span>
-				<span class="director-rule-desc" data-i18n="push-x-desc"></span>
+			<p class="rule-desc" data-i18n="forced-movement-desc"></p>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="push-x"></span>
+				<span class="rule-desc" data-i18n="push-x-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="pull-x"></span>
-				<span class="director-rule-desc" data-i18n="pull-x-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="pull-x"></span>
+				<span class="rule-desc" data-i18n="pull-x-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="slide-x"></span>
-				<span class="director-rule-desc" data-i18n="slide-x-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="slide-x"></span>
+				<span class="rule-desc" data-i18n="slide-x-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="vertical"></span>
-				<span class="director-rule-desc" data-i18n="vertical-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="vertical"></span>
+				<span class="rule-desc" data-i18n="vertical-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="big-vs-little"></span>
-				<span class="director-rule-desc" data-i18n="big-vs-little-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="big-vs-little"></span>
+				<span class="rule-desc" data-i18n="big-vs-little-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="breaking-objects"></span>
-				<span class="director-rule-desc" data-i18n="breaking-objects-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="breaking-objects"></span>
+				<span class="rule-desc" data-i18n="breaking-objects-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="slamming-into-creatures"></span>
-				<span class="director-rule-desc" data-i18n="slamming-into-creatures-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="slamming-into-creatures"></span>
+				<span class="rule-desc" data-i18n="slamming-into-creatures-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="slamming-into-objects"></span>
-				<span class="director-rule-desc" data-i18n="slamming-into-objects-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="slamming-into-objects"></span>
+				<span class="rule-desc" data-i18n="slamming-into-objects-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="stability-director"></span>
-				<span class="director-rule-desc" data-i18n="stability-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="stability-director"></span>
+				<span class="rule-desc" data-i18n="stability-desc"></span>
 			</div>
 		</div>
 	</details>
 	<!-- Area of Effect -->
 	<details>
 		<summary><span data-i18n="areas-of-effect"></span></summary>
-		<div class="director-rules-container">
-			<p class="director-section-text" data-i18n="areas-of-effect-desc"></p>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="aura"></span>
-				<span class="director-rule-desc" data-i18n="aura-desc"></span>
+		<div class="rules-container">
+			<p class="rule-desc" data-i18n="areas-of-effect-desc"></p>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="aura"></span>
+				<span class="rule-desc" data-i18n="aura-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="burst"></span>
-				<span class="director-rule-desc" data-i18n="burst-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="burst"></span>
+				<span class="rule-desc" data-i18n="burst-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="cube"></span>
-				<span class="director-rule-desc" data-i18n="cube-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="cube"></span>
+				<span class="rule-desc" data-i18n="cube-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="line"></span>
-				<span class="director-rule-desc" data-i18n="line-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="line"></span>
+				<span class="rule-desc" data-i18n="line-desc"></span>
 			</div>
-			<div class="director-rule-item">
-				<span class="director-rule-name" data-i18n="wall-director"></span>
-				<span class="director-rule-desc" data-i18n="wall-desc"></span>
+			<div class="rule-item">
+				<span class="rule-name" data-i18n="wall-director"></span>
+				<span class="rule-desc" data-i18n="wall-desc"></span>
 			</div>
 		</div>
 	</details>
@@ -477,39 +466,39 @@
 <!-- Character Sheet Start -->
 <div class="sheet-body">
 	<!-- Button Bar -->
-	<div class="button-bar">
-		<button class="initiative-button" type="roll" name="roll_init" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d10}} {{roll=[[ [[1d10]][1d10]]]}} {{name=Initiative}} {{charactername=@{character_name}}}" data-i18n-title="initiative-title" data-i18n="initiative"></button>
-		<button class="startcombat-button" type="action" data-i18n-title="startcombat-title" name="act_startcombat" data-i18n="startcombat"></button>
-		<button class="endcombat-button" type="action" data-i18n-title="endcombat-title" name="act_endcombat" data-i18n="endcombat"></button>
-		<button class="respite-button" type="action" data-i18n-title="respite-title" name="act_respite" data-i18n="respite"></button>
+	<div id="button-bar" class="button-bar">
+		<button class="roll-button" type="roll" name="roll_init" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d10}} {{roll=[[ [[1d10]][1d10]]]}} {{name=Initiative}} {{charactername=@{character_name}}}" data-i18n-title="initiative-title" data-i18n="initiative"></button>
+		<button class="action-button" type="action" data-i18n-title="startcombat-title" name="act_startcombat" data-i18n="startcombat"></button>
+		<button class="action-button" type="action" data-i18n-title="endcombat-title" name="act_endcombat" data-i18n="endcombat"></button>
+		<button class="action-button" type="action" data-i18n-title="respite-title" name="act_respite" data-i18n="respite"></button>
 	</div>
 	<!-- Header Panel --> 
-	<div class="sheet-panel header-panel">
-		<div class="sheet-panel-box profile-panel">
-			<div class="name-input-group">
+	<div class="header-panel sheet-panel">
+		<div class="profile-panel sheet-panel-box">
+			<div class="input-group grid-span-full">
 				<input type="text" name="attr_character_name" title="Macro: @{NAME|character_name}" />
 				<label class="sublabel" data-i18n="character-name"></label>
 			</div>
-			<div class="ancestry-input-group">
+			<div class="input-group">
 				<input type="text" class="input-md" name="attr_ancestry" title="Macro: @{NAME|ancestry}" />
 				<label class="sublabel" data-i18n="ancestry"></label>
 			</div>
-			<div class="class-input-group">
+			<div class="input-group">
 				<input type="text" class="input-md" name="attr_class" title="Macro: @{NAME|class}" />
 				<label class="sublabel" data-i18n="class"></label>
 			</div>
-			<div class="career-input-group">
+			<div class="input-group">
 				<input type="text" class="input-md" name="attr_career" title="Macro: @{NAME|career}" />
 				<label class="sublabel" data-i18n="career"></label>
 			</div>
-			<div class="subclass-input-group">
+			<div class="input-group">
 				<input type="text" class="input-md" name="attr_subclass" title="Macro: @{NAME|subclass}" />
 				<label class="sublabel" data-i18n="subclass"></label>
 			</div>
 		</div>
-		<div class="sheet-panel-box progress-panel">
-			<div class="victories-input-group">
-				<h5 data-i18n="victories"></h5>
+		<div class="progress-panel sheet-panel-box">
+			<div class="input-group -aligncenter grid-span-5">
+				<label data-i18n="victories"></label>
 				<span name="attr_victories" class="victory-count" title="Macro: @{NAME|victories}"></span>
 				<div class="progressbox-group">
 					<input id="victories-checkbox-1" type="checkbox" value="1" name="attr_victories" />
@@ -544,19 +533,19 @@
 					<label class="progressbox" for="victories-checkbox-15"></label>
 				</div>
 			</div>
-			<div class="level-input-group">
-				<h5 data-i18n="level"></h5>
+			<div class="input-group -aligncenter">
+				<label data-i18n="level"></label>
 				<input type="number" name="attr_level" title="Macro: @{NAME|level}" />
 			</div>
-			<div class="wealth-input-group">
+			<div class="input-group -aligncenter grid-span-2">
 				<label data-i18n="wealth"></label>
 				<input type="number" class="input-md" name="attr_wealth" title="Macro: @{NAME|wealth}" />
 			</div>
-			<div class="renown-input-group">
+			<div class="input-group -aligncenter grid-span-2">
 				<label data-i18n="renown"></label>
 				<input type="number" class="input-md" name="attr_renown" title="Macro: @{NAME|renown}" />
 			</div>
-			<div class="experience-input-group">
+			<div class="input-group -aligncenter grid-span-2">
 				<label data-i18n="experience"></label>
 				<input type="number" class="input-md" name="attr_experience" title="Macro: @{NAME|experience}" />
 			</div>
@@ -564,53 +553,53 @@
 	</div>
 	<!-- Stats Panel -->
 	<input type="hidden" class="sticky-characteristics" name="attr_options_sticky_characteristics" />
-	<div class="sheet-panel stats-panel minimizable">
-		<div class="minimize-control">
+	<div class="stats-panel sheet-panel minimizable">
+		<div class="minimize-control grid-span-full">
 			<input id="stats-minimize-checkbox" class="minimize" type="checkbox" name="attr_stats-minimize-checkbox" checked />
 			<label for="stats-minimize-checkbox" data-i18n="characteristics"></label>
 		</div>
-		<div class="stat-dashboard minimize-ignore">
-			<div class="dashboard-characteristics minimize-ignore">
-				<div class="dashboard-stat-group characteristic-input-group">
-					<label data-characteristic="might" data-i18n="might" data-i18n-title="characteristic-roll-tooltip">Might</label>
+		<div class="stat-dashboard grid-span-full minimize-ignore">
+			<div class="dashboard-characteristics grid-span-5 minimize-ignore">
+				<div class="dashboard-stat-group">
+					<label class="characteristic-label -clickable" data-characteristic="might" data-i18n="might" data-i18n-title="characteristic-roll-tooltip">Might</label>
 					<input type="number" name="attr_might" title="Macro: @{NAME|might}" />
 				</div>
-				<div class="dashboard-stat-group characteristic-input-group">
-					<label data-characteristic="agility" data-i18n="agility" data-i18n-title="characteristic-roll-tooltip">Agility</label>
+				<div class="dashboard-stat-group">
+					<label class="characteristic-label -clickable" data-characteristic="agility" data-i18n="agility" data-i18n-title="characteristic-roll-tooltip">Agility</label>
 					<input type="number" name="attr_agility" title="Macro: @{NAME|agilitiy}" />
 				</div>
-				<div class="dashboard-stat-group characteristic-input-group">
-					<label data-characteristic="reason" data-i18n="reason" data-i18n-title="characteristic-roll-tooltip">Reason</label>
+				<div class="dashboard-stat-group">
+					<label class="characteristic-label -clickable" data-characteristic="reason" data-i18n="reason" data-i18n-title="characteristic-roll-tooltip">Reason</label>
 					<input type="number" name="attr_reason" title="Macro: @{NAME|reason}"/>				
 				</div>
-				<div class="dashboard-stat-group characteristic-input-group">
-					<label data-characteristic="intuition" data-i18n="intuition" data-i18n-title="characteristic-roll-tooltip">Intuition</label>
+				<div class="dashboard-stat-group">
+					<label class="characteristic-label -clickable" data-characteristic="intuition" data-i18n="intuition" data-i18n-title="characteristic-roll-tooltip">Intuition</label>
 					<input type="number" name="attr_intuition" title="Macro: @{NAME|intuition}" />				
 				</div>
-				<div class="dashboard-stat-group characteristic-input-group">
-					<label data-characteristic="presence" data-i18n="presence" data-i18n-title="characteristic-roll-tooltip">Presence</label>
+				<div class="dashboard-stat-group">
+					<label class="characteristic-label -clickable" data-characteristic="presence" data-i18n="presence" data-i18n-title="characteristic-roll-tooltip">Presence</label>
 					<input type="number" name="attr_presence" title="Macro: @{NAME|presence}" />					
 				</div>
 			</div>
-			<div class="dashboard-stamina minimize-ignore">
+			<div class="dashboard-stamina grid-span-2 minimize-ignore">
 				<div class="dashboard-stat-group">
 					<label data-i18n="stamina">Stamina</label>
 					<input type="number" name="attr_stamina" />	
 				</div>
-				<div class="stamina-temporary-input-group">
+				<div class="temporary-stamina">
 					<input type="number" class="input-md" name="attr_stamina_temporary" title="Macro: @{NAME|stamina_temporary}" />
 					<label class="sublabel" data-i18n="stamina-temporary">Temporary</label>
 				</div>
-				</div>
+			</div>
 			<div class="dashboard-recoveries minimize-ignore">
-				<div class="dashboard-stat-group recovery-input-group">
-					<label data-characteristic="recoveries" data-i18n="recoveries" data-i18n-title="recoveries-tooltip">Recoveries</label>
+				<div class="dashboard-stat-group">
+					<label class="recoveries-label -clickable" data-characteristic="recoveries" data-i18n="recoveries" data-i18n-title="recoveries-tooltip">Recoveries</label>
 					<input type="number" name="attr_recoveries" title="Macro: @{NAME|recoveries}" />			
 				</div>
 			</div>
 			<div class="dashboard-resource minimize-ignore"> 
-				<div class="dashboard-stat-group resource-input-group">
-					<label data-characteristic="resource" data-i18n="resource" data-i18n-title="resource-tooltip">Heroic Resource</label>
+				<div class="dashboard-stat-group">
+					<label class="resources-label -clickable" data-characteristic="resource" data-i18n="resource" data-i18n-title="resource-tooltip">Heroic Resource</label>
 					<input type="number" name="attr_resource" title="Macro: @{NAME|resource}" />
 				</div>
 			</div>
@@ -618,80 +607,76 @@
 				<div class="dashboard-stat-group">
 					<label data-characteristic="surges" data-i18n="surges">Surges</label>
 					<div class="surges-input-group">
-						<label data-characteristic="surges-damage" data-i18n="surges-damage" data-i18n-title="surges-damage-tooltip">Damage</label>
+						<label class="surges-damage-label -clickable" data-characteristic="surges-damage" data-i18n="surges-damage" data-i18n-title="surges-damage-tooltip">Damage</label>
 						<span class="pipe-separator">|</span>
-						<label data-characteristic="surges-potency" data-i18n="surges-potency" data-i18n-title="surges-potency-tooltip">Potency</label>
+						<label class="surges-potency-label -clickable" data-characteristic="surges-potency" data-i18n="surges-potency" data-i18n-title="surges-potency-tooltip">Potency</label>
 					</div>
 					<input type="number" name="attr_surges" title="Macro: @{NAME|surges}" />
 				</div>
 			</div>
 		</div>
 		<!-- Movement -->
-		<div class="movement">
-			<div class="movement-input-group">
+		<div class="movement-group">
+			<div class="input-group -aligncenter">
 				<input type="text" class="input-md" name="attr_size" title="Macro: @{NAME|size}" />
 				<label class="sublabel" data-i18n="size"></label>
 			</div>
-			<div class="movement-input-group">
+			<div class="input-group -aligncenter">
 				<input type="number" class="input-md" name="attr_speed" title="Macro: @{NAME|speed}" />
 				<label class="sublabel" data-i18n="speed"></label>
 			</div>
-			<div class="movement-input-group">
+			<div class="input-group -aligncenter">
 				<input type="number" class="input-md" name="attr_disengage" title="Macro: @{NAME|disengage}" />
 				<label class="sublabel" data-i18n="disengage"></label>
 			</div>
-			<div class="movement-input-group">
+			<div class="input-group -aligncenter">
 				<input type="number" class="input-md" name="attr_stability" title="Macro: @{NAME|stability}" />
 				<label class="sublabel" data-i18n="stability"></label>
 			</div>
 		</div>
 		<!-- Stamina --> 
-		<div class="stamina-panel">
-			<div class="stamina-temp-max-group">
+		<div class="stamina-group grid-span-2">
+			<div class="winded-group">
+				<label class="sublabel" data-i18n="winded"></label>
 				<div>
-					<div class="stamina-winded-input-group minimize-ignore">
-						<label class="sublabel" data-i18n="winded"></label>
-						<div>
-							<span class="sublabel" name="attr_stamina_winded" title="Macro: @{NAME|stamina_winded}"></span>
-						</div>
-					</div>
-					<div class="stamina-dying-input-group minimize-ignore">
-						<label class="sublabel" data-i18n="dying"></label>
-						<div>
-							0 to <span class="sublabel" name="attr_stamina_dead" title="Macro: @{NAME|stamina_dead}"></span></div>
-						</div>
-					</div><div class="stamina-max-input-group">
-					<input type="number" class="input-stamina minimize-ignore" name="attr_stamina_max" title="Macro: @{NAME|stamina_max}">
-					<label class="sublabel minimize-ignore" data-i18n="stamina-max"></label>
+					<span class="sublabel" name="attr_stamina_winded" title="Macro: @{NAME|stamina_winded}"></span>
 				</div>
-
+			</div>
+			<div class="stamina-max-group">
+				<input type="number" class="input-stamina" name="attr_stamina_max" title="Macro: @{NAME|stamina_max}">
+				<label class="sublabel" data-i18n="stamina-max"></label>
+			</div>
+			<div class="dying-group">
+				<label class="sublabel" data-i18n="dying"></label>
+				<div>
+					0 to <span class="sublabel" name="attr_stamina_dead" title="Macro: @{NAME|stamina_dead}"></span>
+				</div>
 			</div>
 		</div>
 		<!-- Recoveries -->
-		<div class="recoveries-panel">
-			<div class="recovery-amount-input-group">
+		<div class="recoveries-group">
+			<div class="input-group -aligncenter">
 				<input type="number" class="input-md" name="attr_recovery_amount" title="Macro: @{NAME|recovery_amount}" />
 				<label class="sublabel" data-i18n="recovery-amount"></label>
 			</div>
-			<div class="recoveries-max-input-group">
+			<div class="input-group -aligncenter">
 				<input type="number" class="input-md" name="attr_recoveries_max" title="Macro: @{NAME|recoveries_max}" />
 				<label class="sublabel" data-i18n="recoveries-max"></label>
 			</div>
 		</div>
 		<!-- Heroic Resource Name -->
-		<div class="resource-panel">
-			<div class="resource-name-input-group">
-				<input type="text" class="input-md" name="attr_resource_name" data-i18n-placeholder="resource-name-placeholder"  title="Macro: @{NAME|resource_name}" />
-				<label class="sublabel" for="attr_resource_amount" data-i18n="resource-amount">Amount</label><input type="text" id="attr_resource_amount" class="input-md" name="attr_resource_amount" placeholder="1d3"  title="Macro: @{NAME|resource_amount}" />
-			</div>
+		<div class="resource-group">
+			<input type="text" class="input-md" name="attr_resource_name" data-i18n-placeholder="resource-name-placeholder"  title="Macro: @{NAME|resource_name}" />
+			<label class="sublabel" for="attr_resource_amount" data-i18n="resource-amount">Amount</label>
+			<input type="text" id="attr_resource_amount" class="input-md" name="attr_resource_amount" placeholder="1d3"  title="Macro: @{NAME|resource_amount}" />
 		</div>
 		<!-- Surges -->
-		<div class="surges-panel">
+		<div class="surges-group">
 			<label class="sublabel" data-i18n="one-surge"></label>
-			<span data-i18n="damage"></span>
+			<span class="smalltext" data-i18n="damage"></span>
 			<input type="number" class="input-md" name="attr_surge_damage" title="Macro: @{NAME|surge_damage}" />
 			<label class="sublabel" data-i18n="two-surges"></label>
-			<span data-i18n="potency-one"></span>
+			<span class="smalltext" data-i18n="potency-one"></span>
 		</div>
 		<!-- Growing Resource Fury/Null -->
 		<input type="hidden" class="has-resource-toggle" name="attr_has_growing_resource" value="0" />
@@ -5667,28 +5652,28 @@
 	});
 		
 	// Player Characteristic Power Rolls
-	$20('.characteristic-input-group > label').on('click', (e) => {
+	$20('.characteristic-label').on('click', (e) => {
 		const characteristic = e.htmlAttributes['data-characteristic'];
 		rollPower(characteristic);
 	});
 	
 	// Recovery Simple Roll
-	$20('.recovery-input-group > label').on('click', (e) => {
+	$20('.recoveries-label').on('click', (e) => {
 		rollRecovery();
 	});
 
 	// Heroic Resource Simple Roll
-	$20('.resource-input-group > label').on('click', (e) => {
+	$20('.resources-label').on('click', (e) => {
 		rollResource();
 	});
 
 	// Damage Surges Simple Roll
-	$20('.surges-input-group > label[data-characteristic="surges-damage"]').on('click', (e) => {
+	$20('.surges-damage-label').on('click', (e) => {
 		rollSurge('damage');
 	});
 
 	// Potency Surges Simple Roll
-	$20('.surges-input-group > label[data-characteristic="surges-potency"]').on('click', (e) => {
+	$20('.surges-potency-label').on('click', (e) => {
 		rollSurge('potency');
 	});
 	

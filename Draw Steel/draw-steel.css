@@ -4,6 +4,14 @@
 	grid-column-end: -1
 }
 
+.grid-span-2 {
+	grid-column-end: span 2;
+}
+
+.grid-span-5 {
+	grid-column-end: span 5;
+}
+
 /* Sheet-wide variables */
 
 .charsheet {
@@ -153,7 +161,6 @@
 	background-color: var(--color-bg-subsection);
 }
 
-
 .sheet-darkmode img[alt="Powered By Draw Steel"] {
   filter: invert(100%);
 }
@@ -175,7 +182,7 @@
 	border-color: var(--color-button-hover-border);
 }
 
-.characterviewer .charsheet label {
+.charsheet label {
 	display: unset;
 	margin: unset;
 	padding: unset;
@@ -271,9 +278,6 @@
   z-index: 1;
 }
 
-.sheet-header {
-	position: relative;
-}
 
 /* Toggle Buttons */
 .charsheet .toggle-button {
@@ -291,7 +295,7 @@
 		cursor: pointer;
 	}
 	
-	&.-edit::before {
+	&.-edit::before { /* Edit Button Stytling */
 		font-size: 1.5em;
 		content: 'p';
 	}
@@ -300,7 +304,7 @@
 		content: '_';
 	}
 	
-	&.-gear::before {
+	&.-gear::before { /* Gear Button Styling */
 		content: 'y';
 	}
 	
@@ -313,45 +317,16 @@
 		color: var(--color-accent-steel);
 	}
 	
-	&:checked ~ .-togglehide {
+	&:checked ~ .-togglehide { /* Hides Element when checked */
 		display: none;
 	}
 	
-	&:not(:checked) ~ .-toggleshow {
+	&:not(:checked) ~ .-toggleshow { /* Shows element when checked */
 		display: none;
 	}
 }
 
-/* Sheet Options Panel */
-.sheet-options-toggle {
-  display: grid;
-  gap: 0.5em;
-  grid-template-columns: 1fr 1fr;
-}
-
-.sheet-options-toggle hr {
-	margin-top: var(--sheet-padding);
-	margin-bottom: var(--sheet-padding);
-	border-top: var(--border-main);
-}
-
-.sheet-options-toggle label {
-	font-weight: normal;
-}
-
-/* Switches between Character and NPC Sheets */
-.charsheet input.npc-checkbox:not([value="on"]) ~ .npc-sheet-body,
-.charsheet input.npc-checkbox[value="on"] ~ .sheet-body
-{
-  display: none;
-}
-
-/* Player Character Sheet */
-.sheet-body { /* Sets the minimum width for the player character sheet */
-	min-width:800px;
-}
-
-/* Minimize Panel Icon */
+/* Minimize Controls */
 .minimize {
 	display:none; 
 }
@@ -367,29 +342,16 @@ label[for*='minimize']::before {
 	margin-right: 3px;
 }
 
-
 .minimizable:has(.minimize-control > .minimize:checked) > :not(.minimize-control):not(.minimize-ignore):not(.minimize-show),
 .minimizable:has(.minimize-control > .minimize:checked) > .minimize-ignore > :not(.minimize-ignore),
 .minimizable:has(.minimize-control > .minimize:not(:checked)) > .minimize-show {
 	display: none;
 }
 
-/* Sheet Options Panel */
 
-.import-panel > div > textarea {
-	width:100%; 
-}
-
-/* Header Panel */
-
-/* -- Header Panel */
-
-.header-panel {
-	display: flex;
-	gap: var(--section-gap);
-}
-.header-panel > * {
-	flex: 1 1 0;
+/* Sheet Header */
+.sheet-header {
+	position: relative;
 }
 
 .title {
@@ -397,22 +359,178 @@ label[for*='minimize']::before {
 	text-transform: uppercase;
 }
 
-.text-warning {
-	color: orangered;
+
+/* Sheet Options Panel */
+.sheet-options {
+	display: grid;
+	gap: 0.5em;
+	grid-template-columns: 1fr 1fr;
+  
+	& .separator {
+		margin-top: var(--sheet-padding);
+		margin-bottom: var(--sheet-padding);
+		border-top: var(--border-main);
+	}
+	
+	& label {
+		font-weight: normal;
+	}
 }
 
-.profile-panel, .import-panel {
+.selector-row { /* Selector styling for Growing Resource Option */
+	label {
+		margin-right: 10px;
+		min-width: 100px;
+	}
+
+	select {
+		width: 100%;
+		cursor: pointer;
+	}
+	
+	&.-stormwightonly {
+		display: none;
+		margin-top: 5px;
+		padding-left: 15px; 
+		border-left: 2px solid #ccc;
+		align-items: center;
+		gap: 10px;
+	}
+}
+
+.growing-resource-state[value="furystormwight"] ~ .-stormwightonly { /* Toggles Stormwight subclass options */
+	display: flex;
+}
+
+.import-panel {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	column-gap: 0.5em;
+	
+	.importtext {
+		width:100%; 
+	}
+	
+	.text-warning {
+		color: orangered;
+	}
 }
 
-.profile-panel > * {
-  display: flex;
-  flex-direction: column;
+
+/*Director screen styling */
+.director-toggle:not([value="1"]) ~ .director-screen {
+    display: none;
 }
-.profile-panel .name-input-group {
-	grid-column-end: span 2;
+
+.director-screen {
+	details{
+		padding-left: 30px;
+		padding-bottom: 8px;
+	}
+	
+	summary {
+		display: list-item;
+		font-weight: bold;
+		margin-left: -15px;
+	}	
+
+	.rules-container {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+	}	
+
+	.rule-item {
+		display: block;
+		border-bottom: var(--border-main);
+		padding-bottom: 4px;
+		padding-left: 15px;
+	}
+
+	.rule-name {
+		display: inline-block;
+		font-weight: bold;
+		color: var(--color-text-header);
+		font-size: 0.9em;
+		margin-left: -15px;
+		margin-right: 5px;
+		text-decoration: underline;
+	}
+
+	.rule-desc {
+		font-size: 0.85em;
+		line-height: 1.2;
+		color: var(--color-text-body);
+	}
+}
+
+
+/* Switches between Character and NPC Sheets */
+.charsheet .npc-checkbox:not([value="on"]) ~ .npc-sheet-body,
+.charsheet .npc-checkbox[value="on"] ~ .sheet-body
+{
+  display: none;
+}
+
+
+/* Player Character Sheet */
+.sheet-body { /* Sets the minimum width for the player character sheet */
+	min-width:800px;
+}
+
+
+/* Button Bar */
+.button-bar {
+	display: flex;
+	flex-direction: row;
+	gap: 0.2em;
+	margin-bottom: var(--sheet-padding);
+}
+
+.roll-button.btn.ui-draggable {
+	all: initial; 
+}
+
+#button-bar .roll-button {
+	background-image: none;
+	font-size: 1em;
+	margin: 0px;
+	padding: 3px;
+	
+	&::before {
+		content: "";
+	}
+}
+
+
+/* Header Panel */
+.header-panel {
+	display: flex;
+	gap: var(--section-gap);
+	
+	& > * {
+		flex: 1 1 0;
+	}
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+	
+	&.-flexrow {
+		flex-direction: row;
+	}
+	
+	&.-aligncenter {
+		align-items: center;
+	}
+	
+}
+
+.profile-panel {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 0.5em;
 }
 
 .progress-panel {
@@ -421,26 +539,20 @@ label[for*='minimize']::before {
 	grid-gap: 0.5em;
 }
 
-.progress-panel > * {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 .progressbox-group {
 	display: flex;
-}
-
-.progressbox-group > input {
-	display: none;
-}
-
-.charsheet .progressbox-group > .progressbox {
-	display: block;
-	height: 1.5em;
-	width: 1.3em;
-	border: 1px solid var(--color-input-border);
-	cursor: pointer;
+	
+	& > input {
+		display: none;
+	}
+	
+	& > .progressbox {
+		display: block;
+		height: 1.5em;
+		width: 1.3em;
+		border: 1px solid var(--color-input-border);
+		cursor: pointer;
+	}
 }
 
 .progressbox-group > .progressbox:has(~ input:checked),
@@ -448,21 +560,13 @@ label[for*='minimize']::before {
 	background-color: var(--color-accent-steel);
 }
 
-.victories-input-group {
-	grid-column-end: span 5;
 
-
-}
-.wealth-input-group, .renown-input-group, .experience-input-group {
-	grid-column-end: span 2;
-}
-
-.sticky-characteristics[value="1"] + .stats-panel {
+/* Stats Panel */
+.sticky-characteristics[value="1"] + .stats-panel { /* Used to toggle sticky Characteristic Panel */
 	position: sticky;
 }
 
 .stats-panel {
-
 	top: 0;
 	z-index: 10;
 	display: grid;
@@ -471,66 +575,59 @@ label[for*='minimize']::before {
 	gap: 5px;
 }
 
-.stats-panel > .minimize-control {
-	grid-column: 1 / -1;
-}
-
 .stat-dashboard {
-  display: grid;
-  grid-template-columns: repeat(10, 76px);
-  gap: 5px;
-  grid-column: 1/-1;
-  justify-items: center;
-  align-items: end;
-
+	display: grid;
+	grid-template-columns: repeat(10, 76px);
+	gap: 5px;
+	justify-items: center;
+	align-items: end;
 }
 
 .dashboard-characteristics {
-  grid-column-start: 1;
-  grid-column-end: span 5;
-  display: flex;
-  gap: 2px;
-  flex-direction: row;
-  width: 90%;
+	display: flex;
+	gap: 2px;
+	flex-direction: row;
+	width: 95%;
 }
 
 .dashboard-stat-group {
-  text-align: center;
-  width: 100%;
-  position: relative;
-  display: grid;
-  justify-items: center;
+	text-align: center;
+	width: 100%;
+	position: relative;
+	display: grid;
+	justify-items: center;
+  
+	& > label:hover {
+		color: var(--color-accent-steel);
+	}
+	
+	.-clickable {
+		cursor: pointer;
+	}
 }
 
-.dashboard-stat-group label:hover {
-	color: var(--color-accent-steel);
-}
-
-.charsheet .sheet-body .dashboard-stat-group input[type="number"] {
-  display: block;
-  width: 50px;
-  height: 45px;
-  font-size: 1.5em;
-  text-align: center;
-  color: var(--color-text-header);
+.charsheet .sheet-body .dashboard-stat-group input[type="number"] { /* Sets style for large stat input boxes */
+	display: block;
+	width: 50px;
+	height: 45px;
+	font-size: 1.5em;
+	text-align: center;
+	color: var(--color-text-header);
 }
 
 .dashboard-stamina {
-  grid-column: 6/ span 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: end;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: end;
+	text-align: center;
+	
+	.temporary-stamina input {
+		min-width: 6em;
+	}
 }
 
-.dashboard-resource, .dashboard-recoveries {
-  font-size: 0.9em;
-}
-
-.characteristic-input-group > label,
-.recovery-input-group > label,
-.resource-input-group > label,
-.surges-input-group > label {
-	cursor: pointer;
+.dashboard-resource, .dashboard-recoveries { /* Fixes spacing issues with ES translations */
+	font-size: 0.9em;
 }
 
 .surges-input-group {
@@ -547,8 +644,59 @@ label[for*='minimize']::before {
 	padding: 0 2px;
 }
 
-.characteristic-input-group > input {
+.movement-group {
+	grid-column-start: 1;
+	grid-column-end: span 5;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 0.1em;
+	
+	.input-group > input {
+		width: 3.75em;
+		text-align: center;
+	}
+}
+
+.stamina-group {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 	text-align: center;
+	column-gap: 5px;
+	padding: 3px;
+	
+	input {
+		width: 100%;
+		box-sizing: border-box;
+		min-width: 6em;
+	}
+}
+
+.recoveries-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.resource-group {
+	justify-self: center;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	
+	& > input {
+		width: 100px;
+		text-align: center;
+	}
+}
+
+.surges-group {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-auto-rows: min-content;
+	justify-items: center;
+	
+	.smalltext {
+		font-size: 0.7em;
+	}
 }
 
 .potencies {
@@ -581,24 +729,6 @@ label[for*='minimize']::before {
 	width:4.5em;
 }
 
-.movement {
-	grid-column-start: 1;
-	grid-column-end: span 5;
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 0.1em;
-}
-
-.movement-input-group {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.movement-input-group > input {
-	width: 3.75em;
-	text-align: center;
-}
 
 /* Growing Resource Table */
 .has-resource-toggle[value="0"] ~ .growing-resource {
@@ -670,104 +800,6 @@ label[for*='minimize']::before {
 	padding-right: 20px;
 }
 
-.stormwight-only {
-    display: none;
-    margin-top: 5px;
-    padding-left: 15px; 
-    border-left: 2px solid #ccc;
-}
-
-.main-resource-state[value="furystormwight"] ~ .stormwight-only {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.selector-row label {
-    margin-right: 10px;
-    min-width: 100px;
-}
-
-.selector-row select {
-    width: 100%;
-    cursor: pointer;
-}
-
-.stamina-panel {
-	grid-column-start: 6;
-	grid-column-end: span 2;
-	display: grid;
-	grid-template-columns: 75px 1fr;
-	column-gap: 5px;
-	padding: 3px;
-}
-
-.stamina-input-group {
-	grid-row-end: span 2;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-.stamina-temp-max-group {
-	grid-column-end: -1;
-	grid-column-start: 1;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	text-align: center;
-}
-
-.stamina-temp-max-group {
-	grid-column-end: -1;
-	grid-column-start: 1;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	text-align: center;
-}
-
-.stamina-input-group input{
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 6em;
-}
-
-.stamina-temporary-input-group,
-.stamina-winded-input-group, 
-.stamina-dying-input-group {
-	text-align: center;
-}
-
-.stamina-temporary-input-group input {
-	min-width:6em;
-}
-
-.charsheet .stamina-panel input[name="attr_stamina"],
-.charsheet .recoveries-panel input[name="attr_recoveries"],
-.charsheet .resource-panel input[name="attr_resource"] {
-	height: 57px;
-	font-size: 1.5em;
-	padding: 0;
-	width: 75px;
-	min-width: unset;
-}
-
-.recoveries-panel {
-	display: flex;
-	flex-direction: column;
-}
-
-.recoveries-input-group {
-	grid-column-start: 1;
-	grid-column-end: -1;
-	justify-self: center;
-}
-
-.recovery-amount-input-group,
-.recoveries-max-input-group {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 .damage-mod-panel {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -788,35 +820,7 @@ label[for*='minimize']::before {
 	box-sizing: border-box;
 }
 
-.resource-panel {
-	justify-self: center;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-auto-rows: min-content;
-	justify-items: center;
-}
 
-.resource-name-input-group > input {
-	width: 100px;
-	text-align: center;
-}
-
-.resource-name-input-group {
-	text-align: center;
-}
-
-.surges-panel {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-auto-rows: min-content;
-	justify-items: center;
-	grid-column-start: 10;
-}
-
-
-.surges-panel > span {
-	font-size: 0.7em;
-}
 
 .conditions-panel {
 	grid-column: 1 /-1;
@@ -1641,52 +1645,6 @@ input.name-input {
 	font-family: Menlo, Monaco, Consolas;
 }
 
-/*Director screen styling */
-
-#director-screen-toggle:not([value="1"]) ~ .director-screen-panel {
-    display: none;
-}
-
-.director-screen-panel details{
-	padding-left: 30px;
-	padding-bottom: 8px;
-}
-
-.director-screen-panel summary {
-	display: list-item;
-	font-weight: bold;
-	margin-left: -15px;
-}
-
-.director-rules-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-}
-
-.director-rule-item {
-    display: block;
-    border-bottom: var(--border-main);
-    padding-bottom: 4px;
-	padding-left: 15px;
-}
-
-.director-rule-name {
-    display: inline-block;
-    font-weight: bold;
-    color: var(--color-text-header);
-    font-size: 0.9em;
-	margin-left: -15px;
-    margin-right: 5px;
-	text-decoration: underline;
-}
-
-.director-rule-desc, 
-.director-section-text {
-    font-size: 0.85em;
-    line-height: 1.2;
-    color: var(--color-text-body);
-}
 
 /* NPC Sheet */
 .npc-sheet-body {
@@ -2368,26 +2326,6 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 }
 
 
-.button-bar {
-	display: flex;
-	flex-direction: row;
-	gap: 0.2em;
-	margin-bottom: var(--sheet-padding);
-}
-.initiative-button.btn.ui-draggable {
-	all: initial; 
-}
-
-.ui-dialog .charsheet .button-bar button[type="roll"] {
-	background-image: none;
-	font-size: 1em;
-	margin: 0px;
-	padding: 3px;
-}
-
-.ui-dialog .charsheet .button-bar button[type=roll]::before {
-    content: "";
-}
 
 /* Hide Edit Row by default */
 .sheet-edit-row {
