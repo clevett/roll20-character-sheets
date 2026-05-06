@@ -554,7 +554,7 @@
 	<!-- Stats Panel -->
 	<input type="hidden" class="sticky-characteristics" name="attr_options_sticky_characteristics" />
 	<div class="stats-panel sheet-panel minimizable">
-		<div class="minimize-control grid-span-full">
+		<div class="minimize-control">
 			<input id="stats-minimize-checkbox" class="minimize" type="checkbox" name="attr_stats-minimize-checkbox" checked />
 			<label for="stats-minimize-checkbox" data-i18n="characteristics"></label>
 		</div>
@@ -680,100 +680,89 @@
 		</div>
 		<!-- Growing Resource Fury/Null -->
 		<input type="hidden" class="has-resource-toggle" name="attr_has_growing_resource" value="0" />
-		<div class="growing-resource minimize-ignore">
+		<div class="growing-resource sheet-panel-box grid-span-full minimize-ignore">
 			<h5 class="panel-title" data-i18n="growing-resource"></h5>
-			<input type="hidden" class="row-toggle-2" name="attr_growingresource_show_2" value="1" />
-			<input type="hidden" class="row-toggle-4" name="attr_growingresource_show_4" value="1" />
-			<input type="hidden" class="row-toggle-6" name="attr_growingresource_show_6" value="1" />
-			<input type="hidden" class="row-toggle-8" name="attr_growingresource_show_8" value="1" />
-			<input type="hidden" class="row-toggle-10" name="attr_growingresource_show_10" value="1" />
-			<input type="hidden" class="row-toggle-12" name="attr_growingresource_show_12" value="1" />
-
-			<div class="resource-container sheet-panel-box minimize-ignore">
+			<div class="resource-grid minimize-ignore">
+				<div class="grid-header -contents">
+					<span name="attr_resource_name"></span>
+					<span data-i18n="benefit"></span>
+				</div>
 				<input type="checkbox" class="toggle-button -edit" name="attr_growing_resource_edit" />
-				<div class="growing-resource-grid">
-					<div class="grid-header">
-						<span class="header-label" name="attr_resource_name"></span>
-						<span class="header-benefit" data-i18n="benefit"></span>
+				<div class="-contents -togglehide">
+					<input type="hidden" class="row-toggle" name="attr_growingresource_show_2" value="1" />
+					<div class="resource-row -contents">
+						<span class="row-label" name="attr_growingresource_2_label"></span>
+						<span class="row-text" name="attr_growingresource_2_text"></span>
 					</div>
-					<div class="resource-row tier-2">
-						<div class="display-mode">
-							<span class="row-label" name="attr_growingresource_2_label"></span>
-							<span class="row-text" name="attr_growingresource_2_text"></span>
-						</div>
-						<div class="edit-mode">
-							<input type="text" name="attr_growingresource_2_label" />
-							<textarea name="attr_growingresource_2_text"></textarea>
-						</div>
+					<input type="hidden" class="row-toggle" name="attr_growingresource_show_4" value="1" />
+					<div class="resource-row -contents">
+						<span class="row-label" name="attr_growingresource_4_label"></span>
+						<span class="row-text" name="attr_growingresource_4_text"></span>
 					</div>
-					<div class="resource-row tier-4">
-						<div class="display-mode">
-							<span class="row-label" name="attr_growingresource_4_label"></span>
-							<span class="row-text" name="attr_growingresource_4_text"></span>
-						</div>
-						<div class="edit-mode">
-							<input type="text" name="attr_growingresource_4_label" />
-							<textarea name="attr_growingresource_4_text"></textarea>
-						</div>
+					<input type="hidden" class="row-toggle" name="attr_growingresource_show_6" value="1" />
+					<div class="resource-row -contents">
+						<span class="row-label" name="attr_growingresource_6_label"></span>
+						<span class="row-text" name="attr_growingresource_6_text"></span>
 					</div>
-					<div class="resource-row tier-6">
-						<div class="display-mode">
-							<span class="row-label" name="attr_growingresource_6_label"></span>
-							<span class="row-text" name="attr_growingresource_6_text"></span>
-						</div>
-						<div class="edit-mode">
-							<input type="text" name="attr_growingresource_6_label" />
-							<textarea name="attr_growingresource_6_text"></textarea>
-						</div>
+					<input type="hidden" class="row-toggle" name="attr_growingresource_show_8" value="1" />
+					<div class="resource-row -contents">
+						<span class="row-label" name="attr_growingresource_8_label"></span>
+						<span class="row-text" name="attr_growingresource_8_text"></span>
 					</div>
-					<div class="resource-row tier-8">
-						<div class="display-mode">
-							<span class="row-label" name="attr_growingresource_8_label"></span>
-							<span class="row-text" name="attr_growingresource_8_text"></span>
-						</div>
-						<div class="edit-mode">
-							<input type="text" name="attr_growingresource_8_label" />
-							<textarea name="attr_growingresource_8_text"></textarea>
-						</div>
+					<input type="hidden" class="row-toggle" name="attr_growingresource_show_10" value="1" />
+					<div class="resource-row -contents">
+						<span class="row-label" name="attr_growingresource_10_label"></span>
+						<span class="row-text" name="attr_growingresource_10_text"></span>
 					</div>
-					<div class="resource-row tier-10">
-						<div class="display-mode">
-							<span class="row-label" name="attr_growingresource_10_label"></span>
-							<span class="row-text" name="attr_growingresource_10_text"></span>
-						</div>
-						<div class="edit-mode">
-							<input type="text" name="attr_growingresource_10_label" />
-							<textarea name="attr_growingresource_10_text"></textarea>
-						</div>
+					<input type="hidden" class="row-toggle" name="attr_growingresource_show_12" value="1" />
+					<div class="resource-row -contents">
+						<span class="row-label" name="attr_growingresource_12_label"></span>
+						<span class="row-text" name="attr_growingresource_12_text"></span>
 					</div>
-					<div class="resource-row tier-12">
-						<div class="display-mode">
-							<span class="row-label" name="attr_growingresource_12_label"></span>
-							<span class="row-text" name="attr_growingresource_12_text"></span>
-						</div>
-						<div class="edit-mode">
-							<input type="text" name="attr_growingresource_12_label" />
-							<textarea name="attr_growingresource_12_text"></textarea>
-						</div>
+				</div>
+				<div class="-contents -toggleshow">
+					<div class="resource-row -contents">
+						<input type="text" name="attr_growingresource_2_label" />
+						<textarea class=text-box" name="attr_growingresource_2_text"></textarea>
+					</div>
+					<div class="resource-row -contents">
+						<input type="text" name="attr_growingresource_4_label" />
+						<textarea class=text-box" name="attr_growingresource_4_text"></textarea>
+					</div>
+					<div class="resource-row -contents">
+						<input type="text" name="attr_growingresource_6_label" />
+						<textarea class=text-box" name="attr_growingresource_6_text"></textarea>
+					</div>
+					<div class="resource-row -contents">
+						<input type="text" name="attr_growingresource_8_label" />
+						<textarea class=text-box" name="attr_growingresource_8_text"></textarea>
+					</div>
+					<div class="resource-row -contents">
+						<input type="text" name="attr_growingresource_10_label" />
+						<textarea class=text-box" name="attr_growingresource_10_text"></textarea>
+					</div>
+					<div class="resource-row -contents">
+						<input type="text" name="attr_growingresource_12_label" />
+						<textarea class=text-box" name="attr_growingresource_12_text"></textarea>
 					</div>
 				</div>
 			</div>
 		</div>	
 		<!-- Potencies -->
-		<div class="potencies sheet-panel-box">
-				<h5 class="panel-title" data-i18n="potencies"></h5>
-				<div class="potency-input-group">
-					<label data-i18n="potency-strong"></label>
-					<input type="number" class="input-md" name="attr_potency_strong" title="Macro: @{NAME|potency_strong}" />
-				</div>
-				<div class="potency-input-group">
-					<label data-i18n="potency-average"></label>
-					<input type="number" class="input-md" name="attr_potency_average" title="Macro: @{NAME|potency_average}" />
-				</div>
-				<div class="potency-input-group">
-					<label data-i18n="potency-weak"></label>
-					<input type="number" class="input-md" name="attr_potency_weak" title="Macro: @{NAME|potency_weak}" />
-				</div>
+		<div class="potencies grid-span-2 sheet-panel-box">
+			<h5 class="panel-title" data-i18n="potencies"></h5>
+			<div class="input-group -flexrow">
+				<label data-i18n="potency-strong"></label>
+				<input type="number" class="input-md" name="attr_potency_strong" title="Macro: @{NAME|potency_strong}" />
+			</div>
+			<div class="input-group -flexrow">
+				<label data-i18n="potency-average"></label>
+				<input type="number" class="input-md" name="attr_potency_average" title="Macro: @{NAME|potency_average}" />
+			</div>
+			<div class="input-group -flexrow">
+				<label data-i18n="potency-weak"></label>
+				<input type="number" class="input-md" name="attr_potency_weak" title="Macro: @{NAME|potency_weak}" />
+			</div>
 		</div>
 		<!-- Immunity and Weakness-->
 		<div class="damage-mod-panel sheet-panel-box">
@@ -784,10 +773,10 @@
 		</div>
 		<!-- Heroic Resource Description -->
 		<div class="resource-description-panel sheet-panel-box">
-			<textarea data-i18n-placeholder="resource-description-placeholder" name="attr_resource_description" title="Macro: @{NAME|resource_description}"></textarea>
+			<textarea class="text-box" data-i18n-placeholder="resource-description-placeholder" name="attr_resource_description" title="Macro: @{NAME|resource_description}"></textarea>
 		</div>
 		<!-- Conditions -->
-		<div class="conditions-panel sheet-panel-box">
+		<div class="conditions-panel grid-span-full sheet-panel-box">
 			<h5 class="panel-title" data-i18n="conditions"></h5>
 			<fieldset class="repeating_conditions">
 				<input type="text" name="attr_condition_name" data-i18n-placeholder="condition"  title="Macro: @{NAME|repeating_conditions_<id>_condition_name}" />
@@ -800,41 +789,41 @@
 					<label data-i18n="save-ends"></label>
 				</div>
 			</fieldset>
-			<div class="savethrow-input-group">
-				<p data-i18n="save-ends-eq"></p>
+			<div class="save-bleed input-group -flexrow -aligncenter">
+				<label data-i18n="save-ends-eq"></label>
 				<input type="text" class="input-md" name="attr_savethrow" data-i18n-placeholder="savethrow-placeholder" />
-				<p data-i18n="save-ends-desc"></p>
-				<label>1d10:</label><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d10}} {{roll=[[ [[1d10]][1d10]]]}} {{name=Saving throw: rolling a @{savethrow} or higher removes effect}} {{charactername=@{character_name}}}" data-i18n-title="initiative-title" class="btn ui-draggable"></button>
+				<span data-i18n="save-ends-desc"></span>
+				<span>1d10:</span><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d10}} {{roll=[[ [[1d10]][1d10]]]}} {{name=Saving throw: rolling a @{savethrow} or higher removes effect}} {{charactername=@{character_name}}}" data-i18n-title="initiative-title" class="btn ui-draggable"></button>
 			</div>
-			<div class="bleed-dying-input-group">
-				<p data-i18n="bleeding-dying"></p>
-				<label data-i18n="d6-level"></label><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d6+@{level}}} {{roll=[[1d6[1d6] + @{level}[level]]]}} {{name=Bleeding or Dying}} {{charactername=@{character_name}}}" data-i18n-title="bleeding-dying-title" class="btn ui-draggable"></button>
+			<div class="save-bleed input-group -flexrow -aligncenter">
+				<label data-i18n="bleeding-dying"></label>
+				<span data-i18n="d6-level"></span><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d6+@{level}}} {{roll=[[1d6[1d6] + @{level}[level]]]}} {{name=Bleeding or Dying}} {{charactername=@{character_name}}}" data-i18n-title="bleeding-dying-title" class="btn ui-draggable"></button>
 			</div>
 		</div>		
 	</div>
 	<!-- Biography Panel-->
-	<div class="sheet-panel biography-panel minimizable">
+	<div class="biography-panel sheet-panel minimizable">
 		<div class="minimize-control">
 			<input id="biography-minimize-checkbox" class="minimize" type="checkbox" checked />
 			<label for="biography-minimize-checkbox" data-i18n="biography"></label>
 		</div>
-		<div class="sheet-panel-box career-panel">
+		<div class="input-group sheet-panel-box">
 			<h5 class="panel-title" data-i18n="career"></h5>
-			<input type="text" name="attr_career" title="Macro: @{NAME|career}" />
+			<input class="-bold" type="text" name="attr_career" title="Macro: @{NAME|career}" />
 			<label class="sublabel" data-i18n="career-benefit"></label>
-			<textarea name="attr_career_benefit" spellcheck="false" title="Macro: @{NAME|career_benefit}" ></textarea>
+			<textarea class="text-box" name="attr_career_benefit" spellcheck="false" title="Macro: @{NAME|career_benefit}" ></textarea>
 			<label class="sublabel" data-i18n="career-incident"></label>
-			<textarea name="attr_career_incident" spellcheck="false" title="Macro: @{NAME|career_incident}" ></textarea>
+			<textarea class="text-box" name="attr_career_incident" spellcheck="false" title="Macro: @{NAME|career_incident}" ></textarea>
 		</div>
-		<div class="sheet-panel-box complication-panel">
+		<div class="input-group sheet-panel-box">
 			<h5 class="panel-title" data-i18n="complication"></h5>
-			<input type="text" name="attr_complication" title="Macro: @{NAME|complication}" />
+			<input class="-bold" type="text" name="attr_complication" title="Macro: @{NAME|complication}" />
 			<label class="sublabel" data-i18n="complication-benefit"></label>
-			<textarea name="attr_complication_benefit" spellcheck="false" title="Macro: @{NAME|complication_benefit}" ></textarea>
+			<textarea class="text-box" name="attr_complication_benefit" spellcheck="false" title="Macro: @{NAME|complication_benefit}" ></textarea>
 			<label class="sublabel" data-i18n="complication-drawback"></label>
-			<textarea name="attr_complication_drawback" spellcheck="false" title="Macro: @{NAME|complication_drawback}" ></textarea>
+			<textarea class="text-box" name="attr_complication_drawback" spellcheck="false" title="Macro: @{NAME|complication_drawback}" ></textarea>
 		</div>
-		<div class="sheet-panel-box culture-panel">
+		<div class="culture-group grid-span-full sheet-panel-box ">
 			<h5 class="panel-title" data-i18n="culture"></h5>
 			<label class="sublabel" data-i18n="culture-environment"></label>
 			<label class="sublabel" data-i18n="culture-organization"></label>
@@ -842,43 +831,41 @@
 			<input type="text" name="attr_culture_environment" title="Macro: @{NAME|culture_environment}" />
 			<input type="text" name="attr_culture_organization" title="Macro: @{NAME|culture_organization}" />
 			<input type="text" name="attr_culture_upbringing" title="Macro: @{NAME|culture_upbringing}" />
-			<textarea name="attr_culture_environment_description" spellcheck="false" title="Macro: @{NAME|culture_environment_description}" ></textarea>
-			<textarea name="attr_culture_organization_description" spellcheck="false" title="Macro: @{NAME|culture_organization_description}" ></textarea>
-			<textarea name="attr_culture_upbringing_description" spellcheck="false" title="Macro: @{NAME|culture_upbringing_description}" ></textarea>
+			<textarea class="text-box" name="attr_culture_environment_description" spellcheck="false" title="Macro: @{NAME|culture_environment_description}" ></textarea>
+			<textarea class="text-box" name="attr_culture_organization_description" spellcheck="false" title="Macro: @{NAME|culture_organization_description}" ></textarea>
+			<textarea class="text-box" name="attr_culture_upbringing_description" spellcheck="false" title="Macro: @{NAME|culture_upbringing_description}" ></textarea>
 		</div>
 	</div>
 	<!-- Skills and Languages Panel-->
-	<div class="sheet-panel skills-languages-panel minimizable">
+	<div class="skills-panel sheet-panel minimizable">
 		<div class="minimize-control">
 			<input id="skills-languages-minimize-checkbox" class="minimize" type="checkbox" checked />
 			<label for="skills-languages-minimize-checkbox" data-i18n="skills-languages"></label>
 		</div>
-		<div class="skills-panel">
-			<h5 class="panel-title" data-i18n="skills"></h5>
-			<label data-i18n="crafting"></label>
-			<input type="text" name="attr_skills_crafting" title="Macro: @{NAME|skills_crafting}" />
-			<label data-i18n="exploration"></label>
-			<input type="text" name="attr_skills_exploration" title="Macro: @{NAME|skills_exploration}" />
-			<label data-i18n="interpersonal"></label>
-			<input type="text" name="attr_skills_interpersonal" title="Macro: @{NAME|skills_interpersonal}" />
-			<label data-i18n="intrigue"></label>
-			<input type="text" name="attr_skills_intrigue" title="Macro: @{NAME|skills_intrigue}" />
-			<label data-i18n="lore"></label>
-			<input type="text" name="attr_skills_lore" title="Macro: @{NAME|skills_lore}" />
-		</div>
-		<div class="languages-panel">
+		<h5 class="panel-title" data-i18n="skills"></h5>
+		<label data-i18n="crafting"></label>
+		<input type="text" name="attr_skills_crafting" title="Macro: @{NAME|skills_crafting}" />
+		<label data-i18n="exploration"></label>
+		<input type="text" name="attr_skills_exploration" title="Macro: @{NAME|skills_exploration}" />
+		<label data-i18n="interpersonal"></label>
+		<input type="text" name="attr_skills_interpersonal" title="Macro: @{NAME|skills_interpersonal}" />
+		<label data-i18n="intrigue"></label>
+		<input type="text" name="attr_skills_intrigue" title="Macro: @{NAME|skills_intrigue}" />
+		<label data-i18n="lore"></label>
+		<input type="text" name="attr_skills_lore" title="Macro: @{NAME|skills_lore}" />
+		<div class="grid-span-full">
 			<h5 class="panel-title" data-i18n="languages"></h5>
-			<input type="text" data-i18n-placeholder="caelian" name="attr_languages" title="Macro: @{NAME|languages}" />
+			<input class="-fullwidth" type="text" data-i18n-placeholder="caelian" name="attr_languages" title="Macro: @{NAME|languages}" />
 		</div>
 	</div>
 	<!-- Features Panel-->
-	<div class="sheet-panel features-panel minimizable">
+	<div class="features-panel sheet-panel minimizable">
 		<div class="minimize-control">
 			<input id="features-minimize-checkbox" class="minimize" type="checkbox" checked />
 			<label for="features-minimize-checkbox" data-i18n="features"></label>
 		</div>
 		<!-- Class Features Panel -->
-		<div class="sheet-panel-box class-panel">
+		<div class="feature-group sheet-panel-box grid-span-2">
 			<h5 class="panel-title" data-i18n="class-features"></h5>
 			<fieldset class="repeating_classfeatures">
 				<input class="toggle-button -edit" type="checkbox" />
@@ -887,19 +874,19 @@
 					<textarea name="attr_classfeature_description" title="Macro: @{NAME|repeating_classfeatures_<id>_classfeature_description}"></textarea>
 				</div>
 				<div class="feature-accordion -togglehide">
-					<div class="class-feature-header">
+					<div>
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_classfeatureshare">
 							<!-- speech balloon -->
 							&#128172;
 						</button>
 						<label><span name="attr_classfeature_name"></span>:</label>
-						<span name="attr_classfeature_description"></span>
 					</div>
+					<span name="attr_classfeature_description"></span>
 				</div>
 			</fieldset>
 		</div>
 		<!-- Ancestry Features Panel -->
-		<div class="sheet-panel-box ancestry-panel">
+		<div class="feature-group -single sheet-panel-box">
 			<h5 class="panel-title" data-i18n="ancestry-traits"></h5>
 			<fieldset class="repeating_ancestrytraits">
 				<input class="toggle-button -edit" type="checkbox" />
@@ -908,159 +895,135 @@
 					<textarea name="attr_ancestrytrait_description" title="Macro: @{NAME|repeating_ancestrytraits_<id>_ancestrytrait_description}"></textarea>
 				</div>
 				<div class="feature-accordion -togglehide">
-					<div class="anc-feature-header">
+					<div>
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_ancfeatureshare">
 							<!-- speech balloon -->
 							&#128172;
 						</button>
 						<label><span name="attr_ancestrytrait_name"></span>:</label>
-						<span name="attr_ancestrytrait_description"></span>
 					</div>
+					<span name="attr_ancestrytrait_description"></span>
 				</div>
 			</fieldset>
 		</div>
 		<!-- Equipment and Modifiers Panel -->
-		<div class="modifiers-panel sheet-panel-box">
-			<div class="modifiers-title">
-				<h5 class="panel-title" data-i18n="equipment-modifiers"></h5>
-				<span data-i18n="kit"></span>
-				<label><input type="checkbox" name="attr_kit" /></label>
+		<div class="modifiers-group grid-span-full sheet-panel-box">
+			<h5 class="panel-title" data-i18n="equipment-modifiers"></h5>
+			<div class="-center grid-span-full">
+				<label data-i18n="kit"></label>
+				<input type="checkbox" name="attr_kit" />
 			</div>
-			<div class="modifiers">
-				<div class="modifier-card">
-					<input type="text" class="modifier-name" data-i18n-placeholder="modifier-name" name="attr_modifier_name" />
-					<div class="kit-weapon-armor-group">
-						<div class="kit-weapon-input-group">
-							<input type="text" class="kit-weapon" name="attr_kit_weapon" />
-							<label class="sublabel" data-i18n="weapon-implement"></label>
-						</div>
-						<div class="kit-armor-input-group">
-							<input type="text" class="kit-armor" name="attr_kit_armor" />
-							<label class="sublabel" data-i18n="armor"></label>
-						</div>
-					</div>
-					<div class="kit-input-group">
-						<div class="kit-speed-group">
-							<input type="number" class="kit-speed" name="attr_kit_speed" value="0" />
-							<label class="sublabel" data-i18n="speed"></label>
-						</div>
-						<div class="kit-disengage-group">
-							<input type="number" class="kit-disengage" name="attr_kit_disengage" value="0" />
-							<label class="sublabel" data-i18n="disengage"></label>
-						</div>
-						<div class="kit-stamina-group">
-							<input type="number" class="kit-stamina" name="attr_kit_stamina" value="0" />
-							<label class="sublabel" data-i18n="stamina"></label>
-						</div>
-						<div class="kit-stability-group">
-							<input type="number" class="kit-stability" name="attr_kit_stability" value="0" />
-							<label class="sublabel" data-i18n="stability"></label>
-						</div>
-						<div class="kit-melee-distance-group">
-							<input type="number" class="kit-melee-distance" name="attr_kit_melee_distance" value="0" />
-							<label class="sublabel" data-i18n="melee-dist"></label>
-						</div>
-						<div class="kit-ranged-distance-group">
-							<input type="number" class="kit-ranged-distance" name="attr_kit_ranged_distance" value="0" />
-							<label class="sublabel" data-i18n="ranged-dist"></label>
-						</div>
-					</div>
-					<div class="kit-damage">
-						<div class="kit-melee-damage-group">
-							<label class="kit-damage-label" data-i18n="melee-weapon-damage"></label>
-							<div class="kit-melee-damage">
-								<div class="kit-melee-damage-1-input-group">
-									<input type="number" class="kit-melee-damage-1" name="attr_kit_melee_damage_1" value="0" />
-									<label class="sublabel">≤11</label>
-								</div>
-								<div class="kit-melee-damage-2-input-group">
-									<input type="number" class="kit-melee-damage-2" name="attr_kit_melee_damage_2" value="0" />
-									<label class="sublabel">12-16</label>
-								</div>
-								<div class="kit-melee-damage-3-input-group">
-									<input type="number" class="kit-melee-damage-3" name="attr_kit_melee_damage_3" value="0" />
-									<label class="sublabel">17+</label>
-								</div>
-							</div>
-						</div>
-						<div class="kit-ranged-damage-group">
-							<label class="kit-damage-label" data-i18n="ranged-weapon-damage"></label>
-							<div class="kit-ranged-damage">
-								<div class="kit-ranged-damage-1-input-group">
-									<input type="number" class="kit-ranged-damage-1" name="attr_kit_ranged_damage_1" value="0" />
-									<label class="sublabel">≤11</label>
-								</div>
-								<div class="kit-ranged-damage-2-input-group">
-									<input type="number" class="kit-ranged-damage-2" name="attr_kit_ranged_damage_2" value="0" />
-									<label class="sublabel">12-16</label>
-								</div>
-								<div class="kit-ranged-damage-3-input-group">
-									<input type="number" class="kit-ranged-damage-3" name="attr_kit_ranged_damage_3" value="0" />
-									<label class="sublabel">17+</label>
-								</div>
-							</div>
-						</div>
-					</div>
+			<input type="text" class="-bold -center" data-i18n-placeholder="modifier-name" name="attr_modifier_name" />
+			<div class="kit-group armor-group -center">
+				<div class="input-group">
+					<input type="text" class="-center" name="attr_kit_weapon" />
+					<label class="sublabel" data-i18n="weapon-implement"></label>
 				</div>
-				<div class="modifier-effect">
-					<label class="kit-damage-label" data-i18n="effect"></label>
-					<textarea name="attr_modifier_description"></textarea>
+				<div class="input-group">
+					<input type="text" class="-center" name="attr_kit_armor" />
+					<label class="sublabel" data-i18n="armor"></label>
 				</div>
-				<!--<div class="other-modifiers">
-					<div class="other-modifiers-forcemove-group">
-						<input type="number" class="other-modifiers-forcemove" name="attr_forcemove" value="0" />
-						<label class="sublabel" data-i18n="forcemove"></label>
-					</div>
-					<div class="other-modifiers-mag-psi-group">
-						<input type="number" class="other-modifiers-mag-psi" name="attr_mag_psi_dam" value="0" />
-						<label class="sublabel" data-i18n="mag-psi-dam"></label>
-					</div>
-					<div class="other-modifiers-fire-dam-group">
-						<input type="number" class="other-modifiers-fire-dam" name="attr_fire_dam" value="0" />
-						<label class="sublabel" data-i18n="fire-dam"></label>
-					</div>
-					<div class="other-modifiers-sanct-weap-group">
-						<input type="number" class="other-modifiers-sanct-weap" name="attr_sanct_weap" value="0" />
-						<label class="sublabel" data-i18n="sanct-weap"></label>
-					</div>
-				</div>-->
 			</div>
-			<div class="global-damage-container sheet-panel-box">
-				<div class="ds-header">
-					<h5 class="section-title" data-i18n="global-damage-modifiers"></h5>
-					<input type="checkbox" class="toggle-button -edit" />
-					<div class="help-toggle -toggleshow">
-						<span>This is some help text for using the Global damage modifiers</span>
+			<div class="kit-group">
+				<div class="input-group -aligncenter">
+					<input type="number" class="input-wide" name="attr_kit_speed" value="0" />
+					<label class="sublabel" data-i18n="speed"></label>
+				</div>
+				<div class="input-group -aligncenter">
+					<input type="number" class="input-wide" name="attr_kit_disengage" value="0" />
+					<label class="sublabel" data-i18n="disengage"></label>
+				</div>
+				<div class="input-group -aligncenter">
+					<input type="number" class="input-wide" name="attr_kit_stamina" value="0" />
+					<label class="sublabel" data-i18n="stamina"></label>
+				</div>
+				<div class="input-group -aligncenter">
+					<input type="number" class="input-wide" name="attr_kit_stability" value="0" />
+					<label class="sublabel" data-i18n="stability"></label>
+				</div>
+				<div class="input-group -aligncenter">
+					<input type="number" class="input-wide" name="attr_kit_melee_distance" value="0" />
+					<label class="sublabel" data-i18n="melee-dist"></label>
+				</div>
+				<div class="input-group -aligncenter">
+					<input type="number" class="input-wide" name="attr_kit_ranged_distance" value="0" />
+					<label class="sublabel" data-i18n="ranged-dist"></label>
+				</div>
+			</div>
+			<div class="kit-group">
+				<div class="damage-group">
+					<label class="damage-label" data-i18n="melee-weapon-damage"></label>
+					<div class="damage-set">
+						<div class="input-group -aligncenter">
+							<input type="number" class="kit-melee-damage-1" name="attr_kit_melee_damage_1" value="0" />
+							<label class="sublabel">≤11</label>
+						</div>
+						<div class="input-group -aligncenter">
+							<input type="number" class="kit-melee-damage-2" name="attr_kit_melee_damage_2" value="0" />
+							<label class="sublabel">12-16</label>
+						</div>
+						<div class="input-group -aligncenter">
+							<input type="number" class="kit-melee-damage-3" name="attr_kit_melee_damage_3" value="0" />
+							<label class="sublabel">17+</label>
+						</div>
 					</div>
 				</div>
-				<div class="sheet-display-row header">
-					<span></span>
-					<span class="sheet-mod-name" name="attr_mod_name">Modifier Name</span>
-					<span class="sheet-mod-keywords" name="attr_mod_keywords">Keywords</span>
-					<span class="sheet-mod-value">Damage</span>
+				<div class="damage-group">
+					<label class="damage-label" data-i18n="ranged-weapon-damage"></label>
+					<div class="damage-set">
+						<div class="input-group -aligncenter">
+							<input type="number" class="kit-ranged-damage-1" name="attr_kit_ranged_damage_1" value="0" />
+							<label class="sublabel">≤11</label>
+						</div>
+						<div class="input-group -aligncenter">
+							<input type="number" class="kit-ranged-damage-2" name="attr_kit_ranged_damage_2" value="0" />
+							<label class="sublabel">12-16</label>
+						</div>
+						<div class="input-group -aligncenter">
+							<input type="number" class="kit-ranged-damage-3" name="attr_kit_ranged_damage_3" value="0" />
+							<label class="sublabel">17+</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modifier-effect">
+				<label class="kit-damage-label" data-i18n="effect"></label>
+				<textarea class="text-box" name="attr_modifier_description"></textarea>
+			</div>	
+			<div class="global-damage sheet-panel-box">
+				<h5 class="panel-title" data-i18n="global-damage-modifiers"></h5>
+				<input type="checkbox" class="toggle-button -help" />
+				<div class="modifier-help -toggleshow">
+					<p data-i18n="gdm-help-intro"></p>
+					<ul>
+						<li><span data-i18n="gdm-help-name"></span></li>
+						<li><span data-i18n="gdm-help-keywords"></span></li>
+						<li><span data-i18n="gdm-help-damage"></span></li>
+					</ul>
+				</div>
+				<div class="damage-header">
+					<span><!-- Empty Span for Spacing --></span>
+					<label data-i18n="global-damage-modifier-name"></label>
+					<label data-i18n="keywords"></label>
+					<label data-i18n="damage"></label>
 				</div>
 				<fieldset class="repeating_damagemods">
 					<input type="checkbox" class="toggle-button -edit" />
-
-					<div class="sheet-display-row">
-						<input type="checkbox" name="attr_is_active" value="1" checked />
-						<span class="sheet-mod-name" name="attr_mod_name">New Modifier</span>
-						<span class="sheet-mod-keywords" name="attr_mod_keywords">Keywords</span>
-						<span class="sheet-mod-value"><span name="attr_mod_value">0</span> Damage</span>
-					</div>
-					<div class="sheet-edit-row grid-span-full -toggleshow">
-						<div class="sheet-input-group">
-							<label>Modifier Name</label>
-							<input type="text" name="attr_mod_name" placeholder="e.g., Acolyte of Fire" />
+					<input type="checkbox" name="attr_is_active" value="1" checked />
+					<span name="attr_mod_name" data-i18n="global-damage-modifier-name"></span>
+					<span name="attr_mod_keywords" data-i18n="keywords"></span>
+					<span><span name="attr_mod_value">0</span>&nbsp;<span data-i18n="damage"></span></span>
+					<div class="edit-row grid-span-full -toggleshow">
+						<div class="input-group">
+							<label data-i18n="global-damage-modifier-name"></label>
+							<input type="text" name="attr_mod_name" data-i18n-placeholder="global-damage-name-placeholder" />
 						</div>
-
-						<div class="sheet-input-group">
-							<label>Keywords (Comma separated)</label>
-							<input type="text" name="attr_mod_keywords" placeholder="Fire, Magic" />
+						<div class="input-group">
+							<label data-i18n="keywords"></label>
+							<input type="text" name="attr_mod_keywords" data-i18n-placeholder="global-damage-keyword-placeholder" />
 						</div>
-
-						<div class="sheet-input-group">
-							<label>Damage Bonus</label>
+						<div class="input-group">
+							<label data-i18n="damage-bonus"></label>
 							<input type="number" name="attr_mod_value" value="0" />
 						</div>
 					</div>
@@ -1068,7 +1031,7 @@
 			</div>
 		</div>
 		<!-- Perks Panel -->
-		<div class="sheet-panel-box perks-panel">
+		<div class="feature-group sheet-panel-box grid-span-2">
 			<h5 class="panel-title" data-i18n="perks"></h5>
 			<fieldset class="repeating_perks">
 				<input class="toggle-button -edit" type="checkbox" />
@@ -1077,19 +1040,19 @@
 					<textarea name="attr_perk_description"></textarea>
 				</div>
 				<div class="feature-accordion -togglehide">
-					<div class="perk-feature-header">
+					<div>
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_perkfeatureshare">
 							<!-- speech balloon -->
 							&#128172;
 						</button>
 						<label><span name="attr_perk_name"></span>:</label>
-						<span name="attr_perk_description"></span>
 					</div>
+					<span name="attr_perk_description"></span>
 				</div>
 			</fieldset>
 		</div>
 		<!-- Titles Panel -->
-		<div class="sheet-panel-box titles-panel">
+		<div class="feature-group -single sheet-panel-box">
 			<h5 class="panel-title" data-i18n="titles"></h5>
 			<fieldset class="repeating_titles">
 				<input class="toggle-button -edit" type="checkbox" />
@@ -1098,14 +1061,14 @@
 					<textarea name="attr_title_description"></textarea>
 				</div>
 				<div class="feature-accordion -togglehide">
-					<div class="title-feature-header">
+					<div>
 						<button class="feature-button" type="action" data-i18n-title="feature-share" name="act_titlefeatureshare">
 							<!-- speech balloon -->
 							&#128172;
 						</button>
 						<label><span name="attr_title_name"></span>:</label>
-						<span name="attr_title_description"></span>
 					</div>
+					<span name="attr_title_description"></span>
 				</div>
 			</fieldset>
 		</div>

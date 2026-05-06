@@ -270,6 +270,7 @@
 }
 
 .charsheet .panel-title {
+	grid-column: 1 / -1;
 	font-size: 14px;
 	text-align: center
 }
@@ -308,6 +309,10 @@
 		content: 'y';
 	}
 	
+	&.-help::before { /* Help Button Styling */
+		content: '?';
+	}
+	
 	&:hover {
 		color: var(--color-accent-steel);
 	}
@@ -329,6 +334,10 @@
 /* Minimize Controls */
 .minimize {
 	display:none; 
+}
+
+.minimize-control {
+	grid-column: -1 / 1;
 }
 
 [id*='minimize-checkbox']:checked + label::before {
@@ -516,6 +525,7 @@ label[for*='minimize']::before {
 .input-group {
 	display: flex;
 	flex-direction: column;
+	flex: 1;
 	
 	&.-flexrow {
 		flex-direction: row;
@@ -699,105 +709,56 @@ label[for*='minimize']::before {
 	}
 }
 
-.potencies {
-	grid-column-start: 1;
-	grid-column-end: span 2;
-	display: flex;
-	gap: 0.25em;
-	flex-direction: column;
-}
-
-.potency-input-group {
-  flex-direction: row;
-  display: flex;
-  justify-content: right;
-  gap: 0.5em;
-}
-
-.potencies .potency-input-group input[type="number"] {
-	width:4.5em;
-}
-
-.potency-input-group {
-  flex-direction: row;
-  display: flex;
-  justify-content: right;
-  gap: 0.5em;
-}
-
-.potencies .potency-input-group input[type="number"] {
-	width:4.5em;
-}
-
-
 /* Growing Resource Table */
-.has-resource-toggle[value="0"] ~ .growing-resource {
+.has-resource-toggle[value="0"] ~ .growing-resource { /* Toggles Growing Resource Panel */
     display: none;
 }
 
 .growing-resource {
 	display: block;
+	padding: 8px 20px;
+	position: relative;
 }
 
-.growing-resource-grid {
+.resource-grid {
     display: grid;
     grid-template-columns: 80px 1fr; 
     gap: 4px;
     align-items: baseline;
-}
-
-.grid-header {
-    display: contents; 
-    font-weight: bold;
-    border-bottom: 1px solid #000;
-}
-
-.resource-container {
-	position: relative;
-}
-
-.resource-row {
-    display: contents;
-}
-
-.resource-row .edit-mode {
-    display: none;
-}
-
-.resource-row .display-mode {
-	display: contents;
 	
+	.-contents {
+		display: contents; 
+    }
+	
+	.grid-header {
+		font-weight: bold;
+		border-bottom: 1px solid #000;
+	}
+	
+	.text-box {
+		height: 40px;
+		resize: vertical;
+	}
 }
 
-.resource-container .toggle-button:checked ~ .growing-resource-grid .display-mode {
-    display: none;
-}
-.resource-container .toggle-button:checked ~ .growing-resource-grid .edit-mode {
-    display: contents;
+.row-toggle[value="0"] + .resource-row { /* Toggles each row of the growing resources table */
+	display: none; 
 }
 
-.row-toggle-2[value="0"] ~ .resource-container { display: none; }
-.row-toggle-2[value="0"] ~ .resource-container .tier-2 .display-mode { display: none; }
-.row-toggle-4[value="0"] ~ .resource-container .tier-4 .display-mode { display: none; }
-.row-toggle-6[value="0"] ~ .resource-container .tier-6 .display-mode { display: none; }
-.row-toggle-8[value="0"] ~ .resource-container .tier-8 .display-mode { display: none; }
-.row-toggle-10[value="0"] ~ .resource-container .tier-10 .display-mode { display: none; }
-.row-toggle-12[value="0"] ~ .resource-container .tier-12 .display-mode { display: none; }
-
-.growing-resource-grid input[type="text"], 
-.growing-resource-grid textarea {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.growing-resource-grid textarea {
-    height: 40px;
-    resize: vertical;
-}
-.growing-resource {
-	grid-column: 1 / -1;
-	padding-left: 20px;
-	padding-right: 20px;
+.potencies {
+	display: flex;
+	gap: 0.25em;
+	flex-direction: column;
+	
+	.input-group {
+		justify-content: right;
+		gap: 0.5em;
+		
+		input.input-md {
+			width: 4.5em;
+			text-align: center;
+		}
+	}
 }
 
 .damage-mod-panel {
@@ -811,49 +772,30 @@ label[for*='minimize']::before {
 
 .resource-description-panel {
 	grid-column: 7/-1;
-}	
-
-.resource-description-panel > textarea {
-	width: 100%;
-	height: 7em;
-	resize: vertical;
-	box-sizing: border-box;
-}
-
-
-
-.conditions-panel {
-	grid-column: 1 /-1;
+	
+	& > .text-box {
+		width: 100%;
+		height: 7em;
+		resize: vertical;
+		box-sizing: border-box;
+	}
 }
 
 .repcontainer[data-groupname="repeating_conditions"] > .repitem {
 	display: grid;
 	grid-template-columns: 3fr auto 1fr;
-	gap: 0.25em;
-	align-items: start;
-}
-
-.repcontainer[data-groupname="repeating_conditions"] > .repitem > input {
-	grid-row-end: span 2;
-}
-
-.savethrow-input-group {
-	display: flex;
+	gap: 1em;
 	align-items: center;
+}
+
+.save-bleed {
 	flex-wrap: nowrap;
 	gap: 6px;
-}
-
-.savethrow-input-group > input {
-	width: 50px;
-	text-align: center;
-}
-
-.bleed-dying-input-group {
-	display: flex;
-	align-items: center;
-	flex-wrap: nowrap;
-	gap: 6px;
+	
+	& > .input-md {
+		width: 50px;
+		text-align: center;
+	}
 }
 
 /* -- Biography Panel Styling */
@@ -861,313 +803,138 @@ label[for*='minimize']::before {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 0.5em;
+	
+	.input-group {
+		text-align: center;
+	}
+	
+	.text-box {
+		height: 75px;
+		resize: vertical;
+	}
+	
+	.-bold {
+		font-weight: bold;
+	}
 }
 
-.biography-panel > .minimize-control {
-	grid-column-start: 1;
-	grid-column-end: -1;
-}
-
-.career-panel {
-	display: grid;
-}
-
-.career-panel > input,
-.career-panel > label {
-	text-align: center;
-}
-
-.career-panel > input {
-	font-weight: bold;
-}
-
-.career-panel > textarea {
-	height: 75px;
-	resize: vertical;
-}
-
-.complication-panel {
-	display: grid;
-}
-
-.complication-panel > input,
-.complication-panel > label {
-	text-align: center;
-}
-
-.complication-panel > input {
-	font-weight: bold;
-}
-
-.complication-panel > textarea {
-	height: 75px;
-	resize: vertical;
-}
-
-.culture-panel {
-	grid-column-start: 1;
-	grid-column-end: -1;
+.culture-group {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 0.2em;
-}
-
-.culture-panel > .panel-title {
-	grid-column-start: 1;
-	grid-column-end: -1;
-}
-
-.culture-panel > label {
 	text-align: center;
-}
-
-.culture-panel > textarea {
-	height: 75px;
-	resize: vertical;
 }
 
 /* -- Skills and Language Panel Styling */
 .skills-panel {
 	display: grid;
 	grid-template-columns: auto 1fr;
-	gap: 0.25em;
+	gap: 0.5em;
 	align-items: center;
-}
-.skills-panel > .panel-title {
-	grid-column-start: 1;
-	grid-column-end: -1;
-}
-
-.languages-panel {
-	display: grid;
-	grid-template-columns: 1fr;
-}
-.languages-panel > .panel-title {
-	grid-column-start: 1;
-	grid-column-end: -1;
+	
+	.-fullwidth {
+		width: 100%;
+	}
 }
 
 /* -- Features Panel Styling */
 .features-panel {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 0.5em;
 }
-.features-panel > .minimize-control {
-	grid-column-start: 1;
-	grid-column-end: -1;
+
+.feature-group {
+	.repcontainer {
+		display: grid;
+		gap: .25em;	
+		grid-template-columns: 1fr 1fr;
+		
+		.repitem {
+			display: grid;
+			grid-gap: 0.3em;
+			overflow-wrap: anywhere;
+			border: var(--border-main);
+			border-radius: var(--border-radius);
+			background-color: var(--color-bg-subsection);
+			padding: var(--sheet-padding);
+			box-shadow: inset 1px 1px 2px #555, inset -1px -1px 2px #111, 0 2px 6px rgba(0, 0, 0, 0.5);
+  		}
+	}
+	
+	&.-single .repcontainer {
+		grid-template-columns: 1fr;
+	}
+	
+	.feature-header {
+		gap: 0.2em;
+		flex-wrap: wrap;
+	}
 }
 
-.class-panel {
-	grid-column-end: span 4;
-}
-.ancestry-panel {
-	grid-column-end: span 2;
-}
-
-.repcontainer[data-groupname="repeating_classfeatures"],
-.repcontainer[data-groupname="repeating_perks"] {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 0.2em;
-}
-
-.repcontainer[data-groupname="repeating_ancestrytraits"] {
-	display: grid;
-	grid-gap: 0.2em;
+.feature-accordion {	
+	input {
+		flex: 1 1 auto;
+		font-weight: bold;
+	}
+	
+	textarea {
+		width: 100%;
+		resize: vertical;
+	}
+	
+	span {
+		white-space-collapse: preserve;
+	}
 }
 
-.class-feature-header,
-.anc-feature-header,
-.perk-feature-header,
-.title-feature-header {
-	display: flex;
-	align-items: center;
-	gap: 0.2em;
-	flex-wrap: wrap;
-}
-
-.class-feature-header input[type="text"],
-.anc-feature-header input[type="text"],
-.perk-feature-header input[type="text"],
-.title-feature-header input[type="text"] {
-	flex: 1 1 auto;
-}
-
-.class-feature-header textarea,
-.anc-feature-header textarea,
-.perk-feature-header textarea,
-.title-feature-header textarea {
-	flex: 1 1 100%;
-	resize: vertical;
-}
-
-.class-feature-header span,
-.anc-feature-header span,
-.perk-feature-header span,
-.title-feature-header span {
-	white-space-collapse: preserve;
-}
-
-.feature-accordion textarea {
-  width: 100%;
-}
-
-.repcontainer[data-groupname="repeating_classfeatures"] > .repitem,
-.repcontainer[data-groupname="repeating_ancestrytraits"] > .repitem,
-.repcontainer[data-groupname="repeating_perks"] > .repitem,
-.repcontainer[data-groupname="repeating_titles"] > .repitem {
-	display: grid;
-	grid-gap: 0.3em;
-	overflow-wrap: anywhere;
-	padding: 5px;
-	box-shadow:
-		inset 1px 1px 2px #555,
-		inset -1px -1px 2px #111,
-		0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-.repcontainer[data-groupname="repeating_classfeatures"] > .repitem > input,
-.repcontainer[data-groupname="repeating_ancestrytraits"] > .repitem > input {
-	font-weight: bold;
-}
-
-.repcontainer[data-groupname="repeating_classfeatures"] > .repitem > textarea,
-.repcontainer[data-groupname="repeating_ancestrytraits"] > .repitem > textarea,
-.repcontainer[data-groupname="repeating_perks"] > .repitem > textarea,
-.repcontainer[data-groupname="repeating_titles"] > .repitem > textarea {
-	height: 50px;
-	resize: vertical;
-}
-
-.perks-panel {
-	grid-column-end: span 4;
-}
-
-.titles-panel {
-	grid-column-end: span 2;
-}
-
-.modifiers-panel {
-	grid-column-start: 1;
-	grid-column-end: -1;
-}
-
-.modifiers-title {
-	text-align: center;
-}
-
-.modifier-card {
+.modifiers-group {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: 0.5em;
-	text-align: center;
+	gap: 0.25em;
+	padding: 1em 4em;
+	
+	.-center {
+		text-align: center;
+	}
+		
+	.-bold {
+		font-weight: bold;
+	}
+	
+	.kit-group {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.input-wide {
+		min-width: 6em;
+	}
+	
+	.armor-group {
+		gap: 2em;
+	}
+	
 }
 
-.modifier-name {
-	font-weight: bold;
-	text-align: center;
-	margin-left: 4em;
-	margin-right: 4em;
-}
-
-.kit-weapon-armor-group {
-	display: flex;
-	justify-content: space-between;
-	gap: 2em;
-	margin-left: 4em;
-	margin-right: 4em;
-}
-
-.kit-weapon-armor-group input {
-	text-align: center;
-}
-
-.kit-weapon-input-group,
-.kit-armor-input-group {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-}
-
-.kit-input-group {
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 1em;
-	margin-left: 4em;
-	margin-right: 4em;
-}
-
-.other-modifiers {
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 1em;
-	margin-left: 4em;
-	margin-right: 4em;
-	margin-top: 0.5em;
-}
-
-.kit-input-group > div,
-.other-modifiers > div {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.kit-speed-group input,
-.kit-disengage-group input,
-.kit-stamina-group input,
-.kit-stability-group input,
-.kit-melee-distance-group input,
-.kit-ranged-distance-group input,
-.other-modifiers-forcemove-group input,
-.other-modifiers-mag-psi-group input,
-.other-modifiers-fire-dam-group input,
-.other-modifiers-sanct-weap-group input {
-	min-width:6em;
-}
-
-.kit-damage {
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-  width: 100%;
-  padding: 0 2em;
-  box-sizing: border-box;
-}
-
-.kit-damage-label,
-.other-modifiers-label {
-  font-size: 0.75em;
-}
-
-.kit-melee-damage-group,
-.kit-ranged-damage-group {
+.damage-group {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	flex: 1;
 	text-align: center;
+	
+	.damage-label {
+		font-size: 0.9em;
+	}
 }
 
-.kit-melee-damage,
-.kit-ranged-damage {
+.damage-set {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 0.5em;
 	margin-top: 0.5em;
-}
-
-.kit-melee-damage > div,
-.kit-ranged-damage > div {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 }
 
 .modifier-effect {
@@ -1176,19 +943,48 @@ label[for*='minimize']::before {
 	align-items: center;
 	width: 100%;
 	box-sizing: border-box;
+	
+	.text-box {
+		width: 75%;
+		height: 100px;
+		resize: vertical;
+	}
 }
 
-.modifier-effect textarea {
-	width: 50%;
+/* Global Damage Modifier */
+.global-damage {
+	margin-top: 10px;
+	position: relative; 
+	
+	.section-title {
+		text-align: center;
+	}
+
+	.damage-header,
+	.repcontainer > .repitem {
+		display: grid;
+		grid-template-columns: 30px 1fr 1fr 80px 20px;
+		align-items: center;
+		padding: 5px 0;
+		border-bottom: var(--border-main);
+	}
+	
+	.edit-row { 
+		display: grid;
+		grid-template-columns: 1fr 1fr auto;
+		gap: 0.25em;
+		background: var(--color-bg-section);
+		padding: var(--sheet-padding);
+	}
 }
+
+
 /* -- Abilities Panel*/
-
 .abilities-panel {
 	display: grid;
 	grid-gap: 0.5em;
 	padding-top: 5px;
 }
-
 
 /* ---- Ability Tab Buttons */
 .abilities-buttons {
@@ -2323,44 +2119,4 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 
 .npc-stat input {
 	min-width: 4.5em;
-}
-
-
-
-/* Hide Edit Row by default */
-.sheet-edit-row {
-    background: var(--color-bg-section);
-    padding: var(--sheet-padding);
-}
-
-.sheet-edit-icon {
-    margin-left: -20px;
-    font-style: italic;
-    font-weight: bold;
-    color: #0073aa;
-}
-
-/* Formatting for the display row */
-.sheet-display-row {
-    display: grid;
-    grid-template-columns: 30px 1fr 1fr 80px 20px;
-    align-items: center;
-    padding: 5px 0;
-}
-
-.sheet-display-row.header {
-	font-weight: bold;
-}
-
-.global-damage-container {
-	margin-top: 10px;
-}
-
-.global-damage-container .section-title {
-	text-align: center;
-}
-
-
-.repcontainer[data-groupname="repeating_damagemods"] > .repitem {
-	border-bottom: var(--border-main);
 }
