@@ -992,251 +992,80 @@ label[for*='minimize']::before {
 	border-bottom: 2px solid;
 }
 
-.abilities-buttons button[type="action"] {
-  flex: 1;
-  padding: 8px 12px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.2s ease;
-  border-radius: 8px 8px 0 0;
+.abilities-buttons .tab-button.tab-button {	/* Needs high specificity to overcome default button styling */
+	flex: 1;
+	padding: 8px 12px;
+	font-weight: bold;
+	border-radius: 8px 8px 0 0;
 }
 
-.abilities-buttons button[type="action"]:hover {
-  background-color: var(--color-button-hover-bg);
-}
-
-.charsheet .sheet-action,
-.charsheet .sheet-maneuver,
-.charsheet .sheet-triggered,
-.charsheet .sheet-noaction,
-.charsheet .sheet-move,
-.charsheet .sheet-npcabilities,
-.charsheet .sheet-malice,
-.charsheet .sheet-villainaction {
-    display: none;
-}
-
-.charsheet .sheet-tabstoggle[value="action"] ~ div.sheet-action,
-.charsheet .sheet-tabstoggle[value="maneuver"] ~ div.sheet-maneuver,
-.charsheet .sheet-tabstoggle[value="triggered"] ~ div.sheet-triggered,
-.charsheet .sheet-tabstoggle[value="noaction"] ~ div.sheet-noaction,
-.charsheet .sheet-tabstoggle[value="move"] ~ div.sheet-move,
-.charsheet .sheet-tabstoggle[value="npcabilities"] ~ div.sheet-npcabilities,
-.charsheet .sheet-tabstoggle[value="malice"] ~ div.sheet-malice,
-.charsheet .sheet-tabstoggle[value="villainaction"] ~ div.sheet-villainaction {
-	display: block;
-}
-
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .sheet-villainaction,
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .sheet-malice {
-	display: none;
-}
-
-.charsheet .sheet-tabstoggle[value="action"] ~ .abilities-buttons .sheet-button-action,
-.charsheet .sheet-tabstoggle[value="maneuver"] ~ .abilities-buttons .sheet-button-maneuver,
-.charsheet .sheet-tabstoggle[value="triggered"] ~ .abilities-buttons .sheet-button-triggered,
-.charsheet .sheet-tabstoggle[value="noaction"] ~ .abilities-buttons .sheet-button-noaction,
-.charsheet .sheet-tabstoggle[value="move"] ~ .abilities-buttons .sheet-button-move,
-.charsheet .sheet-tabstoggle[value="npcabilities"] ~ .abilities-buttons .sheet-button-npcabilities,
-.charsheet .sheet-tabstoggle[value="malice"] ~ .abilities-buttons .sheet-button-malice,
-.charsheet .sheet-tabstoggle[value="villainaction"] ~ .abilities-buttons .sheet-button-villainaction {
+.sheet-tabstoggle[value="action"] + .abilities-buttons > .tab-button.-action,
+.sheet-tabstoggle[value="maneuver"] + .abilities-buttons > .tab-button.-maneuver,
+.sheet-tabstoggle[value="triggered"] + .abilities-buttons > .tab-button.-triggered,
+.sheet-tabstoggle[value="noaction"] + .abilities-buttons > .tab-button.-noaction,
+.sheet-tabstoggle[value="move"] + .abilities-buttons > .tab-button.-move {
 	background-color: var(--color-bg-subsection);
 	border-color: var(--color-button-hover-border);
 }
 
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .abilities-buttons .sheet-button-villainaction,
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .abilities-buttons .sheet-button-malice,
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_ability_tab_show"][value="1"])) .abilities-buttons {
+/* Ability Tab display logic */
+.sheet-tabstoggle[value="action"] ~ .sheet-action,
+.sheet-tabstoggle[value="maneuver"] ~ .sheet-maneuver,
+.sheet-tabstoggle[value="triggered"] ~ .sheet-triggered,
+.sheet-tabstoggle[value="noaction"] ~ .sheet-noaction,
+.sheet-tabstoggle[value="move"] ~ .sheet-move {
+	display: grid;
+}
+
+/* Ability group Styling */
+.ability-group {
 	display: none;
+	
+	.repcontainer,
+	.standard-abilities {
+		display: grid; 
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 0.5em;
+		
+		.repitem,
+		.standard-abilities-item {
+			position: relative;
+			border: var(--border-main);
+			border-radius: var(--border-radius);
+			background-color: var(--color-bg-subsection);
+			box-shadow:
+				inset 1px 1px 2px #555,
+				inset -1px -1px 2px #111,
+				0 2px 6px rgba(0, 0, 0, 0.5);
+		}
+	}
+	
 }
 
-
-.power-roll label.sublabel {
-	background-color: var(--color-bg-subsection);
-	border: var(--border-main);
-	border-radius: var(--border-radius);
-	padding: 1px;
-	text-align: center;
-	margin: 4PX 0px 0px 0px;
-	line-height: normal;
-} 
-
-.repcontainer[data-groupname="repeating_abilities"],
-.repcontainer[data-groupname="repeating_maneuvers"],
-.repcontainer[data-groupname="repeating_triggered"],
-.repcontainer[data-groupname="repeating_noaction"],
-.repcontainer[data-groupname="repeating_moves"],
-.free-strikes,
-.default-maneuvers,
-.default-moves,
-.default-noaction,
-.default-mainaction,
-.standard-abilities {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 0.5em;
-}
-
-.standard-abilities-item {
-	position: relative;
-}
-
-/* -- Ability Card Styling */
-
-.repcontainer[data-groupname="repeating_abilities"],
-.repcontainer[data-groupname="repeating_maneuvers"],
-.repcontainer[data-groupname="repeating_triggered"],
-.repcontainer[data-groupname="repeating_noaction"],
-.repcontainer[data-groupname="repeating_moves"],
-.repcontainer[data-groupname="repeating_npcabilities"],
-.repcontainer[data-groupname="repeating_malice"],
-.repcontainer[data-groupname="repeating_villainaction"] {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 0.5em;
-}
-
-.standard-abilities-item,
-.repcontainer[data-groupname="repeating_abilities"] > .repitem,
-.repcontainer[data-groupname="repeating_maneuvers"] > .repitem,
-.repcontainer[data-groupname="repeating_triggered"] > .repitem,
-.repcontainer[data-groupname="repeating_noaction"] > .repitem,
-.repcontainer[data-groupname="repeating_moves"] > .repitem,
-.sheet-npcabilities > .repcontainer[data-groupname="repeating_npcabilities"] > .repitem,
-.sheet-malice > .repcontainer[data-groupname="repeating_malice"] > .repitem,
-.sheet-villainaction > .repcontainer[data-groupname="repeating_villainaction"] > .repitem {
-	border: var(--border-main);
-	border-radius: var(--border-radius);
-	background-color: var(--color-bg-subsection);
-	padding: var(--sheet-padding);
-	box-shadow:
-		inset 1px 1px 2px #555,
-		inset -1px -1px 2px #111,
-		0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-.ability-subtype-selector, .ability-subtype {
-  grid-column-start: 4;
-  grid-column-end: span 2;
-  justify-self: right;
-  font-weight: bold;
-  
-}
-
+/* Ability Card */
+/* Used by both Hero and Monster Sheets */
 .ability-card {
 	display: grid;
 	grid-template-columns: 30px repeat(4, 1fr) 30px;
 	gap: 2px;
-}
-
-.ability-name {
-	grid-column-start: 2;
-	grid-column-end: span 2;
-	font-weight: bold;
-	width: max-content;
-	max-width: 240px;
-}
-
-.npc-ability-solo-monster {
-
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-}
-
-.npc-ability-solo-monster input {
-	grid-column-end: span 2;
-}
-
-.ability-description {
-	grid-column: 1 / -1;
-	font-style: italic;
-}
-
-.ability-subtype-selector:not(:has(> option[value="heroic-ability"]:checked)) ~ .ability-heroic-cost,
-.ability-subtype-selector:not(:has(> option[value="solo-monster"]:checked)) ~ .npc-ability-solo-monster,
-.ability-subtype-selector:not(:has(> option[value*="trait"]:checked)) ~ .npc-ability-trait,
-.ability-subtype-selector:not(:has(> option[value*="malice"]:checked)) ~ .npc-ability-malice-cost,
-.ability-subtype-selector:not(:has(> option[value*="ability"]:checked)) ~ .ability-details {
-	display: none;
-}
-
-.ability-type:has(> option[value*="triggered"]:checked) ~ .triggered-hide,
-.ability-type:not(:has(> option[value*="triggered"]:checked)) ~ .triggered-show {
-	display: none;
-}
-
-.trait-show {
-	white-space-collapse: preserve;
-}
-
-.power-roll {
-	display: grid;
-	grid-template-columns: auto 1fr;
-	align-items: center;
-	grid-column: 1 / -1;
-	column-gap: 0.5em;
-}
-
-.power-roll label.sublabel {
-	background-color: var(--color-bg-subsection);
-	border: var(--border-main);
-	border-radius: var(--border-radius);
-	padding: 1px;
-	text-align: center;
-	margin: 4PX 0px 0px 0px;
-	line-height: normal;
-}
-
-.power-roll-mods {
-	grid-column: 1 / -1;
-}
-
-.power-roll-tier-effect {
-	font-size: 0.8em;
-}
-
-.tier-row {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-	align-items: center;
-	column-gap: 0.5em;
-	grid-column: 1 / -1;
-}
-
-.potency-tier-1,
-.potency-tier-2,
-.potency-tier-3 {
-	display: flex;
-	gap: 0.25em;
-	align-items: center;
-}
-
-
-.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll > .power-roll-mods > :not(input[type="checkbox"]):not(label),
-.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll > :not(.power-roll-mods),
-.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods input[name="attr_has_potency"],
-.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods label[data-i18n="potency"],
-.ability-details:has([name="attr_has_potency"]:not(:checked)) .potency-tier-1,
-.ability-details:has([name="attr_has_potency"]:not(:checked)) .potency-tier-2,
-.ability-details:has([name="attr_has_potency"]:not(:checked)) .potency-tier-3,
-.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods input[name="attr_has_pre_effect"],
-.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods label[data-i18n="pre-effect"] {
-	display: none;
-}
-
-#ability-subtype-selector:not([value*="heroic"]) ~ .heroic-show,
-#ability-subtype-selector:not([value*="villain"]):not([value*="signature"]) ~ .subtype-hide,
-#ability-subtype-selector:not([value*="malice"]) ~ .malice-show,
-#ability-subtype-selector:not([value*="trait"]) ~ .trait-show,
-#ability-subtype-selector[value*="trait"] ~ .details-hide,
-#ability-subtype-selector:not([value="solo-monster"]) ~ .solo-monster-show,
-#ability-subtype-selector[value="solo-monster"] ~ .details-hide {
-	display: none;
-}
-
-.ability-card input[name*="attr_has"]:not([value="on"]) + div {
-	display: none;
+	padding: var(--sheet-padding);
+	
+	.name {
+		grid-column-start: 2;
+		grid-column-end: span 2;
+		font-weight: bold;
+		width: max-content;
+		max-width: 240px;
+	}
+	
+	.ability-subtype-selector, .ability-subtype {
+		grid-column-start: 4;
+		grid-column-end: span 2;
+		justify-self: right;
+		font-weight: bold;
+	}
+	
+	
 }
 
 .ability-card .ability-effect,
@@ -1249,6 +1078,72 @@ label[for*='minimize']::before {
 	margin-bottom: 0.2em;
 }
 
+.ability-details {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	font-size: 0.9em;
+	
+	.ability-description {
+		grid-column: 1 / -1;
+		font-style: italic;
+	}
+	
+	.ability-type, .ability-target {
+		text-align: end;
+	}
+
+	.ability-distance {
+		grid-column-start: 1;
+	}
+}
+
+.power-roll {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	grid-column: 1 / -1;
+	column-gap: 0.5em;
+	
+	.sublabel {
+		background-color: var(--color-bg-subsection);
+		border: var(--border-main);
+		border-radius: var(--border-radius);
+		padding: 1px;
+		text-align: center;
+		margin: 4PX 0px 0px 0px;
+		line-height: normal;
+	}
+	
+	.power-roll-mods {
+		grid-column: 1 / -1;
+	}
+}
+
+.tier-row {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	column-gap: 0.5em;
+	grid-column: 1 / -1;
+
+	.power-roll-tier-effect {
+		font-size: 0.8em;
+	}
+}
+	
+.npc-ability-solo-monster { /* Solo Monster styling for the NPC cards */
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	
+	input {
+		grid-column-end: span 2;
+	}
+}
+
+.trait-show {
+	white-space-collapse: preserve;
+}
+
 .ability-custom,
 .ability-malice,
 .ability-trigger > span,
@@ -1257,177 +1152,178 @@ label[for*='minimize']::before {
 	white-space-collapse: preserve;
 }
 
-.ability-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  font-size: 0.9em;
-}
-
-.ability-type, .ability-target {
-	text-align: end;
-}
-
-.ability-distance {
-	grid-column-start: 1;
-}
-
-.ability-card.-togglehide input:not([value*="triggered"]) ~ .ability-trigger,
-.ability-card.-togglehide input[value="no-action"] ~ .ability-type {
-	display: none;
-}
-
-.ability-card .power-roll .power-roll-mods button[type="roll"]::before {
-  content: "k";
-  font-family: "dicefontd10";
-}
-
 .ability-card .power-roll .power-roll-mods button[type="roll"] {
-  margin-left: 0px;
+	margin-left: 0px;
+  
+	&::before {
+		content: "k";
+		font-family: "dicefontd10";
+	}
 }
 
-.ability-toggle-group {
+.ability-toggle-group { /* Toggleable Abilities Features (Spend, Effect, etc) */
 	grid-column: 1 / -1;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.2em;
 	align-items: center;
+	
+	textarea {
+		width: 100%;
+	}
+	
+	input:not(:checked) ~ textarea,
+	input:not(:checked) ~ div
+	{
+		display: none
+	}
 }
 
-.ability-toggle-group textarea {
-	width: 100%;
+/* Display logic for aspects of the ability card */
+/* Checks selected ability subtype to display or hide appropriate elements */
+.ability-subtype-selector:not(:has(> option[value="heroic-ability"]:checked)) ~ .ability-heroic-cost,
+.ability-subtype-selector:not(:has(> option[value="solo-monster"]:checked)) ~ .npc-ability-solo-monster,
+.ability-subtype-selector:not(:has(> option[value*="trait"]:checked)) ~ .npc-ability-trait,
+.ability-subtype-selector:not(:has(> option[value*="malice"]:checked)) ~ .npc-ability-malice-cost,
+.ability-subtype-selector:not(:has(> option[value*="ability"]:checked)) ~ .ability-details {
+	display: none;
 }
 
-.ability-toggle-group input:not(:checked) ~ textarea,
-.ability-toggle-group input:not(:checked) ~ div
- {
-	display: none
+/* Same as above, but for the Display View, which doesn't use a select element */
+#ability-subtype-selector:not([value*="heroic"]) ~ .heroic-show,
+#ability-subtype-selector:not([value*="villain"]):not([value*="signature"]) ~ .subtype-hide,
+#ability-subtype-selector:not([value*="malice"]) ~ .malice-show,
+#ability-subtype-selector:not([value*="trait"]) ~ .trait-show,
+#ability-subtype-selector[value*="trait"] ~ .details-hide,
+#ability-subtype-selector:not([value="solo-monster"]) ~ .solo-monster-show,
+#ability-subtype-selector[value="solo-monster"] ~ .details-hide {
+	display: none;
 }
+
+/* Hides parts of the power roll element when the checkbox is not checked. */
+.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll > .power-roll-mods > :not(input[type="checkbox"]):not(label),
+.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll > :not(.power-roll-mods),
+.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods input[name="attr_has_potency"],
+.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods label[data-i18n="potency"],
+.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods input[name="attr_has_pre_effect"],
+.ability-details:has([name="attr_has_power_roll"]:not(:checked)) > .power-roll .power-roll-mods label[data-i18n="pre-effect"] {
+	display: none;
+}
+
+/* Hides the next div element if the input directly before it is not "on"
+   Used for the toggleable elements (Spend, Effect, etc) */
+.ability-card input[name*="attr_has"]:not([value="on"]) + div {
+	display: none;
+}
+
+/* Displays the triggered text box for the Edit View which uses  a select element */
+.ability-type:not(:has(> option[value*="triggered"]:checked)) ~ .triggered-show {
+	display: none;
+}
+
+/* Displays the triggered text for the Display View
+   Hides the ability type text if the type is no-action in the Display View */
+.ability-card.-togglehide input:not([value*="triggered"]) ~ .ability-trigger,
+.ability-card.-togglehide input[value="no-action"] ~ .ability-type {
+	display: none;
+}
+
 
 /* -- Inventory Panel Styling */
 .inventory-panel {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 0.5em;
+	
+	textarea {
+		height: 50px;
+		width: 100%;
+	}
 }
 
-.inventory-panel textarea {
-	height: 50px;
-	width: 100%;
+.inventory-group {
+	.repcontainer {
+		display: grid;
+		gap: .25em;	
+		grid-template-columns: 1fr 1fr;
+		
+		.repitem {
+			display: grid;
+			grid-gap: 0.3em;
+			overflow-wrap: anywhere;
+			border: var(--border-main);
+			border-radius: var(--border-radius);
+			background-color: var(--color-bg-subsection);
+			padding: var(--sheet-padding);
+			box-shadow: inset 1px 1px 2px #555, inset -1px -1px 2px #111, 0 2px 6px rgba(0, 0, 0, 0.5);
+  		}
+	}
+	
+	&.-single .repcontainer {
+		grid-template-columns: 1fr;
+	}
+	
+	&.-full .repcontainer {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	
+	.header {
+		display: flex;
+		align-items: center;
+		gap: 0.2em;
+		flex-wrap: wrap;
+	}	
 }
 
-.inventory-panel .name-input {
-	font-weight: bold;
+inventory-accordion {
+	input {
+		flex: 1 1 auto;
+		font-weight: bold;
+	}
+	
+	textarea {
+		width: 100%;
+		resize: vertical;
+	}
+	
+	span {
+		white-space-collapse: preserve;
+	}
 }
 
-.inventory-panel > .minimize-control {
-	grid-column-start: 1;
-	grid-column-end: -1;
-}
-
-input.name-input {
-	width: 100%;
-}
-
-.trinket-panel {
-	grid-column-end: span 2;
-}
-
-.trinket-header,
-.consumable-header,
-.leveltreasure-header {
-  display: flex;
-  align-items: center;
-  gap: 0.2em;
-  flex-wrap: wrap;
-}
-
-.trinket-header input[type="text"],
-.consumable-header input[type="text"],
-.leveltreasure-header input[type="text"] {
-  flex: 1 1 auto;
-}
-
-.trinket-header textarea,
-.consumable-header textarea,
-.leveltreasure-header textarea {
-  flex: 1 1 100%;
-  resize: vertical;
-}
-
-.trinket-header span,
-.consumable-header span,
-.leveltreasure-header textarea {
-  white-space-collapse: preserve;
-}
-
-.consumable-panel input-bg {
-	width: 100%
-}
-
-.level-treasure-panel {
-	grid-column: 1 / -1;
-}
-
-.level-treasure-panel .carry-checks {
+.carry-checks {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 0.5em;
 	margin-bottom: 0.5em;
 	flex-wrap: wrap;
-}
-
-.carry-checks .carry-label {
-	font-weight: bold;
-}
-
-.repcontainer[data-groupname="repeating_trinkets"] {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: var(--sheet-padding);
-}
-
-.repcontainer[data-groupname="repeating_consumables"] {
-	display: flex;
-	grid-gap: var(--sheet-padding);
-	flex-direction: column;
-}
-
-.repcontainer[data-groupname="repeating_leveltreasure"] {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-gap: var(--sheet-padding);
-}
-
-
-.repcontainer[data-groupname="repeating_trinkets"] > .repitem,
-.repcontainer[data-groupname="repeating_leveltreasure"] > .repitem,
-.repcontainer[data-groupname="repeating_consumables"] > .repitem {
-	display: flex;
-	grid-gap: 0.2em;
-	flex-direction: column;
-	box-shadow:
-		inset 1px 1px 2px #555,
-		inset -1px -1px 2px #111,
-		0 2px 6px rgba(0, 0, 0, 0.5);
+	
+	.carry-checks .carry-label {
+		font-weight: bold;
+	}
 }
 
 
 /* -- Projects Panel Styling */
-.repcontainer[data-groupname="repeating_projects"] > .repitem {
-	display: grid;
-	grid-template-columns: 5fr 4fr 3fr 3fr;
+.projects-panel {
+	.repcontainer > .repitem  {
+		display: grid;
+		grid-template-columns: 5fr 4fr 3fr 3fr;
+	}
 }
+
 .project-goal-input-group {
 	display: flex;
 	align-items: center;
+
+	& > input {
+		flex-grow: 1;
+	}
 }
-.project-goal-input-group > input {
-	flex-grow: 1;
-}
+
 
 /* -- Notes Panel Styling */
-
 .notes-panel > textarea {
 	width: 100%;
 	height: 7em;
@@ -2119,4 +2015,50 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 
 .npc-stat input {
 	min-width: 4.5em;
+}
+
+
+/* NPC Ability Bar Toggles */
+.sheet-npcabilities,
+.sheet-malice,
+.sheet-villainaction {
+    display: none;
+}
+
+.sheet-tabstoggle[value="npcabilities"] ~ .sheet-npcabilities,
+.sheet-tabstoggle[value="malice"] ~ .sheet-malice,
+.sheet-tabstoggle[value="villainaction"] ~ .sheet-villainaction {
+	display: block;
+}
+
+
+.charsheet .npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .sheet-villainaction,
+.charsheet .npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .sheet-malice {
+	display: none;
+}
+
+.sheet-tabstoggle[value="npcabilities"] ~ .abilities-buttons > .tab-button.-abilities,
+.sheet-tabstoggle[value="malice"] ~ .abilities-buttons > .tab-button.-malice,
+.sheet-tabstoggle[value="villainaction"] ~ .abilities-buttons > .tab-button.-villain {
+	background-color: var(--color-bg-subsection);
+	border-color: var(--color-button-hover-border);
+}
+
+.charsheet .npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .abilities-buttons > .tab-button.-villain,
+.charsheet .npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .abilities-buttons > .tab-button.-malice,
+.charsheet .npc-abilities-panel:not(:has(input[name="attr_ability_tab_show"][value="1"])) .abilities-buttons {
+	display: none;
+}
+
+.sheet-npcabilities > .repcontainer[data-groupname="repeating_npcabilities"] > .repitem,
+.sheet-malice > .repcontainer[data-groupname="repeating_malice"] > .repitem,
+.sheet-villainaction > .repcontainer[data-groupname="repeating_villainaction"] > .repitem {
+	border: var(--border-main);
+	border-radius: var(--border-radius);
+	background-color: var(--color-bg-subsection);
+	padding: var(--sheet-padding);
+	box-shadow:
+		inset 1px 1px 2px #555,
+		inset -1px -1px 2px #111,
+		0 2px 6px rgba(0, 0, 0, 0.5);	
 }

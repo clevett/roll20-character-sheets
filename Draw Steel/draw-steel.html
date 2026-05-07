@@ -555,7 +555,7 @@
 	<input type="hidden" class="sticky-characteristics" name="attr_options_sticky_characteristics" />
 	<div class="stats-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="stats-minimize-checkbox" class="minimize" type="checkbox" name="attr_stats-minimize-checkbox" checked />
+			<input id="stats-minimize-checkbox" class="minimize" type="checkbox" name="attr_stats_minimize_checkbox" checked />
 			<label for="stats-minimize-checkbox" data-i18n="characteristics"></label>
 		</div>
 		<div class="stat-dashboard grid-span-full minimize-ignore">
@@ -804,7 +804,7 @@
 	<!-- Biography Panel-->
 	<div class="biography-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="biography-minimize-checkbox" class="minimize" type="checkbox" checked />
+			<input id="biography-minimize-checkbox" class="minimize" type="checkbox" name="attr_biography_minimize_checkbox" checked />
 			<label for="biography-minimize-checkbox" data-i18n="biography"></label>
 		</div>
 		<div class="input-group sheet-panel-box">
@@ -839,7 +839,7 @@
 	<!-- Skills and Languages Panel-->
 	<div class="skills-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="skills-languages-minimize-checkbox" class="minimize" type="checkbox" checked />
+			<input id="skills-languages-minimize-checkbox" class="minimize" type="checkbox" name="attr_skills_minimize_checkbox" checked />
 			<label for="skills-languages-minimize-checkbox" data-i18n="skills-languages"></label>
 		</div>
 		<h5 class="panel-title" data-i18n="skills"></h5>
@@ -861,7 +861,7 @@
 	<!-- Features Panel-->
 	<div class="features-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="features-minimize-checkbox" class="minimize" type="checkbox" checked />
+			<input id="features-minimize-checkbox" class="minimize" type="checkbox" name="attr_features_minimize_checkbox" checked />
 			<label for="features-minimize-checkbox" data-i18n="features"></label>
 		</div>
 		<!-- Class Features Panel -->
@@ -1074,28 +1074,28 @@
 		</div>
 	</div>
 	<!-- Abilities Panel-->
-	<div class="sheet-panel abilities-panel minimizable">
+	<div class="abilities-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="abilities-minimize-checkbox" class="minimize" type="checkbox" checked />
+			<input id="abilities-minimize-checkbox" class="minimize" type="checkbox" name="attr_abilities_minimize_checkbox" checked />
 			<label for="abilities-minimize-checkbox" data-i18n="abilities"></label>
 		</div>
 		<!-- Ability Type Tabs -->
 		<input type="hidden" class="sheet-tabstoggle" name="attr_abilitiesTab" value="action" />
 		<div class="abilities-buttons">
-		    <button type="action" name="act_action" class="sheet-button-action" data-i18n="main-action"></button>
-		    <button type="action" name="act_maneuver" class="sheet-button-maneuver" data-i18n="maneuver"></button>
-		    <button type="action" name="act_triggered" class="sheet-button-triggered" data-i18n="triggered-action"></button>
-		    <button type="action" name="act_noaction" class="sheet-button-noaction" data-i18n="no-action-trait"></button>
-		    <button type="action" name="act_move" class="sheet-button-move" data-i18n="move-action"></button>
+		    <button type="action" name="act_action" class="tab-button -action" data-i18n="main-action"></button>
+		    <button type="action" name="act_maneuver" class="tab-button -maneuver" data-i18n="maneuver"></button>
+		    <button type="action" name="act_triggered" class="tab-button -triggered" data-i18n="triggered-action"></button>
+		    <button type="action" name="act_noaction" class="tab-button -noaction" data-i18n="no-action-trait"></button>
+		    <button type="action" name="act_move" class="tab-button -move" data-i18n="move-action"></button>
 		</div>
 		<!-- Main Action Abilities -->
-		<div class="sheet-action">
+		<div class="sheet-action ability-group">
 			<!-- Main Actions: repeating_abilities -->
 		    <h2 data-i18n="main-actions"></h2>
 			<fieldset class="repeating_abilities">
 				<input class="toggle-button -edit" type="checkbox" />
-				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
+				<div class="ability-card -toggleshow"><!-- Edit View -->
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
 						<option value="signature-ability" data-i18n="signature-ability"></option>
@@ -1108,7 +1108,7 @@
 
 					<div class="ability-details grid-span-full">
 						<input type="text" class="ability-description" data-i18n-placeholder="ability-description" name="attr_ability_description" />
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
 						<select class="ability-type" name="attr_ability_type">
 							<option value="no-action" selected data-i18n="no-action"></option>
 							<option value="main-action" data-i18n="main-action"></option>
@@ -1182,7 +1182,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_ability_name"></span>
+					<span class="name" name="attr_ability_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_ability_subtype" />
 					<div class="ability-subtype heroic-show">
 						<span data-i18n="ability-cost"></span>:&nbsp;<span name="attr_ability_cost"></span>
@@ -1192,7 +1192,7 @@
 					<div class="ability-details details-hide grid-span-full">
 						<span class="ability-description" name="attr_ability_description"></span>
 						<input type="hidden" name="attr_ability_type" value="main-action"/>
-						<span class="npc-ability-keywords" name="attr_ability_keywords"></span>
+						<span name="attr_ability_keywords"></span>
 						<div class="ability-type"><span name="attr_ability_type" data-i18n-dynamic></span></div>
 							
 						<div class="ability-distance">&#128208;<span name="attr_ability_distance" ></span></div>
@@ -1246,7 +1246,7 @@
 				</div>
 			</fieldset>
 			<!-- Standard Abilities -->
-                        <h5 class="panel-title" data-i18n="standard-main-actions"></h5>
+            <h5 class="panel-title" data-i18n="standard-main-actions"></h5>
 			<div class="standard-abilities">
 				<!-- Melee Free Strike Ability -->
 				<div class="standard-abilities-item">
@@ -1288,7 +1288,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_melee_free_strike_name"></span>
+						<span class="name" name="attr_melee_free_strike_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_melee_free_strike_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -1356,7 +1356,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_ranged_free_strike_name"></span>
+						<span class="name" name="attr_ranged_free_strike_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_ranged_free_strike_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -1398,7 +1398,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_charge_name"></span>
+						<span class="name" name="attr_charge_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_charge_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -1413,7 +1413,7 @@
 				<div class="standard-abilities-item">
 					<input class="toggle-button -edit" type="checkbox" />
 					<div class="ability-card -toggleshow">
-						<textarea class="ability-name grid-span-full" data-i18n-placeholder="defend" name="attr_defend_name" data-i18n="defend" spellcheck="false"></textarea>
+						<textarea class="name grid-span-full" data-i18n-placeholder="defend" name="attr_defend_name" data-i18n="defend" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="defend-keywords" name="attr_defend_keywords" value="" />
 						<input type="hidden" name="attr_defend_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="defend-effect" name="attr_defend_effect" spellcheck="false"></textarea>
@@ -1423,7 +1423,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_defend_name"></span>
+						<span class="name" name="attr_defend_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="defend" name="attr_defend_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -1450,7 +1450,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_heal_name"></span>
+						<span class="name" name="attr_heal_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_heal_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -1477,7 +1477,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_convert_name"></span>
+						<span class="name" name="attr_convert_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="convert" name="attr_convert_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -1491,13 +1491,13 @@
 			</div>
 		</div>
 		<!-- Maneuver Abilities -->
-		<div class="sheet-maneuver">
+		<div class="sheet-maneuver ability-group">
 			<!-- Maneuvers: repeating_maneuvers -->
 			<h2 data-i18n="maneuvers"></h2>
 			<fieldset class="repeating_maneuvers">
 				<input class="toggle-button -edit" type="checkbox" />
 				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_maneuver_name" />
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_maneuver_name" />
 					<select class="ability-subtype-selector" name="attr_maneuver_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
 						<option value="signature-ability" data-i18n="signature-ability"></option>
@@ -1511,7 +1511,7 @@
 
 					<div class="ability-details grid-span-full">
 						<input type="text" class="ability-description" data-i18n-placeholder="ability-description" name="attr_maneuver_description" />
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_maneuver_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_maneuver_keywords" />
 						<select class="ability-type" name="attr_maneuver_type">
 							<option value="maneuver" data-i18n="maneuver" selected></option>
 							<option value="free-maneuver" data-i18n="free-maneuver"></option>
@@ -1574,7 +1574,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_maneuver_name"></span>
+					<span class="name" name="attr_maneuver_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_maneuver_subtype" />
 					<div class="ability-subtype heroic-show">
 						<span data-i18n="ability-cost"></span>:&nbsp;<span name="attr_maneuver_cost"></span>
@@ -1584,7 +1584,7 @@
 					<div class="ability-details details-hide grid-span-full">
 						<span class="ability-description" name="attr_maneuver_description"></span>
 						<input type="hidden" name="attr_maneuver_type" value="maneuver" />
-						<span class="npc-ability-keywords" name="attr_maneuver_keywords"></span>
+						<span name="attr_maneuver_keywords"></span>
 						<div class="ability-type"><span name="attr_maneuver_type" data-i18n-dynamic></span></div>
 							
 						<div class="ability-distance">&#128208;<span name="attr_maneuver_distance" ></span></div>
@@ -1674,7 +1674,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Knockback" name="attr_knockback_name"></span>
+						<span class="name" data-i18n-placeholder="Knockback" name="attr_knockback_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="knockback-keywords" name="attr_knockback_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -1741,7 +1741,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Grab" name="attr_grab_name"></span>
+						<span class="name" data-i18n-placeholder="Grab" name="attr_grab_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="grab-keywords" name="attr_grab_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -1807,7 +1807,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Escape Grab" name="attr_escape_grab_name"></span>
+						<span class="name" data-i18n-placeholder="Escape Grab" name="attr_escape_grab_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="escape-grab-keywords" name="attr_escape_grab_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -1871,7 +1871,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_claw_dirt_name"></span>
+						<span class="name" name="attr_claw_dirt_name"></span>
 						<div class="ability-details grid-span-full"> 						
 							<span class="ability-keywords" name="attr_claw_dirt_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -1916,7 +1916,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Aid Attack" name="attr_aid_attack_name"></span>
+						<span class="name" data-i18n-placeholder="Aid Attack" name="attr_aid_attack_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="aid-attack-keywords" name="attr_aid_attack_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -1945,7 +1945,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Catch Breath" name="attr_catch_breath_name"></span>
+						<span class="name" data-i18n-placeholder="Catch Breath" name="attr_catch_breath_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_catch_breath_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -1974,7 +1974,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_hide_name"></span>
+						<span class="name" name="attr_hide_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_hide_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -2003,7 +2003,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_search_name"></span>
+						<span class="name" name="attr_search_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_search_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -2032,7 +2032,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_standup_name"></span>
+						<span class="name" name="attr_standup_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_standup_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -2061,7 +2061,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_consumable_name"></span>
+						<span class="name" name="attr_consumable_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_consumable_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -2077,13 +2077,13 @@
 			</div>
 		</div>
 		<!-- Triggered Abilities-->
-		<div class="sheet-triggered">
+		<div class="sheet-triggered ability-group">
 		    <h2 data-i18n="triggered"></h2>
 			<!-- Triggered: repeating_triggered -->
 			<fieldset class="repeating_triggered">
 				<input class="toggle-button -edit" type="checkbox" />
 				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_triggered_name" />
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_triggered_name" />
 					<select class="ability-subtype-selector" name="attr_triggered_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
 						<option value="signature-ability" data-i18n="signature-ability"></option>
@@ -2097,7 +2097,7 @@
 
 					<div class="ability-details grid-span-full">
 						<input type="text" class="ability-description" data-i18n-placeholder="ability-description" name="attr_triggered_description" />
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_triggered_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_triggered_keywords" />
 						<select class="ability-type" name="attr_triggered_type">
 							<option value="triggered-action" data-i18n="triggered-action" selected></option>
 							<option value="free-triggered-action" data-i18n="free-triggered-action"></option>
@@ -2160,7 +2160,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_triggered_name"></span>
+					<span class="name" name="attr_triggered_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_triggered_subtype" />
 					<div class="ability-subtype heroic-show">
 						<span data-i18n="ability-cost"></span>:&nbsp;<span name="attr_triggered_cost"></span>
@@ -2170,7 +2170,7 @@
 					<div class="ability-details details-hide grid-span-full">
 						<span class="ability-description" name="attr_triggered_description"></span>
 						<input type="hidden" name="attr_triggered_type" value="triggered-action" />
-						<span class="npc-ability-keywords" name="attr_triggered_keywords"></span>
+						<span name="attr_triggered_keywords"></span>
 						<div class="ability-type"><span name="attr_triggered_type" data-i18n-dynamic></span></div>
 							
 						<div class="ability-distance">&#128208;<span name="attr_triggered_distance" ></span></div>
@@ -2239,7 +2239,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Opportunity Attack" name="attr_opportunity_attack_name"></span>
+						<span class="name" data-i18n-placeholder="Opportunity Attack" name="attr_opportunity_attack_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="Opportunity Attack" name="attr_opportunity_attack_keywords"></span>
 							<span class="ability-type" data-i18n="free-triggered-action"></span>
@@ -2257,13 +2257,13 @@
 			</div>
 		</div>
 		<!-- No-Actions Abilities -->
-		<div class="sheet-noaction">
+		<div class="sheet-noaction ability-group">
 		    <h2 data-i18n="no-action-trait"></h2>
 			<!-- No Actions/Traits: repeating_noaction -->
 			<fieldset class="repeating_noaction">
 				<input class="toggle-button -edit" type="checkbox" />
 				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_noaction_name" />
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_noaction_name" />
 					<select class="ability-subtype-selector" name="attr_noaction_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
 						<option value="signature-ability" data-i18n="signature-ability"></option>
@@ -2277,7 +2277,7 @@
 
 					<div class="ability-details grid-span-full">
 						<input type="text" class="ability-description" data-i18n-placeholder="ability-description" name="attr_noaction_description" />
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_noaction_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_noaction_keywords" />
 						<select class="ability-type" name="attr_ability_type">
 							<option value="no-action" selected data-i18n="no-action"></option>
 						</select>
@@ -2334,7 +2334,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_noaction_name"></span>
+					<span class="name" name="attr_noaction_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_noaction_subtype" />
 					<div class="ability-subtype heroic-show">
 						<span data-i18n="ability-cost"></span>:&nbsp;<span name="attr_noaction_cost"></span>
@@ -2344,7 +2344,7 @@
 					<div class="ability-details details-hide grid-span-full">
 						<span class="ability-description" name="attr_noaction_description"></span>
 						<input type="hidden" name="attr_noaction_type" value="no-action" />
-						<span class="npc-ability-keywords" name="attr_noaction_keywords"></span>
+						<span name="attr_noaction_keywords"></span>
 						<div class="ability-type"><span name="attr_noaction_type" data-i18n-dynamic></span></div>
 							
 						<div class="ability-distance">&#128208;<span name="attr_noaction_distance" ></span></div>
@@ -2425,7 +2425,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_jump_name"></span>
+						<span class="name" name="attr_jump_name"></span>
 						<div class="ability-details grid-span-full">
 							<div class="power-roll">
 								<div class="power-roll-mods">
@@ -2484,7 +2484,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_climb_creature_name"></span>
+						<span class="name" name="attr_climb_creature_name"></span>
 						<div class="ability-details grid-span-full">
 							<div class="power-roll">
 								<div class="power-roll-mods">
@@ -2514,13 +2514,13 @@
 			</div>
 		</div>
 		<!-- Move Abilities -->
-		<div class="sheet-move">
+		<div class="sheet-move ability-group">
 		    <h2 data-i18n="move-actions"></h2>
 			<!-- Moves: repeating_moves -->
 			<fieldset class="repeating_moves">
 				<input class="toggle-button -edit" type="checkbox" />
 				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_moves_name" />
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_moves_name" />
 					<select class="ability-subtype-selector" name="attr_moves_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
 						<option value="signature-ability" data-i18n="signature-ability"></option>
@@ -2534,7 +2534,7 @@
 
 					<div class="ability-details grid-span-full">
 						<input type="text" class="ability-description" data-i18n-placeholder="ability-description" name="attr_moves_description" />
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_moves_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_moves_keywords" />
 						<input type="hidden" name="attr_moves_type" value="move-action" />
 						<span class="ability-type" data-i18n="move-action"></span>
 						
@@ -2591,7 +2591,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_moves_name"></span>
+					<span class="name" name="attr_moves_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_moves_subtype" />
 					<div class="ability-subtype heroic-show">
 						<span data-i18n="ability-cost"></span>:&nbsp;<span name="attr_moves_cost"></span>
@@ -2601,7 +2601,7 @@
 					<div class="ability-details details-hide grid-span-full">
 						<span class="ability-description" name="attr_moves_description"></span>
 						<input type="hidden" name="attr_moves_type" value="move-action"  />
-						<span class="npc-ability-keywords" name="attr_moves_keywords"></span>
+						<span name="attr_moves_keywords"></span>
 						<div class="ability-type"><span name="attr_moves_type" data-i18n-dynamic></span></div>
 							
 						<div class="ability-distance">&#128208;<span name="attr_moves_distance" ></span></div>
@@ -2666,7 +2666,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_advance_name"></span>
+						<span class="name" name="attr_advance_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_advance_keywords"></span>
 							<span class="ability-type" data-i18n="move-action"></span>
@@ -2695,7 +2695,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_disengage_name"></span>
+						<span class="name" name="attr_disengage_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords read-ability-keywords" name="attr_disengage_keywords"></span>
 							<span class="ability-type" data-i18n="move-action"></span>
@@ -2724,7 +2724,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_ride_name"></span>
+						<span class="name" name="attr_ride_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_ride_keywords"></span>
 							<span class="ability-type" data-i18n="move-action"></span>
@@ -2741,22 +2741,22 @@
 		</div>
 	</div>
 	<!-- Inventory Panel -->
-	<div class="sheet-panel inventory-panel minimizable">
+	<div class="inventory-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="inventory-minimize-checkbox" class="minimize" type="checkbox" checked />
+			<input id="inventory-minimize-checkbox" class="minimize" type="checkbox" name="attr_inventory_minimize_checkbox" checked />
 			<label for="inventory-minimize-checkbox" data-i18n="inventory"></label>
 		</div>
 		<!-- Trinkets -->
-		<div class="sheet-panel-box trinket-panel">
+		<div class="inventory-group grid-span-2 sheet-panel-box">
 			<h5 class="panel-title" data-i18n="trinkets"></h5>
 			<fieldset class="repeating_trinkets">
 				<input class="toggle-button -edit" type="checkbox" />
-				<div class="feature-accordion -toggleshow">
+				<div class="inventory-accordion -toggleshow">
 					<input type="text" name="attr_trinket_name" />
 					<textarea name="attr_trinket_description"></textarea>
 				</div>
-				<div class="feature-accordion">
-					<div class="trinket-header">
+				<div class="inventory-accordion -togglehide">
+					<div class="header">
 						<label><span name="attr_trinket_name"></span>:</label>
 						<span name="attr_trinket_description"></span>
 					</div>
@@ -2764,16 +2764,16 @@
 			</fieldset>
 		</div>
 		<!-- Consumables -->
-		<div class="sheet-panel-box consumable-panel">
+		<div class="inventory-group -single sheet-panel-box">
 			<h5 class="panel-title" data-i18n="consumables"></h5>
 			<fieldset class="repeating_consumables">
 				<input class="toggle-button -edit" type="checkbox" />
-				<div class="feature-accordion -toggleshow">
+				<div class="inventory-accordion -toggleshow">
 					<input type="text" name="attr_consumable_name" />
 					<textarea name="attr_consumable_description"></textarea>
 				</div>
-				<div class="feature-accordion">
-					<div class="consumable-header">
+				<div class="inventory-accordion -togglehide">
+					<div class="header">
 						<label><span name="attr_consumable_name"></span>:</label>
 						<span name="attr_consumable_description"></span>
 					</div>
@@ -2781,22 +2781,22 @@
 			</fieldset>
 		</div>
 		<!-- Leveled Treasures -->
-		<div class="sheet-panel-box level-treasure-panel">
+		<div class="inventory-group -full grid-span-full sheet-panel-box">
 			<h5 class="panel-title" data-i18n="level-treasure"></h5>
-			<div class="carry-checks">
-				<span class="carry-label" data-i18n="carry-three-safely">carry three safely:</span>
+			<div class="carry-checks grid-span-full">
+				<span class="carry-label" data-i18n="carry-three-safely"></span>
 				<label><input type="checkbox" name="attr_carry_1" /></label>
 				<label><input type="checkbox" name="attr_carry_2" /></label>
 				<label><input type="checkbox" name="attr_carry_3" /></label>
 			</div>
 			<fieldset class="repeating_leveltreasure">
 				<input class="toggle-button -edit" type="checkbox" />
-				<div class="feature-accordion -toggleshow">
+				<div class="inventory-accordion -toggleshow">
 					<input type="text" name="attr_leveltreasure_name" />
 					<textarea name="attr_leveltreasure_description"></textarea>
 				</div>
-				<div class="feature-accordion">
-					<div class="leveltreasure-header">
+				<div class="inventory-accordion -togglehide">
+					<div class="header">
 						<label><span name="attr_leveltreasure_name"></span>:</label>
 						<span name="attr_leveltreasure_description"></span>
 					</div>
@@ -2805,9 +2805,9 @@
 		</div>
 	</div>
 	<!-- Projects Panel -->
-	<div class="sheet-panel projects-panel minimizable">
+	<div class="projects-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="projects-minimize-checkbox" class="minimize" type="checkbox" checked />
+			<input id="projects-minimize-checkbox" class="minimize" type="checkbox" name="attr_projects_minimize_checkbox" checked />
 			<label for="projects-minimize-checkbox" data-i18n="projects"></label>
 		</div>
 		<fieldset class="repeating_projects">
@@ -2822,12 +2822,12 @@
 		</fieldset>
 	</div>
 	<!-- Notes Panel -->
-	<div class="sheet-panel notes-panel minimizable">
+	<div class="notes-panel sheet-panel minimizable">
 		<div class="minimize-control">
-			<input id="notes-minimize-checkbox" class="minimize" type="checkbox" checked />
+			<input id="notes-minimize-checkbox" class="minimize" type="checkbox" name="attr_notes_minimize_checkbox" checked />
 			<label for="notes-minimize-checkbox" data-i18n="notes"></label>
 		</div>
-		<textarea name="attr_notes_description"></textarea>
+		<textarea id="sheet-notes" name="attr_notes_description"></textarea>
 	</div>
 </div>
 <!-- NPC Sheet View -->
@@ -3125,16 +3125,16 @@
 		<input type="hidden" name="attr_villain_action_show" value="0" />
 		<input type="hidden" name="attr_ability_tab_show" value="0" />
 		<div class="abilities-buttons">
-		    <button type="action" name="act_npcabilities" class="sheet-button-npcabilities" data-i18n="npc-abilities"></button>
-			<button type="action" name="act_malice" class="sheet-button-malice" data-i18n="faction-malice"></button>
-		    <button type="action" name="act_villainaction" class="sheet-button-villainaction" data-i18n="villain-action"></button>
+		    <button type="action" name="act_npcabilities" class="tab-button -abilities" data-i18n="npc-abilities"></button>
+			<button type="action" name="act_malice" class="tab-button -malice" data-i18n="faction-malice"></button>
+		    <button type="action" name="act_villainaction" class="tab-button -villain" data-i18n="villain-action"></button>
 		</div>
-		<div class="sheet-npcabilities">
+		<div class="sheet-npcabilities ability-group">
 			<h2 data-i18n="statblock-abilities"></h2>
 			<fieldset class="repeating_npcabilities">
 				<input class="toggle-button -edit" type="checkbox" />
 				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="normal-ability" selected data-i18n="normal-ability"></option>
 						<option value="signature-ability" data-i18n="signature-ability"></option>
@@ -3162,7 +3162,7 @@
 					<textarea class="npc-ability-trait grid-span-full" data-i18n-placeholder="trait" name="attr_ability_trait"></textarea>
 				
 					<div class="ability-details grid-span-full">
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
 						<select class="ability-type" name="attr_ability_type">
 							<option value="no-action" selected data-i18n="no-action"></option>
 							<option value="main-action" data-i18n="main-action"></option>
@@ -3220,7 +3220,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_ability_name"></span>
+					<span class="name" name="attr_ability_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_ability_subtype" />
 					<div class="ability-subtype malice-show">
 						<span name="attr_ability_malice_cost"></span>&nbsp;<span data-i18n="malice"></span>
@@ -3239,7 +3239,7 @@
 				
 					<div class="ability-details details-hide grid-span-full">
 						<input type="hidden" name="attr_ability_type" />
-						<span class="npc-ability-keywords" name="attr_ability_keywords"></span>
+						<span name="attr_ability_keywords"></span>
 						<div class="ability-type"><span name="attr_ability_type" data-i18n-dynamic></span></div>
 						
 						<div class="ability-distance">&#128208;<span name="attr_ability_distance" ></span></div>
@@ -3292,12 +3292,12 @@
 				</div>
 			</fieldset>
 		</div>
-		<div class="sheet-malice">
+		<div class="sheet-malice ability-group">
 			<h2 data-i18n="malice-abilities"></h2>
 			<fieldset class="repeating_malice">
 				<input class="toggle-button -edit" type="checkbox" />
 				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="malice-ability" data-i18n="malice-ability"></option>
 						<option value="malice-trait" data-i18n="malice-trait"></option>
@@ -3311,7 +3311,7 @@
 					<textarea class="npc-ability-trait grid-span-full" data-i18n-placeholder="trait" name="attr_ability_trait"></textarea>
 				
 					<div class="ability-details grid-span-full">
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
 						<select class="ability-type" name="attr_ability_type">
 							<option value="no-action" selected data-i18n="no-action"></option>
 							<option value="main-action" data-i18n="main-action"></option>
@@ -3369,7 +3369,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_ability_name"></span>
+					<span class="name" name="attr_ability_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_ability_subtype" />
 					<div class="ability-subtype malice-show">
 						<span name="attr_ability_malice_cost"></span>&nbsp;<span data-i18n="malice"></span>
@@ -3388,7 +3388,7 @@
 				
 					<div class="ability-details details-hide grid-span-full">
 						<input type="hidden" name="attr_ability_type" />
-						<span class="npc-ability-keywords" name="attr_ability_keywords"></span>
+						<span name="attr_ability_keywords"></span>
 						<div class="ability-type"><span name="attr_ability_type" data-i18n-dynamic></span></div>
 						
 						<div class="ability-distance">&#128208;<span name="attr_ability_distance" ></span></div>
@@ -3464,7 +3464,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_brutaleffect_name"></span>
+						<span class="name" name="attr_brutaleffect_name"></span>
 						<input id="ability-subtype-selector" type="hidden" name="attr_brutaleffect_subtype" />
 						<div class="ability-subtype">
 							<span name="attr_brutaleffect_malice_cost"></span>&nbsp;<span data-i18n="malice"></span>
@@ -3494,7 +3494,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_maliciousstrike_name"></span>
+						<span class="name" name="attr_maliciousstrike_name"></span>
 						<input id="ability-subtype-selector" type="hidden" name="attr_maliciousstrike_subtype" />
 						<div class="ability-subtype">
 							<span name="attr_maliciousstrike_malice_cost"></span>+&nbsp;<span data-i18n="malice"></span>
@@ -3505,12 +3505,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="sheet-villainaction">
+		<div class="sheet-villainaction ability-group">
 			<h2 data-i18n="villain-action"></h2>
 			<fieldset class="repeating_villainaction">
 				<input class="toggle-button -edit" type="checkbox" />
 				<div class="ability-card -toggleshow">
-					<input type="text" class="ability-name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
+					<input type="text" class="name" data-i18n-placeholder="ability-name" name="attr_ability_name" />
 					<select class="ability-subtype-selector" name="attr_ability_subtype">
 						<option value="villain-ability" data-i18n="villain-ability"></option>
 						<option value="villain-ability1" data-i18n="villain-ability1"></option>
@@ -3526,7 +3526,7 @@
 					<textarea class="npc-ability-trait grid-span-full" data-i18n-placeholder="trait" name="attr_ability_trait"></textarea>
 				
 					<div class="ability-details grid-span-full">
-						<input type="text" class="npc-ability-keywords" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
+						<input type="text" data-i18n-placeholder="keywords" name="attr_ability_keywords" />
 						<select class="ability-type" name="attr_ability_type">
 							<option value="no-action" selected data-i18n="no-action"></option>
 							<option value="main-action" data-i18n="main-action"></option>
@@ -3584,7 +3584,7 @@
 						<!-- speech balloon -->
 						&#128172;
 					</button>
-					<span class="ability-name" name="attr_ability_name"></span>
+					<span class="name" name="attr_ability_name"></span>
 					<input id="ability-subtype-selector" type="hidden" name="attr_ability_subtype" />
 					<div class="ability-subtype malice-show">
 						<span name="attr_ability_malice_cost"></span>&nbsp;<span data-i18n="malice"></span>
@@ -3603,7 +3603,7 @@
 				
 					<div class="ability-details details-hide grid-span-full">
 						<input type="hidden" name="attr_ability_type" />
-						<span class="npc-ability-keywords" name="attr_ability_keywords"></span>
+						<span name="attr_ability_keywords"></span>
 						<div class="ability-type"><span name="attr_ability_type" data-i18n-dynamic></span></div>
 						
 						<div class="ability-distance">&#128208;<span name="attr_ability_distance" ></span></div>
@@ -3662,13 +3662,13 @@
 		<h5 class="panel-title" data-i18n="standard-abilities"></h5>
 		<input type="hidden" class="sheet-tabstoggle" name="attr_abilitiesTab" value="action" />
 		<div class="abilities-buttons">
-			<button type="action" name="act_action" class="sheet-button-action" data-i18n="main-action"></button>
-			<button type="action" name="act_maneuver" class="sheet-button-maneuver" data-i18n="maneuver"></button>
-			<button type="action" name="act_triggered" class="sheet-button-triggered" data-i18n="triggered-action"></button>
-			<button type="action" name="act_noaction" class="sheet-button-noaction" data-i18n="no-action-trait"></button>
-			<button type="action" name="act_move" class="sheet-button-move" data-i18n="move-action"></button>
+			<button type="action" name="act_action" class="tab-button -action" data-i18n="main-action"></button>
+			<button type="action" name="act_maneuver" class="tab-button -maneuver" data-i18n="maneuver"></button>
+			<button type="action" name="act_triggered" class="tab-button -triggered" data-i18n="triggered-action"></button>
+			<button type="action" name="act_noaction" class="tab-button -noaction" data-i18n="no-action-trait"></button>
+			<button type="action" name="act_move" class="tab-button -move" data-i18n="move-action"></button>
 		</div>
-		<div class="sheet-action">
+		<div class="sheet-action ability-group">
 			<h2 data-i18n="standard-main-actions"></h2>
 			<!-- Standard Abilities -->
 			<div class="standard-abilities">
@@ -3685,7 +3685,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_freestrike_name"></span>
+						<span class="name" name="attr_freestrike_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_freestrike_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>					
@@ -3710,7 +3710,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_charge_name"></span>
+						<span class="name" name="attr_charge_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_charge_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>					
@@ -3725,7 +3725,7 @@
 				<div class="standard-abilities-item">
 					<input class="toggle-button -edit" type="checkbox" />
 					<div class="ability-card -toggleshow">
-						<textarea class="ability-name grid-span-full" data-i18n-placeholder="defend" name="attr_defend_name" data-i18n="defend" spellcheck="false"></textarea>
+						<textarea class="name grid-span-full" data-i18n-placeholder="defend" name="attr_defend_name" data-i18n="defend" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="defend-keywords" name="attr_defend_keywords" value="" />
 						<input type="hidden" name="attr_defend_type" value="main-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n="defend-effect" name="attr_defend_effect" spellcheck="false"></textarea>
@@ -3735,7 +3735,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Defend" name="attr_defend_name"></span>
+						<span class="name" data-i18n-placeholder="Defend" name="attr_defend_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="defend" name="attr_defend_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -3760,7 +3760,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Convert" name="attr_convert_name"></span>
+						<span class="name" data-i18n-placeholder="Convert" name="attr_convert_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="convert" name="attr_convert_keywords"></span>
 							<span class="ability-type" data-i18n="main-action"></span>
@@ -3774,7 +3774,7 @@
 			</div>
 		</div>
 		<!-- Maneuver Abilities -->
-		<div class="sheet-maneuver">
+		<div class="sheet-maneuver ability-group">
 			<!-- Maneuvers: repeating_maneuvers -->
 			<h2 data-i18n="standard-maneuvers"></h2>
 			<!-- Standard Maneuvers -->
@@ -3814,7 +3814,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Knockback" name="attr_knockback_name"></span>
+						<span class="name" data-i18n-placeholder="Knockback" name="attr_knockback_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="knockback-keywords" name="attr_knockback_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -3881,7 +3881,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Grab" name="attr_grab_name"></span>
+						<span class="name" data-i18n-placeholder="Grab" name="attr_grab_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="grab-keywords" name="attr_grab_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -3947,7 +3947,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Escape Grab" name="attr_escape_grab_name"></span>
+						<span class="name" data-i18n-placeholder="Escape Grab" name="attr_escape_grab_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="knockback-keywords" name="attr_escape_grab_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4011,7 +4011,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_claw_dirt_name"></span>
+						<span class="name" name="attr_claw_dirt_name"></span>
 						<div class="ability-details grid-span-full"> 						
 							<span class="ability-keywords" name="attr_claw_dirt_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4056,7 +4056,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Aid Attack" name="attr_aid_attack_name"></span>
+						<span class="name" data-i18n-placeholder="Aid Attack" name="attr_aid_attack_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="aid-attack-keywords" name="attr_aid_attack_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4085,7 +4085,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Catch Breath" name="attr_catch_breath_name"></span>
+						<span class="name" data-i18n-placeholder="Catch Breath" name="attr_catch_breath_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_catch_breath_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4114,7 +4114,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_hide_name"></span>
+						<span class="name" name="attr_hide_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_hide_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4143,7 +4143,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_search_name"></span>
+						<span class="name" name="attr_search_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_search_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4172,7 +4172,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_standup_name"></span>
+						<span class="name" name="attr_standup_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_standup_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4201,7 +4201,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_consumable_name"></span>
+						<span class="name" name="attr_consumable_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_consumable_keywords"></span>
 							<span class="ability-type" data-i18n="maneuver"></span>
@@ -4217,7 +4217,7 @@
 			</div>
 		</div>
 		<!-- Triggered Abilities -->
-		<div class="sheet-triggered">
+		<div class="sheet-triggered ability-group">
 			<h2 data-i18n="standard-triggers"></h2>
 			<!-- Standard Triggers -->
 			<div class="standard-abilities">
@@ -4236,7 +4236,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" data-i18n-placeholder="Opportunity Attack" name="attr_opportunity_attack_name"></span>
+						<span class="name" data-i18n-placeholder="Opportunity Attack" name="attr_opportunity_attack_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" data-i18n-placeholder="Opportunity Attack" name="attr_opportunity_attack_keywords"></span>
 							<span class="ability-type" data-i18n="free-triggered-action"></span>
@@ -4254,7 +4254,7 @@
 			</div>
 		</div>
 		<!-- No-Action Abilities -->
-		<div class="sheet-noaction">
+		<div class="sheet-noaction ability-group">
 			<h2 data-i18n="standard-noaction-trait"></h2>
 			<!-- Standard Abilities -->
 			<div class="standard-abilities">
@@ -4290,7 +4290,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_climb_creature_name"></span>
+						<span class="name" name="attr_climb_creature_name"></span>
 						<div class="ability-details grid-span-full">
 							<div class="power-roll">
 								<div class="power-roll-mods">
@@ -4320,7 +4320,7 @@
 			</div>
 		</div>
 		<!-- Move Abilities -->
-		<div class="sheet-move">
+		<div class="sheet-move ability-group">
 			<h2 data-i18n="standard-move-actions"></h2>
 			<!-- Standard Moves -->
 			<div class="standard-abilities">
@@ -4340,7 +4340,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_advance_name"></span>
+						<span class="name" name="attr_advance_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_advance_keywords"></span>
 							<span class="ability-type" data-i18n="move-action"></span>
@@ -4369,7 +4369,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_disengage_name"></span>
+						<span class="name" name="attr_disengage_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords read-ability-keywords" name="attr_disengage_keywords"></span>
 							<span class="ability-type" data-i18n="move-action"></span>
@@ -4398,7 +4398,7 @@
 							<!-- speech balloon -->
 							&#128172;
 						</button>
-						<span class="ability-name" name="attr_ride_name"></span>
+						<span class="name" name="attr_ride_name"></span>
 						<div class="ability-details grid-span-full">
 							<span class="ability-keywords" name="attr_ride_keywords"></span>
 							<span class="ability-type" data-i18n="move-action"></span>
