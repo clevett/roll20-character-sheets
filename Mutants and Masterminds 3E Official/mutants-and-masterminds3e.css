@@ -4377,8 +4377,37 @@ body .ui-dialog .tab-content .charsheet .power-builder-header-row .power-cost-gr
   top: 10px;
   right: -5px;
   z-index: 1;
-  display: grid;
-  width: min-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+body .ui-dialog .tab-content .charsheet .power-builder-header-row .power-bonus-cost-label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0;
+  line-height: 1;
+  font-family: var(--font-header);
+  color: var(--col-gray);
+}
+body .ui-dialog .tab-content .charsheet .power-builder-header-row .power-bonus-cost-label span {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--col-gray);
+  letter-spacing: 0.5px;
+}
+body .ui-dialog .tab-content .charsheet .power-builder-header-row .power-bonus-cost-label input {
+  width: 4ch !important;
+  font-family: var(--font-numbers) !important;
+  font-size: 12px !important;
+  text-align: right;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px dashed var(--col-gray) !important;
+  color: var(--col-gray) !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 body .ui-dialog .tab-content .charsheet .power-builder-header-row .power-cost-display {
   color: var(--col-yellow) !important;
@@ -6103,31 +6132,126 @@ body .ui-dialog .tab-content .charsheet .wrapper.legacy_archive .legacy-archive-
   border: 2px solid var(--col-gray);
   border-radius: 6px;
 }
+body .ui-dialog .tab-content .charsheet .section-center.bottom-section {
+  position: relative;
+}
 body .ui-dialog .tab-content .charsheet .legacy-archive-launcher {
   display: none;
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 500;
+  padding: 1px 10px 2px;
+  border: 1px dashed var(--col-gray);
+  border-radius: 12px;
+  color: var(--col-gray);
+  font-family: var(--font-normal);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+  background: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transform: rotate(-2deg);
+  transform-origin: right center;
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease, transform 120ms ease;
+}
+body .ui-dialog .tab-content .charsheet .legacy-archive-launcher::before {
+  content: "✎ ";
+  font-style: normal;
+  opacity: 0.7;
+}
+body .ui-dialog .tab-content .charsheet .legacy-archive-launcher:hover {
+  color: var(--col-black);
+  border-color: var(--col-black);
+  background: var(--col-yellow);
+  transform: rotate(0deg);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.main:has(#legacy_archive .legacy-section .repcontainer:not(:empty)) .legacy-archive-launcher {
+  display: inline-block;
+}
+body .ui-dialog .tab-content .charsheet .rerun-conversion-launcher {
   margin: var(--half-gap);
   padding: 4px 12px;
-  border: 2px dashed var(--col-gray);
+  border: 2px dashed var(--col-red);
   border-radius: 8px;
-  color: var(--col-gray);
+  color: var(--col-red);
   font-family: var(--font-header);
   text-decoration: none;
   text-align: center;
   background: var(--col-white);
   cursor: pointer;
 }
-body .ui-dialog .tab-content .charsheet .legacy-archive-launcher:hover {
-  background: var(--col-gray);
+body .ui-dialog .tab-content .charsheet .rerun-conversion-launcher:hover {
+  background: var(--col-red);
   color: var(--col-white);
-}
-body .ui-dialog .tab-content .charsheet .wrapper.main:has(#legacy_archive .legacy-section .repcontainer:not(:empty)) .legacy-archive-launcher {
-  display: inline-block;
 }
 body .ui-dialog .tab-content .charsheet .legacy-displays {
   max-height: 80dvh;
   max-width: 80dvw;
   overflow-y: auto;
   margin: auto;
+}
+body .ui-dialog .tab-content .charsheet .legacy-archive-rerun {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--normal-gap);
+  padding-top: var(--half-gap);
+  border-top: 1px dashed var(--col-gray);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation {
+  margin: auto;
+  display: grid;
+  width: fit-content;
+  max-width: 60dvw;
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation h1 {
+  font-family: var(--font-header);
+  margin-bottom: var(--half-gap);
+  position: relative;
+  justify-self: start;
+  top: 0;
+  left: 0;
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation .rerun-confirmation-body {
+  color: var(--col-gray);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: var(--half-gap);
+  padding: var(--half-gap);
+  background: var(--col-white);
+  border: 2px solid var(--col-red);
+  border-radius: 6px;
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation .rerun-confirmation-actions {
+  display: flex;
+  gap: var(--half-gap);
+  justify-content: center;
+  margin-top: var(--half-gap);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation .rerun-confirmation-actions button {
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-family: var(--font-header);
+  cursor: pointer;
+  border: 2px solid var(--col-black);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation .rerun-confirmation-actions .btn-cancel-rerun {
+  background: var(--col-white);
+  color: var(--col-gray);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation .rerun-confirmation-actions .btn-cancel-rerun:hover {
+  background: var(--col-gray);
+  color: var(--col-white);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation .rerun-confirmation-actions .btn-confirm-rerun {
+  background: var(--col-red);
+  color: var(--col-white);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.rerun_confirmation .rerun-confirmation-actions .btn-confirm-rerun:hover {
+  background: var(--col-black);
 }
 body .ui-dialog .tab-content .charsheet .migration-json-flag:not(:checked) ~ .migration-notice-json {
   display: none;
@@ -6175,6 +6299,49 @@ body .ui-dialog .tab-content .charsheet .wrapper.migration_notice .migration-not
   cursor: pointer;
 }
 body .ui-dialog .tab-content .charsheet .wrapper.migration_notice .migration-notice-actions button:hover {
+  background: var(--col-gray);
+  color: var(--col-white);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.cost_backfill_notice {
+  margin: auto;
+  display: grid;
+  width: fit-content;
+  max-width: 60dvw;
+}
+body .ui-dialog .tab-content .charsheet .wrapper.cost_backfill_notice h1 {
+  font-family: var(--font-header);
+  margin-bottom: var(--half-gap);
+  position: relative;
+  justify-self: start;
+  top: 0;
+  left: 0;
+}
+body .ui-dialog .tab-content .charsheet .wrapper.cost_backfill_notice .cost-backfill-body {
+  color: var(--col-gray);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: var(--half-gap);
+  padding: var(--half-gap);
+  background: var(--col-white);
+  border: 2px solid var(--col-gray);
+  border-radius: 6px;
+}
+body .ui-dialog .tab-content .charsheet .wrapper.cost_backfill_notice .cost-backfill-actions {
+  display: flex;
+  gap: var(--half-gap);
+  justify-content: center;
+  margin-top: var(--half-gap);
+}
+body .ui-dialog .tab-content .charsheet .wrapper.cost_backfill_notice .cost-backfill-actions button {
+  padding: 4px 12px;
+  background: var(--col-white);
+  color: var(--col-gray);
+  border: 2px dashed var(--col-gray);
+  border-radius: 8px;
+  font-family: var(--font-header);
+  cursor: pointer;
+}
+body .ui-dialog .tab-content .charsheet .wrapper.cost_backfill_notice .cost-backfill-actions button:hover {
   background: var(--col-gray);
   color: var(--col-white);
 }
