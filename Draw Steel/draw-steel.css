@@ -212,6 +212,10 @@
 		box-sizing: border-box;
 		min-width: 6em;
 	}
+	
+	&.input-npc {
+		width: 3.5em;
+	}
 }
 
 .charsheet input[type=number] { 
@@ -279,6 +283,13 @@
   z-index: 1;
 }
 
+.-clickable.-clickable { /* Extra Specificity needed for hover effect */
+	cursor: pointer;
+	
+	&:hover {
+		color: var(--color-accent-steel);
+	}
+}
 
 /* Toggle Buttons */
 .charsheet .toggle-button {
@@ -311,6 +322,12 @@
 	
 	&.-help::before { /* Help Button Styling */
 		content: '?';
+	}
+	
+	&.-npc::before {
+		position: absolute;
+		right: 5px;
+		top: 0px;
 	}
 	
 	&:hover {
@@ -525,7 +542,6 @@ label[for*='minimize']::before {
 .input-group {
 	display: flex;
 	flex-direction: column;
-	flex: 1;
 	
 	&.-flexrow {
 		flex-direction: row;
@@ -605,15 +621,7 @@ label[for*='minimize']::before {
 	width: 100%;
 	position: relative;
 	display: grid;
-	justify-items: center;
-  
-	& > label:hover {
-		color: var(--color-accent-steel);
-	}
-	
-	.-clickable {
-		cursor: pointer;
-	}
+	justify-items: center;	
 }
 
 .charsheet .sheet-body .dashboard-stat-group input[type="number"] { /* Sets style for large stat input boxes */
@@ -1331,12 +1339,6 @@ inventory-accordion {
 	box-sizing: border-box;
 }
 
-/* Disclaimer */
-
-.disclaimer {
-	font-family: Menlo, Monaco, Consolas;
-}
-
 
 /* NPC Sheet */
 .npc-sheet-body {
@@ -1351,90 +1353,50 @@ inventory-accordion {
 	border-bottom: var(--border-section);
 	border-left: var(--border-main);
 	border-right: var(--border-main);
+	
+	&.-header {
+		grid-template-columns: 1fr auto;
+		align-items: baseline;
+		border-radius: 20px 20px 0px 0px;
+		border-top: var(--border-main);
+	}
+	
+	&.-stats {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-around;
+		font-size: 1.5em;
+	}
+	
+	&.-skills {
+		grid-template-columns: 1fr auto;
+		border-bottom: none;
+		gap: 0.5em;
+	}
+	
+	&.-marip {
+		grid-template-columns: repeat(5,1fr);
+		
+		span {
+			font-size: 1.2em;
+		}
+	}
+	
+	&.-alignoutside div:nth-child(even) {
+		justify-self: end;
+	}
 }
 
-/* NPC edit styling */
-.charsheet label.npc-edit-icon {
-	font-family: "Pictos";
-	font-size: 20px;
-	position: absolute;
-	left: calc(100% - 35px);
-	top: 5px;
-	color: var(--color-button-bg);
-	cursor: pointer;
-}
-
-.charsheet label.npc-edit-icon:hover {
-	color: var(--color-accent-steel);
-}
-
-.charsheet .npc-sheet-body:has(#npc-edit-toggle:checked) > .npc-edit-icon::before { 
-  color: var(--color-accent-steel);
-  content: '*';
-}
-
-.charsheet .npc-sheet-body .npc-edit-icon::before { 
-  content: 'p';
-}
-
-input.npc-edit-toggle {
-	display: none;
-}
-
-.charsheet .npc-panel:has(.npc-edit-icon:checked) > .npc-edit-icon::before { 
-  color: var(--color-accent-steel);
-  content: '*';
-}
-
-input.npc-edit-toggle:not(:checked) ~ div.npc-edit,
-input.npc-edit-toggle:checked ~ div.npc-display {
-    display: none;
-} 
-
+/* NPC Edit View */
 .npc-edit {
 	font-size: 0.8em;
-	margin-bottom: 10px;
-}
-
-.npc-edit .npc-edit-stats > input[type="text"],
-.npc-edit .npc-edit-stats > input[type="number"] {
-	width: 4.5em;
-}
-
-.npc-edit .npc-header-panel {
-	padding-top: 27px;
-}
-
-.npc-edit .npc-header-panel,
-.npc-edit .npc-skills-panel {
-	gap: 0.5em;
-}
-
-.npc-edit .npc-skills-panel div:nth-child(even) {
-	justify-self: end;
-}
-
-.npc-edit .npc-header-panel .npc-level #attr_level,
-.npc-edit .npc-stats-panel .npc-stat #attr_size {
-	width: 3.5em;
-}
-
-
-.npc-edit-text {
-	grid-template-columns: auto 1fr;
-	grid-column-gap: 1em;
-}
-
-/* Main NPC Sheet */
-.npc-header-panel {
-	grid-template-columns: 1fr auto;
-	align-items: baseline;
-	border-radius: 20px 20px 0px 0px;
-	border-top: var(--border-main);
-}
-
-.npc-header-panel div:nth-child(even) {
-	justify-self: end;
+	
+	.-header {
+		gap: 0.5em;
+		padding-top: 30px;
+		
+		
+	}
 }
 
 .npc-name {
@@ -1446,69 +1408,181 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 	font-weight: 800;
 }
 
-
-.npc-stats-panel {
-	display: flex;
-	align-items: baseline;
-}
-
-.npc-stats-panel div {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.npc-characteristic-input-group > label {
-	cursor: pointer;
-}
-
-.npc-stat {
-	font-size: 1.5em;
-	flex-grow: 1;
-}
-
-.npc-skills-panel {
-	grid-template-columns: 1fr auto;
-	border-bottom: none;
-}
-
-.npc-skills-panel #attr_npc_with_captain[value=""] + div {
-	display: none;
-}
-
-.npc-marip-panel {
-	grid-template-columns: repeat(5,1fr);
-}
-
-.npc-marip-panel div {
+.npc-characteristic-input-group {
 	display: flex;
 	gap: 5px;
 	justify-content: center;
 	align-items: baseline;
 }
+	
 
-.npc-marip-panel div span {
-	font-size: 1.2em;
+#attr_npc_with_captain[value=""] + div { /* Hides With Captain element when blank */
+	display: none;
 }
 
-.npc-conditions {
-	min-height: 3em;
+/* NPC Advanced Stamina Toggle */
+.advanced-stamina-toggle[value="1"] ~ .simple-stamina-panel,
+.advanced-stamina-toggle:not([value="1"]) ~ .advanced-stamina-panel {
+	display: none;
 }
 
-.npc-conditions > .repcontainer[data-groupname="repeating_conditions"] > .repitem {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr ;
-  gap: 0.5em;
-  align-items: start;
+
+.advanced-stamina-panel {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 0.2em;
+	align-items: baseline;
+	text-align: center;
+	flex-grow: 0;
+	
+	.-stamina {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		input {
+			height: 40px;
+			font-size: 1.2em;
+			min-width: 3.5em;
+		}
+	}
+	  
+	.npc-small-stat input {
+		min-width: 4.5em;
+	}
 }
 
+.npc-small-stat {
+	font-size: 0.7em;	 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	.dying-group {
+		flex-direction: row;
+		gap: 0.2em;
+		min-width: 60px;
+  }
+}
+
+/* NPC Recovery elemnent for retainers */
+.npc-recovery-toggle[value="0"] ~ .npc-recovery-panel { /* Toggles Recovery element */
+	display: none;
+}
+
+.npc-recovery-panel {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	gap:0.2em;
+
+	.npc-recovery-subpanel {
+		flex-direction: row;
+		gap: 0.5em;
+
+		input {
+			min-width: 3.5em;
+		}
+	}
+
+	.recoveries-group input {
+		height: 40px;
+		font-size: 1.2em;
+		min-width: 3.5em;
+	}
+	
+	.input-group {
+		flex-grow: 0;
+	}
+}
+
+/* NPC Companion Panel */
+.npc-sheet-body .npc-companion-toggle[value="0"] + .npc-companion-panel {
+	display: none;
+}
+	
+.npc-companion-panel {
+	grid-template-columns: 1fr 3fr;
+	
+	.resource-group .dashboard-stat-group input {
+		display: block;
+		width: 50px;
+		height: 45px;
+		font-size: 1.5em;
+		text-align: center;
+		color: var(--color-text-header);
+	}	
+}
+
+.rampage-table {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+/* NPC Condition */
+.npc-conditions { 
+	min-height: 3em; /* prevents repeating element controls from overlapping */
+}
+
+/* NPC Abilities */
 .npc-abilities-panel {
 	padding-top: var(--sheet-padding);
 	padding-bottom: var(--sheet-padding);
 }
 
-/* Roll Template Styling */
+/* NPC Ability Bar Toggles */
+.sheet-npcabilities,
+.sheet-malice,
+.sheet-villainaction {
+    display: none;
+}
 
+.sheet-tabstoggle[value="npcabilities"] ~ .sheet-npcabilities,
+.sheet-tabstoggle[value="malice"] ~ .sheet-malice,
+.sheet-tabstoggle[value="villainaction"] ~ .sheet-villainaction {
+	display: block;
+}
+
+
+.npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .sheet-villainaction,
+.npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .sheet-malice {
+	display: none;
+}
+
+.sheet-tabstoggle[value="npcabilities"] ~ .abilities-buttons > .tab-button.-abilities,
+.sheet-tabstoggle[value="malice"] ~ .abilities-buttons > .tab-button.-malice,
+.sheet-tabstoggle[value="villainaction"] ~ .abilities-buttons > .tab-button.-villain {
+	background-color: var(--color-bg-subsection);
+	border-color: var(--color-button-hover-border);
+}
+
+.npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .abilities-buttons > .tab-button.-villain,
+.npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .abilities-buttons > .tab-button.-malice,
+.npc-abilities-panel:not(:has(input[name="attr_ability_tab_show"][value="1"])) .abilities-buttons {
+	display: none;
+}
+
+.sheet-npcabilities > .repcontainer[data-groupname="repeating_npcabilities"] > .repitem,
+.sheet-malice > .repcontainer[data-groupname="repeating_malice"] > .repitem,
+.sheet-villainaction > .repcontainer[data-groupname="repeating_villainaction"] > .repitem {
+	border: var(--border-main);
+	border-radius: var(--border-radius);
+	background-color: var(--color-bg-subsection);
+	padding: var(--sheet-padding);
+	box-shadow:
+		inset 1px 1px 2px #555,
+		inset -1px -1px 2px #111,
+		0 2px 6px rgba(0, 0, 0, 0.5);	
+}
+
+
+/* Disclaimer */
+.disclaimer {
+	font-family: Menlo, Monaco, Consolas;
+}
+
+
+/* Roll Template Styling */
 .sheet-rolltemplate-powerroll .sheet-roll-container,
 .sheet-rolltemplate-ability .sheet-roll-container,
 .sheet-rolltemplate-simpleroll .sheet-roll-container {
@@ -1938,127 +2012,4 @@ input.npc-edit-toggle:checked ~ div.npc-display {
 }
 
 
-/* NPC Advanced Stamina Toggle */
 
-.npc-stats-panel .advanced-stamina-toggle[value="1"] ~ .simple-stamina-panel,
-.npc-stats-panel .advanced-stamina-toggle:not([value="1"]) ~ .advanced-stamina-panel {
-	display: none;
-}
-	
-.npc-stats-panel .advanced-stamina-panel {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.2em;
-  align-items: baseline;
-}
-
-.advanced-stamina-panel,
-.npc-recovery-panel {
-	flex-grow: 0;
-}
-
-.npc-small-stat {
-  font-size: 0.7em;
-}
-
-.npc-small-stat .npc-dying-group {
-	flex-direction: row;
-	gap: 0.2em;
-	min-width: 60px;
-}
-
-.advanced-stamina-panel div input {
-	min-width: 4.5em;
-}
-
-.advanced-stamina-stat {
-	grid-column: span 2;
-}
-
-.advanced-stamina-panel .advanced-stamina-stat input,
-.npc-recovery-panel .recovery-input-group input {
-	height: 40px;
-	font-size: 1.2em;
-	min-width: 3.5em;
-}
-
-.npc-stats-panel .npc-recovery-toggle[value="0"] ~ .npc-recovery-panel {
-	display: none;
-}
-
-.npc-recovery-panel {
-	gap:0.2em;
-}
-
-.npc-recovery-panel .npc-recovery-subpanel {
-	flex-direction: row;
-	gap: 0.5em;
-}
-
-.npc-recovery-panel .npc-recovery-subpanel input {
-	min-width: 3.5em;
-}
-
-/* NPC Companion Panel */
-.npc-sheet-body .npc-companion-toggle[value="0"] + .npc-companion-panel {
-	display: none;
-}
-	
-.npc-companion-panel {
-	grid-template-columns: 1fr 3fr;
-}
-
-.rampage-table {
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-.npc-stat input {
-	min-width: 4.5em;
-}
-
-
-/* NPC Ability Bar Toggles */
-.sheet-npcabilities,
-.sheet-malice,
-.sheet-villainaction {
-    display: none;
-}
-
-.sheet-tabstoggle[value="npcabilities"] ~ .sheet-npcabilities,
-.sheet-tabstoggle[value="malice"] ~ .sheet-malice,
-.sheet-tabstoggle[value="villainaction"] ~ .sheet-villainaction {
-	display: block;
-}
-
-
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .sheet-villainaction,
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .sheet-malice {
-	display: none;
-}
-
-.sheet-tabstoggle[value="npcabilities"] ~ .abilities-buttons > .tab-button.-abilities,
-.sheet-tabstoggle[value="malice"] ~ .abilities-buttons > .tab-button.-malice,
-.sheet-tabstoggle[value="villainaction"] ~ .abilities-buttons > .tab-button.-villain {
-	background-color: var(--color-bg-subsection);
-	border-color: var(--color-button-hover-border);
-}
-
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_villain_action_show"][value="1"])) .abilities-buttons > .tab-button.-villain,
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_malice_action_show"][value="1"])) .abilities-buttons > .tab-button.-malice,
-.charsheet .npc-abilities-panel:not(:has(input[name="attr_ability_tab_show"][value="1"])) .abilities-buttons {
-	display: none;
-}
-
-.sheet-npcabilities > .repcontainer[data-groupname="repeating_npcabilities"] > .repitem,
-.sheet-malice > .repcontainer[data-groupname="repeating_malice"] > .repitem,
-.sheet-villainaction > .repcontainer[data-groupname="repeating_villainaction"] > .repitem {
-	border: var(--border-main);
-	border-radius: var(--border-radius);
-	background-color: var(--color-bg-subsection);
-	padding: var(--sheet-padding);
-	box-shadow:
-		inset 1px 1px 2px #555,
-		inset -1px -1px 2px #111,
-		0 2px 6px rgba(0, 0, 0, 0.5);	
-}

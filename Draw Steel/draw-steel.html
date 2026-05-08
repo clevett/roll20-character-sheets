@@ -2832,17 +2832,17 @@
 </div>
 <!-- NPC Sheet View -->
 <div class="npc-sheet-body">
-	<label class="npc-edit-icon" for="npc-edit-toggle"></label><input class="npc-edit-toggle" type="checkbox" id="npc-edit-toggle" />
+	<input class="toggle-button -edit -npc" type="checkbox" id="npc-edit-toggle" />
 	<!-- NPC Edit Form -->
-	<div class="npc-edit">
-		<div class="npc-header-panel npc-panel">
+	<div class="npc-edit -toggleshow">
+		<div class="-header npc-panel">
 			<div>
 				<label data-i18n="character-name" for="attr_character_name"></label>
 				<input type="text" id="attr_character_name" name="attr_character_name" />
 			</div>
 			<div class="npc-level">
 				<label data-i18n="level" for="attr_level"></label>
-				<input type="text" id="attr_level" name="attr_level" />
+				<input class="input-npc" type="text" id="attr_level" name="attr_level" />
 				<label data-i18n="npc-role" for="attr_npc_role"></label>
 				<input type="text" id="attr_npc_role" name="attr_npc_role" />
 			</div>
@@ -2855,29 +2855,29 @@
 				<input type="text" id="attr_npc_EV" name="attr_npc_EV" />
 			</div>
 		</div>
-		<div class="npc-stats-panel npc-panel">
-			<div class="npc-stat">
-				<input type="text" id="attr_size" name="attr_size" />
+		<div class="-stats npc-panel">
+			<div class="input-group -aligncenter">
+				<input class="input-npc" type="text" id="attr_size" name="attr_size" />
 				<label class="sublabel" for="attr_size" data-i18n="size"></label>
 			</div>
-			<div class="npc-stat">
+			<div class="input-group -aligncenter">
 				<input type="number" id="attr_speed" name="attr_speed" />
 				<label class="sublabel" for="attr_speed" data-i18n="speed"></label>
 			</div>
-			<div class="npc-stat">
+			<div class="input-group -aligncenter">
 				<input type="number" id="attr_stamina" name="attr_stamina" />
 				<label class="sublabel" for="attr_stamina" data-i18n="stamina"></label>
 			</div>
-			<div class="npc-stat">
+			<div class="input-group -aligncenter">
 				<input type="number" id="attr_stability" name="attr_stability" />
 				<label class="sublabel" for="attr_stability" data-i18n="stability"></label>
 			</div>
-			<div class="npc-stat">
+			<div class="input-group -aligncenter">
 				<input type="number" id="attr_npc_freestrike" name="attr_npc_freestrike" />
 				<label class="sublabel" for="attr_npc_freestrike" data-i18n="free-strike"></label>
 			</div>
 		</div>
-		<div class="npc-skills-panel npc-panel" >
+		<div class="-skills -alignoutside npc-panel" >
 			<div>
 				<label data-i18n="immunity" for="attr_immunity"></label>:
 				<input type="text" id="attr_immunity" name="attr_immunity" />
@@ -2895,7 +2895,7 @@
 				<input type="text" id="attr_npc_with_captain" name="attr_npc_with_captain" />
 			</div>
 		</div>
-		<div class="npc-marip-panel npc-panel">
+		<div class="-marip npc-panel">
 			<div class="npc-characteristic-input-group">
 				<label data-i18n="might" for="attr_might"></label>
 				<input type="number" id="attr_might" name="attr_might" />
@@ -2919,29 +2919,29 @@
 		</div>
 	</div>
 	<!-- NPC Display -->
-	<div class="npc-display">
-		<div class="npc-header-panel npc-panel">
+	<div class="npc-display -togglehide">
+		<div class="-header -alignoutside npc-panel">
 			<div class="npc-name"><span name="attr_character_name"></span></div>
 			<div class="npc-level"><span data-i18n="level"></span>&nbsp;<span name="attr_level"></span>&nbsp;<span name="attr_npc_role"></span></div>
 			<div><span name="attr_npc_keywords"></span></div>
 			<div><span data-i18n="encounter-value-abbr"></span>&nbsp;<span name="attr_npc_EV"></span></div>
 		</div>
-		<div class="npc-stats-panel npc-panel">
-			<div class="npc-stat">
+		<div class="-stats npc-panel">
+			<div class="input-group -aligncenter">
 				<span name="attr_size"></span>
 				<label class="sublabel" data-i18n="size"></label>
 			</div>
-			<div class="npc-stat">
+			<div class="input-group -aligncenter">
 				<span name="attr_speed"></span>
 				<label class="sublabel" data-i18n="speed"></label>
 			</div>
 			<input type="hidden" class="advanced-stamina-toggle" name="attr_options_npc_advanced_stamina" value="0" />
-			<div class="npc-stat simple-stamina-panel">
+			<div class="input-group -aligncenter simple-stamina-panel">
 				<span name="attr_stamina"></span>
 				<label class="sublabel" data-i18n="stamina"></label>
 			</div>
-			<div class="npc-stat advanced-stamina-panel">
-				<div class="advanced-stamina-stat">
+			<div class="advanced-stamina-panel">
+				<div class="-stamina grid-span-2">
 					<input type="number" name="attr_stamina" title="Macro: @{NAME|stamina}" />	
 					<label class="sublabel" data-i18n="stamina">Stamina</label>
 				</div>
@@ -2965,21 +2965,21 @@
 					<label class="sublabel" data-i18n="stamina-temporary">Temporary</label>
 				</div>
 			</div>
-			<div class="npc-stat">
+			<div class="input-group -aligncenter">
 				<span name="attr_stability"></span>
 				<label class="sublabel" data-i18n="stability"></label>
 			</div>
-			<div class="npc-stat">
+			<div class="input-group -aligncenter">
 				<span name="attr_npc_freestrike"></span>
 				<label class="sublabel" data-i18n="free-strike"></label>
 			</div>
-			<input type="hidden" class="npc-recovery-toggle" name="attr_options_npc_show_recoveries" />
-			<div class="npc-stat npc-recovery-panel">
-				<div class="recovery-input-group">
+			<input type="hidden" class="npc-recovery-toggle" name="attr_options_npc_show_recoveries" value="0" />
+			<div class="npc-recovery-panel">
+				<div class="recoveries-group">
 					<input type="number" name="attr_recoveries" title="Macro: @{NAME|recoveries}" />			
-					<label class="sublabel" data-characteristic="recoveries" data-i18n="recoveries" data-i18n-title="recoveries-tooltip">Recoveries</label>
+					<label class="recoveries-label -clickable sublabel" data-characteristic="recoveries" data-i18n="recoveries" data-i18n-title="recoveries-tooltip">Recoveries</label>
 				</div>
-				<div class="npc-recovery-subpanel">
+				<div class="input-group npc-recovery">
 					<div class="npc-small-stat">
 						<input type="number" name="attr_recovery_amount" title="Macro: @{NAME|recovery_amount}" />
 						<label class="sublabel" data-i18n="recovery-amount"></label>
@@ -2991,7 +2991,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="npc-skills-panel npc-panel" >
+		<div class="-skills -alignoutside npc-panel" >
 				<div>
 					<label data-i18n="immunity"></label>:
 					<span name="attr_immunity"></span>
@@ -3010,48 +3010,49 @@
 					<span name="attr_npc_with_captain"></span>
 				</div>
 		</div>
-		<div class="npc-marip-panel npc-panel">
+		<div class="-marip npc-panel">
 			<div class="npc-characteristic-input-group">
-				<label data-characteristic="might" data-i18n="might"></label>
+				<label class="-clickable" data-characteristic="might" data-i18n="might"></label>
 				<span name="attr_might"></span>
 			</div>
 			<div class="npc-characteristic-input-group">
-				<label data-characteristic="agility" data-i18n="agility"></label>
+				<label class="-clickable" data-characteristic="agility" data-i18n="agility"></label>
 				<span name="attr_agility"></span>
 			</div>
 			<div class="npc-characteristic-input-group">
-				<label data-characteristic="reason" data-i18n="reason"></label>
+				<label class="-clickable" data-characteristic="reason" data-i18n="reason"></label>
 				<span name="attr_reason"></span>
 			</div>
 			<div class="npc-characteristic-input-group">
-				<label data-characteristic="intuition" data-i18n="intuition"></label>
+				<label class="-clickable" data-characteristic="intuition" data-i18n="intuition"></label>
 				<span name="attr_intuition"></span>
 			</div>
 			<div class="npc-characteristic-input-group">
-				<label data-characteristic="presence" data-i18n="presence"></label>
+				<label class="-clickable" data-characteristic="presence" data-i18n="presence"></label>
 				<span name="attr_presence"></span>
 			</div>
 		</div>
 	</div>
+	<!-- Companion Panel -->
 	<input type="hidden" class="npc-companion-toggle" name="attr_options_is_companion" value="0" />
 	<div class="npc-companion-panel npc-panel">
-		<div class="resource-panel">
-			<div class="dashboard-stat-group resource-input-group">
+		<div class="resource-group">
+			<div class="dashboard-stat-group">
 				<label data-i18n="beastheart-rampage" data-i18n-title="rampage-tooltip">Rampage</label>
 				<input type="number" name="attr_resource" title="Macro: @{NAME|resource}" />
 			</div>	
-			<div class="kit-melee-damage-group">
-				<label class="kit-damage-label" data-i18n="melee-weapon-damage"></label>
-				<div class="kit-melee-damage">
-					<div class="kit-melee-damage-1-input-group">
+			<div class="damage-group">
+				<label class="damage-label" data-i18n="melee-weapon-damage"></label>
+				<div class="damage-set">
+					<div class="input-group -aligncenter">
 						<input type="number" class="kit-melee-damage-1" name="attr_kit_melee_damage_1" value="0" />
 						<label class="sublabel">≤11</label>
 					</div>
-					<div class="kit-melee-damage-2-input-group">
+					<div class="input-group -aligncenter">
 						<input type="number" class="kit-melee-damage-2" name="attr_kit_melee_damage_2" value="0" />
 						<label class="sublabel">12-16</label>
 					</div>
-					<div class="kit-melee-damage-3-input-group">
+					<div class="input-group -aligncenter">
 						<input type="number" class="kit-melee-damage-3" name="attr_kit_melee_damage_3" value="0" />
 						<label class="sublabel">17+</label>
 					</div>
@@ -3063,36 +3064,27 @@
 				<input id="rampage-table-minimize-checkbox" class="minimize" type="checkbox" checked />
 				<label for="rampage-table-minimize-checkbox" data-i18n="beastheart-rampage-table"></label>
 			</div>
-			<div class="resource-container sheet-panel-box">
-				<div class="growing-resource-grid">
-					<div class="grid-header">
-						<span class="header-label" data-i18n="beastheart-rampage"></span>
-						<span class="header-benefit" data-i18n="effect"></span>
-					</div>
-					<div class="resource-row">
-						<span class="row-label" data-i18n="beastheart-rampage-table-8">8</span>
-						<span class="row-text" data-i18n="beastheart-rampage-table-8-text"></span>
-					</div>
-					<div class="resource-row">
-						<span class="row-label" data-i18n="beastheart-rampage-table-12">12</span>
-						<span class="row-text" data-i18n="beastheart-rampage-table-12-text"></span>
-					</div>
-					<div class="resource-row">
-						<span class="row-label" data-i18n="beastheart-rampage-table-16">16</span>
-						<span class="row-text" data-i18n="beastheart-rampage-table-16-text"></span>
-					</div>
-					<div class="resource-row">
-						<span class="row-label" data-i18n="beastheart-rampage-table-20">20</span>
-						<span class="row-text" data-i18n="beastheart-rampage-table-20-text"></span>
-					</div>
-					<div class="resource-row">
-						<span class="row-label" data-i18n="beastheart-rampage-table-24">24</span>
-						<span class="row-text" data-i18n="beastheart-rampage-table-24-text"></span>
-					</div>
+			<div class="resource-grid">
+				<div class="grid-header -contents">
+					<span class="header-label" data-i18n="beastheart-rampage"></span>
+					<span class="header-benefit" data-i18n="effect"></span>
+				</div>
+				<div class="-contents">
+					<span class="row-label" data-i18n="beastheart-rampage-table-8">8</span>
+					<span class="row-text" data-i18n="beastheart-rampage-table-8-text"></span>
+					<span class="row-label" data-i18n="beastheart-rampage-table-12">12</span>
+					<span class="row-text" data-i18n="beastheart-rampage-table-12-text"></span>
+					<span class="row-label" data-i18n="beastheart-rampage-table-16">16</span>
+					<span class="row-text" data-i18n="beastheart-rampage-table-16-text"></span>
+					<span class="row-label" data-i18n="beastheart-rampage-table-20">20</span>
+					<span class="row-text" data-i18n="beastheart-rampage-table-20-text"></span>
+					<span class="row-label" data-i18n="beastheart-rampage-table-24">24</span>
+					<span class="row-text" data-i18n="beastheart-rampage-table-24-text"></span>
 				</div>
 			</div>
 		</div>	
 	</div>
+	<!-- Conditions Panel -->
 	<div class="npc-conditions npc-panel">
 		<h5 class="panel-title" data-i18n="conditions"></h5>
 		<fieldset class="repeating_conditions">
@@ -3106,15 +3098,15 @@
 				<label data-i18n="save-ends"></label>
 			</div>
 		</fieldset>
-		<div class="savethrow-input-group">
-			<p data-i18n="save-ends-eq"></p>
-			<p>6</p>
-			<p data-i18n="save-ends-desc"></p>
-			<label>1d10:</label><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d10}} {{roll=[[ [[1d10]][1d10]]]}} {{name=Saving throw: rolling a @{savethrow} or higher removes effect}} {{charactername=@{character_name}}}" data-i18n-title="initiative-title" class="btn ui-draggable"></button>
+		<div class="save-bleed input-group -flexrow -aligncenter">
+			<label data-i18n="save-ends-eq"></label>
+			<input type="text" class="input-md" name="attr_savethrow" data-i18n-placeholder="savethrow-placeholder" />
+			<span data-i18n="save-ends-desc"></span>
+			<span>1d10:</span><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d10}} {{roll=[[ [[1d10]][1d10]]]}} {{name=Saving throw: rolling a @{savethrow} or higher removes effect}} {{charactername=@{character_name}}}" data-i18n-title="initiative-title" class="btn ui-draggable"></button>
 		</div>
-		<div class="bleed-dying-input-group">
-			<p data-i18n="bleeding-dying"></p>
-			<label data-i18n="d6-level"></label><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d6+@{level}}} {{roll=[[1d6[1d6] + @{level}[level]]]}} {{name=Bleeding or Dying}} {{charactername=@{character_name}}}" data-i18n-title="bleeding-dying-title" class="btn ui-draggable"></button>
+		<div class="save-bleed input-group -flexrow -aligncenter">
+			<label data-i18n="bleeding-dying"></label>
+			<span data-i18n="d6-level"></span><button type="roll" value="@{wtype} &amp;{template:simpleroll} {{rolltitle=1d6+@{level}}} {{roll=[[1d6[1d6] + @{level}[level]]]}} {{name=Bleeding or Dying}} {{charactername=@{character_name}}}" data-i18n-title="bleeding-dying-title" class="btn ui-draggable"></button>
 		</div>
 	</div>
 	<!-- NPC Abilities -->
