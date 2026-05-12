@@ -1,0 +1,19 @@
+{
+  "authors": "Richard Tran, Scott Casey",
+  "roll20userID": "492849,459831",
+  "preview": "mutants-and-masterminds3e.png",
+  "legacy": false,
+  "useroptions": [
+    {
+      "attribute": "skill_cost",
+      "displayname": "Skill Rank Cost:",
+      "type": "number",
+      "default": "2",
+      "description": "Variant skill power point costs."
+    }
+  ],
+  "html": "mutants-and-masterminds3e.html",
+  "css": "mutants-and-masterminds3e.css",
+  "instructions": "# M&M Ability Builder Prototype",
+  "version": "1778608590"
+}
