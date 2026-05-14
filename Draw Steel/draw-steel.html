@@ -101,7 +101,7 @@
 				<textarea class="importtext" name="attr_forgesteel_json"></textarea>
 				<button class="action-button" type="action" name="act_import" data-i18n="import-player">Import Player</button>
 				<button class="action-button" type="action" name="act_importmonster" data-i18n="import-monster">Import Monster</button>
-				<!--<button type="action" name="act_importcompanion" data-i18n="import-companion">Import Companion</button>-->
+				<button type="action" name="act_importcompanion" data-i18n="import-companion">Import Companion</button>
 			</div>
 		</div>
 	</div>
@@ -5024,7 +5024,7 @@
 				.split(',')
 				.map(k => k.trim())
 				.filter(k => k !== "");
-			console.log(isActive, modName, modValue, rawKeywords);
+				
 			if (isActive) {
 				// Logic: 
 				// - If modKeywords is empty, it applies to everything.
@@ -5036,7 +5036,6 @@
 				}
 			}
 		});
-		console.log(globalDamage);
 		return globalDamage;
 	
 		
@@ -5727,6 +5726,12 @@
 		setAttrs(updateObj);
 	}
 	
+	function reportError( name, text, extra = {} ) {
+		console.log('~~~ reportError ~~~');
+		directMap = { name, text, ...extra, };
+		buildRoll(ROLLTEMPLATES.SIMPLE, directMap, {}, false);
+	}
+	
 	// Checks whether the ability tab buttons should be displayed on the Monster sheet
 	async function checkAbilityTabs() {
 		console.log('~~~ checkAbilityTabs ~~~');
@@ -5828,7 +5833,7 @@
 				flattenedFeatures.push(currentFeature);
 			}
 		}
-		console.log(flattenedFeatures);
+
 		return flattenedFeatures;
 	}
 	
@@ -5908,7 +5913,7 @@
 				.filter(f => f.type === FEATURE_TYPES.KIT_STATS)
 				.map(f => f[statName.toLowerCase()] || 0)
 		);
-		console.log(statName + ':' + baseValue + ' ' + bonusFromFeatures + ' ' + bonusFromKits);
+		
 		return baseValue + bonusFromFeatures + bonusFromKits;
 	};
 	
@@ -5956,8 +5961,9 @@
 				.filter(f => f.type === FEATURE_TYPES.KIT_STATS)
 				.map(f => f[statName.toLowerCase()] || 0)
 		);
+		const echelonBonus = (statName === 'Stamina') ? echelon : 1;
 
-		return baseValue + bonusFromFeatures + bonusFromKits;
+		return baseValue + bonusFromFeatures + (bonusFromKits * echelonBonus);
 	};
 	
 	/**
@@ -6068,7 +6074,7 @@
 			}
 			
 		});
-		console.log(result);
+		
 		return result;
 	};
 
@@ -6224,7 +6230,6 @@
 					return;
 				}
 				await importMonster(data.monsters[choice], data.malice);
-				console.log(data.monsters[choice].name);
 			}
 			
 		} catch (error) {
@@ -6239,10 +6244,16 @@
 			const data = await loadForgeSteelData();
 			if (!data) { return };
 			
-			// Check if the data is for a single monster or a monster group
+			// Check to make sure we are working with a player
 			if (data.hasOwnProperty('class')) {
 				const allFeatures = getFeatures(data);
-				//Get relevant player chaaracter information
+				
+				//Get the base companion
+				const companionFeature = allFeatures.filter(f => f.type === FEATURE_TYPES.SUMMON_CHOICE);
+				
+				if (!companionFeature) throw new Error("No features found in JSON.");
+		
+				//Get relevant player character information
 				const level = data.class.level;
 				const baseStats = data.class.characteristics.reduce((acc, i) => ({ ...acc, [i.characteristic]:i.value }), {});
 				const characteristics = ['Might', 'Agility', 'Reason', 'Intuition', 'Presence'].reduce((acc, s) => {
@@ -6256,7 +6267,6 @@
 					.flatMap(f => f.data.selectedIDs)
 					.reduce((acc, id) => {
 						const abilityData = extractClassAbility(data, id);
-						console.log(abilityData.keywords);
 						if (abilityData.keywords.includes('Beastheart')) {
 							return { ...acc };
 						}
@@ -6272,10 +6282,7 @@
 						return { ...acc, ...processMonsterAbility(f.data.ability) };
 					}, {});
 
-				//Get the base companion
-				const companionFeature = allFeatures.filter(f => f.type === FEATURE_TYPES.SUMMON_CHOICE);
-				
-				if (!companionFeature) throw new Error("No features found in JSON.");
+				const kits = parseKits(allFeatures);
 				
 				// Extract the companion data
 				const companionData = companionFeature[0].data?.selected[0];
@@ -6284,19 +6291,45 @@
 					throw new Error("Companion Data not found");
 					return;
 				}				
-				console.log(companionData);
-				console.log(companionData.monster.freeStrikeDamage, characteristics['might']);
+				
 				// Do the bulk of the import with the monster importer
 				await importMonster(companionData.monster, []);
 				
+				const companionMight = companionData.monster.characteristics.find(c => c.characteristic === 'Might')?.value || 0;
+				const companionFeatures = Object.entries(companionData.info)
+				.filter(([key]) => {
+					// Extract the number from keys like "level3", "level6", "level10"
+					const featureLevel = parseInt(key.replace('level', ''));
+					// Include the feature only if the companion's level is high enough
+					return !isNaN(featureLevel) && level >= featureLevel;
+				})
+				.flatMap(([_, features]) => features)
+				.reduce((acc, f) => {
+						const id = generateRowID();
+						const prefix = `repeating_npcabilities_${id}`;
+						
+						acc[`${prefix}_ability_name`] = f.name;
+						acc[`${prefix}_ability_subtype`] = 'trait';
+						acc[`${prefix}_ability_trait`] = f.description;
 
+						return acc;
+					}, {});
+					
 				const newAttrs = {
 					level,
 					stamina_max,
 					stamina: stamina_max,
-					npc_freestrike: parseInt(companionData.monster.freeStrikeDamage) + characteristics['might'],
+					npc_freestrike: parseInt(companionData.monster.freeStrikeDamage) + parseInt(companionMight),
+					options_is_companion: '1',
+					options_npc_advanced_stamina: '1',
+					kit_melee_damage_1: kits.kit_melee_damage_1,
+					kit_melee_damage_2: kits.kit_melee_damage_2,
+					kit_melee_damage_3: kits.kit_melee_damage_3,
+					speed: parseInt(companionData.monster.speed.value) + parseInt(kits.kit_speed),
+					stability: parseInt(companionData.monster.stability) + parseInt(kits.kit_stability),
 					...abilityFeatures,
 					...classAbilities,
+					...companionFeatures,
 				};
 				
 				// Set the altered attributes on the character sheet.
@@ -6307,6 +6340,7 @@
 				console.log('Companion import successful!', newAttrs);
 			} else {
 				console.error('No companion information.');
+				reportError('Import Error', 'No companion information.');
 				return;
 			}
 		} catch (error) {
@@ -6627,7 +6661,6 @@
 	function _processAbilityCore(abilityData, isNPC = false) {
 		console.log('~~~ processAbilityCore ~~~');
 		const id = generateRowID();
-		//console.log(abilityData);
 		const { type: usageData, sections, cost: rawCost, name, description, keywords, target } = abilityData;
     
 		// Configuration & Naming
